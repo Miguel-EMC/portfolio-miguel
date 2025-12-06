@@ -31,8 +31,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/ # <-- OJO: cambia esto si tu carpeta es distinta
-          
+          path: dist/protafolio-personal   # <-- tu carpeta final
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
