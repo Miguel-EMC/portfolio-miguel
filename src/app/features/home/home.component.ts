@@ -22,6 +22,7 @@ import { EducationComponent } from '../resume/components/education/education.com
 import { CurriculumComponent } from '../resume/components/curriculum/curriculum.component';
 import { PortafolioComponent } from "../portfolio/portfolio/portafolio.component";
 import { ContactsComponent } from '../contact/contacts/contacts.component';
+import { LottieAnimationComponent } from '../../shared/components/ui/lottie-animation/lottie-animation.component';
 
 @Component({
   selector: 'app-home',
@@ -37,7 +38,8 @@ import { ContactsComponent } from '../contact/contacts/contacts.component';
     EducationComponent,
     CurriculumComponent,
     PortafolioComponent,
-    ContactsComponent
+    ContactsComponent,
+    LottieAnimationComponent
   ],
   styleUrls: ['./home.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -82,7 +84,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     private router: Router,
     private cdr: ChangeDetectorRef,
     private translate: TranslateService
-  ) {}
+  ) { }
   // Typing animation
   currentRole = '';
   isTyping = false;
@@ -133,6 +135,10 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   // Area selection management
   selectedArea: number | null = null;
 
+  // Scroll Spy
+  activeSection: string = 'experience';
+  private observer: IntersectionObserver | null = null;
+
   ngOnInit() {
     this.startTypingAnimation();
     this.initializeActiveCard();
@@ -147,6 +153,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     if (isPlatformBrowser(this.platformId)) {
       setTimeout(() => {
         this.initializeCharts();
+        this.setupIntersectionObserver();
       }, 500);
     }
   }
@@ -160,13 +167,17 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.skillsBarChartRoot) {
       this.skillsBarChartRoot.dispose();
     }
+
+    if (this.observer) {
+      this.observer.disconnect();
+    }
   }
 
   scrollToSection(sectionId: string): void {
     if (isPlatformBrowser(this.platformId)) {
       const section = document.getElementById(sectionId);
       if (section) {
-        const offset = 80;
+        const offset = 100;
         const elementPosition = section.getBoundingClientRect().top + window.pageYOffset;
         const offsetPosition = elementPosition - offset;
 
@@ -174,8 +185,34 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
           top: offsetPosition,
           behavior: 'smooth'
         });
+
+        // Update active section if it's a sub-section of resume
+        if (['experience', 'education', 'skills'].includes(sectionId)) {
+          this.activeSection = sectionId;
+        }
       }
     }
+  }
+
+  private setupIntersectionObserver() {
+    const options = {
+      root: null,
+      rootMargin: '-20% 0px -60% 0px',
+      threshold: 0
+    };
+
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          this.activeSection = entry.target.id;
+        }
+      });
+    }, options);
+
+    const sections = document.querySelectorAll('.resume-section-content');
+    sections.forEach(section => {
+      this.observer?.observe(section);
+    });
   }
 
   setActiveCard(cardType: string): void {
@@ -375,25 +412,25 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSubmit(event: Event) {
-  event.preventDefault();
+    event.preventDefault();
 
-  const form = event.target as HTMLFormElement;
-  const data = new FormData(form);
+    const form = event.target as HTMLFormElement;
+    const data = new FormData(form);
 
-  fetch("https://formspree.io/f/xandpyvw", {
-    method: "POST",
-    body: data,
-    headers: { Accept: "application/json" }
-  }).then(response => {
-    if (response.ok) {
-      console.log("✅ Formulario enviado con éxito.");
-      form.reset();
-    } else {
-      console.error("❌ Error al enviar el formulario.");
-    }
-  }).catch(() => {
-    alert("⚠️ Error de conexión. Revisa tu internet.");
-  });
-}
+    fetch("https://formspree.io/f/xandpyvw", {
+      method: "POST",
+      body: data,
+      headers: { Accept: "application/json" }
+    }).then(response => {
+      if (response.ok) {
+        console.log("✅ Formulario enviado con éxito.");
+        form.reset();
+      } else {
+        console.error("❌ Error al enviar el formulario.");
+      }
+    }).catch(() => {
+      alert("⚠️ Error de conexión. Revisa tu internet.");
+    });
+  }
 
 }

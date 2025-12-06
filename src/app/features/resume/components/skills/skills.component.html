@@ -1,17 +1,15 @@
 <div class="skills-section">
   <div class="skills-container">
-    <div class="skills-grid">
-      <div class="skill-category" *ngFor="let category of skillCategories">
-        <div class="category-header">
-          <div class="category-icon">
-            <i class="bi bi-code-slash"></i>
-          </div>
-          <h3 class="category-title">{{ category.name }}</h3>
+    <div class="skills-rows">
+      <div class="skill-row" *ngFor="let category of skillCategories">
+        <div class="row-header">
+          <h4 class="category-name">{{ category.name }}</h4>
         </div>
-        <div class="skills-list">
-          <span class="skill-tag" *ngFor="let skill of category.skills">
-            {{ skill }}
-          </span>
+        <div class="row-content">
+          <div class="skill-chip" *ngFor="let skill of category.skills">
+            <i [class]="getSkillIcon(skill)"></i>
+            <span class="skill-name">{{ skill }}</span>
+          </div>
         </div>
       </div>
     </div>

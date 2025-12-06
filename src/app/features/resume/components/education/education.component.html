@@ -1,37 +1,44 @@
 <div class="education-section">
-  <div class="container">
-    <div class="education-list">
-      <div class="education-item" *ngFor="let item of educationItems; let i = index">
-        <div class="education-header">
-          <div class="education-icon">
-            <i [class]="getEducationIcon(i)"></i>
-          </div>
-          <div class="education-content">
-            <h3 class="degree-title">{{ 'education.' + item.id + '.title' | translate }}</h3>
-            <h4 class="institution">{{ 'education.' + item.id + '.institution' | translate }}</h4>
-            <div class="education-meta">
-              <div class="meta-item">
-                <i class="bi bi-calendar3"></i>
-                <span>{{ item.date }}</span>
-              </div>
-              <div class="meta-item" *ngIf="getStatusText(item.date)">
-                <i [class]="getStatusIcon(item.date)"></i>
-                <span>{{ getStatusText(item.date) }}</span>
-              </div>
-            </div>
+  <div class="education-list">
+    <div class="education-item" *ngFor="let item of getVisibleItems(); let i = index"
+      [class.expanded]="expandedIndex === i">
+
+      <div class="education-header" (click)="toggleItem(i)">
+        <div class="header-content">
+          <h3 class="degree-title">{{ 'education.' + item.id + '.title' | translate }}</h3>
+          <h4 class="institution">{{ 'education.' + item.id + '.institution' | translate }}</h4>
+        </div>
+        <div class="header-meta">
+          <span class="date-badge">{{ item.date }}</span>
+          <div class="expand-icon">
+            <i class="bi" [class.bi-chevron-down]="expandedIndex !== i" [class.bi-chevron-up]="expandedIndex === i"></i>
           </div>
         </div>
-        
-        <div class="education-description">
-          {{ 'education.' + item.id + '.description' | translate }}
+      </div>
+
+      <div class="education-details" *ngIf="expandedIndex === i">
+        <div class="detail-block">
+          <p class="education-description">
+            {{ 'education.' + item.id + '.description' | translate }}
+          </p>
         </div>
-        
-        <ul class="achievements-list" *ngIf="item.achievements && item.achievements.length > 0">
-          <li class="achievement" *ngFor="let achievement of ('education.' + item.id + '.achievements' | translate)">
-            {{ achievement }}
-          </li>
-        </ul>
+
+        <div class="detail-block" *ngIf="item.achievements && item.achievements.length > 0">
+          <h5><i class="bi bi-trophy"></i> Logros</h5>
+          <ul class="achievements-list">
+            <li class="achievement" *ngFor="let achievement of ('education.' + item.id + '.achievements' | translate)">
+              {{ achievement }}
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
+  </div>
+
+  <div class="view-more-container" *ngIf="educationItems.length > 2">
+    <button class="btn-view-more" (click)="toggleShowAll()" [class.expanded]="showAllItems">
+      {{ showAllItems ? 'Ver menos' : 'Ver más educación' }}
+      <i class="bi bi-chevron-down"></i>
+    </button>
   </div>
 </div>

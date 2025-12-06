@@ -106,156 +106,42 @@
   </div>
 </section>
 
-<!-- Resume Section Compacta -->
+<!-- Resume Section Redesigned -->
 <section id="resume" class="resume-section">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title">{{ 'home.profile.title' | translate }}</h2>
-      <p class="section-subtitle">{{ 'home.profile.subtitle' | translate }}</p>
+      <h2 class="section-title">Mi Trayectoria</h2>
+      <p class="section-subtitle">Un recorrido por mi carrera profesional y académica</p>
     </div>
 
-    <!-- Navegación de Tabs -->
-    <div class="tab-navigation">
-      <button class="tab-btn" [class.active]="activeTab === 'experience'" (click)="setActiveTab('experience')">
-        <i class="bi bi-briefcase"></i>
-        <span>{{ 'home.profile.tabs.experience' | translate }}</span>
-      </button>
-      <button class="tab-btn" [class.active]="activeTab === 'education'" (click)="setActiveTab('education')">
-        <i class="bi bi-mortarboard"></i>
-        <span>{{ 'home.profile.tabs.education' | translate }}</span>
-      </button>
-      <button class="tab-btn" [class.active]="activeTab === 'skills'" (click)="setActiveTab('skills')">
-        <i class="bi bi-code-slash"></i>
-        <span>{{ 'home.profile.tabs.skills' | translate }}</span>
-      </button>
-    </div>
-
-    <!-- Contenido de Tabs -->
-    <div class="tab-content">
-      <!-- Experiencia -->
-      <div class="tab-pane" [class.active]="activeTab === 'experience'">
-        <div class="experience-modern-grid">
-          <div class="experience-card-modern" *ngFor="let exp of experiences.slice(0, 3); let i = index">
-            <div class="experience-gradient-bg" [style.background]="getExperienceGradient(i)"></div>
-
-            <div class="card-header-modern">
-              <div class="job-info-modern">
-                <div class="job-title-section">
-                  <h3 class="job-title-modern">{{ 'experiences.' + exp.id + '.title' | translate }}</h3>
-                  <h4 class="company-modern">{{ 'experiences.' + exp.id + '.subtitle' | translate }}</h4>
-                </div>
-                <div class="job-meta-modern">
-                  <div class="date-badge" [style.background]="getExperienceColor(i) + '15'" [style.color]="getExperienceColor(i)">
-                    <i class="bi bi-calendar3"></i>
-                    <span>{{ 'experiences.' + exp.id + '.date' | translate }}</span>
-                  </div>
-                  <div class="location-badge" [style.background]="getExperienceColor(i) + '15'" [style.color]="getExperienceColor(i)">
-                    <i class="bi bi-geo-alt"></i>
-                    <span>{{ exp.location }}</span>
-                  </div>
-                </div>
-              </div>
-              <div class="company-logo-modern" [style.background]="getExperienceColor(i)">
-                <span class="company-emoji">{{ getExperienceEmoji(i) }}</span>
-              </div>
-            </div>
-
-            <div class="job-highlights-modern">
-              <div class="highlight-modern" *ngFor="let task of ('experiences.' + exp.id + '.tasks' | translate).slice(0, 3)">
-                <div class="highlight-icon" [style.background]="getExperienceColor(i) + '20'" [style.color]="getExperienceColor(i)">
-                  <i class="bi bi-check-circle-fill"></i>
-                </div>
-                <span>{{ task }}</span>
-              </div>
-            </div>
-
-            <div class="tech-section-modern">
-              <h5 class="tech-title">{{ 'home.profile.skills.technologiesUsed' | translate }}</h5>
-              <div class="tech-used-modern">
-                <span class="tech-tag-modern" *ngFor="let tech of getTechForExperience(experiences.indexOf(exp)).slice(0, 4)"
-                      [style.background]="getExperienceColor(i) + '10'"
-                      [style.color]="getExperienceColor(i)"
-                      [style.border-color]="getExperienceColor(i) + '30'">
-                  {{ tech }}
-                </span>
-              </div>
-            </div>
-
-            <div class="experience-footer">
-              <div class="experience-status">
-                <div class="status-dot" [style.background]="getExperienceColor(i)"></div>
-                <span>Experiencia {{ i + 1 }}</span>
-              </div>
-            </div>
-          </div>
+    <div class="resume-layout-modern">
+      <!-- Row 1: Skills (Full Width) -->
+      <div class="resume-row-skills">
+        <div class="section-label">
+          <i class="bi bi-tools"></i>
+          <span>Habilidades Técnicas</span>
         </div>
+        <app-skills></app-skills>
       </div>
 
-      <!-- Educación -->
-      <div class="tab-pane" [class.active]="activeTab === 'education'">
-        <div class="education-modern-timeline">
-          <div class="education-item-modern" *ngFor="let edu of educationItems; let i = index">
-            <div class="edu-marker-modern" [style.background]="getEducationColor(i)">
-              <i [class]="edu.icon"></i>
-            </div>
-            <div class="edu-content-modern">
-              <div class="edu-card">
-                <div class="edu-header-modern">
-                  <div class="edu-title-section">
-                    <h3 class="degree-modern">{{ 'education.' + edu.id + '.title' | translate }}</h3>
-                    <h4 class="institution-modern">{{ 'education.' + edu.id + '.institution' | translate }}</h4>
-                  </div>
-                  <div class="edu-date-badge" [style.background]="getEducationColor(i) + '15'" [style.color]="getEducationColor(i)">
-                    {{ 'education.' + edu.id + '.date' | translate }}
-                  </div>
-                </div>
-
-                <p class="edu-description-modern">{{ 'education.' + edu.id + '.description' | translate }}</p>
-
-                <div class="edu-achievements-modern">
-                  <div class="achievement-modern" *ngFor="let achievement of ('education.' + edu.id + '.achievements' | translate).slice(0, 3)">
-                    <div class="achievement-icon" [style.background]="getEducationColor(i) + '20'" [style.color]="getEducationColor(i)">
-                      <i class="bi bi-check-circle-fill"></i>
-                    </div>
-                    <span>{{ achievement }}</span>
-                  </div>
-                </div>
-
-                <div class="edu-progress-indicator">
-                  <div class="progress-bar" [style.background]="getEducationColor(i)"></div>
-                </div>
-              </div>
-            </div>
+      <!-- Row 2: Experience & Education (2 Columns) -->
+      <div class="resume-grid-columns">
+        <!-- Col 1: Experience -->
+        <div class="resume-col">
+          <div class="section-label">
+            <i class="bi bi-briefcase"></i>
+            <span>Experiencia Profesional</span>
           </div>
+          <app-curriculum></app-curriculum>
         </div>
-      </div>
 
-      <!-- Habilidades -->
-      <div class="tab-pane" [class.active]="activeTab === 'skills'">
-        <div class="skills-modern-layout">
-          <!-- Stack Tecnológico -->
-          <div class="skills-categories-compact">
-            <h3 class="section-subtitle">{{ 'home.profile.skills.techStack' | translate }}</h3>
-            <div class="categories-compact-grid">
-              <div class="category-compact" *ngFor="let category of skillAreas; let categoryIndex = index">
-                <div class="category-header-compact">
-                  <span [style.font-size]="'1.2em'" [style.color]="getSkillColor(categoryIndex)">{{ category.emoji }}</span>
-                  <h4>{{ 'skillAreas.' + category.id + '.title' | translate }}</h4>
-                </div>
-
-                <div class="skills-chips-container">
-                  <div class="skill-chip"
-                       *ngFor="let tech of category.detailedTechs.slice(0, 6); let techIndex = index"
-                       [style.background]="'linear-gradient(135deg, ' + getSkillColor(techIndex) + '15, ' + getSkillColor(techIndex) + '25)'"
-                       [style.border-color]="getSkillColor(techIndex)">
-                    <span class="chip-name">{{ tech.name }}</span>
-                    <span class="chip-level" [style.background]="getSkillColor(techIndex)">{{ (tech.mastery / 10) * 100 | number:'1.0-0' }}%</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <!-- Col 2: Education -->
+        <div class="resume-col">
+          <div class="section-label">
+            <i class="bi bi-mortarboard"></i>
+            <span>Educación</span>
           </div>
-
+          <app-education></app-education>
         </div>
       </div>
     </div>
@@ -263,11 +149,8 @@
 </section>
 
 <!-- Skills Area Modal -->
-<div class="skills-modal-overlay"
-     *ngIf="selectedArea !== null"
-     (click)="closeModal()">
-  <div class="skills-modal"
-       (click)="$event.stopPropagation()">
+<div class="skills-modal-overlay" *ngIf="selectedArea !== null" (click)="closeModal()">
+  <div class="skills-modal" (click)="$event.stopPropagation()">
 
     <!-- Header redesigned -->
     <div class="modal-header">
@@ -298,8 +181,7 @@
     <!-- Body redesigned with cards -->
     <div class="modal-body">
       <div class="technologies-grid">
-        <div class="tech-card-modern"
-             *ngFor="let tech of skillAreas[selectedArea].detailedTechs; let i = index">
+        <div class="tech-card-modern" *ngFor="let tech of skillAreas[selectedArea].detailedTechs; let i = index">
 
           <div class="tech-card-header">
             <div class="tech-icon" [style.background]="skillAreas[selectedArea].color">
@@ -309,9 +191,8 @@
               <h4 class="tech-title">{{ tech.name }}</h4>
               <div class="skill-level-visual">
                 <div class="skill-bar">
-                  <div class="skill-progress"
-                       [style.width]="(tech.mastery / 10) * 100 + '%'"
-                       [style.background]="skillAreas[selectedArea].color">
+                  <div class="skill-progress" [style.width]="(tech.mastery / 10) * 100 + '%'"
+                    [style.background]="skillAreas[selectedArea].color">
                   </div>
                 </div>
                 <span class="skill-percentage">{{ (tech.mastery / 10) * 100 | number:'1.0-0' }}%</span>
@@ -320,18 +201,15 @@
           </div>
 
           <div class="tech-card-footer">
-            <div class="mastery-badge"
-                 [class]="'level-' + tech.mastery"
-                 [style.background]="skillAreas[selectedArea].color + '20'"
-                 [style.border-color]="skillAreas[selectedArea].color">
-                  <i class="bi"
-                    [ngClass]="{
+            <div class="mastery-badge" [class]="'level-' + tech.mastery"
+              [style.background]="skillAreas[selectedArea].color + '20'"
+              [style.border-color]="skillAreas[selectedArea].color">
+              <i class="bi" [ngClass]="{
                       'bi-circle': [1, 2].includes(tech.mastery), 'bi-triangle': [3, 4].includes(tech.mastery),
                       'bi-square': [5, 6].includes(tech.mastery), 'bi-pentagon': [7, 8].includes(tech.mastery),
                       'bi-star-fill': [9, 10].includes(tech.mastery)
-                    }"
-                    [style.color]="skillAreas[selectedArea].color">
-                  </i>
+                    }" [style.color]="skillAreas[selectedArea].color">
+              </i>
               <span [style.color]="skillAreas[selectedArea].color">
                 {{ getMasteryLabel(tech.mastery) }}
               </span>
@@ -476,10 +354,7 @@
 
       <!-- Formulario de Contacto -->
       <div class="contact-form-container">
-      <form class="contact-form"
-            (ngSubmit)="onSubmit($event)"
-            #contactForm="ngForm"
-            novalidate>
+        <form class="contact-form" (ngSubmit)="onSubmit($event)" #contactForm="ngForm" novalidate>
 
           <div class="form-header">
             <h3>{{ 'home.contact.form.title' | translate }}</h3>
@@ -493,7 +368,8 @@
             </div>
             <div class="form-group">
               <label for="email">{{ 'home.contact.form.email' | translate }}</label>
-              <input type="email" id="email" name="email" [placeholder]="'home.contact.form.email' | translate" required>
+              <input type="email" id="email" name="email" [placeholder]="'home.contact.form.email' | translate"
+                required>
             </div>
           </div>
 
@@ -511,8 +387,8 @@
 
           <div class="form-group">
             <label for="message">{{ 'home.contact.form.message' | translate }}</label>
-            <textarea id="message" name="message" rows="4"
-                      [placeholder]="'home.contact.form.message' | translate" required></textarea>
+            <textarea id="message" name="message" rows="4" [placeholder]="'home.contact.form.message' | translate"
+              required></textarea>
           </div>
 
           <button type="submit" class="btn-primary full-width">

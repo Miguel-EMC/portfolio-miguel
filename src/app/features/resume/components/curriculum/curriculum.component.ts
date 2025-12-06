@@ -32,8 +32,8 @@ interface TechCategory {
   styleUrls: ['./curriculum.component.scss']
 })
 export class CurriculumComponent implements OnInit {
-  
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
   experiences: Experience[] = experiences;
 
   techStack: TechCategory[] = [
@@ -126,28 +126,27 @@ export class CurriculumComponent implements OnInit {
   ];
 
   visibleItems: boolean[] = [];
+  expandedIndex: number = 0; // First item expanded by default
+  showAllExperiences: boolean = false;
 
   ngOnInit() {
-    this.visibleItems = new Array(this.experiences.length).fill(false);
-    setTimeout(() => this.onWindowScroll(), 100);
+    this.visibleItems = new Array(this.experiences.length).fill(true);
   }
 
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    if (!isPlatformBrowser(this.platformId)) {
-      return;
+  toggleExperience(index: number) {
+    if (this.expandedIndex === index) {
+      this.expandedIndex = -1; // Collapse if already open
+    } else {
+      this.expandedIndex = index; // Expand clicked item
     }
-    
-    this.experiences.forEach((_, index) => {
-      const element = document.querySelector(`.timeline-item:nth-child(${index + 1})`);
-      if (element) {
-        const rect = element.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        if (rect.top < windowHeight * 0.8 && rect.bottom > 0) {
-          this.visibleItems[index] = true;
-        }
-      }
-    });
+  }
+
+  toggleShowAll() {
+    this.showAllExperiences = !this.showAllExperiences;
+  }
+
+  getVisibleExperiences(): Experience[] {
+    return this.showAllExperiences ? this.experiences : this.experiences.slice(0, 3);
   }
 
   isVisible(index: number): boolean {
@@ -158,7 +157,7 @@ export class CurriculumComponent implements OnInit {
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }
-    
+
     const section = document.getElementById(sectionId);
     if (section) {
       const offset = 80;

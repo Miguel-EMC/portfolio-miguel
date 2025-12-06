@@ -23,12 +23,12 @@ export class NavComponent implements OnInit, OnDestroy {
     private themeService: ThemeService,
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.updateActiveRoute();
-      
+
       // Listen to route changes
       this.router.events.pipe(
         filter(event => event instanceof NavigationEnd)
@@ -83,7 +83,7 @@ export class NavComponent implements OnInit, OnDestroy {
         setTimeout(() => this.scrollToSection(route), 300);
       });
     }
-    
+
     // Cerrar menú móvil si está abierto
     if (this.isMobileMenuOpen) {
       this.closeMobileMenu();
@@ -102,7 +102,7 @@ export class NavComponent implements OnInit, OnDestroy {
           top: offsetPosition,
           behavior: 'smooth'
         });
-        
+
         // Actualizar la ruta activa visualmente
         this.activeRoute = `/${sectionId}`;
       }
@@ -111,7 +111,7 @@ export class NavComponent implements OnInit, OnDestroy {
 
   toggleMobileMenu(): void {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
-    
+
     if (isPlatformBrowser(this.platformId)) {
       // Prevent body scroll when mobile menu is open
       if (this.isMobileMenuOpen) {
@@ -124,7 +124,7 @@ export class NavComponent implements OnInit, OnDestroy {
 
   closeMobileMenu(): void {
     this.isMobileMenuOpen = false;
-    
+
     if (isPlatformBrowser(this.platformId)) {
       document.body.style.overflow = '';
     }
@@ -132,13 +132,13 @@ export class NavComponent implements OnInit, OnDestroy {
 
   private updateActiveRoute(): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    
+
     this.activeRoute = this.router.url;
   }
 
   private updateActiveSection(): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    
+
     // Solo actualizar secciones si estamos en la página home
     if (this.router.url !== '/' && this.router.url !== '/home') return;
 
@@ -159,7 +159,7 @@ export class NavComponent implements OnInit, OnDestroy {
       if (element) {
         const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
         const elementHeight = element.offsetHeight;
-        
+
         if (scrollPosition >= elementTop && scrollPosition < elementTop + elementHeight) {
           activeSection = section.route;
           break;

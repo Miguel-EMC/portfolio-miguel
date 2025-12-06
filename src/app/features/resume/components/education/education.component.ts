@@ -67,6 +67,30 @@ export class EducationComponent {
     }
   ];
 
+  visibleItems: boolean[] = [];
+  expandedIndex: number = 0; // First item expanded by default
+  showAllItems: boolean = false;
+
+  ngOnInit() {
+    this.visibleItems = new Array(this.educationItems.length).fill(true);
+  }
+
+  toggleItem(index: number) {
+    if (this.expandedIndex === index) {
+      this.expandedIndex = -1; // Collapse if already open
+    } else {
+      this.expandedIndex = index; // Expand clicked item
+    }
+  }
+
+  toggleShowAll() {
+    this.showAllItems = !this.showAllItems;
+  }
+
+  getVisibleItems(): Education[] {
+    return this.showAllItems ? this.educationItems : this.educationItems.slice(0, 3);
+  }
+
   getStatusClass(date: string): string {
     return date.toLowerCase().includes('actualidad') ? 'current' : 'completed';
   }
