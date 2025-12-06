@@ -39,5 +39,21 @@ export const featuredProjects: Project[] = [
     liveUrl: 'https://import-synapsek-plat-5b7i.bolt.host/',
     githubUrl: undefined,
     type: 'web'
+  },
+  {
+    id: 'billusos',
+    image: '/assets/img/billusos.png',
+    tech: ['Django', 'React', 'PostgreSQL'],
+    liveUrl: undefined,
+    githubUrl: undefined,
+    type: 'web'
+  },
+  {
+    id: 'ecommerce',
+    image: '/assets/img/ecommerce.png',
+    tech: ['React', 'Next.js', 'Stripe'],
+    liveUrl: undefined,
+    githubUrl: undefined,
+    type: 'web'
   }
 ];

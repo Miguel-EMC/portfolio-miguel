@@ -206,7 +206,9 @@
   },
   "common": {
     "current": "Present",
-    "actualidad": "Present"
+    "actualidad": "Present",
+    "viewMore": "View More",
+    "viewLess": "View Less"
   },
   "skillAreas": {
     "frontend": {
@@ -266,11 +268,17 @@
       "title": "My Experience",
       "subtitle": "A journey through my professional career in software development and technology",
       "technologies": "Technologies",
-      "skills": "Skills"
+      "skills": "Skills",
+      "responsibilities": "Responsibilities",
+      "viewMore": "View More Experiences",
+      "viewLess": "View Less"
     },
     "education": {
       "title": "My Educational Journey",
-      "subtitle": "The academic path that has shaped my professional career in technology"
+      "subtitle": "The academic path that has shaped my professional career in technology",
+      "achievements": "Achievements",
+      "viewMore": "View More Education",
+      "viewLess": "View Less"
     }
   }
 }

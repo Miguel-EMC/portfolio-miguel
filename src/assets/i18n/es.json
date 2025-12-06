@@ -206,7 +206,9 @@
   },
   "common": {
     "current": "Actualidad",
-    "actualidad": "Actualidad"
+    "actualidad": "Actualidad",
+    "viewMore": "Ver Más",
+    "viewLess": "Ver Menos"
   },
   "skillAreas": {
     "frontend": {
@@ -266,11 +268,17 @@
       "title": "Mi Experiencia",
       "subtitle": "Un recorrido por mi carrera profesional en el desarrollo de software y tecnología",
       "technologies": "Tecnologías",
-      "skills": "Skills"
+      "skills": "Skills",
+      "responsibilities": "Responsabilidades",
+      "viewMore": "Ver Más Experiencias",
+      "viewLess": "Ver Menos"
     },
     "education": {
       "title": "Mi Trayectoria Educativa",
-      "subtitle": "El camino académico que ha forjado mi carrera profesional en tecnología"
+      "subtitle": "El camino académico que ha forjado mi carrera profesional en tecnología",
+      "achievements": "Logros",
+      "viewMore": "Ver Más Educación",
+      "viewLess": "Ver Menos"
     }
   }
 }

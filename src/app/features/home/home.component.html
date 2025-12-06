@@ -1,107 +1,67 @@
 <!-- Hero Section Optimizada -->
+<!-- Hero Section Optimizada -->
+<!-- Hero Section: Modern Minimalist -->
 <section id="home" class="hero-section">
-  <div class="hero-container">
+  <div class="hero-background">
+    <div class="fluid-shape shape-1"></div>
+    <div class="fluid-shape shape-2"></div>
+    <div class="fluid-shape shape-3"></div>
+  </div>
+
+  <div class="fluid-hero-container">
     <div class="hero-content">
-      <!-- Contenido Principal -->
-      <div class="hero-main">
-        <div class="hero-badge">
-          <span class="status-dot"></span>
+
+      <!-- Left: Massive Typography -->
+      <div class="hero-text">
+        <div class="greeting-pill">
+          <span class="dot"></span>
           <span>{{ 'home.hero.greeting' | translate }}</span>
         </div>
 
-        <h1 class="hero-title">
-          <span class="name-line">
+        <h1 class="massive-title">
+          <span class="block-reveal">
             <span class="name">{{ 'home.hero.name' | translate }}</span>
+          </span>
+          <span class="block-reveal delay-1">
             <span class="surname gradient-text">{{ 'home.hero.surname' | translate }}</span>
           </span>
-          <span class="role-line">
-            <span class="role">{{ currentRole }}</span>
-            <span class="cursor">|</span>
-          </span>
         </h1>
+
+        <div class="role-container">
+          <span class="role-prefix">I am a</span>
+          <div class="role-rotator">
+            <span class="role-text">{{ currentRole }}</span>
+            <span class="cursor">_</span>
+          </div>
+        </div>
 
         <p class="hero-description">
           {{ 'home.hero.description' | translate }}
         </p>
 
-        <!-- Estadísticas Compactas -->
-        <div class="hero-stats">
-          <div class="stat-item">
-            <span class="stat-number">2+</span>
-            <span class="stat-label">{{ 'home.hero.stats.years' | translate }}</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">8+</span>
-            <span class="stat-label">{{ 'home.hero.stats.projects' | translate }}</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">10+</span>
-            <span class="stat-label">{{ 'home.hero.stats.technologies' | translate }}</span>
-          </div>
-        </div>
-
-        <!-- Acciones Principales -->
         <div class="hero-actions">
-          <button class="btn-primary" (click)="scrollToSection('contacto')">
-            <i class="bi bi-envelope"></i>
+          <button class="btn-primary-fluid" (click)="scrollToSection('contacto')">
             <span>{{ 'home.hero.actions.contact' | translate }}</span>
+            <i class="bi bi-arrow-right"></i>
           </button>
-          <button class="btn-secondary" (click)="scrollToSection('portafolio')">
-            <i class="bi bi-eye"></i>
+          <button class="btn-secondary-fluid" (click)="scrollToSection('portafolio')">
             <span>{{ 'home.hero.actions.projects' | translate }}</span>
           </button>
-          <a href="/assets/documents/CV_MuzoMiguel.pdf" target="_blank" class="btn-outline">
-            <i class="bi bi-download"></i>
+          <a href="/assets/documents/CV_MuzoMiguel.pdf" target="_blank" class="btn-outline-fluid">
             <span>Descargar CV</span>
+            <i class="bi bi-download"></i>
           </a>
         </div>
       </div>
 
-      <!-- Perfil Visual -->
-      <div class="hero-profile">
-        <div class="profile-card">
-          <div class="profile-image">
-            <img src="/assets/img/img-mia.png" alt="Eduardo Miguel Muzo" />
-            <div class="status-indicator">
-              <div class="status-dot"></div>
-              <span>{{ 'home.hero.status' | translate }}</span>
-            </div>
-          </div>
-
-          <div class="profile-info">
-            <h3>Eduardo Miguel Muzo</h3>
-            <p>{{ 'home.hero.role' | translate }}</p>
-            <div class="profile-location">
-              <i class="bi bi-geo-alt"></i>
-              <span>{{ 'home.hero.location' | translate }}</span>
-            </div>
-          </div>
-
-          <!-- Tech Stack Rápido -->
-          <div class="quick-tech">
-            <div class="tech-item" *ngFor="let tech of mainTechs.slice(0, 4)">
-              <i [class]="getTechIcon(tech.name)"></i>
-              <span>{{ tech.name }}</span>
-            </div>
-          </div>
-
-          <!-- Contacto Rápido -->
-          <div class="quick-contact">
-            <a href="mailto:eduardomuzo123456@gmail.com" class="contact-btn">
-              <i class="bi bi-envelope"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/eduardo-miguel-muzo-6379b2234/" target="_blank" class="contact-btn">
-              <i class="bi bi-linkedin"></i>
-            </a>
-            <a href="https://github.com/Miguel-EMC" target="_blank" class="contact-btn">
-              <i class="bi bi-github"></i>
-            </a>
-            <a href="https://wa.me/593999763190" target="_blank" class="contact-btn">
-              <i class="bi bi-whatsapp"></i>
-            </a>
-          </div>
+      <!-- Right: Organic Visual -->
+      <div class="hero-visual">
+        <div class="organic-wrapper">
+          <div class="blob-backdrop"></div>
+          <img src="/assets/img/img-mia.png" alt="Eduardo Miguel Muzo" class="profile-img-cutout" />
         </div>
       </div>
+
     </div>
   </div>
 </section>
