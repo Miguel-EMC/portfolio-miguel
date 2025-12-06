@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "protafolio-personal": {
+    "portfolio-personal": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -26,7 +26,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/protafolio-personal",
+            "outputPath": "dist/portfolio-personal",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -79,7 +79,7 @@
             },
             "es": {
               "aot": true,
-              "outputPath": "dist/protafolio-personal/es/",
+              "outputPath": "dist/portfolio-personal/es/",
               "i18nMissingTranslation": "error"
             }
           },
@@ -89,13 +89,13 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "protafolio-personal:build:production"
+              "buildTarget": "portfolio-personal:build:production"
             },
             "development": {
-              "buildTarget": "protafolio-personal:build:development"
+              "buildTarget": "portfolio-personal:build:development"
             },
             "es": {
-              "buildTarget": "protafolio-personal:build:es"
+              "buildTarget": "portfolio-personal:build:es"
             }
           },
           "defaultConfiguration": "development"
@@ -103,7 +103,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "protafolio-personal:build"
+            "buildTarget": "portfolio-personal:build"
           }
         },
         "test": {

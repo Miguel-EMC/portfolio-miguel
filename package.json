@@ -1,5 +1,5 @@
 {
-  "name": "protafolio-personal",
+  "name": "portfolio-personal",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -10,7 +10,7 @@
     "build:all": "npm run build && npm run build:es",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:protafolio-personal": "node dist/protafolio-personal/server/server.mjs"
+    "serve:ssr:portfolio-personal": "node dist/portfolio-personal/server/server.mjs"
   },
   "private": true,
   "dependencies": {

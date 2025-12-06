@@ -3,6 +3,8 @@ name: Deploy Angular to GitHub Pages
 on:
   push:
     branches: ["demo"]
+  pull_request:
+    branches: ["demo"]
   workflow_dispatch:
 
 permissions:
@@ -10,37 +12,178 @@ permissions:
   pages: write
   id-token: write
 
+# Prevent concurrent deployments
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+env:
+  NODE_VERSION: '18'
+  CACHE_KEY_PREFIX: 'node-modules'
+
 jobs:
   build:
+    name: Build Angular Application
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Set up Node
+      - name: 🔧 Setup Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
 
-      - name: Install dependencies
-        run: npm install
+      - name: 📦 Cache node modules
+        uses: actions/cache@v3
+        id: npm-cache
+        with:
+          path: |
+            ~/.npm
+            node_modules
+          key: ${{ runner.os }}-${{ env.CACHE_KEY_PREFIX }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ env.CACHE_KEY_PREFIX }}-
 
-      - name: Build Angular app
-        run: npm run build -- --configuration production
+      - name: 📚 Install dependencies
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        run: |
+          echo "::group::Installing dependencies"
+          npm ci --prefer-offline --no-audit
+          echo "::endgroup::"
 
-      - name: Upload artifact
+      - name: 🔍 Display npm info
+        run: |
+          echo "::group::NPM Information"
+          echo "Node version: $(node --version)"
+          echo "NPM version: $(npm --version)"
+          echo "Angular CLI version:"
+          npx ng version
+          echo "::endgroup::"
+
+      - name: 🏗️ Build Angular application
+        run: |
+          echo "::group::Building application"
+          echo "Build started at: $(date)"
+          npm run build -- --configuration production --base-href /portfolio-personal/
+          echo "Build completed at: $(date)"
+          echo "::endgroup::"
+
+      - name: 📊 Verify build output
+        run: |
+          echo "::group::Build Output Verification"
+          if [ -d "dist/portfolio-personal/browser" ]; then
+            echo "✅ Build directory exists"
+            echo "Build size:"
+            du -sh dist/portfolio-personal/browser
+            echo ""
+            echo "Main files:"
+            ls -lh dist/portfolio-personal/browser/*.{html,ico} 2>/dev/null || true
+            echo ""
+            echo "Total files generated:"
+            find dist/portfolio-personal/browser -type f | wc -l
+          else
+            echo "❌ Build directory not found!"
+            exit 1
+          fi
+          echo "::endgroup::"
+
+      - name: 📋 List build artifacts
+        run: |
+          echo "::group::Build Artifacts"
+          tree -L 3 dist/portfolio-personal/browser || ls -R dist/portfolio-personal/browser
+          echo "::endgroup::"
+
+      - name: 🔎 Check for critical files
+        run: |
+          echo "::group::Critical Files Check"
+          critical_files=("index.html" "favicon.ico" "main*.js" "polyfills*.js" "styles*.css")
+          missing_files=0
+
+          for file_pattern in "${critical_files[@]}"; do
+            if ls dist/portfolio-personal/browser/$file_pattern 1> /dev/null 2>&1; then
+              echo "✅ Found: $file_pattern"
+            else
+              echo "❌ Missing: $file_pattern"
+              missing_files=$((missing_files + 1))
+            fi
+          done
+
+          if [ $missing_files -gt 0 ]; then
+            echo "⚠️ Warning: Some critical files are missing!"
+          else
+            echo "✅ All critical files present"
+          fi
+          echo "::endgroup::"
+
+      - name: 📤 Upload build artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/protafolio-personal
+          path: dist/portfolio-personal/browser
+
+      - name: 💾 Upload build logs (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-logs
+          path: |
+            npm-debug.log
+            dist/
+          retention-days: 5
 
   deploy:
+    name: Deploy to GitHub Pages
     needs: build
     runs-on: ubuntu-latest
+
+    # Only deploy on push to demo branch (not on PRs)
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Deploy to GitHub Pages
+      - name: 🚀 Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: 📝 Deployment summary
+        run: |
+          echo "::notice::🎉 Deployment successful!"
+          echo "::notice::🌐 URL: ${{ steps.deployment.outputs.page_url }}"
+          echo "### 🚀 Deployment Complete! 🎉" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Deployed to:** ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Triggered by:** ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+
+  notify:
+    name: Build Status Notification
+    needs: [build, deploy]
+    runs-on: ubuntu-latest
+    if: always()
+
+    steps:
+      - name: 📢 Build Status
+        run: |
+          if [ "${{ needs.build.result }}" == "success" ] && [ "${{ needs.deploy.result }}" == "success" ]; then
+            echo "::notice::✅ Build and Deploy completed successfully!"
+            echo "### ✅ Success!" >> $GITHUB_STEP_SUMMARY
+            echo "Both build and deployment completed successfully." >> $GITHUB_STEP_SUMMARY
+          elif [ "${{ needs.build.result }}" == "failure" ]; then
+            echo "::error::❌ Build failed!"
+            echo "### ❌ Build Failed" >> $GITHUB_STEP_SUMMARY
+            echo "The build process encountered errors. Check the logs above." >> $GITHUB_STEP_SUMMARY
+          elif [ "${{ needs.deploy.result }}" == "failure" ]; then
+            echo "::error::❌ Deployment failed!"
+            echo "### ❌ Deployment Failed" >> $GITHUB_STEP_SUMMARY
+            echo "The deployment process encountered errors. Check the logs above." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "::warning::⚠️ Workflow completed with warnings"
+          fi
