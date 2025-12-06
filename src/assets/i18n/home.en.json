@@ -12,7 +12,7 @@
       "greeting": "👋 Hello, I'm",
       "name": "Eduardo Miguel", 
       "surname": "Muzo",
-      "description": "Full Stack Developer specialized in creating modern and scalable web solutions. Passionate about AI and Machine Learning.",
+      "description": "Full Stack Developer with +2 years of experience, specialized in Backend (Python) and modern web architectures. Currently focused on Artificial Intelligence integration and scalable systems. I combine solid engineering foundations with a practical product vision.",
       "stats": {
         "years": "Years",
         "projects": "Projects",
@@ -77,12 +77,12 @@
       "title": "Full Stack Developer",
       "subtitle": "Lateral Business Thinking | Innovate Empresarial Solutions"
     },
-    "freelance-dev": {
-      "title": "Software Developer",
-      "subtitle": "Freelance"
+    "billusos-dev": {
+      "title": "Developer",
+      "subtitle": "Billusos"
     },
     "junior-fullstack": {
-      "title": "Jr Full Stack Developer",
+      "title": "Full Stack Developer",
       "subtitle": "Centro Ecuatoriano de Eficiencia de Recursos"
     }
   },

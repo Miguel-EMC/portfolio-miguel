@@ -32,9 +32,9 @@
       <div class="bio-section">
         <h3>Mi Historia</h3>
         <p>
-          Soy un desarrollador Full Stack apasionado por crear soluciones tecnológicas innovadoras. 
-          Me especializo en aplicaciones web eficientes y escalables, utilizando las últimas tecnologías 
-          para ofrecer resultados de alta calidad. También tengo un fuerte interés en 
+          Soy un desarrollador Full Stack apasionado por crear soluciones tecnológicas innovadoras.
+          Me especializo en aplicaciones web eficientes y escalables, utilizando las últimas tecnologías
+          para ofrecer resultados de alta calidad. También tengo un fuerte interés en
           <strong>Inteligencia Artificial</strong>, <strong>Machine Learning</strong> y <strong>Deep Learning</strong>.
         </p>
         
@@ -113,12 +113,12 @@
       <div class="interests-section">
         <h3>Áreas de Interés</h3>
         <div class="interests-list">
-          <span class="interest-tag">Inteligencia Artificial</span>
-          <span class="interest-tag">Machine Learning</span>
-          <span class="interest-tag">Deep Learning</span>
-          <span class="interest-tag">Cloud Computing</span>
-          <span class="interest-tag">Ciberseguridad</span>
-          <span class="interest-tag">Desarrollo Móvil</span>
+          <span class="interest-tag">🤖 Inteligencia Artificial</span>
+          <span class="interest-tag">Agentes autónomos y RAG</span>
+          <span class="interest-tag">⚙️ Arquitectura de Software</span>
+          <span class="interest-tag">Microservicios y seguridad</span>
+          <span class="interest-tag">♟️ Estrategia</span>
+          <span class="interest-tag">Resolución de problemas complejos y Ajedrez</span>
         </div>
       </div>
     </div>
@@ -176,12 +176,26 @@
       <div class="skill-category">
         <div class="category-header">
           <div class="category-icon">
+            <i class="bi bi-server"></i>
+          </div>
+          <h4>Backend & Core</h4>
+        </div>
+        <div class="skills-list">
+          <span class="skill-tag" *ngFor="let skill of ['Python', 'Django', 'NestJS', 'Node.js', 'PostgreSQL']">
+            {{ skill }}
+          </span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="category-header">
+          <div class="category-icon">
             <i class="bi bi-palette"></i>
           </div>
           <h4>Frontend</h4>
         </div>
         <div class="skills-list">
-          <span class="skill-tag" *ngFor="let skill of ['Angular', 'React', 'Vue.js', 'TypeScript', 'JavaScript']">
+          <span class="skill-tag" *ngFor="let skill of ['Angular', 'TypeScript', 'Tailwind CSS']">
             {{ skill }}
           </span>
         </div>
@@ -190,26 +204,12 @@
       <div class="skill-category">
         <div class="category-header">
           <div class="category-icon">
-            <i class="bi bi-server"></i>
+            <i class="bi bi-cpu"></i>
           </div>
-          <h4>Backend</h4>
+          <h4>AI & Emerging</h4>
         </div>
         <div class="skills-list">
-          <span class="skill-tag" *ngFor="let skill of ['Node.js', 'Python', 'Django', 'Laravel', 'Express.js']">
-            {{ skill }}
-          </span>
-        </div>
-      </div>
-
-      <div class="skill-category">
-        <div class="category-header">
-          <div class="category-icon">
-            <i class="bi bi-database"></i>
-          </div>
-          <h4>Bases de Datos</h4>
-        </div>
-        <div class="skills-list">
-          <span class="skill-tag" *ngFor="let skill of ['PostgreSQL', 'MySQL', 'MongoDB', 'Firebase', 'Redis']">
+          <span class="skill-tag" *ngFor="let skill of ['LangChain', 'RAG', 'LLMs Integration']">
             {{ skill }}
           </span>
         </div>
@@ -220,10 +220,10 @@
           <div class="category-icon">
             <i class="bi bi-tools"></i>
           </div>
-          <h4>Herramientas</h4>
+          <h4>Tools</h4>
         </div>
         <div class="skills-list">
-          <span class="skill-tag" *ngFor="let skill of ['Docker', 'Git', 'AWS', 'Linux', 'Figma']">
+          <span class="skill-tag" *ngFor="let skill of ['Docker', 'Git', 'Linux', 'AWS']">
             {{ skill }}
           </span>
         </div>

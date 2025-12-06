@@ -12,7 +12,7 @@
       "greeting": "👋 Hello, I'm",
       "name": "Eduardo Miguel", 
       "surname": "Muzo",
-      "description": "Full Stack Developer specialized in creating modern and scalable web solutions. Passionate about AI and Machine Learning.",
+      "description": "Full Stack Developer with +2 years of experience, specialized in Backend (Python) and modern web architectures. Currently focused on Artificial Intelligence integration and scalable systems. I combine solid engineering foundations with a practical product vision.",
       "stats": {
         "years": "Years",
         "projects": "Projects",
@@ -150,34 +150,30 @@
     "fullstack-lateral": {
       "title": "Full Stack Developer",
       "subtitle": "Lateral Business Thinking | Innovate Empresarial Solutions",
-      "date": "Jun 2024 - Present",
+      "date": "Jul 2024 - Present",
       "tasks": [
-        "Development of dynamic web interfaces with Angular and TypeScript, improving user experience by 40%",
-        "Implementation of scalable architectures with microservices using Node.js and Docker",
-        "Leadership in developing the Münster Mind mobile app with Flutter and Firebase",
-        "PostgreSQL database optimization, reducing query times by 35%"
+        "Development of the Münster Mind mobile application with Flutter",
+        "Collaboration in the development of the Münster Mind web platform, working on frontend and backend",
+        "Development of an artificial intelligence agent with LangGraph, LangChain and FastAPI"
       ]
     },
-    "freelance-dev": {
-      "title": "Software Developer",
-      "subtitle": "Freelance",
-      "date": "Nov 2023 - Oct 2024",
+    "billusos-dev": {
+      "title": "Developer",
+      "subtitle": "Billusos",
+      "date": "Dec 2023 - Nov 2024",
       "tasks": [
-        "Full-stack development of the ASOBANCA platform with Laravel and Vue.js for 15+ financial institutions",
-        "Continuous improvement of the Billusos application, implementing new features with Python and Django",
-        "Creation of robust RESTful APIs and complete technical documentation",
-        "Management of personalized web projects with agile methodologies, delivering 100% on time"
+        "Backend development in Python - Django",
+        "Web and mobile development in React Native"
       ]
     },
     "junior-fullstack": {
-      "title": "Jr Full Stack Developer",
+      "title": "Full Stack Developer",
       "subtitle": "Centro Ecuatoriano de Eficiencia de Recursos",
-      "date": "Jan 2023 - Sep 2023",
+      "date": "Feb 2023 - Jul 2023",
       "tasks": [
-        "Responsive client interface layout for CONAFIS SARAS with HTML5, CSS3 and JavaScript",
-        "Configuration and optimization of development environments for multidisciplinary teams",
-        "SQL Server database administration and automated script generation",
-        "Implementation of development best practices and version control with Git"
+        "Client screen layout for the CONAFIS SARAS system",
+        "Database management and script generation for the CONAFIPS SARAS system",
+        "Development of the CONAFIPS SARAS platform"
       ]
     }
   },

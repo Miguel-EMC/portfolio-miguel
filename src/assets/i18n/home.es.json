@@ -12,7 +12,7 @@
       "greeting": "👋 Hola, soy",
       "name": "Eduardo Miguel",
       "surname": "Muzo",
-      "description": "Desarrollador Full Stack especializado en crear soluciones web modernas y escalables. Apasionado por la IA y el Machine Learning.",
+      "description": "Desarrollador Full Stack con +2 años de experiencia, especializado en Backend (Python) y arquitecturas web modernas. Actualmente enfocado en la integración de Inteligencia Artificial y sistemas escalables. Combino bases sólidas de ingeniería con una visión práctica de producto.",
       "stats": {
         "years": "Años",
         "projects": "Proyectos", 
@@ -77,12 +77,12 @@
       "title": "Full Stack Developer",
       "subtitle": "Lateral Business Thinking | Innovate Empresarial Solutions"
     },
-    "freelance-dev": {
-      "title": "Desarrollador de Software",
-      "subtitle": "Freelance"
+    "billusos-dev": {
+      "title": "Developer",
+      "subtitle": "Billusos"
     },
     "junior-fullstack": {
-      "title": "Full Stack Developer Jr",
+      "title": "Full Stack Developer",
       "subtitle": "Centro Ecuatoriano de Eficiencia de Recursos"
     }
   },

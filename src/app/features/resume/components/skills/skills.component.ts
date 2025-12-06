@@ -11,20 +11,20 @@ import { CommonModule } from '@angular/common';
 export class SkillsComponent {
   skillCategories = [
     {
+      name: 'Backend & Core',
+      skills: ['Python', 'Django', 'NestJS', 'Node.js', 'PostgreSQL']
+    },
+    {
       name: 'Frontend',
-      skills: ['Angular', 'React', 'Vue.js', 'TypeScript', 'JavaScript', 'HTML/CSS']
+      skills: ['Angular', 'TypeScript', 'Tailwind CSS']
     },
     {
-      name: 'Backend',
-      skills: ['Node.js', 'Python', 'Django', 'Laravel', 'Express.js', 'PHP']
+      name: 'AI & Emerging',
+      skills: ['LangChain', 'RAG', 'LLMs Integration']
     },
     {
-      name: 'Bases de Datos',
-      skills: ['PostgreSQL', 'MySQL', 'MongoDB', 'Firebase', 'Redis']
-    },
-    {
-      name: 'Herramientas',
-      skills: ['Docker', 'Git', 'AWS', 'Linux', 'Figma', 'Postman']
+      name: 'Tools',
+      skills: ['Docker', 'Git', 'Linux', 'AWS']
     }
   ];
   getSkillIcon(skill: string): string {

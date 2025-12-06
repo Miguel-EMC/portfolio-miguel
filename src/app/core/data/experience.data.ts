@@ -9,30 +9,26 @@ export const experiences: Experience[] = [
     id: 'fullstack-lateral',
     location: 'Quito, Ecuador',
     tasks: [
-      'Desarrollo de interfaces web dinámicas con Angular y TypeScript, mejorando la experiencia de usuario en un 40%',
-      'Implementación de arquitecturas escalables con microservicios usando Node.js y Docker',
-      'Liderazgo en el desarrollo del aplicativo móvil Münster Mind con Flutter y Firebase',
-      'Optimización de bases de datos PostgreSQL, reduciendo tiempos de consulta en un 35%'
+      'Desarrollo del aplicativo móvil Münster Mind con Flutter',
+      'Colaboración en el desarrollo de la plataforma web Münster Mind, trabajando en frontend y backend',
+      'Desarrollo de un agente de inteligencia artificial con LangGraph, LangChain y FastAPI'
     ]
   },
   {
-    id: 'freelance-dev',
+    id: 'billusos-dev',
     location: 'Quito, Ecuador',
     tasks: [
-      'Desarrollo full-stack de la plataforma ASOBANCA con Laravel y Vue.js para 15+ instituciones financieras',
-      'Mejora continua del aplicativo Billusos, implementando nuevas funcionalidades con Python y Django',
-      'Creación de APIs RESTful robustas y documentación técnica completa',
-      'Gestión de proyectos web personalizados con metodologías ágiles, entregando el 100% a tiempo'
+      'Desarrollo backend en Python - Django',
+      'Desarrollo web y móvil en React Native'
     ]
   },
   {
     id: 'junior-fullstack',
     location: 'Quito, Ecuador',
     tasks: [
-      'Maquetación responsive de interfaces cliente para CONAFIS SARAS con HTML5, CSS3 y JavaScript',
-      'Configuración y optimización de entornos de desarrollo para equipos multidisciplinarios',
-      'Administración de bases de datos SQL Server y generación de scripts automatizados',
-      'Implementación de mejores prácticas de desarrollo y control de versiones con Git'
+      'Maquetación de pantallas cliente para el sistema CONAFIS SARAS',
+      'Manejo de base de datos y generación de scripts para el sistema CONAFIPS SARAS',
+      'Desarrollo de la plataforma CONAFIPS SARAS'
     ]
   }
 ];
