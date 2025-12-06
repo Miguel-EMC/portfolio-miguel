@@ -120,10 +120,7 @@
 }
 
 @media (max-width: 768px) {
-  :host {
-    top: 15px;
-    right: 15px;
-  }
+  /* :host positioning removed to respect flex container */
 
   .language-toggle {
     .language-btn {
@@ -162,10 +159,7 @@
 }
 
 @media (max-width: 480px) {
-  :host {
-    top: 10px;
-    right: 10px;
-  }
+  /* :host positioning removed */
 
   .language-toggle {
     .language-btn {

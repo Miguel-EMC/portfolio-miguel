@@ -182,11 +182,19 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  margin-left: auto;
+  /* Push to right on desktop */
 
   @media (max-width: 768px) {
+    margin-left: 0;
+    /* Reset margin on mobile */
+    gap: 0.5rem;
     position: relative;
+    /* Remove absolute positioning */
+    top: auto;
+    right: auto;
+    transform: none;
     z-index: 100;
-    /* Ensure visible over mobile menu */
   }
 }
 
@@ -197,6 +205,8 @@
   cursor: pointer;
   padding: 0.5rem;
   z-index: 100;
+  margin-left: 0.5rem;
+  /* Space from controls */
 
   @media (max-width: 768px) {
     display: flex;

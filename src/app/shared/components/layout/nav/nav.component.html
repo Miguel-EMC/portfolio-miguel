@@ -1,13 +1,4 @@
 <nav class="navbar" [ngClass]="{'scrolled': isScrolled, 'open': isMobileMenuOpen}">
-  <!-- Mobile Menu Toggle -->
-  <button class="mobile-toggle" (click)="toggleMobileMenu()" aria-label="Menú">
-    <div class="hamburger" [class.active]="isMobileMenuOpen">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </button>
-
   <div class="nav-container">
 
     <!-- Desktop Navigation -->
@@ -47,6 +38,14 @@
       <app-language-toggle></app-language-toggle>
     </div>
 
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-toggle" (click)="toggleMobileMenu()" aria-label="Menú">
+      <div class="hamburger" [class.active]="isMobileMenuOpen">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
   </div>
 
   <!-- Mobile Menu Overlay -->
