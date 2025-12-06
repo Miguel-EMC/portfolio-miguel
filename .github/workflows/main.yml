@@ -68,7 +68,7 @@ jobs:
         run: |
           echo "::group::Building application"
           echo "Build started at: $(date)"
-          npm run build -- --configuration production --base-href /Portafolio-personal/
+          npm run build -- --configuration production --base-href /
           echo "Build completed at: $(date)"
           echo "::endgroup::"
 
