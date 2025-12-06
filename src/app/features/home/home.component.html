@@ -14,7 +14,6 @@
       <!-- Left: Massive Typography -->
       <div class="hero-text">
         <div class="greeting-pill">
-          <span class="dot"></span>
           <span>{{ 'home.hero.greeting' | translate }}</span>
         </div>
 
@@ -52,13 +51,29 @@
             <i class="bi bi-download"></i>
           </a>
         </div>
+
+        <div class="hero-socials">
+          <a href="https://www.linkedin.com/in/eduardo-miguel-muzo-6379b2234/" target="_blank" class="social-icon"
+            title="LinkedIn">
+            <i class="bi bi-linkedin"></i>
+          </a>
+          <a href="https://wa.me/593999763190" target="_blank" class="social-icon" title="WhatsApp">
+            <i class="bi bi-whatsapp"></i>
+          </a>
+          <a href="mailto:eduardomuzo123456@gmail.com" class="social-icon" title="Email">
+            <i class="bi bi-envelope"></i>
+          </a>
+          <a href="https://github.com/Miguel-EMC" target="_blank" class="social-icon" title="GitHub">
+            <i class="bi bi-github"></i>
+          </a>
+        </div>
       </div>
 
       <!-- Right: Organic Visual -->
       <div class="hero-visual">
         <div class="organic-wrapper">
           <div class="blob-backdrop"></div>
-          <img src="/assets/img/img-mia.png" alt="Eduardo Miguel Muzo" class="profile-img-cutout" />
+          <ng-lottie [options]="options" class="profile-animation"></ng-lottie>
         </div>
       </div>
 
@@ -124,7 +139,8 @@
           <div class="area-stats">
             <div class="stat-chip">
               <i class="bi bi-collection"></i>
-              <span>{{ skillAreas[selectedArea].detailedTechs.length }} {{ 'home.skillsModal.technologies' | translate }}</span>
+              <span>{{ skillAreas[selectedArea].detailedTechs.length }} {{ 'home.skillsModal.technologies' | translate
+                }}</span>
             </div>
             <div class="stat-chip expert">
               <i class="bi bi-star-fill"></i>
@@ -254,60 +270,8 @@
       <!-- Información de Contacto -->
       <div class="contact-info">
         <div class="contact-intro">
-          <h3>{{ 'home.contact.projectTitle' | translate }}</h3>
-          <p>{{ 'home.contact.description' | translate }}</p>
-        </div>
-
-        <div class="contact-methods">
-          <a href="mailto:eduardomuzo123456@gmail.com" class="contact-method">
-            <div class="method-icon email">
-              <i class="bi bi-envelope"></i>
-            </div>
-            <div class="method-info">
-              <h4>{{ 'home.contact.methods.email' | translate }}</h4>
-              <p>eduardomuzo123456&#64;gmail.com</p>
-              <span>{{ 'home.contact.methods.responses.email' | translate }}</span>
-            </div>
-          </a>
-
-          <a href="https://wa.me/593999763190" target="_blank" class="contact-method">
-            <div class="method-icon whatsapp">
-              <i class="bi bi-whatsapp"></i>
-            </div>
-            <div class="method-info">
-              <h4>{{ 'home.contact.methods.whatsapp' | translate }}</h4>
-              <p>+593 999 763 190</p>
-              <span>{{ 'home.contact.methods.responses.whatsapp' | translate }}</span>
-            </div>
-          </a>
-
-          <a href="https://www.linkedin.com/in/eduardo-miguel-muzo-6379b2234/" target="_blank" class="contact-method">
-            <div class="method-icon linkedin">
-              <i class="bi bi-linkedin"></i>
-            </div>
-            <div class="method-info">
-              <h4>{{ 'home.contact.methods.linkedin' | translate }}</h4>
-              <p>Eduardo Miguel Muzo</p>
-              <span>{{ 'home.contact.methods.responses.linkedin' | translate }}</span>
-            </div>
-          </a>
-        </div>
-
-        <!-- Estado de Disponibilidad -->
-        <div class="availability-status">
-          <div class="status-indicator">
-            <div class="status-dot active"></div>
-            <span>{{ 'home.contact.availability.title' | translate }}</span>
-          </div>
-          <div class="availability-details">
-            <div class="detail">
-              <i class="bi bi-clock"></i>
-              <span>{{ 'home.contact.availability.response' | translate }}</span>
-            </div>
-            <div class="detail">
-              <i class="bi bi-calendar"></i>
-              <span>{{ 'home.contact.availability.start' | translate }}</span>
-            </div>
+          <div class="animation-wrapper">
+            <ng-lottie [options]="contactOptions" class="contact-animation"></ng-lottie>
           </div>
         </div>
       </div>

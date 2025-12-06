@@ -9,7 +9,7 @@
   },
   "home": {
     "hero": {
-      "greeting": "👋 Hello, I'm",
+      "greeting": "",
       "name": "Eduardo Miguel", 
       "surname": "Muzo",
       "description": "Full Stack Developer with +2 years of experience, specialized in Backend (Python) and modern web architectures. Currently focused on Artificial Intelligence integration and scalable systems. I combine solid engineering foundations with a practical product vision.",
@@ -96,6 +96,15 @@
           "consulting": "Consulting",
           "other": "Other"
         }
+      },
+      "toast": {
+        "sending": "Sending message...",
+        "successTitle": "Message Sent!",
+        "successMessage": "Your message has been sent successfully! I'll get in touch with you soon.",
+        "errorTitle": "Error Sending",
+        "errorMessage": "There was a problem sending your message. Please try again.",
+        "connectionErrorTitle": "Connection Error",
+        "connectionErrorMessage": "Could not connect to the server. Please check your internet connection."
       }
     }
   },

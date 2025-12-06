@@ -9,7 +9,7 @@
   },
   "home": {
     "hero": {
-      "greeting": "👋 Hola, soy",
+      "greeting": "",
       "name": "Eduardo Miguel",
       "surname": "Muzo",
       "description": "Desarrollador Full Stack con +2 años de experiencia, especializado en Backend (Python) y arquitecturas web modernas. Actualmente enfocado en la integración de Inteligencia Artificial y sistemas escalables. Combino bases sólidas de ingeniería con una visión práctica de producto.",
@@ -84,7 +84,7 @@
         "title": "Envíame un mensaje",
         "description": "Cuéntame sobre tu proyecto",
         "name": "Tu nombre",
-        "email": "Tu email", 
+        "email": "Tu email",
         "message": "Cuéntame sobre tu proyecto...",
         "send": "Enviar Mensaje",
         "projectType": "Tipo de Proyecto",
@@ -96,6 +96,15 @@
           "consulting": "Consultoría",
           "other": "Otro"
         }
+      },
+      "toast": {
+        "sending": "Enviando mensaje...",
+        "successTitle": "¡Mensaje Enviado!",
+        "successMessage": "¡Tu mensaje ha sido enviado con éxito! Me pondré en contacto contigo pronto.",
+        "errorTitle": "Error al enviar",
+        "errorMessage": "Hubo un problema al enviar tu mensaje. Por favor, intenta nuevamente.",
+        "connectionErrorTitle": "Error de Conexión",
+        "connectionErrorMessage": "No se pudo conectar con el servidor. Por favor, verifica tu conexión a internet."
       }
     }
   },

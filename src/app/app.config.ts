@@ -1,6 +1,9 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { provideLottieOptions } from 'ngx-lottie';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideToastr } from 'ngx-toastr';
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
@@ -15,9 +18,26 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withInMemoryScrolling({
       scrollPositionRestoration: 'top'
-    })), 
-    provideClientHydration(),
+    })),
     provideHttpClient(withFetch()),
+    provideAnimations(),
+    provideToastr({
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+      progressBar: true,
+      closeButton: true,
+      newestOnTop: true,
+      tapToDismiss: true,
+      maxOpened: 5,
+      autoDismiss: false,
+      easeTime: 300,
+      enableHtml: true
+    }),
+    provideClientHydration(),
+    provideLottieOptions({
+      player: () => import('lottie-web'),
+    }),
     importProvidersFrom(
       TranslateModule.forRoot({
         loader: {

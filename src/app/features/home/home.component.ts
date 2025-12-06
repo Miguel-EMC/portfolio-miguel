@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RouterLink, Router } from "@angular/router";
 import { trigger, state, style, transition, animate, query, stagger } from '@angular/animations';
+import { LottieComponent, AnimationOptions } from 'ngx-lottie';
+import { ToastrService } from 'ngx-toastr';
 
 // Data imports
 import { featuredProjects, type Project } from '../../core/data/projects.data';
@@ -39,9 +41,10 @@ import { LottieAnimationComponent } from '../../shared/components/ui/lottie-anim
     CurriculumComponent,
     PortafolioComponent,
     ContactsComponent,
-    LottieAnimationComponent
+    LottieAnimationComponent,
+    LottieComponent
   ],
-  styleUrls: ['./home.component.scss'],
+  styleUrls: ['./home.component.scss', './toast-fix.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('fadeInOut', [
@@ -79,12 +82,91 @@ import { LottieAnimationComponent } from '../../shared/components/ui/lottie-anim
 })
 export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
+  // Lottie Animation Options
+  options: AnimationOptions = {
+    path: '/assets/jsons/Artificial Intelligence Chatbot.json',
+  };
+
+  contactOptions: AnimationOptions = {
+    path: '/assets/jsons/tech startup.json',
+  };
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private toastr: ToastrService
   ) { }
+
+  // Función helper para forzar estilos del toast
+  private forceToastStyles() {
+    setTimeout(() => {
+      const container = document.querySelector('.toast-container') as HTMLElement;
+      const toastElement = document.querySelector('.ngx-toastr') as HTMLElement;
+
+      if (toastElement) {
+        // Forzar estilos del contenedor
+        if (container) {
+          container.style.cssText = `
+            position: fixed !important;
+            top: 20px !important;
+            right: 20px !important;
+            z-index: 999999 !important;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+          `;
+        }
+
+        // Determinar el color según el tipo de toast
+        let bgGradient = 'linear-gradient(135deg, #10b981 0%, #059669 100%)'; // success por defecto
+        if (toastElement.classList.contains('toast-error')) {
+          bgGradient = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+        } else if (toastElement.classList.contains('toast-info')) {
+          bgGradient = 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)';
+        } else if (toastElement.classList.contains('toast-warning')) {
+          bgGradient = 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)';
+        }
+
+        // Forzar estilos del toast
+        toastElement.style.cssText = `
+          position: relative !important;
+          display: block !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          width: 350px !important;
+          min-height: 80px !important;
+          padding: 20px !important;
+          margin-bottom: 15px !important;
+          background: ${bgGradient} !important;
+          color: white !important;
+          border-radius: 12px !important;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+          font-family: Inter, sans-serif !important;
+          font-size: 14px !important;
+          line-height: 1.5 !important;
+          pointer-events: auto !important;
+          transform: translateX(0) !important;
+        `;
+      }
+    }, 100);
+  }
+
+  // Método de prueba temporal para toast
+  testToast() {
+    this.toastr.success(
+      '¡Este es un toast de prueba! Si puedes leer esto, el toast funciona correctamente.',
+      '✅ TOAST FUNCIONANDO',
+      {
+        timeOut: 10000,
+        progressBar: true,
+        closeButton: true,
+        positionClass: 'toast-top-right'
+      }
+    );
+    this.forceToastStyles();
+  }
   // Typing animation
   currentRole = '';
   isTyping = false;
@@ -412,10 +494,21 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSubmit(event: Event) {
+    // Solo ejecutar en el navegador, no en SSR
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
     event.preventDefault();
 
     const form = event.target as HTMLFormElement;
     const data = new FormData(form);
+
+    // Mostrar toast de "enviando..." con traducción
+    this.toastr.info(this.translate.instant('home.contact.toast.sending'), '', {
+      timeOut: 2000
+    });
+    this.forceToastStyles();
 
     fetch("https://formspree.io/f/xandpyvw", {
       method: "POST",
@@ -423,13 +516,40 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
       headers: { Accept: "application/json" }
     }).then(response => {
       if (response.ok) {
-        console.log("✅ Formulario enviado con éxito.");
+        // Toast de éxito con traducción
+        this.toastr.success(
+          this.translate.instant('home.contact.toast.successMessage'),
+          this.translate.instant('home.contact.toast.successTitle'),
+          {
+            timeOut: 5000,
+            progressBar: true
+          }
+        );
+        this.forceToastStyles();
         form.reset();
       } else {
-        console.error("❌ Error al enviar el formulario.");
+        // Toast de error con traducción
+        this.toastr.error(
+          this.translate.instant('home.contact.toast.errorMessage'),
+          this.translate.instant('home.contact.toast.errorTitle'),
+          {
+            timeOut: 5000,
+            progressBar: true
+          }
+        );
+        this.forceToastStyles();
       }
-    }).catch(() => {
-      alert("⚠️ Error de conexión. Revisa tu internet.");
+    }).catch((error) => {
+      // Toast de error de conexión con traducción
+      this.toastr.error(
+        this.translate.instant('home.contact.toast.connectionErrorMessage'),
+        this.translate.instant('home.contact.toast.connectionErrorTitle'),
+        {
+          timeOut: 5000,
+          progressBar: true
+        }
+      );
+      this.forceToastStyles();
     });
   }
 

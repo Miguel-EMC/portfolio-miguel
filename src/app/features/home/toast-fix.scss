@@ -1,0 +1,128 @@
+/* ESTILOS FORZADOS PARA TOAST - MÁXIMA PRIORIDAD */
+
+#toast-container,
+.toast-container {
+  position: fixed !important;
+  z-index: 999999 !important;
+  pointer-events: none !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.toast-top-right {
+  top: 12px !important;
+  right: 12px !important;
+}
+
+.ngx-toastr {
+  position: relative !important;
+  display: block !important;
+  overflow: visible !important;
+  margin: 0 0 12px !important;
+  padding: 15px 15px 15px 50px !important;
+  width: 300px !important;
+  border-radius: 8px !important;
+  background-position: 15px center !important;
+  background-repeat: no-repeat !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  visibility: visible !important;
+  min-height: 60px !important;
+}
+
+.toast-success {
+  background-color: #10b981 !important;
+  background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"%3E%3Cpath fill="rgb(255,255,255)" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/%3E%3C/svg%3E') !important;
+}
+
+.toast-error {
+  background-color: #ef4444 !important;
+  background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"%3E%3Cpath fill="rgb(255,255,255)" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"/%3E%3C/svg%3E') !important;
+}
+
+.toast-info {
+  background-color: #3b82f6 !important;
+  background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"%3E%3Cpath fill="rgb(255,255,255)" d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/%3E%3C/svg%3E') !important;
+}
+
+.toast-warning {
+  background-color: #f59e0b !important;
+}
+
+.toast-title {
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  margin-bottom: 6px !important;
+  color: #ffffff !important;
+  display: block !important;
+}
+
+.toast-message {
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  color: #ffffff !important;
+  display: block !important;
+}
+
+.toast-close-button {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+  background: transparent !important;
+  border: 0 !important;
+  appearance: none !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  color: #ffffff !important;
+  opacity: 0.8 !important;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.3) !important;
+  width: 1em !important;
+  height: 1em !important;
+  margin: 12px !important;
+}
+
+.toast-close-button:hover {
+  opacity: 1 !important;
+}
+
+.toast-progress {
+  position: absolute !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  height: 4px !important;
+  background-color: rgba(255, 255, 255, 0.4) !important;
+  opacity: 1 !important;
+  display: block !important;
+}
+
+/* Animación de entrada */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%) !important;
+    opacity: 0 !important;
+  }
+  to {
+    transform: translateX(0) !important;
+    opacity: 1 !important;
+  }
+}
+
+.ngx-toastr {
+  animation: slideInRight 0.3s ease-out !important;
+}
+
+/* Forzar que body no tenga overflow hidden */
+body {
+  overflow-x: visible !important;
+}
+
+/* Asegurar que nada tape el toast */
+.toast-container * {
+  box-sizing: border-box !important;
+}

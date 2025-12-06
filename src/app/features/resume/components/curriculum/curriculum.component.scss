@@ -38,6 +38,26 @@
   &.expanded {
     background: var(--bg-secondary);
   }
+
+  /* Force white background in light mode */
+  :host-context(.light-theme) & {
+    background: #ffffff;
+    border-color: var(--border-muted);
+
+    &:hover {
+      border-color: var(--accent-primary);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    &.expanded {
+      background: #ffffff;
+      /* Force white even when expanded */
+      box-shadow: none;
+      /* Remove shadow */
+      border-color: var(--border-primary);
+      /* Ensure border is visible */
+    }
+  }
 }
 
 .experience-header {
