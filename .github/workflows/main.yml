@@ -50,10 +50,9 @@ jobs:
             ${{ runner.os }}-${{ env.CACHE_KEY_PREFIX }}-
 
       - name: 📚 Install dependencies
-        if: steps.npm-cache.outputs.cache-hit != 'true'
         run: |
           echo "::group::Installing dependencies"
-          npm ci --prefer-offline --no-audit
+          npm ci --legacy-peer-deps --prefer-offline --no-audit
           echo "::endgroup::"
 
       - name: 🔍 Display npm info
@@ -69,7 +68,7 @@ jobs:
         run: |
           echo "::group::Building application"
           echo "Build started at: $(date)"
-          npm run build -- --configuration production --base-href /portfolio-personal/
+          npm run build -- --configuration production --base-href /Portafolio-personal/
           echo "Build completed at: $(date)"
           echo "::endgroup::"
 
@@ -134,6 +133,7 @@ jobs:
             npm-debug.log
             dist/
           retention-days: 5
+          if-no-files-found: ignore
 
   deploy:
     name: Deploy to GitHub Pages
