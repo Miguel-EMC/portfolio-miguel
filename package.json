@@ -10,7 +10,8 @@
     "build:all": "npm run build && npm run build:es",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:portfolio-personal": "node dist/portfolio-personal/server/server.mjs"
+    "serve:ssr:portfolio-personal": "node dist/portfolio-personal/server/server.mjs",
+    "postbuild": "cp dist/portfolio-personal/browser/index.html dist/portfolio-personal/browser/404.html"
   },
   "private": true,
   "dependencies": {
