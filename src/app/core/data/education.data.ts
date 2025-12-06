@@ -1,6 +1,5 @@
 export interface Education {
   id: string;
-  date: string;
   achievements: string[];
   icon?: string;
 }
@@ -8,7 +7,6 @@ export interface Education {
 export const educationItems: Education[] = [
   {
     id: 'computer-engineering',
-    date: 'common.current',
     achievements: [
       'Especialización en Algoritmos y Estructuras de Datos Avanzadas',
       'Proyectos de Machine Learning y Deep Learning',
@@ -19,7 +17,6 @@ export const educationItems: Education[] = [
   },
   {
     id: 'software-development',
-    date: '2020 - 2023',
     achievements: [
       'Desarrollo de más de 15 proyectos web completos',
       'Dominio de frameworks modernos (Angular, React, Vue.js)',
@@ -30,7 +27,6 @@ export const educationItems: Education[] = [
   },
   {
     id: 'high-school',
-    date: '2013 - 2019',
     achievements: [
       'Graduado con honores en Ciencias Exactas',
       'Participación en olimpiadas de matemáticas',

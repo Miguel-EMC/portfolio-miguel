@@ -37,7 +37,6 @@
         <div class="link-content">
           <i class="bi bi-envelope-fill"></i>
           <span class="nav-text">{{ 'nav.contact' | translate }}</span>
-          <div class="link-indicator"></div>
         </div>
       </a>
     </div>
@@ -51,7 +50,5 @@
   </div>
 
   <!-- Mobile Menu Overlay -->
-  <div class="mobile-overlay" 
-       [class.active]="isMobileMenuOpen" 
-       (click)="closeMobileMenu()"></div>
+  <div class="mobile-overlay" [class.active]="isMobileMenuOpen" (click)="closeMobileMenu()"></div>
 </nav>

@@ -9,7 +9,7 @@
           <h4 class="institution">{{ 'education.' + item.id + '.institution' | translate }}</h4>
         </div>
         <div class="header-meta">
-          <span class="date-badge">{{ item.date }}</span>
+          <span class="date-badge">{{ 'education.' + item.id + '.date' | translate }}</span>
           <div class="expand-icon">
             <i class="bi" [class.bi-chevron-down]="expandedIndex !== i" [class.bi-chevron-up]="expandedIndex === i"></i>
           </div>
@@ -24,7 +24,7 @@
         </div>
 
         <div class="detail-block" *ngIf="item.achievements && item.achievements.length > 0">
-          <h5><i class="bi bi-trophy"></i> Logros</h5>
+          <h5><i class="bi bi-trophy"></i> {{ 'resume.education.achievements' | translate }}</h5>
           <ul class="achievements-list">
             <li class="achievement" *ngFor="let achievement of ('education.' + item.id + '.achievements' | translate)">
               {{ achievement }}
@@ -37,7 +37,7 @@
 
   <div class="view-more-container" *ngIf="educationItems.length > 2">
     <button class="btn-view-more" (click)="toggleShowAll()" [class.expanded]="showAllItems">
-      {{ showAllItems ? 'Ver menos' : 'Ver más educación' }}
+      {{ showAllItems ? ('resume.education.viewLess' | translate) : ('resume.education.viewMore' | translate) }}
       <i class="bi bi-chevron-down"></i>
     </button>
   </div>

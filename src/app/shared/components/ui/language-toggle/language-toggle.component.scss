@@ -8,116 +8,111 @@
     align-items: center;
     gap: 0.4rem;
     padding: 0.6rem 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    color: #fff;
+    border: 1px solid var(--border-primary);
+    border-radius: 100px;
+    /* Pill shape to match navbar */
+    background: transparent;
+    color: var(--text-primary);
     text-decoration: none;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     min-width: 70px;
     justify-content: center;
     font-size: 0.9rem;
-    
+
     &:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.2);
-      color: #fff;
+      background: var(--state-hover);
+      border-color: var(--accent-primary);
+      color: var(--text-primary);
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
-    
+
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.4);
-      color: #fff;
+      box-shadow: 0 0 0 2px rgba(var(--accent-primary-rgb), 0.4);
     }
-    
+
     &:active {
       transform: translateY(-1px);
     }
-    
+
     .flag {
       font-size: 1.2rem;
       line-height: 1;
-      filter: brightness(1.1);
     }
-    
+
     .lang-code {
       font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.3px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
       text-transform: uppercase;
-      opacity: 0.9;
     }
-    
+
     &::after {
       content: '';
       width: 0;
       height: 0;
       border-left: 4px solid transparent;
       border-right: 4px solid transparent;
-      border-top: 4px solid rgba(255, 255, 255, 0.6);
+      border-top: 4px solid var(--text-secondary);
       margin-left: 0.3rem;
       transition: transform 0.2s ease;
     }
-    
+
     &[aria-expanded="true"]::after {
       transform: rotate(180deg);
+      border-top-color: var(--accent-primary);
     }
   }
-  
+
   .dropdown-menu {
-    background: rgba(20, 20, 30, 0.95);
+    background: var(--surface-elevated);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-primary);
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
     min-width: 140px;
     right: 0;
     left: auto;
-    margin-top: 0.3rem;
-    padding: 0.4rem;
-    
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+
     .dropdown-item {
       display: flex;
       align-items: center;
       gap: 0.6rem;
-      padding: 0.7rem 0.9rem;
-      color: rgba(255, 255, 255, 0.9);
+      padding: 0.7rem 1rem;
+      color: var(--text-secondary);
       transition: all 0.2s ease;
       cursor: pointer;
-      border-radius: 6px;
+      border-radius: 10px;
       margin: 0.1rem 0;
-      font-size: 0.85rem;
-      
+      font-size: 0.9rem;
+      background: transparent;
+      border: 1px solid transparent;
+
       &:hover {
-        background: rgba(255, 255, 255, 0.08);
-        color: #fff;
+        background: var(--state-hover);
+        color: var(--text-primary);
         transform: translateX(2px);
       }
-      
+
       &.active {
-        background: rgba(74, 144, 226, 0.15);
-        color: #4a90e2;
-        border: 1px solid rgba(74, 144, 226, 0.2);
-        
-        .flag {
-          filter: brightness(1.2);
-        }
-        
+        background: rgba(var(--accent-primary-rgb), 0.1);
+        color: var(--accent-primary);
+        border-color: rgba(var(--accent-primary-rgb), 0.2);
+
         .label {
           font-weight: 600;
         }
       }
-      
+
       .flag {
         font-size: 1.1rem;
         line-height: 1;
       }
-      
+
       .label {
-        font-size: 0.8rem;
+        font-size: 0.85rem;
         font-weight: 500;
       }
     }
@@ -129,35 +124,35 @@
     top: 15px;
     right: 15px;
   }
-  
+
   .language-toggle {
     .language-btn {
       padding: 0.6rem 0.8rem;
       min-width: 70px;
-      
+
       .flag {
         font-size: 1.2rem;
       }
-      
+
       .lang-code {
         font-size: 0.75rem;
       }
-      
+
       &::after {
         margin-left: 0.25rem;
       }
     }
-    
+
     .dropdown-menu {
       min-width: 140px;
-      
+
       .dropdown-item {
         padding: 0.75rem 1rem;
-        
+
         .flag {
           font-size: 1.1rem;
         }
-        
+
         .label {
           font-size: 0.8rem;
         }
@@ -171,25 +166,25 @@
     top: 10px;
     right: 10px;
   }
-  
+
   .language-toggle {
     .language-btn {
       padding: 0.5rem 0.7rem;
       min-width: 60px;
-      
+
       .flag {
         font-size: 1.1rem;
       }
-      
+
       .lang-code {
         display: none;
       }
-      
+
       &::after {
         margin-left: 0;
       }
     }
-    
+
     .dropdown-menu {
       min-width: 120px;
     }

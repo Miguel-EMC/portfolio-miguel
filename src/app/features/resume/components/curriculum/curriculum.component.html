@@ -25,7 +25,7 @@
         </div>
 
         <div class="detail-block" *ngIf="exp.tasks && exp.tasks.length > 0">
-          <h5><i class="bi bi-list-check"></i> Responsabilidades</h5>
+          <h5><i class="bi bi-list-check"></i> {{ 'resume.experience.responsibilities' | translate }}</h5>
           <ul class="responsibilities-list">
             <li *ngFor="let task of ('experiences.' + exp.id + '.tasks' | translate)">
               {{ task }}
@@ -34,7 +34,7 @@
         </div>
 
         <div class="detail-block" *ngIf="getTechForExperience(i).length > 0">
-          <h5><i class="bi bi-code-slash"></i> Tecnologías</h5>
+          <h5><i class="bi bi-code-slash"></i> {{ 'resume.experience.technologies' | translate }}</h5>
           <div class="tech-stack">
             <span *ngFor="let tech of getTechForExperience(i)">
               {{ tech }}
@@ -47,7 +47,7 @@
 
   <div class="view-more-container" *ngIf="experiences.length > 2">
     <button class="btn-view-more" (click)="toggleShowAll()" [class.expanded]="showAllExperiences">
-      {{ showAllExperiences ? 'Ver menos' : 'Ver más experiencias' }}
+      {{ showAllExperiences ? ('resume.experience.viewLess' | translate) : ('resume.experience.viewMore' | translate) }}
       <i class="bi bi-chevron-down"></i>
     </button>
   </div>

@@ -20,11 +20,20 @@
       },
       "actions": {
         "contact": "Contact",
-        "projects": "View Projects"
+        "projects": "View Projects",
+        "downloadCV": "Download CV"
       },
+      "rolePrefix": "I am a",
       "status": "Available",
       "location": "Quito, Ecuador",
       "role": "Full Stack Developer"
+    },
+    "resume": {
+      "title": "My Journey",
+      "subtitle": "A journey through my professional and academic career",
+      "skills": "Technical Skills",
+      "experience": "Professional Experience",
+      "education": "Education"
     },
     "profile": {
       "title": "Professional Profile",
@@ -46,6 +55,10 @@
       "viewAll": "View All Projects",
       "viewProject": "View Project",
       "viewCode": "Code"
+    },
+    "skillsModal": {
+      "technologies": "Technologies",
+      "expert": "Expert+"
     },
     "contact": {
       "title": "Contact Me",
@@ -184,6 +197,7 @@
     "software-development": {
       "title": "Higher Technology in Software Development",
       "institution": "Escuela Politécnica Nacional",
+      "date": "2020 - 2023",
       "description": "Specialized technical training in web and mobile application development, databases, agile methodologies and modern software architectures.",
       "achievements": [
         "Development of more than 15 complete web projects",
@@ -195,6 +209,7 @@
     "high-school": {
       "title": "Unified General Baccalaureate",
       "institution": "Unidad Educativa Leopoldo Mercado",
+      "date": "2013 - 2019",
       "description": "Secondary education with specialization in exact sciences, advanced mathematics and programming fundamentals that laid the foundation for my technological career.",
       "achievements": [
         "Graduated with honors in Exact Sciences",

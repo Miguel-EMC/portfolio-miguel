@@ -28,7 +28,7 @@
         </h1>
 
         <div class="role-container">
-          <span class="role-prefix">I am a</span>
+          <span class="role-prefix">{{ 'home.hero.rolePrefix' | translate }}</span>
           <div class="role-rotator">
             <span class="role-text">{{ currentRole }}</span>
             <span class="cursor">_</span>
@@ -48,7 +48,7 @@
             <span>{{ 'home.hero.actions.projects' | translate }}</span>
           </button>
           <a href="/assets/documents/CV_MuzoMiguel.pdf" target="_blank" class="btn-outline-fluid">
-            <span>Descargar CV</span>
+            <span>{{ 'home.hero.actions.downloadCV' | translate }}</span>
             <i class="bi bi-download"></i>
           </a>
         </div>
@@ -70,8 +70,8 @@
 <section id="resume" class="resume-section">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title">Mi Trayectoria</h2>
-      <p class="section-subtitle">Un recorrido por mi carrera profesional y académica</p>
+      <h2 class="section-title">{{ 'home.resume.title' | translate }}</h2>
+      <p class="section-subtitle">{{ 'home.resume.subtitle' | translate }}</p>
     </div>
 
     <div class="resume-layout-modern">
@@ -79,7 +79,7 @@
       <div class="resume-row-skills">
         <div class="section-label">
           <i class="bi bi-tools"></i>
-          <span>Habilidades Técnicas</span>
+          <span>{{ 'home.resume.skills' | translate }}</span>
         </div>
         <app-skills></app-skills>
       </div>
@@ -90,7 +90,7 @@
         <div class="resume-col">
           <div class="section-label">
             <i class="bi bi-briefcase"></i>
-            <span>Experiencia Profesional</span>
+            <span>{{ 'home.resume.experience' | translate }}</span>
           </div>
           <app-curriculum></app-curriculum>
         </div>
@@ -99,7 +99,7 @@
         <div class="resume-col">
           <div class="section-label">
             <i class="bi bi-mortarboard"></i>
-            <span>Educación</span>
+            <span>{{ 'home.resume.education' | translate }}</span>
           </div>
           <app-education></app-education>
         </div>
@@ -124,11 +124,11 @@
           <div class="area-stats">
             <div class="stat-chip">
               <i class="bi bi-collection"></i>
-              <span>{{ skillAreas[selectedArea].detailedTechs.length }} Tecnologías</span>
+              <span>{{ skillAreas[selectedArea].detailedTechs.length }} {{ 'home.skillsModal.technologies' | translate }}</span>
             </div>
             <div class="stat-chip expert">
               <i class="bi bi-star-fill"></i>
-              <span>{{ getExpertCount(selectedArea) }} Experto+</span>
+              <span>{{ getExpertCount(selectedArea) }} {{ 'home.skillsModal.expert' | translate }}</span>
             </div>
           </div>
         </div>
