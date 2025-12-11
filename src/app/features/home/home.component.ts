@@ -172,10 +172,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   isTyping = false;
   private typingInterval: any;
   private roles = [
-    'Full Stack Developer',
-    'Frontend Developer',
-    'Backend Developer',
-    'Mobile Developer'
+    'Backend AI Developer'
   ];
   private currentRoleIndex = 0;
   activeCard = 'code';

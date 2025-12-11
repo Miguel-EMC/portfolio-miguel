@@ -1,6 +1,6 @@
 {
   "nav": {
-    "brandSubtitle": "Full Stack Dev",
+    "brandSubtitle": "Backend AI Dev",
     "home": "Inicio",
     "about": "Sobre Mí",
     "resume": "Resume",
@@ -12,7 +12,7 @@
       "greeting": "👋 Hola, soy",
       "name": "Eduardo Miguel",
       "surname": "Muzo",
-      "description": "Desarrollador Full Stack con +2 años de experiencia, especializado en Backend (Python) y arquitecturas web modernas. Actualmente enfocado en la integración de Inteligencia Artificial y sistemas escalables. Combino bases sólidas de ingeniería con una visión práctica de producto.",
+      "description": "Desarrollador Backend AI con +2 años de experiencia, especializado en Python e integración de Inteligencia Artificial. Construyendo sistemas escalables y arquitecturas modernas. Combino bases sólidas de ingeniería con una visión práctica de producto enfocada en soluciones impulsadas por IA.",
       "stats": {
         "years": "Años",
         "projects": "Proyectos", 
@@ -24,7 +24,7 @@
       },
       "status": "Disponible",
       "location": "Quito, Ecuador",
-      "role": "Full Stack Developer"
+      "role": "Backend AI Developer"
     },
     "profile": {
       "title": "Perfil Profesional",
