@@ -1,30 +1,25 @@
-import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router, RouterLink } from "@angular/router";
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { RouterLink, Router } from "@angular/router";
-import { trigger, state, style, transition, animate, query, stagger } from '@angular/animations';
-import { LottieComponent, AnimationOptions } from 'ngx-lottie';
+import { AnimationOptions, LottieComponent } from 'ngx-lottie';
 import { ToastrService } from 'ngx-toastr';
 
 // Data imports
-import { featuredProjects, type Project } from '../../core/data/projects.data';
-import { experiences, type Experience } from '../../core/data/experience.data';
 import { educationItems, type Education } from '../../core/data/education.data';
+import { experiences, type Experience } from '../../core/data/experience.data';
+import { featuredProjects, type Project } from '../../core/data/projects.data';
 import { skillAreas, type SkillArea } from '../../core/data/skills.data';
 
-// amCharts imports
-import * as am5 from '@amcharts/amcharts5';
-import * as am5percent from '@amcharts/amcharts5/percent';
-import * as am5xy from '@amcharts/amcharts5/xy';
-import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
-import { AboutMeComponent } from '../contact/about-me/about-me.component';
-import { SkillsComponent } from '../resume/components/skills/skills.component';
-import { EducationComponent } from '../resume/components/education/education.component';
-import { CurriculumComponent } from '../resume/components/curriculum/curriculum.component';
-import { PortafolioComponent } from "../portfolio/portfolio/portafolio.component";
-import { ContactsComponent } from '../contact/contacts/contacts.component';
 import { LottieAnimationComponent } from '../../shared/components/ui/lottie-animation/lottie-animation.component';
+import { AboutMeComponent } from '../contact/about-me/about-me.component';
+import { ContactsComponent } from '../contact/contacts/contacts.component';
+import { PortafolioComponent } from "../portfolio/portfolio/portafolio.component";
+import { CurriculumComponent } from '../resume/components/curriculum/curriculum.component';
+import { EducationComponent } from '../resume/components/education/education.component';
+import { SkillsComponent } from '../resume/components/skills/skills.component';
 
 @Component({
   selector: 'app-home',
@@ -153,26 +148,12 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     }, 100);
   }
 
-  // Método de prueba temporal para toast
-  testToast() {
-    this.toastr.success(
-      '¡Este es un toast de prueba! Si puedes leer esto, el toast funciona correctamente.',
-      '✅ TOAST FUNCIONANDO',
-      {
-        timeOut: 10000,
-        progressBar: true,
-        closeButton: true,
-        positionClass: 'toast-top-right'
-      }
-    );
-    this.forceToastStyles();
-  }
   // Typing animation
   currentRole = '';
   isTyping = false;
   private typingInterval: any;
   private roles = [
-    'Backend AI Developer'
+    'Backend Developer'
   ];
   private currentRoleIndex = 0;
   activeCard = 'code';
@@ -203,10 +184,6 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // Skill Areas Dashboard
   skillAreas: SkillArea[] = skillAreas;
-
-
-  // Chart instances
-  private skillsBarChartRoot?: am5.Root;
 
   // Tab management
   activeTab = 'skills';
@@ -240,11 +217,6 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy() {
     if (this.typingInterval) {
       clearInterval(this.typingInterval);
-    }
-
-    // Dispose charts
-    if (this.skillsBarChartRoot) {
-      this.skillsBarChartRoot.dispose();
     }
 
     if (this.observer) {

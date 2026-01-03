@@ -1,6 +1,6 @@
 # Portfolio Personal
 
-Personal portfolio showcasing my work as a Backend AI Developer. Built with Angular 18 and modern web technologies.
+Personal portfolio showcasing my work as a Backend Developer. Built with Angular 18 and modern web technologies.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.2.
 

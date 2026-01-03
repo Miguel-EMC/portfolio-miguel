@@ -1,6 +1,6 @@
 {
   "nav": {
-    "brandSubtitle": "Full Stack Dev",
+    "brandSubtitle": "Backend Dev",
     "home": "Home",
     "about": "About Me",
     "resume": "Resume",
@@ -10,9 +10,9 @@
   "home": {
     "hero": {
       "greeting": "",
-      "name": "Eduardo Miguel", 
+      "name": "Eduardo Miguel",
       "surname": "Muzo",
-      "description": "Full Stack Developer with +2 years of experience, specialized in Backend (Python) and modern web architectures. Currently focused on Artificial Intelligence integration and scalable systems. I combine solid engineering foundations with a practical product vision.",
+      "description": "Software Engineer focused on Backend development with experience building scalable architectures using Python and TypeScript. Specialized in integrating Artificial Intelligence into business processes via LLMs, LangChain, LangGraph, and RAG. Proficient in API design (FastAPI/Django/NestJS) and multi-platform application development (Flutter and Angular). Seeking to provide high-impact technical solutions as an AI Backend Engineer.",
       "stats": {
         "years": "Years",
         "projects": "Projects",
@@ -26,7 +26,7 @@
       "rolePrefix": "I am a",
       "status": "Available",
       "location": "Quito, Ecuador",
-      "role": "Full Stack Developer"
+      "role": "Software Engineer | Backend & AI Focus"
     },
     "resume": {
       "title": "My Journey",
@@ -67,7 +67,7 @@
       "projectTitle": "Let's talk about your project",
       "methods": {
         "email": "Email",
-        "whatsapp": "WhatsApp", 
+        "whatsapp": "WhatsApp",
         "linkedin": "LinkedIn",
         "responses": {
           "email": "Response in 24h",
@@ -161,18 +161,21 @@
       "subtitle": "Lateral Business Thinking | Innovate Empresarial Solutions",
       "date": "Jul 2024 - Present",
       "tasks": [
-        "Development of the Münster Mind mobile application with Flutter",
-        "Collaboration in the development of the Münster Mind web platform, working on frontend and backend",
-        "Development of an artificial intelligence agent with LangGraph, LangChain and FastAPI"
+        "Architecture and development of the Münster Mind mobile application using Flutter",
+        "Designed and implemented an autonomous AI Agent using LangGraph and FastAPI to automate complex query processes",
+        "Integration of Backend/Frontend services via RESTful APIs for the Münster Mind platform",
+        "Tech Stack: Python, FastAPI, LangChain, Flutter, Docker, Postgres, NestJS, Angular, AWS"
       ]
     },
     "billusos-dev": {
-      "title": "Developer",
+      "title": "Software Developer",
       "subtitle": "Billusos",
       "date": "Dec 2023 - Nov 2024",
       "tasks": [
-        "Backend development in Python - Django",
-        "Web and mobile development in React Native"
+        "Backend development using Python and Django for scalable web services",
+        "Development and maintenance of mobile applications using React Native",
+        "Optimization of business logic and database structures to improve performance",
+        "Tech Stack: Python, Django, React Native, PostgreSQL, Git, Jira"
       ]
     },
     "junior-fullstack": {
@@ -180,9 +183,9 @@
       "subtitle": "Centro Ecuatoriano de Eficiencia de Recursos",
       "date": "Feb 2023 - Jul 2023",
       "tasks": [
-        "Client screen layout for the CONAFIS SARAS system",
-        "Database management and script generation for the CONAFIPS SARAS system",
-        "Development of the CONAFIPS SARAS platform"
+        "Full-stack development of the CONAFIPS SARAS platform, ensuring compliance with financial business logic",
+        "Automation of data loading processes using SQL scripts and stored procedures",
+        "Tech Stack: JavaScript, SQL Server, HTML/CSS, PHP, Laravel"
       ]
     }
   },
@@ -190,7 +193,7 @@
     "computer-engineering": {
       "title": "Computer Science Engineering",
       "institution": "Escuela Politécnica Nacional",
-      "date": "Present",
+      "date": "In Progress (Senior Year)",
       "description": "Comprehensive training in computer science with emphasis on software development, advanced algorithms, artificial intelligence and complex systems analysis.",
       "achievements": [
         "Specialization in Advanced Algorithms and Data Structures",
@@ -202,7 +205,7 @@
     "software-development": {
       "title": "Higher Technology in Software Development",
       "institution": "Escuela Politécnica Nacional",
-      "date": "2020 - 2023",
+      "date": "2023",
       "description": "Specialized technical training in web and mobile application development, databases, agile methodologies and modern software architectures.",
       "achievements": [
         "Development of more than 15 complete web projects",

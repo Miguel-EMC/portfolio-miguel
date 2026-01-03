@@ -1,6 +1,6 @@
 {
   "nav": {
-    "brandSubtitle": "Backend AI Dev",
+    "brandSubtitle": "Backend Dev",
     "home": "Home",
     "about": "About Me",
     "resume": "Resume",
@@ -10,9 +10,9 @@
   "home": {
     "hero": {
       "greeting": "👋 Hello, I'm",
-      "name": "Eduardo Miguel", 
+      "name": "Eduardo Miguel",
       "surname": "Muzo",
-      "description": "Backend AI Developer with +2 years of experience, specialized in Python and Artificial Intelligence integration. Building scalable systems and modern architectures. I combine solid engineering foundations with a practical product vision focused on AI-driven solutions.",
+      "description": "Software Engineer focused on Backend development with experience building scalable architectures using Python and TypeScript. Specialized in integrating Artificial Intelligence into business processes via LLMs, LangChain, LangGraph, and RAG. Proficient in API design (FastAPI/Django/NestJS) and multi-platform application development (Flutter and Angular). Seeking to provide high-impact technical solutions as an AI Backend Engineer.",
       "stats": {
         "years": "Years",
         "projects": "Projects",
@@ -24,7 +24,7 @@
       },
       "status": "Available",
       "location": "Quito, Ecuador",
-      "role": "Backend AI Developer"
+      "role": "Software Engineer | Backend & AI Focus"
     },
     "profile": {
       "title": "Professional Profile",
@@ -43,7 +43,7 @@
       "description": "Do you have a project in mind? I'm available for new projects and collaborations. Let's talk!",
       "methods": {
         "email": "Email",
-        "whatsapp": "WhatsApp", 
+        "whatsapp": "WhatsApp",
         "linkedin": "LinkedIn"
       },
       "form": {

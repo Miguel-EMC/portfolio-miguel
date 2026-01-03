@@ -1,6 +1,6 @@
 {
   "nav": {
-    "brandSubtitle": "Backend AI Dev",
+    "brandSubtitle": "Backend Dev",
     "home": "Inicio",
     "about": "Sobre Mí",
     "resume": "Resume",
@@ -12,10 +12,10 @@
       "greeting": "👋 Hola, soy",
       "name": "Eduardo Miguel",
       "surname": "Muzo",
-      "description": "Desarrollador Backend AI con +2 años de experiencia, especializado en Python e integración de Inteligencia Artificial. Construyendo sistemas escalables y arquitecturas modernas. Combino bases sólidas de ingeniería con una visión práctica de producto enfocada en soluciones impulsadas por IA.",
+      "description": "Ingeniero de Software enfocado en Backend con experiencia en la construcción de arquitecturas escalables utilizando Python y TypeScript. Especializado en la integración de Inteligencia Artificial en procesos de negocio mediante LLMs, LangChain, LangGraph y RAG. Competente en el diseño de APIs (FastAPI/Django/NestJS) y desarrollo de aplicaciones multiplataforma (Flutter) y web (Angular). Busco aportar soluciones de alto impacto técnico como AI Backend Engineer.",
       "stats": {
         "years": "Años",
-        "projects": "Proyectos", 
+        "projects": "Proyectos",
         "technologies": "Tecnologías"
       },
       "actions": {
@@ -24,13 +24,13 @@
       },
       "status": "Disponible",
       "location": "Quito, Ecuador",
-      "role": "Backend AI Developer"
+      "role": "Software Engineer | Backend & AI Focus"
     },
     "profile": {
       "title": "Perfil Profesional",
       "tabs": {
         "skills": "Skills",
-        "experience": "Experiencia", 
+        "experience": "Experiencia",
         "education": "Formación"
       }
     },
@@ -48,7 +48,7 @@
       },
       "form": {
         "name": "Tu nombre",
-        "email": "Tu email", 
+        "email": "Tu email",
         "message": "Cuéntame sobre tu proyecto...",
         "send": "Enviar Mensaje"
       }
