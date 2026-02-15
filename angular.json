@@ -37,7 +37,8 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/404.html"
+              "src/404.html",
+              "src/googleab23b079823d4a4f.html"
             ],
             "styles": [
               "node_modules/ngx-toastr/toastr.css",
