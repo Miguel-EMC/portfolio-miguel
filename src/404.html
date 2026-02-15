@@ -2,60 +2,66 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <title>MIGUELDEV11 | Software Developer - Backend & AI</title>
+  <title>Eduardo Miguel Muzo | MIGUELDEV11 - Software Developer Backend & AI</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Especialista en desarrollo Backend, arquitecturas escalables e Inteligencia Artificial. Portafolio profesional con proyectos y experiencia.">
-  <meta name="keywords" content="software developer, backend developer, inteligencia artificial, AI, machine learning, python, arquitecturas escalables, APIs, microservicios, migueldev11">
-  <meta name="author" content="Miguel Muzo">
-  <meta name="robots" content="index, follow">
 
-  <!-- Canonical URL -->
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Eduardo Miguel Muzo (migueldev11) - Software Developer especializado en Backend, Python, arquitecturas escalables e Inteligencia Artificial. Desarrollador en Ecuador.">
+  <meta name="keywords" content="Eduardo Miguel Muzo, migueldev11, software developer, backend developer, AI, inteligencia artificial, python, angular, ecuador tech, desarrollador ecuador, machine learning, APIs, microservicios">
+  <meta name="author" content="Eduardo Miguel Muzo">
+  <meta name="creator" content="Eduardo Miguel Muzo (migueldev11)">
+  <meta name="publisher" content="Eduardo Miguel Muzo">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="googlebot" content="index, follow">
+
+  <!-- Canonical URL - Unifica todas las versiones del dominio -->
   <link rel="canonical" href="https://migueldev11.com">
 
   <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://migueldev11.com">
-  <meta property="og:title" content="MIGUELDEV11 | Software Developer - Backend & AI">
-  <meta property="og:description" content="Especialista en desarrollo Backend, arquitecturas escalables e Inteligencia Artificial.">
+  <meta property="og:title" content="Eduardo Miguel Muzo | MIGUELDEV11 - Software Developer Backend & AI">
+  <meta property="og:description" content="Eduardo Miguel Muzo (migueldev11) - Software Developer especializado en Backend, Python e Inteligencia Artificial. Ecuador.">
   <meta property="og:image" content="https://migueldev11.com/assets/img/og-image.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="MIGUELDEV11 - Software Developer especializado en Backend y AI">
-  <meta property="og:site_name" content="MIGUELDEV11 Portfolio">
-  <meta property="og:locale" content="es_ES">
+  <meta property="og:image:alt" content="Eduardo Miguel Muzo - MIGUELDEV11 Software Developer">
+  <meta property="og:site_name" content="Eduardo Miguel Muzo | MIGUELDEV11">
+  <meta property="og:locale" content="es_EC">
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" content="https://migueldev11.com">
-  <meta name="twitter:title" content="MIGUELDEV11 | Software Developer - Backend & AI">
-  <meta name="twitter:description" content="Especialista en desarrollo Backend, arquitecturas escalables e Inteligencia Artificial.">
+  <meta name="twitter:title" content="Eduardo Miguel Muzo | MIGUELDEV11 - Software Developer Backend & AI">
+  <meta name="twitter:description" content="Eduardo Miguel Muzo (migueldev11) - Software Developer especializado en Backend, Python e Inteligencia Artificial. Ecuador.">
   <meta name="twitter:image" content="https://migueldev11.com/assets/img/og-image.jpg">
-  <meta name="twitter:image:alt" content="MIGUELDEV11 - Software Developer especializado en Backend y AI">
-  
+  <meta name="twitter:image:alt" content="Eduardo Miguel Muzo - MIGUELDEV11 Software Developer">
+  <meta name="twitter:creator" content="@migueldev11">
+
   <link rel="icon" type="image/webp" href="/assets/img/logoMIguel.webp">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/logoMIguel.webp">
   <link rel="icon" type="image/webp" sizes="32x32" href="/assets/img/logoMIguel.webp">
   <link rel="icon" type="image/webp" sizes="16x16" href="/assets/img/logoMIguel.webp">
-  
+
   <!-- Preconnect to external domains -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
-  
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
-  
+
   <!-- DevIcons -->
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
-  
+
   <!-- Theme Color -->
   <meta name="theme-color" content="#22c55e">
   <meta name="msapplication-TileColor" content="#22c55e">
-  
+
   <!-- Preload critical resources -->
   <link rel="preload" href="/assets/img/img-mia.png" as="image" type="image/png">
-  
+
   <!-- Critical CSS para evitar flash blanco -->
   <style>
     body {
@@ -63,7 +69,7 @@
       background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
     }
-    
+
     #initial-loader {
       position: fixed;
       top: 0;
@@ -78,7 +84,7 @@
       z-index: 9999;
       transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
     }
-    
+
     .loader-logo {
       width: 80px;
       height: 80px;
@@ -91,7 +97,7 @@
       animation: pulse 2s infinite;
       box-shadow: 0 20px 40px rgba(34, 197, 94, 0.3);
     }
-    
+
     .loader-text {
       color: #f8fafc;
       font-size: 24px;
@@ -99,14 +105,14 @@
       margin: 0 0 0.5rem 0;
       text-align: center;
     }
-    
+
     .loader-subtitle {
       color: #94a3b8;
       font-size: 16px;
       margin: 0 0 2rem 0;
       text-align: center;
     }
-    
+
     .loader-progress {
       width: 200px;
       height: 4px;
@@ -115,7 +121,7 @@
       overflow: hidden;
       position: relative;
     }
-    
+
     .loader-bar {
       position: absolute;
       top: 0;
@@ -125,41 +131,86 @@
       background: linear-gradient(90deg, transparent, #22c55e, transparent);
       animation: loading 1.5s infinite;
     }
-    
+
     @keyframes pulse {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.05); }
     }
-    
+
     @keyframes loading {
       0% { left: -100%; }
       100% { left: 100%; }
     }
   </style>
-  
-  <!-- Structured Data -->
+
+  <!-- Structured Data - JSON-LD for SEO -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Person",
+    "@id": "https://migueldev11.com/#person",
     "name": "Eduardo Miguel Muzo",
-    "alternateName": "MIGUELDEV11",
-    "jobTitle": "Software Developer - Backend & AI",
-    "description": "Especialista en desarrollo Backend, arquitecturas escalables e Inteligencia Artificial",
+    "givenName": "Eduardo Miguel",
+    "familyName": "Muzo",
+    "alternateName": ["migueldev11", "MIGUELDEV11", "Miguel Muzo", "Miguel-EMC"],
+    "jobTitle": "Software Developer | Backend & AI",
+    "description": "Eduardo Miguel Muzo, conocido como migueldev11, es un Software Developer especializado en Backend, Python, arquitecturas escalables e Inteligencia Artificial. Desarrollador de Ecuador.",
     "url": "https://migueldev11.com",
-    "image": "https://migueldev11.com/assets/img/og-image.jpg",
+    "image": {
+      "@type": "ImageObject",
+      "url": "https://migueldev11.com/assets/img/og-image.jpg",
+      "width": 1200,
+      "height": 630
+    },
     "sameAs": [
       "https://www.linkedin.com/in/eduardo-miguel-muzo-6379b2234/",
       "https://github.com/Miguel-EMC"
     ],
-    "knowsAbout": ["Backend Development", "Artificial Intelligence", "Machine Learning", "Python", "APIs", "Microservices"],
+    "knowsAbout": [
+      "Backend Development",
+      "Python",
+      "Artificial Intelligence",
+      "Machine Learning",
+      "Angular",
+      "TypeScript",
+      "APIs REST",
+      "Microservices",
+      "Software Architecture"
+    ],
+    "hasOccupation": {
+      "@type": "Occupation",
+      "name": "Software Developer",
+      "occupationalCategory": "15-1252.00",
+      "skills": "Backend Development, Python, AI, Machine Learning, Angular"
+    },
+    "nationality": {
+      "@type": "Country",
+      "name": "Ecuador"
+    },
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Quito",
-      "addressCountry": "Ecuador"
+      "addressRegion": "Pichincha",
+      "addressCountry": "EC"
     },
     "email": "eduardomuzo123456@gmail.com",
     "telephone": "+593999763190"
+  }
+  </script>
+
+  <!-- Website Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://migueldev11.com/#website",
+    "url": "https://migueldev11.com",
+    "name": "Eduardo Miguel Muzo | MIGUELDEV11",
+    "description": "Portafolio profesional de Eduardo Miguel Muzo (migueldev11) - Software Developer Backend & AI",
+    "publisher": {
+      "@id": "https://migueldev11.com/#person"
+    },
+    "inLanguage": "es-EC"
   }
   </script>
 </head>
@@ -171,18 +222,18 @@
       <div class="loader-logo">
         <span style="color: white; font-size: 32px; font-weight: 700; letter-spacing: -1px;">EM</span>
       </div>
-      
+
       <!-- Texto de carga -->
       <h2 class="loader-text">Eduardo Miguel Muzo</h2>
       <p class="loader-subtitle">Full Stack Developer</p>
-      
+
       <!-- Barra de progreso animada -->
       <div class="loader-progress">
         <div class="loader-bar"></div>
       </div>
     </div>
   </app-root>
-  
+
   <!-- Performance monitoring -->
   <script>
     // Simple performance monitoring
