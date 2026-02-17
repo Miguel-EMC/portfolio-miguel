@@ -46,7 +46,7 @@
           <button class="btn-secondary-fluid" (click)="scrollToSection('portafolio')">
             <span>{{ 'home.hero.actions.projects' | translate }}</span>
           </button>
-          <a href="/assets/documents/CV_MuzoMiguel.pdf" target="_blank" class="btn-outline-fluid">
+          <a [href]="getCvUrl()" target="_blank" class="btn-outline-fluid" download>
             <span>{{ 'home.hero.actions.downloadCV' | translate }}</span>
             <i class="bi bi-download"></i>
           </a>

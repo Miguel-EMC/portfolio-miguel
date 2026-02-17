@@ -472,6 +472,15 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     return techMap[index] || [];
   }
 
+  // Get CV URL based on current language
+  getCvUrl(): string {
+    const currentLang = this.translate.currentLang || 'es';
+    if (currentLang === 'en') {
+      return '/assets/documents/CV_MuzoMiguel_english.pdf';
+    }
+    return '/assets/documents/CV_MuzoMiguel.pdf';
+  }
+
   onSubmit(event: Event) {
     // Solo ejecutar en el navegador, no en SSR
     if (!isPlatformBrowser(this.platformId)) {
