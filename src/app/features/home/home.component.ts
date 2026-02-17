@@ -159,16 +159,16 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   activeCard = 'code';
 
   // Top skills for about section
-  topSkills = ['Angular', 'TypeScript', 'Node.js', 'Python', 'PostgreSQL'];
+  topSkills = ['Python', 'FastAPI', 'LangGraph', 'AWS', 'Flutter', 'Angular'];
 
   // Main technologies for compact view with details
   mainTechs = [
-    { name: 'Angular', level: 'Experto', years: '3+' },
-    { name: 'TypeScript', level: 'Experto', years: '3+' },
-    { name: 'Node.js', level: 'Avanzado', years: '2+' },
-    { name: 'Python', level: 'Avanzado', years: '2+' },
-    { name: 'PostgreSQL', level: 'Avanzado', years: '2+' },
-    { name: 'Docker', level: 'Intermedio', years: '1+' }
+    { name: 'Python', level: 'Experto', years: '3+' },
+    { name: 'FastAPI', level: 'Avanzado', years: '2+' },
+    { name: 'LangGraph', level: 'Avanzado', years: '1+' },
+    { name: 'AWS', level: 'Avanzado', years: '2+' },
+    { name: 'Flutter', level: 'Avanzado', years: '2+' },
+    { name: 'Angular', level: 'Avanzado', years: '3+' }
   ];
 
   // Use skillAreas from data file instead of duplicating
@@ -429,20 +429,30 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   // Método para obtener iconos de tecnologías
   getTechIcon(tech: string): string {
     const icons: { [key: string]: string } = {
+      'Python': 'bi-filetype-py',
+      'FastAPI': 'bi-lightning',
+      'Django': 'bi-file-code',
+      'NestJS': 'bi-server',
+      'LangGraph': 'bi-diagram-3',
+      'LangChain': 'bi-link-45deg',
+      'AWS Bedrock': 'bi-robot',
+      'RAG': 'bi-cpu',
+      'SQL Agents': 'bi-database-gear',
+      'AWS Lambdas': 'bi-cloud',
+      'Terraform': 'bi-bricks',
+      'Docker': 'bi-box-seam',
       'Angular': 'bi-triangle',
       'React': 'bi-atom',
-      'Vue.js': 'bi-lightning',
       'TypeScript': 'bi-braces',
       'JavaScript': 'bi-braces',
-      'Node.js': 'bi-server',
-      'Python': 'bi-filetype-py',
-      'PostgreSQL': 'bi-database',
-      'Docker': 'bi-box-seam',
-      'Laravel': 'bi-boxes',
       'Flutter': 'bi-phone',
+      'React Native': 'bi-phone-landscape',
+      'PostgreSQL': 'bi-database',
+      'SQL Server': 'bi-database-fill',
+      'MySQL': 'bi-database',
       'Firebase': 'bi-fire',
-      'MySQL': 'bi-database-fill',
-      'MongoDB': 'bi-database-down'
+      'Prisma': 'bi-boxes',
+      'Laravel': 'bi-boxes'
     };
     return icons[tech] || 'bi-code-slash';
   }
@@ -455,9 +465,9 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   // Method to get technologies for specific experience
   getTechForExperience(index: number): string[] {
     const techMap = [
-      ['Angular', 'TypeScript', 'Node.js', 'Docker', 'PostgreSQL'],
-      ['Laravel', 'Vue.js', 'Python', 'Django', 'MySQL'],
-      ['Angular', 'NestJS', 'PostgreSQL', 'HTML5', 'CSS3']
+      ['Python', 'FastAPI', 'LangGraph', 'AWS', 'Flutter', 'NestJS', 'Angular'],
+      ['Python', 'Django', 'React Native', 'PostgreSQL'],
+      ['Laravel', 'Angular', 'PostgreSQL', 'PHP']
     ];
     return techMap[index] || [];
   }

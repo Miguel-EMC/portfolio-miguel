@@ -11,7 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class AboutMeComponent implements OnInit {
   // Top skills for about section
-  topSkills = ['Angular', 'TypeScript', 'Node.js', 'Python', 'PostgreSQL'];
+  topSkills = ['Python', 'FastAPI', 'LangGraph', 'AWS', 'Flutter', 'Angular'];
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 

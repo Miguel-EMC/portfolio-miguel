@@ -38,51 +38,48 @@ export class CurriculumComponent implements OnInit {
 
   techStack: TechCategory[] = [
     {
+      name: 'Backend & AI Engineering',
+      icon: 'bi bi-server',
+      technologies: [
+        { name: 'Python', level: 90 },
+        { name: 'FastAPI', level: 85 },
+        { name: 'Django', level: 80 },
+        { name: 'NestJS', level: 80 },
+        { name: 'Laravel/Lumen', level: 75 },
+        { name: 'Prisma', level: 75 }
+      ]
+    },
+    {
+      name: 'Artificial Intelligence',
+      icon: 'bi bi-robot',
+      technologies: [
+        { name: 'LangGraph', level: 85 },
+        { name: 'LangChain', level: 80 },
+        { name: 'AWS Bedrock', level: 75 },
+        { name: 'RAG', level: 75 },
+        { name: 'SQL Agents', level: 80 }
+      ]
+    },
+    {
+      name: 'Infrastructure & Cloud',
+      icon: 'bi bi-cloud',
+      technologies: [
+        { name: 'AWS Lambdas', level: 80 },
+        { name: 'Terraform', level: 75 },
+        { name: 'Docker', level: 80 },
+        { name: 'CI/CD', level: 80 },
+        { name: 'CloudWatch', level: 70 },
+        { name: 'Google Cloud', level: 65 }
+      ]
+    },
+    {
       name: 'Frontend Development',
       icon: 'bi bi-palette',
       technologies: [
-        { name: 'Angular', level: 95 },
-        { name: 'React', level: 85 },
-        { name: 'Vue.js', level: 80 },
+        { name: 'Angular', level: 85 },
+        { name: 'React', level: 75 },
         { name: 'TypeScript', level: 90 },
-        { name: 'JavaScript', level: 95 },
-        { name: 'HTML5/CSS3', level: 95 }
-      ]
-    },
-    {
-      name: 'Backend Development',
-      icon: 'bi bi-server',
-      technologies: [
-        { name: 'Node.js', level: 90 },
-        { name: 'Python', level: 85 },
-        { name: 'Django', level: 80 },
-        { name: 'Laravel', level: 85 },
-        { name: 'PHP', level: 80 },
-        { name: 'Express.js', level: 85 }
-      ]
-    },
-    {
-      name: 'Bases de Datos',
-      icon: 'bi bi-database',
-      technologies: [
-        { name: 'PostgreSQL', level: 90 },
-        { name: 'MySQL', level: 85 },
-        { name: 'MongoDB', level: 80 },
-        { name: 'Firebase', level: 85 },
-        { name: 'SQL Server', level: 75 },
-        { name: 'Redis', level: 70 }
-      ]
-    },
-    {
-      name: 'DevOps & Cloud',
-      icon: 'bi bi-cloud',
-      technologies: [
-        { name: 'Docker', level: 85 },
-        { name: 'AWS', level: 75 },
-        { name: 'Git', level: 95 },
-        { name: 'Linux', level: 80 },
-        { name: 'Nginx', level: 75 },
-        { name: 'Jenkins', level: 70 }
+        { name: 'JavaScript', level: 90 }
       ]
     },
     {
@@ -90,39 +87,35 @@ export class CurriculumComponent implements OnInit {
       icon: 'bi bi-phone',
       technologies: [
         { name: 'Flutter', level: 85 },
-        { name: 'Dart', level: 85 },
-        { name: 'React Native', level: 75 },
-        { name: 'PWA', level: 80 }
+        { name: 'React Native', level: 70 },
+        { name: 'Firebase', level: 75 }
       ]
     },
     {
-      name: 'Herramientas & Metodologías',
-      icon: 'bi bi-tools',
+      name: 'Bases de Datos',
+      icon: 'bi bi-database',
       technologies: [
-        { name: 'Scrum/Agile', level: 90 },
-        { name: 'Figma', level: 85 },
-        { name: 'Jira', level: 80 },
-        { name: 'Postman', level: 90 },
-        { name: 'VS Code', level: 95 },
-        { name: 'Clean Code', level: 85 }
+        { name: 'PostgreSQL', level: 85 },
+        { name: 'SQL Server', level: 75 },
+        { name: 'MySQL', level: 80 }
       ]
     }
   ];
 
   // Simplified tech skills for the compact section
   techSkills: TechSkill[] = [
-    { name: 'Angular', icon: 'bi bi-triangle', level: 95 },
-    { name: 'React', icon: 'bi bi-atom', level: 85 },
-    { name: 'Node.js', icon: 'bi bi-server', level: 90 },
-    { name: 'Python', icon: 'bi bi-filetype-py', level: 85 },
+    { name: 'Python', icon: 'bi bi-filetype-py', level: 90 },
+    { name: 'FastAPI', icon: 'bi bi-lightning', level: 85 },
+    { name: 'LangGraph', icon: 'bi bi-diagram-3', level: 85 },
+    { name: 'AWS Bedrock', icon: 'bi bi-robot', level: 75 },
     { name: 'TypeScript', icon: 'bi bi-braces', level: 90 },
-    { name: 'PostgreSQL', icon: 'bi bi-database', level: 90 },
-    { name: 'Docker', icon: 'bi bi-box-seam', level: 85 },
+    { name: 'Angular', icon: 'bi bi-triangle', level: 85 },
     { name: 'Flutter', icon: 'bi bi-phone', level: 85 },
-    { name: 'Laravel', icon: 'bi bi-boxes', level: 85 },
-    { name: 'MongoDB', icon: 'bi bi-database-down', level: 80 },
-    { name: 'Vue.js', icon: 'bi bi-lightning', level: 80 },
-    { name: 'AWS', icon: 'bi bi-cloud', level: 75 }
+    { name: 'NestJS', icon: 'bi bi-server', level: 80 },
+    { name: 'PostgreSQL', icon: 'bi bi-database', level: 85 },
+    { name: 'Docker', icon: 'bi bi-box-seam', level: 80 },
+    { name: 'Terraform', icon: 'bi bi-cloud', level: 75 },
+    { name: 'AWS', icon: 'bi bi-cloud', level: 80 }
   ];
 
   visibleItems: boolean[] = [];
@@ -284,85 +277,85 @@ export class CurriculumComponent implements OnInit {
 
   getFrontendTechs(): TechSkill[] {
     return [
-      { name: 'Angular', icon: 'bi bi-triangle', level: 95 },
-      { name: 'React', icon: 'bi bi-atom', level: 85 },
-      { name: 'Vue.js', icon: 'bi bi-lightning', level: 80 },
-      { name: 'TypeScript', icon: 'bi bi-braces', level: 90 }
+      { name: 'Angular', icon: 'bi bi-triangle', level: 85 },
+      { name: 'React', icon: 'bi bi-atom', level: 75 },
+      { name: 'TypeScript', icon: 'bi bi-braces', level: 90 },
+      { name: 'JavaScript', icon: 'bi bi-braces', level: 90 }
     ];
   }
 
   getBackendTechs(): TechSkill[] {
     return [
-      { name: 'Node.js', icon: 'bi bi-server', level: 90 },
-      { name: 'Python', icon: 'bi bi-filetype-py', level: 85 },
-      { name: 'Laravel', icon: 'bi bi-boxes', level: 85 },
+      { name: 'Python', icon: 'bi bi-filetype-py', level: 90 },
+      { name: 'FastAPI', icon: 'bi bi-lightning', level: 85 },
+      { name: 'NestJS', icon: 'bi bi-server', level: 80 },
       { name: 'Django', icon: 'bi bi-diagram-3', level: 80 }
     ];
   }
 
   getDatabaseTechs(): TechSkill[] {
     return [
-      { name: 'PostgreSQL', icon: 'bi bi-database', level: 90 },
-      { name: 'MySQL', icon: 'bi bi-database-fill', level: 85 },
-      { name: 'MongoDB', icon: 'bi bi-database-down', level: 80 },
-      { name: 'Firebase', icon: 'bi bi-fire', level: 85 }
+      { name: 'PostgreSQL', icon: 'bi bi-database', level: 85 },
+      { name: 'SQL Server', icon: 'bi bi-database-fill', level: 75 },
+      { name: 'MySQL', icon: 'bi bi-database-down', level: 80 },
+      { name: 'Firebase', icon: 'bi bi-fire', level: 75 }
     ];
   }
 
   getDevOpsTechs(): TechSkill[] {
     return [
-      { name: 'Docker', icon: 'bi bi-box-seam', level: 85 },
-      { name: 'Git', icon: 'bi bi-git', level: 95 },
-      { name: 'AWS', icon: 'bi bi-cloud', level: 75 },
-      { name: 'Linux', icon: 'bi bi-terminal', level: 80 }
+      { name: 'AWS Lambdas', icon: 'bi bi-cloud', level: 80 },
+      { name: 'Terraform', icon: 'bi bi-cloud', level: 75 },
+      { name: 'Docker', icon: 'bi bi-box-seam', level: 80 },
+      { name: 'Linux', icon: 'bi bi-terminal', level: 85 }
     ];
   }
 
   getFeaturedTechs(): any[] {
     return [
-      { name: 'Angular', icon: 'bi bi-triangle', level: 95, category: 'Frontend' },
-      { name: 'Node.js', icon: 'bi bi-server', level: 90, category: 'Backend' },
-      { name: 'PostgreSQL', icon: 'bi bi-database', level: 90, category: 'Database' },
-      { name: 'Docker', icon: 'bi bi-box-seam', level: 85, category: 'DevOps' }
+      { name: 'Python/FastAPI', icon: 'bi bi-filetype-py', level: 90, category: 'Backend' },
+      { name: 'LangGraph', icon: 'bi bi-diagram-3', level: 85, category: 'AI' },
+      { name: 'AWS', icon: 'bi bi-cloud', level: 80, category: 'Cloud' },
+      { name: 'Flutter', icon: 'bi bi-phone', level: 85, category: 'Mobile' }
     ];
   }
 
   getTechCategories(): any[] {
     return [
       {
+        name: 'Backend & AI',
+        icon: 'bi bi-server',
+        technologies: [
+          { name: 'Python/FastAPI', level: 90 },
+          { name: 'LangGraph', level: 85 },
+          { name: 'NestJS', level: 80 }
+        ]
+      },
+      {
+        name: 'Cloud & Infra',
+        icon: 'bi bi-cloud',
+        technologies: [
+          { name: 'AWS', level: 80 },
+          { name: 'Terraform', level: 75 },
+          { name: 'Docker', level: 80 }
+        ]
+      },
+      {
         name: 'Frontend',
         icon: 'bi bi-palette',
         technologies: [
-          { name: 'React', level: 85 },
-          { name: 'Vue.js', level: 80 },
+          { name: 'Angular', level: 85 },
+          { name: 'React', level: 75 },
           { name: 'TypeScript', level: 90 }
         ]
       },
       {
-        name: 'Backend',
-        icon: 'bi bi-server',
+        name: 'Mobile',
+        icon: 'bi bi-phone',
         technologies: [
-          { name: 'Python', level: 85 },
-          { name: 'Laravel', level: 85 },
-          { name: 'Django', level: 80 }
-        ]
-      },
-      {
-        name: 'Database',
-        icon: 'bi bi-database',
-        technologies: [
-          { name: 'MySQL', level: 85 },
-          { name: 'MongoDB', level: 80 },
-          { name: 'Firebase', level: 85 }
-        ]
-      },
-      {
-        name: 'Tools',
-        icon: 'bi bi-tools',
-        technologies: [
-          { name: 'Git', level: 95 },
-          { name: 'AWS', level: 75 },
-          { name: 'Linux', level: 80 }
+          { name: 'Flutter', level: 85 },
+          { name: 'React Native', level: 70 },
+          { name: 'Firebase', level: 75 }
         ]
       }
     ];
@@ -374,34 +367,34 @@ export class CurriculumComponent implements OnInit {
 
   getPrimaryTechs(): any[] {
     return [
-      { name: 'Angular', icon: 'bi bi-triangle', level: 95 },
-      { name: 'Node.js', icon: 'bi bi-server', level: 90 },
-      { name: 'PostgreSQL', icon: 'bi bi-database', level: 90 },
+      { name: 'Python', icon: 'bi bi-filetype-py', level: 90 },
+      { name: 'FastAPI', icon: 'bi bi-lightning', level: 85 },
+      { name: 'LangGraph', icon: 'bi bi-diagram-3', level: 85 },
       { name: 'TypeScript', icon: 'bi bi-braces', level: 90 }
     ];
   }
 
   getSecondaryTechs(): any[] {
     return [
-      { name: 'React', icon: 'bi bi-atom', level: 85 },
-      { name: 'Vue.js', icon: 'bi bi-lightning', level: 80 },
-      { name: 'Python', icon: 'bi bi-filetype-py', level: 85 },
-      { name: 'Laravel', icon: 'bi bi-boxes', level: 85 },
+      { name: 'Angular', icon: 'bi bi-triangle', level: 85 },
+      { name: 'React', icon: 'bi bi-atom', level: 75 },
+      { name: 'NestJS', icon: 'bi bi-server', level: 80 },
       { name: 'Django', icon: 'bi bi-diagram-3', level: 80 },
-      { name: 'MySQL', icon: 'bi bi-database-fill', level: 85 },
-      { name: 'MongoDB', icon: 'bi bi-database-down', level: 80 },
-      { name: 'Firebase', icon: 'bi bi-fire', level: 85 }
+      { name: 'Flutter', icon: 'bi bi-phone', level: 85 },
+      { name: 'AWS Bedrock', icon: 'bi bi-robot', level: 75 },
+      { name: 'Prisma', icon: 'bi bi-boxes', level: 75 },
+      { name: 'PostgreSQL', icon: 'bi bi-database', level: 85 }
     ];
   }
 
   getToolsTechs(): any[] {
     return [
-      { name: 'Docker', icon: 'bi bi-box-seam', level: 85 },
-      { name: 'Git', icon: 'bi bi-git', level: 95 },
-      { name: 'AWS', icon: 'bi bi-cloud', level: 75 },
-      { name: 'Linux', icon: 'bi bi-terminal', level: 80 },
-      { name: 'Figma', icon: 'bi bi-pencil-square', level: 85 },
-      { name: 'Postman', icon: 'bi bi-send', level: 90 }
+      { name: 'Docker', icon: 'bi bi-box-seam', level: 80 },
+      { name: 'Terraform', icon: 'bi bi-cloud', level: 75 },
+      { name: 'CI/CD', icon: 'bi bi-arrow-repeat', level: 80 },
+      { name: 'CloudWatch', icon: 'bi bi-graph-up', level: 70 },
+      { name: 'Linux', icon: 'bi bi-terminal', level: 85 },
+      { name: 'Git', icon: 'bi bi-git', level: 90 }
     ];
   }
 
@@ -417,54 +410,50 @@ export class CurriculumComponent implements OnInit {
   getSkillCategories(): any[] {
     return [
       {
-        name: 'Software Engineering',
+        name: 'Backend & AI Engineering',
         icon: 'bi bi-gear-fill',
         skills: [
-          { name: 'Clean Code', level: 85 },
-          { name: 'Design Patterns', level: 80 },
-          { name: 'Scrum/Agile', level: 90 },
-          { name: 'Git', level: 95 },
-          { name: 'Testing', level: 80 },
-          { name: 'API Design', level: 85 }
+          { name: 'Python', level: 90 },
+          { name: 'FastAPI', level: 85 },
+          { name: 'Django', level: 80 },
+          { name: 'NestJS', level: 80 },
+          { name: 'LangGraph', level: 85 },
+          { name: 'AWS Bedrock', level: 75 }
         ]
       },
       {
         name: 'Programming Languages',
         icon: 'bi bi-code-slash',
         skills: [
-          { name: 'JavaScript', level: 95 },
+          { name: 'Python', level: 90 },
           { name: 'TypeScript', level: 90 },
-          { name: 'Python', level: 85 },
-          { name: 'PHP', level: 80 },
-          { name: 'Dart', level: 85 },
+          { name: 'JavaScript', level: 90 },
+          { name: 'PHP', level: 75 },
+          { name: 'Dart', level: 75 },
           { name: 'SQL', level: 85 }
         ]
       },
       {
-        name: 'Frameworks',
-        icon: 'bi bi-layers',
+        name: 'Infrastructure & Cloud',
+        icon: 'bi bi-cloud',
         skills: [
-          { name: 'Angular', level: 95 },
-          { name: 'React', level: 85 },
-          { name: 'Vue.js', level: 80 },
-          { name: 'Django', level: 80 },
-          { name: 'Laravel', level: 85 },
-          { name: 'Flutter', level: 85 },
-          { name: 'Express.js', level: 85 }
+          { name: 'AWS Lambdas', level: 80 },
+          { name: 'S3', level: 80 },
+          { name: 'Terraform', level: 75 },
+          { name: 'Docker', level: 80 },
+          { name: 'CI/CD', level: 80 },
+          { name: 'CloudWatch', level: 70 }
         ]
       },
       {
-        name: 'Technologies',
-        icon: 'bi bi-stack',
+        name: 'Frontend & Mobile',
+        icon: 'bi bi-layers',
         skills: [
-          { name: 'Node.js', level: 90 },
-          { name: 'PostgreSQL', level: 90 },
-          { name: 'MySQL', level: 85 },
-          { name: 'MongoDB', level: 80 },
-          { name: 'Docker', level: 85 },
-          { name: 'AWS', level: 75 },
-          { name: 'Firebase', level: 85 },
-          { name: 'Redis', level: 70 }
+          { name: 'Angular', level: 85 },
+          { name: 'React', level: 75 },
+          { name: 'Flutter', level: 85 },
+          { name: 'React Native', level: 70 },
+          { name: 'Firebase', level: 75 }
         ]
       }
     ];
@@ -472,10 +461,10 @@ export class CurriculumComponent implements OnInit {
 
   getCategoryOverview(): any[] {
     return [
-      { name: 'Software Engineering', icon: 'bi bi-gear-fill', level: 86 },
-      { name: 'Programming Languages', icon: 'bi bi-code-slash', level: 88 },
-      { name: 'Frameworks', icon: 'bi bi-layers', level: 84 },
-      { name: 'Technologies', icon: 'bi bi-stack', level: 85 }
+      { name: 'Backend & AI Engineering', icon: 'bi bi-gear-fill', level: 85 },
+      { name: 'Programming Languages', icon: 'bi bi-code-slash', level: 87 },
+      { name: 'Infrastructure & Cloud', icon: 'bi bi-cloud', level: 78 },
+      { name: 'Frontend & Mobile', icon: 'bi bi-layers', level: 80 }
     ];
   }
 }

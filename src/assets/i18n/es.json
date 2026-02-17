@@ -12,7 +12,7 @@
       "greeting": "",
       "name": "Eduardo Miguel",
       "surname": "Muzo",
-      "description": "Ingeniero de Software enfocado en Backend con experiencia en la construcción de arquitecturas escalables utilizando Python y TypeScript. Especializado en la integración de Inteligencia Artificial en procesos de negocio mediante LLMs, LangChain, LangGraph y RAG. Competente en el diseño de APIs (FastAPI/Django/NestJS) y desarrollo de aplicaciones multiplataforma (Flutter) y web (Angular). Busco aportar soluciones de alto impacto técnico como AI Backend Engineer.",
+      "description": "Ingeniero de Software enfocado en el desarrollo de arquitecturas de Backend y soluciones de Inteligencia Artificial. Experiencia en la integración de modelos de lenguaje (LLMs) mediante agentes para consultas SQL utilizando LangGraph y AWS Bedrock. Especialista en la construcción de servicios escalables sobre AWS (Lambdas, S3) y la creación de dashboards técnicos, conectando eficientemente la lógica de servidor con aplicaciones web y móviles.",
       "stats": {
         "years": "Años",
         "projects": "Proyectos",
@@ -157,35 +157,34 @@
   },
   "experiences": {
     "fullstack-lateral": {
-      "title": "Full Stack Developer",
-      "subtitle": "Lateral Business Thinking | Innovate Empresarial Solutions",
+      "title": "Software Engineer | Backend & AI",
+      "subtitle": "Lateral Business Thinking",
       "date": "Jul 2024 - Actualidad",
       "tasks": [
-        "Arquitectura y desarrollo del aplicativo móvil Münster Mind (Flutter)",
-        "Diseño e implementación de un Agente de IA autónomo con LangGraph y FastAPI para automatización de consultas complejas",
-        "Integración de servicios Backend/Frontend mediante APIs RESTful en la plataforma Münster Mind",
-        "Tech Stack: Python, FastAPI, LangChain, Flutter, Docker, Postgres, NestJS, Angular, AWS"
+        "Lideré el desarrollo integral de un Agente de IA (Text-to-SQL) utilizando LangGraph y AWS Bedrock, integrando un ecosistema técnico con FastAPI y React",
+        "Desarrollé íntegramente el aplicativo móvil para Android e iOS utilizando Flutter, liderando su arquitectura y el ciclo completo de publicación en Play Store y App Store",
+        "Participé en el desarrollo y mantenimiento del backend serverless (AWS Lambdas, NestJS, Prisma) que sirve a la app móvil en Flutter y web en Angular",
+        "Contribuí al despliegue de infraestructura mediante Terraform (Lambdas, S3) e implementé procesos de CI/CD y monitoreo con CloudWatch y Google Cloud"
       ]
     },
     "billusos-dev": {
-      "title": "Software Developer",
+      "title": "Backend Developer",
       "subtitle": "Billusos",
       "date": "Dic 2023 - Nov 2024",
       "tasks": [
-        "Desarrollo de Backend utilizando Python/Django",
-        "Desarrollo y mantenimiento de aplicación móvil con React Native",
-        "Optimización de la lógica de negocio y estructura de base de datos",
-        "Stack: Python, Django, React Native, PostgreSQL, Git, Jira"
+        "Desarrollé y optimicé servicios de backend para la generación de reportes y dashboards financieros utilizando Python y Django",
+        "Desarrollé y mantuve funcionalidades en el aplicativo móvil utilizando React Native, asegurando una integración fluida con los servicios del servidor",
+        "Gestioné la persistencia de datos y la optimización de la lógica de negocio sobre PostgreSQL"
       ]
     },
     "junior-fullstack": {
-      "title": "Full Stack Developer",
-      "subtitle": "Centro Ecuatoriano de Eficiencia de Recursos",
+      "title": "Software Engineer",
+      "subtitle": "Centro Ecuatoriano de Eficiencia de Recursos (CEER)",
       "date": "Feb 2023 - Jul 2023",
       "tasks": [
-        "Desarrollo full-stack de la plataforma CONAFIPS SARAS, asegurando el cumplimiento de lógica de negocio financiera",
-        "Automatización de procesos de carga de datos mediante scripts SQL y procedimientos almacenados",
-        "Tech Stack: JavaScript, SQL Server, HTML/CSS, PHP, Laravel"
+        "Desarrollé reportes dinámicos y dashboards interactivos mediante consultas optimizadas a la base de datos PostgreSQL para la plataforma CONAFIPS SARAS",
+        "Implementé funcionalidades tanto en Backend (Laravel/Lumen) como en Frontend (Angular), asegurando la visualización correcta de métricas clave",
+        "Participé en la integración de flujos de datos para el cumplimiento de lógica de negocio financiera"
       ]
     }
   },
@@ -234,29 +233,33 @@
     "viewLess": "Ver Menos"
   },
   "skillAreas": {
+    "backend": {
+      "title": "Backend & AI Engineering",
+      "description": "APIs robustas, arquitecturas escalables y soluciones de IA"
+    },
+    "ai": {
+      "title": "Inteligencia Artificial",
+      "description": "Agentes de IA, LLMs, RAG y procesamiento de lenguaje natural"
+    },
+    "devops": {
+      "title": "Infrastructure & Cloud",
+      "description": "AWS, Terraform, CI/CD y administración de sistemas"
+    },
     "frontend": {
       "title": "Frontend",
       "description": "Interfaces modernas y experiencias de usuario excepcionales"
     },
-    "backend": {
-      "title": "Backend",
-      "description": "APIs robustas y arquitecturas escalables"
-    },
     "mobile": {
       "title": "Mobile",
-      "description": "Aplicaciones móviles multiplataforma innovadoras"
-    },
-    "devops": {
-      "title": "Redes & DevOps",
-      "description": "Infraestructura cloud y administración de sistemas"
-    },
-    "languages": {
-      "title": "Lenguajes de Programación",
-      "description": "Base sólida en múltiples lenguajes para distintos entornos"
+      "description": "Aplicaciones móviles multiplataforma para Android e iOS"
     },
     "databases": {
       "title": "Bases de Datos",
-      "description": "Almacenamiento y gestión eficiente de datos"
+      "description": "PostgreSQL, SQL Server, MySQL y modelado de datos"
+    },
+    "languages": {
+      "title": "Lenguajes de Programación",
+      "description": "Python, TypeScript, JavaScript, PHP y Dart"
     }
   },
   "footer": {

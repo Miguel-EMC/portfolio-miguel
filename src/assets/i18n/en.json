@@ -12,7 +12,7 @@
       "greeting": "",
       "name": "Eduardo Miguel",
       "surname": "Muzo",
-      "description": "Software Engineer focused on Backend development with experience building scalable architectures using Python and TypeScript. Specialized in integrating Artificial Intelligence into business processes via LLMs, LangChain, LangGraph, and RAG. Proficient in API design (FastAPI/Django/NestJS) and multi-platform application development (Flutter and Angular). Seeking to provide high-impact technical solutions as an AI Backend Engineer.",
+      "description": "Software Engineer focused on Backend architecture development and Artificial Intelligence solutions. Experience integrating language models (LLMs) through agents for SQL queries using LangGraph and AWS Bedrock. Specialist in building scalable services on AWS (Lambdas, S3) and creating technical dashboards, efficiently connecting server logic with web and mobile applications.",
       "stats": {
         "years": "Years",
         "projects": "Projects",
@@ -157,35 +157,34 @@
   },
   "experiences": {
     "fullstack-lateral": {
-      "title": "Full Stack Developer",
-      "subtitle": "Lateral Business Thinking | Innovate Empresarial Solutions",
+      "title": "Software Engineer | Backend & AI",
+      "subtitle": "Lateral Business Thinking",
       "date": "Jul 2024 - Present",
       "tasks": [
-        "Architecture and development of the Münster Mind mobile application using Flutter",
-        "Designed and implemented an autonomous AI Agent using LangGraph and FastAPI to automate complex query processes",
-        "Integration of Backend/Frontend services via RESTful APIs for the Münster Mind platform",
-        "Tech Stack: Python, FastAPI, LangChain, Flutter, Docker, Postgres, NestJS, Angular, AWS"
+        "Led the full development of an AI Agent (Text-to-SQL) using LangGraph and AWS Bedrock, integrating a technical ecosystem with FastAPI and React",
+        "Fully developed the mobile application for Android and iOS using Flutter, leading its architecture and the complete publication cycle on Play Store and App Store",
+        "Participated in the development and maintenance of the serverless backend (AWS Lambdas, NestJS, Prisma) serving the Flutter mobile app and Angular web platform",
+        "Contributed to infrastructure deployment using Terraform (Lambdas, S3) and implemented CI/CD processes and monitoring with CloudWatch and Google Cloud"
       ]
     },
     "billusos-dev": {
-      "title": "Software Developer",
+      "title": "Backend Developer",
       "subtitle": "Billusos",
       "date": "Dec 2023 - Nov 2024",
       "tasks": [
-        "Backend development using Python and Django for scalable web services",
-        "Development and maintenance of mobile applications using React Native",
-        "Optimization of business logic and database structures to improve performance",
-        "Tech Stack: Python, Django, React Native, PostgreSQL, Git, Jira"
+        "Developed and optimized backend services for generating financial reports and dashboards using Python and Django",
+        "Developed and maintained mobile app features using React Native, ensuring seamless integration with server services",
+        "Managed data persistence and business logic optimization on PostgreSQL"
       ]
     },
     "junior-fullstack": {
-      "title": "Full Stack Developer",
-      "subtitle": "Centro Ecuatoriano de Eficiencia de Recursos",
+      "title": "Software Engineer",
+      "subtitle": "Centro Ecuatoriano de Eficiencia de Recursos (CEER)",
       "date": "Feb 2023 - Jul 2023",
       "tasks": [
-        "Full-stack development of the CONAFIPS SARAS platform, ensuring compliance with financial business logic",
-        "Automation of data loading processes using SQL scripts and stored procedures",
-        "Tech Stack: JavaScript, SQL Server, HTML/CSS, PHP, Laravel"
+        "Developed dynamic reports and interactive dashboards through optimized PostgreSQL database queries for the CONAFIPS SARAS platform",
+        "Implemented features in both Backend (Laravel/Lumen) and Frontend (Angular), ensuring correct visualization of key metrics",
+        "Participated in data flow integration for financial business logic compliance"
       ]
     }
   },
@@ -234,29 +233,33 @@
     "viewLess": "View Less"
   },
   "skillAreas": {
+    "backend": {
+      "title": "Backend & AI Engineering",
+      "description": "Robust APIs, scalable architectures and AI solutions"
+    },
+    "ai": {
+      "title": "Artificial Intelligence",
+      "description": "AI Agents, LLMs, RAG and natural language processing"
+    },
+    "devops": {
+      "title": "Infrastructure & Cloud",
+      "description": "AWS, Terraform, CI/CD and systems administration"
+    },
     "frontend": {
       "title": "Frontend",
       "description": "Modern interfaces and exceptional user experiences"
     },
-    "backend": {
-      "title": "Backend",
-      "description": "Robust APIs and scalable architectures"
-    },
     "mobile": {
       "title": "Mobile",
-      "description": "Innovative cross-platform mobile applications"
-    },
-    "devops": {
-      "title": "Networks & DevOps",
-      "description": "Cloud infrastructure and systems administration"
-    },
-    "languages": {
-      "title": "Programming Languages",
-      "description": "Solid foundation in multiple languages for different environments"
+      "description": "Cross-platform mobile applications for Android and iOS"
     },
     "databases": {
       "title": "Databases",
-      "description": "Efficient data storage and management"
+      "description": "PostgreSQL, SQL Server, MySQL and data modeling"
+    },
+    "languages": {
+      "title": "Programming Languages",
+      "description": "Python, TypeScript, JavaScript, PHP and Dart"
     }
   },
   "footer": {

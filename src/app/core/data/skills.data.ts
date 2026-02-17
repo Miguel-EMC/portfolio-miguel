@@ -13,81 +13,96 @@ export interface SkillArea {
 
 export const skillAreas: SkillArea[] = [
   {
-    id: 'frontend',
-    emoji: '🎨',
-    color: '#A29BFE',
-    technologies: ['Angular', 'React', 'Vue.js', 'HTML5/CSS3', 'Tailwind CSS', 'Bootstrap'],
-    detailedTechs: [
-      { name: 'Angular', mastery: 7.5 },
-      { name: 'HTML5/CSS3', mastery: 7 },
-      { name: 'Tailwind CSS', mastery: 6 },
-      { name: 'React', mastery: 6 },
-      { name: 'Vue.js', mastery: 4 },
-      { name: 'Bootstrap', mastery: 7 }
-    ]
-  },
-  {
     id: 'backend',
     emoji: '⚙️',
     color: '#4ECDC4',
-    technologies: ['Node.js', 'Laravel', 'Django', 'NestJS', 'Express.js'],
+    technologies: ['Python', 'FastAPI', 'Django', 'Node.js', 'NestJS', 'Express', 'Laravel', 'Lumen', 'Prisma'],
     detailedTechs: [
-      { name: 'Django', mastery: 7 },
-      { name: 'NestJS', mastery: 7 },
-      { name: 'Laravel', mastery: 6 },
-      { name: 'Node.js', mastery: 6 },
-      { name: 'Express.js', mastery: 4 }
+      { name: 'FastAPI', mastery: 8 },
+      { name: 'Django', mastery: 7.5 },
+      { name: 'NestJS', mastery: 7.5 },
+      { name: 'Laravel', mastery: 6.5 },
+      { name: 'Lumen', mastery: 6 },
+      { name: 'Express', mastery: 6 },
+      { name: 'Prisma', mastery: 7 }
+    ]
+  },
+  {
+    id: 'ai',
+    emoji: '🤖',
+    color: '#9B59B6',
+    technologies: ['LangGraph', 'LangChain', 'RAG', 'AWS Bedrock', 'SQL Agents', 'Text-to-SQL'],
+    detailedTechs: [
+      { name: 'LangGraph', mastery: 8 },
+      { name: 'LangChain', mastery: 7.5 },
+      { name: 'AWS Bedrock', mastery: 7 },
+      { name: 'RAG', mastery: 7 },
+      { name: 'SQL Agents', mastery: 7.5 }
+    ]
+  },
+  {
+    id: 'devops',
+    emoji: '☁️',
+    color: '#74B9FF',
+    technologies: ['AWS Lambdas', 'S3', 'CloudWatch', 'Terraform', 'Docker', 'CI/CD', 'Google Cloud', 'Linux'],
+    detailedTechs: [
+      { name: 'AWS Lambdas', mastery: 7 },
+      { name: 'S3', mastery: 7 },
+      { name: 'CloudWatch', mastery: 6 },
+      { name: 'Terraform', mastery: 6.5 },
+      { name: 'Docker', mastery: 7 },
+      { name: 'CI/CD', mastery: 7 },
+      { name: 'Linux', mastery: 8 },
+      { name: 'Google Cloud', mastery: 5 }
+    ]
+  },
+  {
+    id: 'frontend',
+    emoji: '🎨',
+    color: '#A29BFE',
+    technologies: ['Angular', 'React', 'TypeScript', 'JavaScript', 'HTML5/CSS3'],
+    detailedTechs: [
+      { name: 'Angular', mastery: 7.5 },
+      { name: 'React', mastery: 6.5 },
+      { name: 'TypeScript', mastery: 8 },
+      { name: 'JavaScript', mastery: 8 },
+      { name: 'HTML5/CSS3', mastery: 7 }
     ]
   },
   {
     id: 'mobile',
     emoji: '📱',
     color: '#45B7D1',
-    technologies: ['Flutter', 'React Native', 'PWA', 'Firebase'],
+    technologies: ['Flutter', 'React Native', 'Firebase', 'Android', 'iOS'],
     detailedTechs: [
-      { name: 'Flutter', mastery: 6 },
-      { name: 'React Native', mastery: 4 },
-      { name: 'Firebase', mastery: 6 }
-    ]
-  },
-  {
-    id: 'devops',
-    emoji: '🌐',
-    color: '#74B9FF',
-    technologies: ['Docker', 'AWS', 'Linux', 'Kubernetes', 'TerraForm', 'Nginx', 'Git'],
-    detailedTechs: [
-      { name: 'Linux', mastery: 8 },
-      { name: 'Git', mastery: 8 },
-      { name: 'Docker', mastery: 6 },
-      { name: 'AWS', mastery: 4 },
-      { name: 'TerraForm', mastery: 4 },
-      { name: 'Nginx', mastery: 3 }
-    ]
-  },
-  {
-    id: 'languages',
-    emoji: '💻',
-    color: '#1ad1ffff',
-    technologies: ['JavaScript', 'Python', 'TypeScript', 'PHP'],
-    detailedTechs: [
-      { name: 'Python', mastery: 8 },
-      { name: 'JavaScript', mastery: 8 },
-      { name: 'TypeScript', mastery: 7.5 },
-      { name: 'PHP', mastery: 6.5 },
-      { name: 'Dart', mastery: 6 },
-      { name: 'Java', mastery: 3.5 },
-      { name: 'C#', mastery: 2 },
-      { name: 'C++/C', mastery: 3 }
+      { name: 'Flutter', mastery: 7.5 },
+      { name: 'React Native', mastery: 5 },
+      { name: 'Firebase', mastery: 6.5 }
     ]
   },
   {
     id: 'databases',
     emoji: '🗄️',
     color: '#836c42ff',
-    technologies: ['PostgreSQL', 'MySQL'],
+    technologies: ['PostgreSQL', 'SQL Server', 'MySQL', 'Modelado de datos'],
     detailedTechs: [
-      { name: 'PostgreSQL', mastery: 7 },
-      { name: 'MySQL', mastery: 7 }
+      { name: 'PostgreSQL', mastery: 8 },
+      { name: 'SQL Server', mastery: 6.5 },
+      { name: 'MySQL', mastery: 7 },
+      { name: 'Modelado de datos', mastery: 7 }
+    ]
+  },
+  {
+    id: 'languages',
+    emoji: '💻',
+    color: '#1ad1ffff',
+    technologies: ['Python', 'TypeScript', 'JavaScript', 'PHP', 'Dart'],
+    detailedTechs: [
+      { name: 'Python', mastery: 8.5 },
+      { name: 'TypeScript', mastery: 8 },
+      { name: 'JavaScript', mastery: 8 },
+      { name: 'PHP', mastery: 6.5 },
+      { name: 'Dart', mastery: 6.5 }
     ]
   }
 ];

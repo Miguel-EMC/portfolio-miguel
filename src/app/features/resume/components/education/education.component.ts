@@ -24,45 +24,45 @@ export class EducationComponent {
 
   skillsAcquired: SkillCategory[] = [
     {
-      name: 'Programación',
+      name: 'Backend & AI Engineering',
       icon: 'bi bi-code-slash',
       skills: [
-        'Python', 'JavaScript', 'TypeScript', 'Java', 'C++', 'PHP', 'Dart', 'SQL'
+        'Python', 'FastAPI', 'Django', 'NestJS', 'Express', 'Laravel', 'Lumen', 'TypeScript', 'JavaScript'
       ]
     },
     {
-      name: 'Frameworks & Librerías',
+      name: 'Inteligencia Artificial',
+      icon: 'bi bi-robot',
+      skills: [
+        'LangGraph', 'LangChain', 'RAG', 'AWS Bedrock', 'SQL Agents', 'Prisma'
+      ]
+    },
+    {
+      name: 'Frontend & Mobile',
       icon: 'bi bi-layers',
       skills: [
-        'Angular', 'React', 'Vue.js', 'Django', 'Laravel', 'Flutter', 'Node.js', 'Express.js'
+        'Angular', 'React', 'Flutter', 'React Native', 'Firebase'
       ]
     },
     {
       name: 'Bases de Datos',
       icon: 'bi bi-database',
       skills: [
-        'PostgreSQL', 'MySQL', 'MongoDB', 'Firebase', 'Redis', 'SQL Server'
+        'PostgreSQL', 'SQL Server', 'MySQL', 'Modelado de datos'
       ]
     },
     {
-      name: 'Herramientas & DevOps',
-      icon: 'bi bi-gear',
+      name: 'Infrastructure & Cloud',
+      icon: 'bi bi-cloud',
       skills: [
-        'Git', 'Docker', 'AWS', 'Linux', 'Nginx', 'Jenkins', 'Kubernetes'
+        'AWS Lambdas', 'S3', 'CloudWatch', 'Terraform', 'Docker', 'CI/CD', 'Google Cloud', 'Linux'
       ]
     },
     {
-      name: 'Metodologías',
-      icon: 'bi bi-diagram-3',
+      name: 'Idiomas',
+      icon: 'bi bi-globe',
       skills: [
-        'Scrum', 'Kanban', 'TDD', 'Clean Code', 'SOLID', 'Design Patterns'
-      ]
-    },
-    {
-      name: 'Soft Skills',
-      icon: 'bi bi-people',
-      skills: [
-        'Liderazgo', 'Trabajo en Equipo', 'Comunicación', 'Problem Solving', 'Adaptabilidad'
+        'Español (Nativo)', 'Inglés (B1/B2 Técnico)'
       ]
     }
   ];
