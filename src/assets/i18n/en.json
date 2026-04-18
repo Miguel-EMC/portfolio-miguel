@@ -5,7 +5,8 @@
     "about": "About Me",
     "resume": "Resume",
     "portfolio": "Portfolio",
-    "contact": "Contact"
+    "contact": "Contact",
+    "blog": "Blog"
   },
   "home": {
     "hero": {
@@ -265,6 +266,38 @@
   "footer": {
     "copyright": "© 2025 My Portfolio. All rights reserved."
   },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Thoughts and insights on technology, development, and software engineering",
+    "searchPlaceholder": "Search articles...",
+    "filters": {
+      "all": "All"
+    },
+    "activeFilters": "Active filters",
+    "clearAll": "Clear all",
+    "loading": "Loading posts...",
+    "loadingPost": "Loading article...",
+    "featured": "Featured Articles",
+    "featuredBadge": "Featured",
+    "latestPosts": "Latest Posts",
+    "results": "Results",
+    "relatedPosts": "Related Articles",
+    "backToBlog": "Back to Blog",
+    "popularTags": "Popular Tags",
+    "pagination": {
+      "prev": "Previous",
+      "next": "Next"
+    },
+    "empty": {
+      "title": "No articles found",
+      "description": "Try adjusting your filters or search terms",
+      "action": "Clear filters"
+    },
+    "error": {
+      "title": "Error loading article",
+      "backToBlog": "Back to Blog"
+    }
+  },
   "portfolio": {
     "header": {
       "title": "My Portfolio",
@@ -281,8 +314,24 @@
       "professional": "Professional",
       "viewProject": "View Project",
       "viewCode": "View Code",
+      "viewLive": "View Live",
       "description": "Project Description",
-      "technologies": "Technologies Used"
+      "technologies": "Technologies Used",
+      "featured": "Featured",
+      "aboutProject": "About This Project",
+      "projectInfo": "Project Info",
+      "client": "Client",
+      "role": "Role",
+      "completed": "Completed",
+      "challenges": "Challenges",
+      "solutions": "Solutions",
+      "results": "Results"
+    },
+    "loading": "Loading...",
+    "backToPortfolio": "Back to Portfolio",
+    "relatedProjects": "Related Projects",
+    "error": {
+      "title": "Project not found"
     },
     "empty": {
       "title": "No projects",

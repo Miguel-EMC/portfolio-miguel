@@ -1,7 +1,8 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideLottieOptions } from 'ngx-lottie';
-import { provideRouter, withInMemoryScrolling } from '@angular/router';
+import { provideRouter, withInMemoryScrolling, withPreloading } from '@angular/router';
 import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
+import { SelectivePreloadStrategy } from './core/strategies/selective-preload.strategy';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 
@@ -16,9 +17,14 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes, withInMemoryScrolling({
-      scrollPositionRestoration: 'top'
-    })),
+    provideRouter(
+      routes,
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'top',
+        anchorScrolling: 'enabled'
+      }),
+      withPreloading(SelectivePreloadStrategy)
+    ),
     provideHttpClient(withFetch()),
     provideAnimations(),
     provideToastr({

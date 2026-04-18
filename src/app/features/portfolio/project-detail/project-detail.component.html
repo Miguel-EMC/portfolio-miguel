@@ -1,0 +1,259 @@
+<section class="project-detail-page">
+  <!-- Loading State -->
+  @if (isLoading()) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>{{ 'portfolio.loading' | translate }}</p>
+    </div>
+  }
+
+  <!-- Error State -->
+  @if (error()) {
+    <div class="error-state">
+      <div class="error-icon">
+        <i class="bi bi-exclamation-triangle"></i>
+      </div>
+      <h2>{{ 'portfolio.error.title' | translate }}</h2>
+      <p>{{ error() }}</p>
+      <button class="btn-primary" (click)="goBack()">
+        <i class="bi bi-arrow-left"></i>
+        {{ 'portfolio.backToPortfolio' | translate }}
+      </button>
+    </div>
+  }
+
+  <!-- Project Content -->
+  @if (!isLoading() && !error() && project()) {
+    <div class="project-container">
+      <!-- Navigation -->
+      <nav class="project-nav">
+        <button class="back-btn" (click)="goBack()">
+          <i class="bi bi-arrow-left"></i>
+          {{ 'portfolio.backToPortfolio' | translate }}
+        </button>
+      </nav>
+
+      <!-- Project Header -->
+      <header class="project-header">
+        <div class="project-badges">
+          <span class="type-badge" [class]="project()!.type">
+            <i [class]="project()!.type === 'personal' ? 'bi bi-person' : 'bi bi-briefcase'"></i>
+            {{ project()!.type === 'personal' ? ('portfolio.project.personal' | translate) : ('portfolio.project.professional' | translate) }}
+          </span>
+          @if (project()!.featured) {
+            <span class="featured-badge">
+              <i class="bi bi-star-fill"></i>
+              {{ 'portfolio.project.featured' | translate }}
+            </span>
+          }
+        </div>
+        
+        <h1 class="project-title">{{ 'projects.' + project()!.id + '.title' | translate }}</h1>
+        <p class="project-description">{{ 'projects.' + project()!.id + '.description' | translate }}</p>
+
+        <!-- Quick Links -->
+        <div class="project-links">
+          @if (project()!.liveUrl) {
+            <a [href]="project()!.liveUrl" target="_blank" class="link-btn primary">
+              <i class="bi bi-box-arrow-up-right"></i>
+              {{ 'portfolio.project.viewLive' | translate }}
+            </a>
+          }
+          @if (project()!.githubUrl) {
+            <a [href]="project()!.githubUrl" target="_blank" class="link-btn secondary">
+              <i class="bi bi-github"></i>
+              {{ 'portfolio.project.viewCode' | translate }}
+            </a>
+          }
+        </div>
+      </header>
+
+      <!-- Image Gallery -->
+      <div class="project-gallery">
+        <div class="gallery-main">
+          <img 
+            [src]="project()!.images[currentImageIndex()]" 
+            [alt]="'projects.' + project()!.id + '.title' | translate"
+            class="main-image"
+          />
+          
+          @if (project()!.images.length > 1) {
+            <button class="gallery-nav prev" (click)="prevImage()">
+              <i class="bi bi-chevron-left"></i>
+            </button>
+            <button class="gallery-nav next" (click)="nextImage()">
+              <i class="bi bi-chevron-right"></i>
+            </button>
+            
+            <div class="gallery-dots">
+              @for (image of project()!.images; track $index; let i = $index) {
+                <button 
+                  class="dot"
+                  [class.active]="i === currentImageIndex()"
+                  (click)="goToImage(i)"
+                ></button>
+              }
+            </div>
+          }
+        </div>
+
+        @if (project()!.images.length > 1) {
+          <div class="gallery-thumbnails">
+            @for (image of project()!.images; track $index; let i = $index) {
+              <button 
+                class="thumbnail"
+                [class.active]="i === currentImageIndex()"
+                (click)="goToImage(i)"
+              >
+                <img [src]="image" [alt]="'Screenshot ' + (i + 1)" />
+              </button>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Project Info Grid -->
+      <div class="project-info-grid">
+        <!-- Description -->
+        <div class="info-card full-width">
+          <h2>
+            <i class="bi bi-info-circle"></i>
+            {{ 'portfolio.project.aboutProject' | translate }}
+          </h2>
+          <p class="long-description">
+            {{ 'projects.' + project()!.id + '.longDescription' | translate }}
+          </p>
+        </div>
+
+        <!-- Client & Role -->
+        @if (project()!.client || project()!.role) {
+          <div class="info-card">
+            <h2>
+              <i class="bi bi-building"></i>
+              {{ 'portfolio.project.projectInfo' | translate }}
+            </h2>
+            <dl class="info-list">
+              @if (project()!.client) {
+                <div class="info-item">
+                  <dt>{{ 'portfolio.project.client' | translate }}</dt>
+                  <dd>{{ project()!.client }}</dd>
+                </div>
+              }
+              @if (project()!.role) {
+                <div class="info-item">
+                  <dt>{{ 'portfolio.project.role' | translate }}</dt>
+                  <dd>{{ project()!.role }}</dd>
+                </div>
+              }
+              @if (project()!.completedAt) {
+                <div class="info-item">
+                  <dt>{{ 'portfolio.project.completed' | translate }}</dt>
+                  <dd>{{ project()!.completedAt }}</dd>
+                </div>
+              }
+            </dl>
+          </div>
+        }
+
+        <!-- Technologies -->
+        <div class="info-card">
+          <h2>
+            <i class="bi bi-code-slash"></i>
+            {{ 'portfolio.project.technologies' | translate }}
+          </h2>
+          <div class="tech-grid">
+            @for (tech of project()!.frameworks; track tech) {
+              <div class="tech-badge">
+                <i [class]="getTechIcon(tech)"></i>
+                <span>{{ tech }}</span>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Challenges & Solutions -->
+        @if (project()!.challenges && project()!.challenges!.length > 0) {
+          <div class="info-card">
+            <h2>
+              <i class="bi bi-lightning"></i>
+              {{ 'portfolio.project.challenges' | translate }}
+            </h2>
+            <ul class="feature-list">
+              @for (challenge of project()!.challenges; track challenge) {
+                <li>
+                  <i class="bi bi-exclamation-circle"></i>
+                  {{ challenge }}
+                </li>
+              }
+            </ul>
+          </div>
+        }
+
+        @if (project()!.solutions && project()!.solutions!.length > 0) {
+          <div class="info-card">
+            <h2>
+              <i class="bi bi-check-circle"></i>
+              {{ 'portfolio.project.solutions' | translate }}
+            </h2>
+            <ul class="feature-list solutions">
+              @for (solution of project()!.solutions; track solution) {
+                <li>
+                  <i class="bi bi-check-lg"></i>
+                  {{ solution }}
+                </li>
+              }
+            </ul>
+          </div>
+        }
+
+        <!-- Results -->
+        @if (project()!.results && project()!.results!.length > 0) {
+          <div class="info-card results full-width">
+            <h2>
+              <i class="bi bi-graph-up-arrow"></i>
+              {{ 'portfolio.project.results' | translate }}
+            </h2>
+            <div class="results-grid">
+              @for (result of project()!.results; track result) {
+                <div class="result-item">
+                  <i class="bi bi-trophy"></i>
+                  <span>{{ result }}</span>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Related Projects -->
+      @if (relatedProjects().length > 0) {
+        <section class="related-section">
+          <h2 class="section-title">
+            <i class="bi bi-collection"></i>
+            {{ 'portfolio.relatedProjects' | translate }}
+          </h2>
+          <div class="related-grid">
+            @for (related of relatedProjects(); track related.slug) {
+              <article class="related-card" [routerLink]="['/portfolio/project', related.slug]">
+                <div class="related-image">
+                  <img [src]="related.images[0]" [alt]="'projects.' + related.id + '.title' | translate" />
+                </div>
+                <div class="related-content">
+                  <span class="related-type" [class]="related.type">
+                    {{ related.type === 'personal' ? ('portfolio.project.personal' | translate) : ('portfolio.project.professional' | translate) }}
+                  </span>
+                  <h3>{{ 'projects.' + related.id + '.title' | translate }}</h3>
+                  <div class="related-tech">
+                    @for (tech of related.frameworks.slice(0, 3); track tech) {
+                      <span class="tech-tag">{{ tech }}</span>
+                    }
+                  </div>
+                </div>
+              </article>
+            }
+          </div>
+        </section>
+      }
+    </div>
+  }
+</section>

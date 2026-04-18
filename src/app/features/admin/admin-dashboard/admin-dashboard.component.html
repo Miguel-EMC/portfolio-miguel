@@ -1,0 +1,190 @@
+<div class="admin-dashboard">
+  <!-- Header -->
+  <header class="dashboard-header">
+    <div class="header-content">
+      <div class="header-left">
+        <h1>Admin Dashboard</h1>
+        <p>Manage your blog content</p>
+      </div>
+      <div class="header-actions">
+        <a routerLink="/admin/posts/new" class="btn-primary">
+          <i class="bi bi-plus-lg"></i>
+          New Post
+        </a>
+        <button class="btn-secondary" (click)="logout()">
+          <i class="bi bi-box-arrow-right"></i>
+          Logout
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="dashboard-content">
+    <!-- Stats Cards -->
+    <section class="stats-section">
+      <div class="stat-card">
+        <div class="stat-icon total">
+          <i class="bi bi-file-text"></i>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value">{{ totalPosts() }}</span>
+          <span class="stat-label">Total Posts</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon published">
+          <i class="bi bi-check-circle"></i>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value">{{ publishedPosts() }}</span>
+          <span class="stat-label">Published</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon drafts">
+          <i class="bi bi-pencil"></i>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value">{{ draftPosts() }}</span>
+          <span class="stat-label">Drafts</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon featured">
+          <i class="bi bi-star"></i>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value">{{ featuredPosts() }}</span>
+          <span class="stat-label">Featured</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="dashboard-grid">
+      <!-- Recent Posts -->
+      <section class="recent-posts card">
+        <div class="card-header">
+          <h2>
+            <i class="bi bi-clock-history"></i>
+            Recent Posts
+          </h2>
+          <a routerLink="/admin/posts" class="view-all">View All</a>
+        </div>
+        
+        @if (isLoading()) {
+          <div class="loading">
+            <div class="spinner"></div>
+          </div>
+        } @else if (recentPosts().length === 0) {
+          <div class="empty-state">
+            <i class="bi bi-journal-x"></i>
+            <p>No posts yet. Create your first post!</p>
+          </div>
+        } @else {
+          <ul class="posts-list">
+            @for (post of recentPosts(); track post.slug) {
+              <li class="post-item">
+                <div class="post-info">
+                  <h3>{{ post.title }}</h3>
+                  <div class="post-meta">
+                    <span class="date">{{ formatDate(post.publishedAt) }}</span>
+                    <span class="status" [class.published]="post.published" [class.draft]="!post.published">
+                      {{ post.published ? 'Published' : 'Draft' }}
+                    </span>
+                  </div>
+                </div>
+                <a [routerLink]="['/admin/posts/edit', post.slug]" class="edit-btn">
+                  <i class="bi bi-pencil"></i>
+                </a>
+              </li>
+            }
+          </ul>
+        }
+      </section>
+
+      <!-- Categories Overview -->
+      <section class="categories-overview card">
+        <div class="card-header">
+          <h2>
+            <i class="bi bi-folder"></i>
+            Posts by Category
+          </h2>
+        </div>
+
+        @if (categoryStats().length === 0) {
+          <div class="empty-state">
+            <i class="bi bi-folder-x"></i>
+            <p>No categories yet</p>
+          </div>
+        } @else {
+          <ul class="category-list">
+            @for (stat of categoryStats(); track stat.category) {
+              <li class="category-item">
+                <div class="category-info">
+                  <i [class]="stat.info?.icon || 'bi-tag'" [style.color]="stat.info?.color"></i>
+                  <span class="category-name">{{ stat.info?.name || stat.category }}</span>
+                </div>
+                <span class="category-count">{{ stat.count }}</span>
+              </li>
+            }
+          </ul>
+        }
+      </section>
+
+      <!-- Quick Actions -->
+      <section class="quick-actions card">
+        <div class="card-header">
+          <h2>
+            <i class="bi bi-lightning"></i>
+            Quick Actions
+          </h2>
+        </div>
+
+        <div class="actions-grid">
+          <a routerLink="/admin/posts/new" class="action-btn">
+            <i class="bi bi-plus-circle"></i>
+            <span>New Post</span>
+          </a>
+          <a routerLink="/admin/posts" class="action-btn">
+            <i class="bi bi-list-ul"></i>
+            <span>Manage Posts</span>
+          </a>
+          <a routerLink="/blog" target="_blank" class="action-btn">
+            <i class="bi bi-eye"></i>
+            <span>View Blog</span>
+          </a>
+          <a routerLink="/" class="action-btn">
+            <i class="bi bi-house"></i>
+            <span>Portfolio</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Session Info -->
+      <section class="session-info card">
+        <div class="card-header">
+          <h2>
+            <i class="bi bi-shield-check"></i>
+            Session
+          </h2>
+        </div>
+
+        @if (sessionInfo()) {
+          <div class="session-details">
+            <div class="session-item">
+              <span class="label">Logged in:</span>
+              <span class="value">{{ formatDate(sessionInfo()!.loginTime) }}</span>
+            </div>
+            <div class="session-item">
+              <span class="label">Expires:</span>
+              <span class="value">{{ formatDate(sessionInfo()!.expiresAt) }}</span>
+            </div>
+          </div>
+        }
+      </section>
+    </div>
+  </main>
+</div>

@@ -5,7 +5,8 @@
     "about": "Sobre Mí",
     "resume": "Resume",
     "portfolio": "Portafolio",
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "blog": "Blog"
   },
   "home": {
     "hero": {
@@ -265,6 +266,38 @@
   "footer": {
     "copyright": "© 2025 Mi Portafolio. Todos los derechos reservados."
   },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Reflexiones e ideas sobre tecnología, desarrollo e ingeniería de software",
+    "searchPlaceholder": "Buscar artículos...",
+    "filters": {
+      "all": "Todos"
+    },
+    "activeFilters": "Filtros activos",
+    "clearAll": "Limpiar todo",
+    "loading": "Cargando publicaciones...",
+    "loadingPost": "Cargando artículo...",
+    "featured": "Artículos Destacados",
+    "featuredBadge": "Destacado",
+    "latestPosts": "Últimas Publicaciones",
+    "results": "Resultados",
+    "relatedPosts": "Artículos Relacionados",
+    "backToBlog": "Volver al Blog",
+    "popularTags": "Etiquetas Populares",
+    "pagination": {
+      "prev": "Anterior",
+      "next": "Siguiente"
+    },
+    "empty": {
+      "title": "No se encontraron artículos",
+      "description": "Intenta ajustar tus filtros o términos de búsqueda",
+      "action": "Limpiar filtros"
+    },
+    "error": {
+      "title": "Error al cargar artículo",
+      "backToBlog": "Volver al Blog"
+    }
+  },
   "portfolio": {
     "header": {
       "title": "Mi Portafolio",
@@ -281,8 +314,24 @@
       "professional": "Profesional",
       "viewProject": "Ver Proyecto",
       "viewCode": "Ver Código",
+      "viewLive": "Ver Demo",
       "description": "Descripción del Proyecto",
-      "technologies": "Tecnologías Utilizadas"
+      "technologies": "Tecnologías Utilizadas",
+      "featured": "Destacado",
+      "aboutProject": "Acerca del Proyecto",
+      "projectInfo": "Información del Proyecto",
+      "client": "Cliente",
+      "role": "Rol",
+      "completed": "Completado",
+      "challenges": "Desafíos",
+      "solutions": "Soluciones",
+      "results": "Resultados"
+    },
+    "loading": "Cargando...",
+    "backToPortfolio": "Volver al Portafolio",
+    "relatedProjects": "Proyectos Relacionados",
+    "error": {
+      "title": "Proyecto no encontrado"
     },
     "empty": {
       "title": "No hay proyectos",

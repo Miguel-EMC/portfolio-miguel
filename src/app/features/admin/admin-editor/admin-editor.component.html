@@ -1,0 +1,193 @@
+<div class="admin-editor">
+  <!-- Header -->
+  <header class="editor-header">
+    <div class="header-content">
+      <div class="header-left">
+        <button class="back-btn" (click)="cancel()">
+          <i class="bi bi-arrow-left"></i>
+        </button>
+        <h1>{{ isEditMode() ? 'Edit Post' : 'New Post' }}</h1>
+      </div>
+      <div class="header-actions">
+        <button class="btn-secondary" (click)="togglePreview()">
+          <i [class]="showPreview() ? 'bi bi-pencil' : 'bi bi-eye'"></i>
+          {{ showPreview() ? 'Edit' : 'Preview' }}
+        </button>
+        <button class="btn-primary" (click)="savePost()" [disabled]="isSaving()">
+          @if (isSaving()) {
+            <span class="spinner"></span>
+            Saving...
+          } @else {
+            <i class="bi bi-download"></i>
+            Download MD
+          }
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="editor-content">
+    @if (isLoading()) {
+      <div class="loading-state">
+        <div class="spinner-large"></div>
+        <p>Loading post...</p>
+      </div>
+    } @else if (showPreview()) {
+      <div class="preview-mode">
+        <div class="preview-header">
+          <img [src]="form().coverImage || 'https://via.placeholder.com/800x400'" [alt]="form().title" class="preview-cover" />
+          <div class="preview-meta">
+            <span class="preview-category">{{ form().category }}</span>
+            <h1 class="preview-title">{{ form().title }}</h1>
+            <p class="preview-excerpt">{{ form().excerpt }}</p>
+          </div>
+        </div>
+        <article class="preview-content" [innerHTML]="previewContent()"></article>
+      </div>
+    } @else {
+      <div class="editor-form">
+        <div class="form-main">
+          <!-- Title -->
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input 
+              id="title"
+              type="text"
+              [ngModel]="form().title"
+              (ngModelChange)="updateField('title', $event)"
+              placeholder="Enter post title"
+              class="input-lg"
+            />
+          </div>
+
+          <!-- Slug -->
+          <div class="form-group">
+            <label for="slug">
+              Slug
+              <button type="button" class="generate-btn" (click)="generateSlug()">
+                <i class="bi bi-magic"></i>
+                Generate
+              </button>
+            </label>
+            <input 
+              id="slug"
+              type="text"
+              [ngModel]="form().slug"
+              (ngModelChange)="updateField('slug', $event)"
+              placeholder="post-url-slug"
+            />
+          </div>
+
+          <!-- Excerpt -->
+          <div class="form-group">
+            <label for="excerpt">Excerpt</label>
+            <textarea 
+              id="excerpt"
+              rows="2"
+              [ngModel]="form().excerpt"
+              (ngModelChange)="updateField('excerpt', $event)"
+              placeholder="Brief description for previews and SEO"
+            ></textarea>
+          </div>
+
+          <!-- Content -->
+          <div class="form-group">
+            <label for="content">
+              Content
+              <span class="label-hint">Markdown supported</span>
+            </label>
+            <textarea 
+              id="content"
+              rows="20"
+              [ngModel]="form().content"
+              (ngModelChange)="updateField('content', $event)"
+              placeholder="Write your post content in Markdown..."
+              class="content-editor"
+            ></textarea>
+          </div>
+        </div>
+
+        <aside class="form-sidebar">
+          <!-- Publish Settings -->
+          <div class="sidebar-card">
+            <h3>Publish Settings</h3>
+            
+            <div class="toggle-group">
+              <label class="toggle-label">
+                <input 
+                  type="checkbox"
+                  [ngModel]="form().published"
+                  (ngModelChange)="updateField('published', $event)"
+                />
+                <span class="toggle-switch"></span>
+                <span>Published</span>
+              </label>
+            </div>
+
+            <div class="toggle-group">
+              <label class="toggle-label">
+                <input 
+                  type="checkbox"
+                  [ngModel]="form().featured"
+                  (ngModelChange)="updateField('featured', $event)"
+                />
+                <span class="toggle-switch"></span>
+                <span>Featured</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Category -->
+          <div class="sidebar-card">
+            <h3>Category</h3>
+            <select 
+              [ngModel]="form().category"
+              (ngModelChange)="updateField('category', $event)"
+            >
+              @for (cat of categories; track cat.id) {
+                <option [value]="cat.id">{{ cat.name }}</option>
+              }
+            </select>
+          </div>
+
+          <!-- Tags -->
+          <div class="sidebar-card">
+            <h3>Tags</h3>
+            <input 
+              type="text"
+              [ngModel]="form().tags"
+              (ngModelChange)="updateField('tags', $event)"
+              placeholder="angular, web, tutorial"
+            />
+            <span class="input-hint">Comma-separated</span>
+          </div>
+
+          <!-- Cover Image -->
+          <div class="sidebar-card">
+            <h3>Cover Image</h3>
+            <input 
+              type="text"
+              [ngModel]="form().coverImage"
+              (ngModelChange)="updateField('coverImage', $event)"
+              placeholder="https://example.com/image.jpg"
+            />
+            @if (form().coverImage) {
+              <img [src]="form().coverImage" alt="Cover preview" class="cover-preview" />
+            }
+          </div>
+
+          <!-- Author -->
+          <div class="sidebar-card">
+            <h3>Author</h3>
+            <input 
+              type="text"
+              [ngModel]="form().author"
+              (ngModelChange)="updateField('author', $event)"
+              placeholder="Author name"
+            />
+          </div>
+        </aside>
+      </div>
+    }
+  </main>
+</div>

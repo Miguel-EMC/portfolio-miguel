@@ -1,0 +1,132 @@
+<div class="admin-posts">
+  <!-- Header -->
+  <header class="page-header">
+    <div class="header-content">
+      <div class="header-left">
+        <a routerLink="/admin/dashboard" class="back-btn">
+          <i class="bi bi-arrow-left"></i>
+        </a>
+        <div>
+          <h1>Manage Posts</h1>
+          <p>{{ filteredPosts().length }} posts</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a routerLink="/admin/posts/new" class="btn-primary">
+          <i class="bi bi-plus-lg"></i>
+          New Post
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <!-- Filters -->
+    <div class="filters-bar">
+      <div class="search-box">
+        <i class="bi bi-search"></i>
+        <input 
+          type="text"
+          [ngModel]="searchQuery()"
+          (ngModelChange)="onSearch($event)"
+          placeholder="Search posts..."
+        />
+      </div>
+
+      <div class="status-filters">
+        <button 
+          class="filter-btn"
+          [class.active]="filterStatus() === 'all'"
+          (click)="onFilterStatus('all')"
+        >
+          All
+        </button>
+        <button 
+          class="filter-btn"
+          [class.active]="filterStatus() === 'published'"
+          (click)="onFilterStatus('published')"
+        >
+          Published
+        </button>
+        <button 
+          class="filter-btn"
+          [class.active]="filterStatus() === 'draft'"
+          (click)="onFilterStatus('draft')"
+        >
+          Drafts
+        </button>
+      </div>
+    </div>
+
+    <!-- Posts Table -->
+    @if (isLoading()) {
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading posts...</p>
+      </div>
+    } @else if (filteredPosts().length === 0) {
+      <div class="empty-state">
+        <i class="bi bi-journal-x"></i>
+        <h3>No posts found</h3>
+        <p>Create your first blog post to get started</p>
+        <a routerLink="/admin/posts/new" class="btn-primary">
+          <i class="bi bi-plus-lg"></i>
+          Create Post
+        </a>
+      </div>
+    } @else {
+      <div class="posts-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (post of filteredPosts(); track post.slug) {
+              <tr>
+                <td class="title-cell">
+                  <div class="post-info">
+                    <img [src]="post.coverImage" [alt]="post.title" class="post-thumb" />
+                    <div>
+                      <span class="post-title">{{ post.title }}</span>
+                      <span class="post-slug">/blog/post/{{ post.slug }}</span>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <span 
+                    class="category-badge"
+                    [style.background-color]="getCategoryInfo(post.category)?.color"
+                  >
+                    {{ getCategoryInfo(post.category)?.name }}
+                  </span>
+                </td>
+                <td>
+                  <span class="status-badge" [class]="post.published ? 'published' : 'draft'">
+                    {{ post.published ? 'Published' : 'Draft' }}
+                  </span>
+                </td>
+                <td class="date-cell">
+                  {{ formatDate(post.publishedAt) }}
+                </td>
+                <td class="actions-cell">
+                  <a [routerLink]="['/admin/posts/edit', post.slug]" class="action-btn edit" title="Edit">
+                    <i class="bi bi-pencil"></i>
+                  </a>
+                  <a [routerLink]="['/blog/post', post.slug]" target="_blank" class="action-btn view" title="View">
+                    <i class="bi bi-eye"></i>
+                  </a>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </main>
+</div>

@@ -28,6 +28,14 @@
         <div class="link-content">
           <i class="bi bi-envelope-fill"></i>
           <span class="nav-text">{{ 'nav.contact' | translate }}</span>
+          <div class="link-indicator"></div>
+        </div>
+      </a>
+      <a class="nav-link" routerLink="/blog" [class.active]="isActive('/blog')">
+        <div class="link-content">
+          <i class="bi bi-journal-text"></i>
+          <span class="nav-text">{{ 'nav.blog' | translate }}</span>
+          <div class="link-indicator"></div>
         </div>
       </a>
     </div>

@@ -1,0 +1,80 @@
+{
+  "posts": [
+    {
+      "slug": "building-ai-agents-with-langgraph",
+      "title": "Building AI Agents with LangGraph and AWS Bedrock",
+      "excerpt": "A deep dive into creating intelligent Text-to-SQL agents using LangGraph orchestration and AWS Bedrock's foundation models.",
+      "author": "Miguel",
+      "publishedAt": "2024-12-15T10:00:00.000Z",
+      "category": "technology",
+      "tags": ["AI", "LangGraph", "AWS", "Python", "LLM"],
+      "coverImage": "/assets/img/blog/ai-agents.jpg",
+      "readingTime": 8,
+      "featured": true,
+      "published": true
+    },
+    {
+      "slug": "flutter-clean-architecture",
+      "title": "Clean Architecture in Flutter: A Practical Guide",
+      "excerpt": "Learn how to structure your Flutter applications using clean architecture principles for better maintainability and testability.",
+      "author": "Miguel",
+      "publishedAt": "2024-11-20T10:00:00.000Z",
+      "category": "mobile-development",
+      "tags": ["Flutter", "Dart", "Architecture", "Mobile"],
+      "coverImage": "/assets/img/blog/flutter-architecture.jpg",
+      "readingTime": 10,
+      "featured": true,
+      "published": true
+    },
+    {
+      "slug": "serverless-backend-aws-lambda",
+      "title": "Building Serverless Backends with AWS Lambda and NestJS",
+      "excerpt": "How to deploy scalable serverless APIs using NestJS on AWS Lambda with Terraform infrastructure as code.",
+      "author": "Miguel",
+      "publishedAt": "2024-10-05T10:00:00.000Z",
+      "category": "devops",
+      "tags": ["AWS", "Lambda", "NestJS", "Terraform", "Serverless"],
+      "coverImage": "/assets/img/blog/serverless.jpg",
+      "readingTime": 12,
+      "featured": false,
+      "published": true
+    },
+    {
+      "slug": "angular-signals-deep-dive",
+      "title": "Angular Signals: A Deep Dive into Reactive State Management",
+      "excerpt": "Understanding Angular's new signals API and how it changes the way we think about reactivity in Angular applications.",
+      "author": "Miguel",
+      "publishedAt": "2024-09-10T10:00:00.000Z",
+      "category": "web-development",
+      "tags": ["Angular", "Signals", "TypeScript", "Frontend"],
+      "coverImage": "/assets/img/blog/angular-signals.jpg",
+      "readingTime": 7,
+      "featured": false,
+      "published": true
+    },
+    {
+      "slug": "postgresql-performance-optimization",
+      "title": "PostgreSQL Performance Optimization Tips",
+      "excerpt": "Essential tips and tricks for optimizing PostgreSQL database performance including indexing strategies and query optimization.",
+      "author": "Miguel",
+      "publishedAt": "2024-08-15T10:00:00.000Z",
+      "category": "programming",
+      "tags": ["PostgreSQL", "Database", "Performance", "SQL"],
+      "coverImage": "/assets/img/blog/postgresql.jpg",
+      "readingTime": 9,
+      "featured": false,
+      "published": true
+    }
+  ],
+  "categories": [
+    "technology",
+    "programming",
+    "web-development",
+    "mobile-development",
+    "devops",
+    "career",
+    "tutorials",
+    "general"
+  ],
+  "lastUpdated": "2024-12-15T10:00:00.000Z"
+}
