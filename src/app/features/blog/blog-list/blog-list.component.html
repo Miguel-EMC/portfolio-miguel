@@ -1,0 +1,247 @@
+<section class="blog-section">
+  <div class="container">
+    <!-- Header -->
+    <div class="blog-header">
+      <h1 class="blog-title">{{ 'blog.title' | translate }}</h1>
+      <p class="blog-subtitle">{{ 'blog.subtitle' | translate }}</p>
+    </div>
+
+    <!-- Search & Filters -->
+    <div class="blog-filters">
+      <div class="search-box">
+        <i class="bi bi-search"></i>
+        <input 
+          type="text" 
+          [value]="searchQuery()"
+          (input)="onSearch($any($event.target).value)"
+          placeholder="{{ 'blog.searchPlaceholder' | translate }}"
+          class="search-input"
+        />
+        @if (searchQuery()) {
+          <button class="clear-search" (click)="onSearch('')">
+            <i class="bi bi-x"></i>
+          </button>
+        }
+      </div>
+
+      <div class="category-filters">
+        <button 
+          class="filter-btn"
+          [class.active]="!activeCategory() && !activeTag()"
+          (click)="clearFilters()"
+        >
+          <i class="bi bi-grid"></i>
+          {{ 'blog.filters.all' | translate }}
+        </button>
+        @for (category of categories(); track category.id) {
+          <button 
+            class="filter-btn"
+            [class.active]="activeCategory() === category.id"
+            [style.--category-color]="category.color"
+            (click)="setCategory(category.id)"
+          >
+            <i [class]="category.icon"></i>
+            {{ category.name }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Active Filters Display -->
+    @if (activeCategory() || activeTag() || searchQuery()) {
+      <div class="active-filters">
+        <span class="filter-label">{{ 'blog.activeFilters' | translate }}:</span>
+        @if (activeCategory()) {
+          <span class="filter-tag category">
+            {{ getCategoryInfo(activeCategory()!)?.name }}
+            <button (click)="setCategory(null)"><i class="bi bi-x"></i></button>
+          </span>
+        }
+        @if (activeTag()) {
+          <span class="filter-tag tag">
+            #{{ activeTag() }}
+            <button (click)="setTag(null)"><i class="bi bi-x"></i></button>
+          </span>
+        }
+        @if (searchQuery()) {
+          <span class="filter-tag search">
+            "{{ searchQuery() }}"
+            <button (click)="onSearch('')"><i class="bi bi-x"></i></button>
+          </span>
+        }
+        <button class="clear-all" (click)="clearFilters()">
+          {{ 'blog.clearAll' | translate }}
+        </button>
+      </div>
+    }
+
+    <!-- Loading State -->
+    @if (isLoading()) {
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>{{ 'blog.loading' | translate }}</p>
+      </div>
+    }
+
+    <!-- Featured Posts -->
+    @if (!isLoading() && featuredPosts().length > 0 && !activeCategory() && !activeTag() && !searchQuery()) {
+      <div class="featured-section">
+        <h2 class="section-title">
+          <i class="bi bi-star"></i>
+          {{ 'blog.featured' | translate }}
+        </h2>
+        <div class="featured-grid">
+          @for (post of featuredPosts(); track post.slug) {
+            <article class="featured-card" [routerLink]="['/blog/post', post.slug]">
+              <div class="featured-image">
+                <img [src]="post.coverImage" [alt]="post.title" loading="lazy" />
+                <div class="featured-badge">
+                  <i class="bi bi-star-fill"></i>
+                  {{ 'blog.featuredBadge' | translate }}
+                </div>
+              </div>
+              <div class="featured-content">
+                <div class="post-meta">
+                  <span class="category" [style.color]="getCategoryInfo(post.category)?.color">
+                    {{ getCategoryInfo(post.category)?.name }}
+                  </span>
+                  <span class="date">{{ formatDate(post.publishedAt) }}</span>
+                </div>
+                <h3 class="post-title">{{ post.title }}</h3>
+                <p class="post-excerpt">{{ post.excerpt }}</p>
+                <div class="post-footer">
+                  <span class="reading-time">
+                    <i class="bi bi-clock"></i>
+                    {{ post.readingTime }} min read
+                  </span>
+                </div>
+              </div>
+            </article>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- Posts Grid -->
+    @if (!isLoading()) {
+      @if (filteredPosts().length > 0) {
+        <div class="posts-section">
+          <h2 class="section-title">
+            @if (activeCategory() || activeTag()) {
+              {{ 'blog.results' | translate }} ({{ filteredPosts().length }})
+            } @else {
+              {{ 'blog.latestPosts' | translate }}
+            }
+          </h2>
+          
+          <div class="posts-grid">
+            @for (post of paginatedPosts(); track post.slug) {
+              <article class="post-card" [routerLink]="['/blog/post', post.slug]">
+                <div class="card-image">
+                  <img [src]="post.coverImage" [alt]="post.title" loading="lazy" />
+                </div>
+                <div class="card-content">
+                  <div class="post-meta">
+                    <span class="category" [style.background-color]="getCategoryInfo(post.category)?.color">
+                      {{ getCategoryInfo(post.category)?.name }}
+                    </span>
+                    <span class="reading-time">
+                      <i class="bi bi-clock"></i>
+                      {{ post.readingTime }} min
+                    </span>
+                  </div>
+                  <h3 class="post-title">{{ post.title }}</h3>
+                  <p class="post-excerpt">{{ post.excerpt }}</p>
+                  <div class="post-tags">
+                    @for (tag of post.tags.slice(0, 3); track tag) {
+                      <span class="tag" (click)="setTag(tag); $event.stopPropagation()">
+                        #{{ tag }}
+                      </span>
+                    }
+                  </div>
+                  <div class="post-footer">
+                    <span class="author">
+                      <i class="bi bi-person"></i>
+                      {{ post.author }}
+                    </span>
+                    <span class="date">{{ formatDate(post.publishedAt) }}</span>
+                  </div>
+                </div>
+              </article>
+            }
+          </div>
+
+          <!-- Pagination -->
+          @if (totalPages() > 1) {
+            <nav class="pagination">
+              <button 
+                class="page-btn prev"
+                [disabled]="currentPage() === 1"
+                (click)="goToPage(currentPage() - 1)"
+              >
+                <i class="bi bi-chevron-left"></i>
+                {{ 'blog.pagination.prev' | translate }}
+              </button>
+              
+              <div class="page-numbers">
+                @for (page of [].constructor(totalPages()); track $index; let i = $index) {
+                  <button 
+                    class="page-num"
+                    [class.active]="currentPage() === i + 1"
+                    (click)="goToPage(i + 1)"
+                  >
+                    {{ i + 1 }}
+                  </button>
+                }
+              </div>
+              
+              <button 
+                class="page-btn next"
+                [disabled]="currentPage() === totalPages()"
+                (click)="goToPage(currentPage() + 1)"
+              >
+                {{ 'blog.pagination.next' | translate }}
+                <i class="bi bi-chevron-right"></i>
+              </button>
+            </nav>
+          }
+        </div>
+      } @else {
+        <!-- Empty State -->
+        <div class="empty-state">
+          <div class="empty-icon">
+            <i class="bi bi-journal-x"></i>
+          </div>
+          <h3 class="empty-title">{{ 'blog.empty.title' | translate }}</h3>
+          <p class="empty-description">{{ 'blog.empty.description' | translate }}</p>
+          <button class="btn-primary" (click)="clearFilters()">
+            {{ 'blog.empty.action' | translate }}
+          </button>
+        </div>
+      }
+    }
+
+    <!-- Sidebar with Tags -->
+    @if (!isLoading() && tags().length > 0) {
+      <aside class="blog-sidebar">
+        <div class="sidebar-section">
+          <h3 class="sidebar-title">
+            <i class="bi bi-tags"></i>
+            {{ 'blog.popularTags' | translate }}
+          </h3>
+          <div class="tags-cloud">
+            @for (tag of tags().slice(0, 15); track tag) {
+              <button 
+                class="tag-btn"
+                [class.active]="activeTag() === tag"
+                (click)="setTag(tag)"
+              >
+                #{{ tag }}
+              </button>
+            }
+          </div>
+        </div>
+      </aside>
+    }
+  </div>
+</section>

@@ -6,6 +6,11 @@ const routes: Routes = [
   {
     path: '',
     component: PortafolioComponent
+  },
+  {
+    path: 'project/:slug',
+    loadComponent: () => import('./project-detail/project-detail.component').then(c => c.ProjectDetailComponent),
+    title: 'Project Details'
   }
 ];
 

@@ -8,64 +8,81 @@ export const routes: Routes = [
   },
   {
     path: 'home',
-    loadComponent: () => import('./features/home/home.component').then(c => c.HomeComponent)
+    loadComponent: () => import('./features/home/home.component').then(c => c.HomeComponent),
+    title: 'Home'
   },
   {
     path: 'about',
-    loadComponent: () => import('./features/contact/about-me/about-me.component').then(c => c.AboutMeComponent)
+    loadComponent: () => import('./features/contact/about-me/about-me.component').then(c => c.AboutMeComponent),
+    title: 'About Me'
   },
   {
     path: 'resume',
-    loadChildren: () => import('./features/resume/resume.module').then(m => m.ResumeModule)
+    loadChildren: () => import('./features/resume/resume.module').then(m => m.ResumeModule),
+    title: 'Resume'
   },
   {
     path: 'portfolio',
-    loadChildren: () => import('./features/portfolio/portfolio.module').then(m => m.PortfolioModule)
+    loadChildren: () => import('./features/portfolio/portfolio.module').then(m => m.PortfolioModule),
+    title: 'Portfolio'
   },
   {
     path: 'contact',
-    loadComponent: () => import('./features/contact/contacts/contacts.component').then(c => c.ContactsComponent)
+    loadComponent: () => import('./features/contact/contacts/contacts.component').then(c => c.ContactsComponent),
+    title: 'Contact'
+  },
+  // Blog routes
+  {
+    path: 'blog',
+    loadChildren: () => import('./features/blog/blog.routes').then(m => m.blogRoutes),
+    title: 'Blog'
+  },
+  // Admin routes
+  {
+    path: 'admin',
+    loadChildren: () => import('./features/admin/admin.routes').then(m => m.adminRoutes),
+    title: 'Admin'
   },
   // Backward compatibility routes
   {
     path: 'sobre-mi',
-    redirectTo: 'home'
+    redirectTo: 'about'
   },
   {
     path: 'portafolio',
-    redirectTo: 'home'
+    redirectTo: 'portfolio'
   },
   {
     path: 'contacto',
-    redirectTo: 'home'
+    redirectTo: 'contact'
   },
   {
     path: 'about-me',
-    redirectTo: 'home'
+    redirectTo: 'about'
   },
   {
     path: 'contacts',
-    redirectTo: 'home'
+    redirectTo: 'contact'
   },
   {
     path: 'curriculum',
-    redirectTo: 'home'
+    redirectTo: 'resume'
   },
   {
     path: 'education',
-    redirectTo: 'home'
+    redirectTo: 'resume'
   },
   {
     path: 'experiencia',
-    redirectTo: 'home'
+    redirectTo: 'resume'
   },
   {
     path: 'educacion',
-    redirectTo: 'home'
+    redirectTo: 'resume'
   },
   {
     path: 'skills',
-    redirectTo: 'home'
+    redirectTo: 'resume'
   },
   {
     path: '**',
