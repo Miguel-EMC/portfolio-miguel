@@ -19,12 +19,14 @@ export const routes: Routes = [
   {
     path: 'resume',
     loadChildren: () => import('./features/resume/resume.module').then(m => m.ResumeModule),
-    title: 'Resume'
+    title: 'Resume',
+    data: { preload: true }
   },
   {
     path: 'portfolio',
     loadChildren: () => import('./features/portfolio/portfolio.module').then(m => m.PortfolioModule),
-    title: 'Portfolio'
+    title: 'Portfolio',
+    data: { preload: true }
   },
   {
     path: 'contact',
@@ -35,7 +37,8 @@ export const routes: Routes = [
   {
     path: 'blog',
     loadChildren: () => import('./features/blog/blog.routes').then(m => m.blogRoutes),
-    title: 'Blog'
+    title: 'Blog',
+    data: { preload: true, preloadDelay: 2000 }
   },
   // Admin routes
   {

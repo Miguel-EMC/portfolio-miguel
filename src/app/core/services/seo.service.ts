@@ -163,5 +163,127 @@ export class SeoService {
 
   resetToDefaults(): void {
     this.updateMetaTags(this.defaultConfig);
+    this.removeStructuredData();
+  }
+
+  /**
+   * Add JSON-LD structured data for rich search results
+   */
+  addStructuredData(data: object): void {
+    this.removeStructuredData();
+    
+    const script = this.document.createElement('script');
+    script.type = 'application/ld+json';
+    script.id = 'structured-data';
+    script.text = JSON.stringify(data);
+    this.document.head.appendChild(script);
+  }
+
+  removeStructuredData(): void {
+    const existing = this.document.getElementById('structured-data');
+    if (existing) {
+      existing.remove();
+    }
+  }
+
+  /**
+   * Add Person structured data for portfolio
+   */
+  addPersonSchema(person: {
+    name: string;
+    jobTitle: string;
+    description: string;
+    email?: string;
+    url: string;
+    image?: string;
+    sameAs?: string[];
+  }): void {
+    const schema = {
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: person.name,
+      jobTitle: person.jobTitle,
+      description: person.description,
+      url: person.url,
+      ...(person.email && { email: `mailto:${person.email}` }),
+      ...(person.image && { image: person.image }),
+      ...(person.sameAs && { sameAs: person.sameAs })
+    };
+
+    this.addStructuredData(schema);
+  }
+
+  /**
+   * Add Article structured data for blog posts
+   */
+  addArticleSchema(article: {
+    title: string;
+    description: string;
+    author: string;
+    publishedAt: Date;
+    updatedAt?: Date;
+    image: string;
+    url: string;
+  }): void {
+    const schema = {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: article.title,
+      description: article.description,
+      author: {
+        '@type': 'Person',
+        name: article.author
+      },
+      datePublished: article.publishedAt.toISOString(),
+      ...(article.updatedAt && { dateModified: article.updatedAt.toISOString() }),
+      image: article.image,
+      url: article.url,
+      publisher: {
+        '@type': 'Person',
+        name: article.author
+      }
+    };
+
+    this.addStructuredData(schema);
+  }
+
+  /**
+   * Add BreadcrumbList structured data
+   */
+  addBreadcrumbSchema(items: { name: string; url: string }[]): void {
+    const schema = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: items.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.name,
+        item: item.url
+      }))
+    };
+
+    this.addStructuredData(schema);
+  }
+
+  /**
+   * Add WebSite structured data for site-wide search
+   */
+  addWebsiteSchema(): void {
+    const schema = {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: environment.seo.siteName,
+      url: environment.seo.siteUrl,
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${environment.seo.siteUrl}/blog?search={search_term_string}`
+        },
+        'query-input': 'required name=search_term_string'
+      }
+    };
+
+    this.addStructuredData(schema);
   }
 }

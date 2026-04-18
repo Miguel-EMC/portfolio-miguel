@@ -1,176 +1,244 @@
-# Arquitectura del Proyecto - Portfolio Personal
+# Architecture - Portfolio Personal
 
-## 📁 Estructura de Carpetas
+## Project Structure
 
 ```
 src/app/
-├── core/                     # Servicios singleton y funcionalidades core
+├── core/                     # Core services and singleton functionality
 │   ├── services/
-│   │   ├── theme.service.ts
-│   │   └── scroll.service.ts
-│   ├── guards/              # Guards de autenticación y autorización
-│   └── core.module.ts
-├── shared/                  # Componentes y utilidades reutilizables
+│   │   ├── theme.service.ts       # Theme management
+│   │   ├── scroll.service.ts      # Scroll utilities
+│   │   ├── blog.service.ts        # Blog markdown parsing and management
+│   │   ├── admin-auth.service.ts  # Admin authentication
+│   │   └── seo.service.ts         # SEO and meta tag management
+│   ├── guards/
+│   │   └── admin-auth.guard.ts    # Route guards for admin
+│   ├── strategies/
+│   │   └── selective-preload.strategy.ts  # Smart route preloading
+│   ├── utils/
+│   │   └── performance.util.ts    # Performance monitoring utilities
+│   ├── data/
+│   │   ├── portfolio-projects.data.ts
+│   │   └── projects.data.ts
+│   └── index.ts                   # Barrel exports
+├── shared/                  # Reusable components and utilities
 │   ├── components/
-│   │   ├── ui/             # Componentes UI genéricos
-│   │   │   └── section-header/
-│   │   └── layout/         # Componentes de layout
+│   │   ├── ui/
+│   │   │   ├── section-header/
+│   │   │   ├── language-toggle/
+│   │   │   └── theme-toggle/
+│   │   └── layout/
 │   │       ├── nav/
 │   │       └── footer/
+│   ├── directives/
+│   │   └── lazy-load-image.directive.ts  # Lazy loading images
 │   └── shared.module.ts
-├── features/                # Feature modules con lazy loading
+├── features/                # Feature modules with lazy loading
 │   ├── home/
-│   │   ├── home.module.ts
-│   │   ├── home-routing.module.ts
 │   │   └── home.component.ts
 │   ├── portfolio/
 │   │   ├── portfolio.module.ts
 │   │   ├── portfolio-routing.module.ts
-│   │   └── portfolio/
-│   ├── resume/              # Curriculum + Education + Skills
+│   │   ├── portfolio/portafolio.component.ts
+│   │   └── project-detail/project-detail.component.ts
+│   ├── resume/
 │   │   ├── resume.module.ts
 │   │   ├── resume-routing.module.ts
-│   │   ├── resume.component.ts
 │   │   └── components/
 │   │       ├── education/
 │   │       ├── curriculum/
 │   │       └── skills/
-│   └── contact/             # About + Contact
-│       ├── contact.module.ts
-│       ├── contact-routing.module.ts
-│       ├── about-me/
-│       └── contacts/
-├── interfaces/              # Interfaces y tipos TypeScript
-└── app.component.ts
+│   ├── contact/
+│   │   ├── about-me/
+│   │   └── contacts/
+│   ├── blog/                # NEW: Blog feature module
+│   │   ├── blog.routes.ts
+│   │   ├── blog-list/
+│   │   │   ├── blog-list.component.ts
+│   │   │   ├── blog-list.component.html
+│   │   │   └── blog-list.component.scss
+│   │   └── blog-post/
+│   │       ├── blog-post.component.ts
+│   │       ├── blog-post.component.html
+│   │       └── blog-post.component.scss
+│   └── admin/               # NEW: Admin feature module
+│       ├── admin.routes.ts
+│       ├── admin-login/
+│       ├── admin-dashboard/
+│       ├── admin-posts/
+│       └── admin-editor/
+├── interfaces/
+│   ├── project.interface.ts
+│   └── blog.interface.ts
+└── environments/
+    ├── environment.ts       # Development config
+    └── environment.prod.ts  # Production config
 ```
 
-## 🎯 Principios Arquitectónicos
+## Architectural Principles
 
-### 1. **Separación de Responsabilidades**
-- **Core**: Servicios singleton que deben cargarse una sola vez
-- **Shared**: Componentes y utilidades reutilizables
-- **Features**: Módulos de funcionalidades específicas
+### 1. Separation of Concerns
+- **Core**: Singleton services loaded once at app startup
+- **Shared**: Reusable components, directives, and utilities
+- **Features**: Domain-specific modules with lazy loading
 
-### 2. **Lazy Loading**
-- Cada feature module se carga bajo demanda
-- Mejora el rendimiento inicial de la aplicación
-- Reduce el bundle size inicial
+### 2. Lazy Loading Strategy
+- Core portfolio routes preloaded immediately
+- Blog routes preloaded after 2-second delay
+- Admin routes loaded on demand only
+- Uses custom `SelectivePreloadStrategy` for intelligent preloading
 
-### 3. **Barrel Exports**
-- Cada módulo tiene un archivo `index.ts` para exportaciones limpias
-- Facilita las importaciones y mantiene el código organizado
+### 3. Standalone Components
+- Modern Angular 18 standalone components
+- Better tree-shaking and smaller bundle sizes
+- Reduced module dependencies
 
-### 4. **Standalone Components**
-- Componentes modernos de Angular 14+
-- Mejor tree-shaking y rendimiento
-- Menos dependencias entre módulos
+### 4. Feature Flags
+Environment-based feature configuration:
+```typescript
+features: {
+  enableBlog: true,
+  enableProjectDetails: true,
+  enableDarkMode: true,
+  enableAnimations: true,
+  enablePreloading: true
+}
+```
 
-## 🚀 Rutas y Navegación
+## Routes and Navigation
 
-### Rutas Principales
-- `/home` - Página principal
-- `/portfolio` - Proyectos y trabajos
-- `/resume` - Currículum, educación y habilidades
-- `/about` - Información personal
-- `/contact` - Formulario de contacto
+### Main Routes
+| Route | Module | Preloading |
+|-------|--------|------------|
+| `/home` | Home | Immediate |
+| `/portfolio` | Portfolio | Immediate |
+| `/portfolio/project/:slug` | Portfolio | Immediate |
+| `/resume` | Resume | Immediate |
+| `/about` | Contact | On-demand |
+| `/contact` | Contact | On-demand |
+| `/blog` | Blog | 2s delay |
+| `/blog/post/:slug` | Blog | 2s delay |
+| `/blog/category/:category` | Blog | 2s delay |
+| `/admin` | Admin | On-demand |
 
-### Compatibilidad hacia atrás
-- Redirects automáticos para rutas antiguas
-- Mantenimiento de SEO existente
+### Backward Compatibility
+Automatic redirects for legacy routes maintain SEO and user bookmarks.
 
-## 🎨 Sistema de Estilos
+## Blog System
 
-### Variables CSS Unificadas
-- Sistema de diseño coherente con CSS custom properties
-- Tema oscuro forzado en toda la aplicación
-- Componentes reutilizables con estilos consistentes
+### Architecture
+- **Storage**: Markdown files in `assets/blog/posts/`
+- **Metadata**: JSON manifest at `assets/blog/manifest.json`
+- **Parsing**: `marked` library with `highlight.js` for syntax highlighting
+- **Categories**: 8 predefined categories with icons and colors
 
-### Estructura SCSS
-- Todos los estilos migrados a SCSS
-- Aprovechamiento de características avanzadas de Sass
-- Eliminación de código duplicado
+### Creating Blog Posts
+1. Create a markdown file in `src/assets/blog/posts/`
+2. Add frontmatter with metadata
+3. Update `manifest.json` with post metadata
+4. Post is automatically available at `/blog/post/{slug}`
 
-## 🔧 Mejoras Implementadas
+### Frontmatter Format
+```markdown
+---
+title: "Post Title"
+slug: "post-slug"
+excerpt: "Brief description"
+author: "Author Name"
+publishedAt: "2024-12-15T10:00:00.000Z"
+category: "technology"
+tags: ["tag1", "tag2"]
+coverImage: "/assets/img/blog/image.jpg"
+featured: true
+published: true
+---
 
-### Performance
-- ✅ Lazy loading modules
-- ✅ Standalone components
-- ✅ Tree-shaking optimizado
-- ✅ Bundle splitting automático
+# Content here...
+```
 
-### Mantenibilidad
-- ✅ Estructura de carpetas clara
-- ✅ Separación de responsabilidades
-- ✅ Barrel exports
-- ✅ Tipado TypeScript mejorado
+## Admin System
 
-### Experiencia de Usuario
-- ✅ Tema oscuro consistente
-- ✅ Navegación fluida
-- ✅ Componentes reutilizables
-- ✅ Responsive design
+### Authentication
+- Simple password-based authentication
+- 24-hour session duration stored in localStorage
+- Route guards protect admin routes
+- Default password: `admin123` (change in production!)
 
-## 📦 Módulos y Dependencias
+### Features
+- Dashboard with post statistics
+- Post management (list, create, edit)
+- Markdown editor with live preview
+- Category and tag management
+- Download posts as markdown files
 
-### Core Module
-- Servicios singleton (Theme, Scroll)
-- Importado solo en AppModule
-- Protección contra múltiples importaciones
+### Access
+Navigate to `/admin` to access the admin panel.
 
-### Shared Module
-- Componentes de layout (Nav, Footer)
-- Componentes UI reutilizables
-- Exportado a feature modules
+## Performance Optimizations
 
-### Feature Modules
-- Módulos independientes con lazy loading
-- Routing específico por feature
-- Componentes relacionados agrupados
+### Lazy Loading
+- Feature modules loaded on demand
+- Selective preloading for critical routes
+- Network-aware preloading option available
 
-## 🔄 Flujo de Datos
+### Image Optimization
+- `LazyLoadImageDirective` for intersection observer-based loading
+- Blur-up effect during image loading
+- Placeholder support
 
-### Servicios Core
-- `ThemeService`: Manejo global del tema
-- `ScrollService`: Funcionalidades de scroll
+### SEO
+- Dynamic meta tags via `SeoService`
+- Open Graph and Twitter Card support
+- JSON-LD structured data for rich search results
+- Canonical URL management
 
-### Comunicación entre Componentes
-- Input/Output properties
-- Servicios para estado compartido
-- Router para navegación
+### Caching
+- Blog posts cached in memory after first load
+- Manifest cached and updated on demand
 
-## 🛠️ Comandos de Desarrollo
+## Development
 
+### Commands
 ```bash
-# Desarrollo
+# Development server
 npm start
 
-# Build de producción
+# Production build
 npm run build
 
-# Tests
+# Build for Spanish locale
+npm run build:es
+
+# Run tests
 npm test
 
-# Análisis de bundle
-npm run build -- --stats-json
-npx webpack-bundle-analyzer dist/stats.json
+# Serve SSR build
+npm run serve:ssr:portfolio-personal
 ```
 
-## 📈 Métricas de Rendimiento
+### Environment Configuration
+Environment files support:
+- EmailJS configuration
+- Blog settings (posts per page, search, comments)
+- Admin settings (session duration, password hash)
+- Feature flags
+- SEO configuration
+- API endpoints
 
-### Antes de la Refactorización
-- Bundle inicial: ~2.5MB
-- Carga de todos los componentes al inicio
-- Duplicación de código en estilos
+## Internationalization
 
-### Después de la Refactorización
-- Bundle inicial: ~1.2MB (52% menor)
-- Carga lazy de features
-- Estilos optimizados y reutilizables
+The project supports English and Spanish:
+- Translation files in `src/assets/i18n/`
+- `@ngx-translate/core` for runtime translation
+- All UI text is translatable
+- Blog content is single-language (expandable)
 
-## 🚀 Próximos Pasos
+## Future Enhancements
 
-1. **Tests Unitarios**: Implementar tests para todos los componentes
-2. **PWA**: Convertir a Progressive Web App
-3. **Internacionalización**: Soporte multi-idioma
-4. **Accesibilidad**: Mejoras en a11y
-5. **SEO**: Optimización para motores de búsqueda
+1. **Database Integration**: Replace file-based blog with database storage
+2. **Rich Text Editor**: WYSIWYG editor for admin
+3. **Image Upload**: Direct image upload for blog posts
+4. **Comments System**: Enable blog comments
+5. **Analytics**: Integration with Google Analytics or similar
+6. **PWA**: Progressive Web App support
+7. **RSS Feed**: Auto-generated RSS for blog
