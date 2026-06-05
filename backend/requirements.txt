@@ -9,3 +9,4 @@ python-multipart==0.0.9
 jose==1.0.0
 passlib[bcrypt]==1.7.4
 alembic==1.13.1
+python-frontmatter==1.1.0

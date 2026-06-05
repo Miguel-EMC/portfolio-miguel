@@ -29,7 +29,7 @@
 
     <div class="nav-actions desktop-only">
       <button class="theme-toggle" (click)="toggleTheme()" [title]="'Cambiar tema'">
-        <i class="bi" [class.bi-sun]="themeService.isDarkMode()" [class.bi-moon-stars]="!themeService.isDarkMode()"></i>
+        <i class="bi" [class.bi-sun]="themeService.isDarkTheme()" [class.bi-moon-stars]="!themeService.isDarkTheme()"></i>
       </button>
       <button class="btn-auth login">Log In</button>
       <button class="btn-auth signup">Sign Up</button>

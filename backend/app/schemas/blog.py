@@ -1,6 +1,6 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 from datetime import datetime
-from typing import List, Optional
+from typing import List, Optional, Any
 
 class BlogPostMeta(BaseModel):
     slug: str
@@ -14,6 +14,13 @@ class BlogPostMeta(BaseModel):
     cover_image: Optional[str] = None
     reading_time: int = 5
     featured: bool = False
+
+    @field_validator('author', mode='before')
+    @classmethod
+    def extract_author_name(cls, v: Any) -> str:
+        if hasattr(v, 'name'):
+            return v.name
+        return str(v)
 
     class Config:
         from_attributes = True
