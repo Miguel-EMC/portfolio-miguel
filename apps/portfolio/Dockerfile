@@ -4,7 +4,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci --legacy-peer-deps
 COPY . .
-RUN npx ng build --project portfolio --configuration production
+ARG CONFIG=production
+RUN npx ng build --project portfolio --configuration $CONFIG
 
 # Etapa 2: Serve
 FROM nginx:alpine

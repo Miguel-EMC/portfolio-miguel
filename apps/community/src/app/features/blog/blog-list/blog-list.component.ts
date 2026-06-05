@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, inject, signal, computed } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, signal, computed, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -22,6 +22,7 @@ export class BlogListComponent implements OnInit, OnDestroy {
   private seoService = inject(SeoService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private ngZone = inject(NgZone);
   private destroy$ = new Subject<void>();
   
   // State signals
@@ -67,14 +68,18 @@ export class BlogListComponent implements OnInit, OnDestroy {
   }
 
   private setupSearch(): void {
-    this.searchSubject.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      takeUntil(this.destroy$)
-    ).subscribe(query => {
-      this.searchQuery.set(query);
-      this.filterPosts();
-      this.currentPage.set(1);
+    this.ngZone.runOutsideAngular(() => {
+      this.searchSubject.pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        takeUntil(this.destroy$)
+      ).subscribe(query => {
+        this.ngZone.run(() => {
+          this.searchQuery.set(query);
+          this.filterPosts();
+          this.currentPage.set(1);
+        });
+      });
     });
   }
 

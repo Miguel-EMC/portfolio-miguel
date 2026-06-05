@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, inject, NgZone } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from "@angular/router";
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -76,6 +76,7 @@ import { SkillsComponent } from '../resume/components/skills/skills.component';
   ]
 })
 export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
+  private ngZone = inject(NgZone);
 
   // Lottie Animation Options
   options: AnimationOptions = {
@@ -96,14 +97,15 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // Función helper para forzar estilos del toast
   private forceToastStyles() {
-    setTimeout(() => {
-      const container = document.querySelector('.toast-container') as HTMLElement;
-      const toastElement = document.querySelector('.ngx-toastr') as HTMLElement;
+    this.ngZone.runOutsideAngular(() => {
+      setTimeout(() => {
+        const container = document.querySelector('.toast-container') as HTMLElement;
+        const toastElement = document.querySelector('.ngx-toastr') as HTMLElement;
 
-      if (toastElement) {
-        // Forzar estilos del contenedor
-        if (container) {
-          container.style.cssText = `
+        if (toastElement) {
+          // Forzar estilos del contenedor
+          if (container) {
+            container.style.cssText = `
             position: fixed !important;
             top: 20px !important;
             right: 20px !important;
@@ -112,20 +114,20 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
             visibility: visible !important;
             opacity: 1 !important;
           `;
-        }
+          }
 
-        // Determinar el color según el tipo de toast
-        let bgGradient = 'linear-gradient(135deg, #10b981 0%, #059669 100%)'; // success por defecto
-        if (toastElement.classList.contains('toast-error')) {
-          bgGradient = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
-        } else if (toastElement.classList.contains('toast-info')) {
-          bgGradient = 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)';
-        } else if (toastElement.classList.contains('toast-warning')) {
-          bgGradient = 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)';
-        }
+          // Determinar el color según el tipo de toast
+          let bgGradient = 'linear-gradient(135deg, #10b981 0%, #059669 100%)'; // success por defecto
+          if (toastElement.classList.contains('toast-error')) {
+            bgGradient = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+          } else if (toastElement.classList.contains('toast-info')) {
+            bgGradient = 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)';
+          } else if (toastElement.classList.contains('toast-warning')) {
+            bgGradient = 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)';
+          }
 
-        // Forzar estilos del toast
-        toastElement.style.cssText = `
+          // Forzar estilos del toast
+          toastElement.style.cssText = `
           position: relative !important;
           display: block !important;
           visibility: visible !important;
@@ -144,8 +146,9 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
           pointer-events: auto !important;
           transform: translateX(0) !important;
         `;
-      }
-    }, 100);
+        }
+      }, 100);
+    });
   }
 
   // Typing animation
@@ -196,10 +199,9 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   private observer: IntersectionObserver | null = null;
 
   ngOnInit() {
-    this.startTypingAnimation();
-    this.initializeActiveCard();
-
     if (isPlatformBrowser(this.platformId)) {
+      this.startTypingAnimation();
+      this.initializeActiveCard();
       // Configurar scroll suave
       document.documentElement.style.scrollBehavior = 'smooth';
     }
@@ -207,10 +209,12 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
-      setTimeout(() => {
-        this.initializeCharts();
-        this.setupIntersectionObserver();
-      }, 500);
+      this.ngZone.runOutsideAngular(() => {
+        setTimeout(() => {
+          this.initializeCharts();
+          this.setupIntersectionObserver();
+        }, 500);
+      });
     }
   }
 
@@ -295,18 +299,20 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
       if (charIndex < text.length) {
         this.currentRole += text.charAt(charIndex);
         charIndex++;
-        this.cdr.markForCheck(); // Force change detection
-        setTimeout(typeChar, 100);
+        this.cdr.detectChanges();
+        this.ngZone.runOutsideAngular(() => setTimeout(typeChar, 100));
       } else {
         this.isTyping = false;
-        this.cdr.markForCheck(); // Force change detection
-        setTimeout(() => {
-          this.eraseText();
-        }, 2000);
+        this.cdr.detectChanges();
+        this.ngZone.runOutsideAngular(() => {
+          setTimeout(() => {
+            this.eraseText();
+          }, 2000);
+        });
       }
     };
 
-    typeChar();
+    this.ngZone.runOutsideAngular(() => typeChar());
   }
 
   private eraseText(): void {
@@ -314,17 +320,19 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     const eraseChar = () => {
       if (this.currentRole.length > 0) {
         this.currentRole = this.currentRole.slice(0, -1);
-        this.cdr.markForCheck(); // Force change detection
-        setTimeout(eraseChar, 50);
+        this.cdr.detectChanges();
+        this.ngZone.runOutsideAngular(() => setTimeout(eraseChar, 50));
       } else {
         this.currentRoleIndex = (this.currentRoleIndex + 1) % this.roles.length;
-        setTimeout(() => {
-          this.typeText(this.roles[this.currentRoleIndex]);
-        }, 500);
+        this.ngZone.runOutsideAngular(() => {
+          setTimeout(() => {
+            this.typeText(this.roles[this.currentRoleIndex]);
+          }, 500);
+        });
       }
     };
 
-    eraseChar();
+    this.ngZone.runOutsideAngular(() => eraseChar());
   }
 
   private initializeActiveCard(): void {
@@ -332,10 +340,13 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     const cards = ['code', 'design', 'tech'];
     let cardIndex = 0;
 
-    setInterval(() => {
-      cardIndex = (cardIndex + 1) % cards.length;
-      this.activeCard = cards[cardIndex];
-    }, 3000);
+    this.ngZone.runOutsideAngular(() => {
+      setInterval(() => {
+        cardIndex = (cardIndex + 1) % cards.length;
+        this.activeCard = cards[cardIndex];
+        this.cdr.detectChanges();
+      }, 3000);
+    });
   }
 
   // Area selection methods

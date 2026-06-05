@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, Inject, PLATFORM_ID, inject, NgZone } from '@angular/core';
 import { isPlatformBrowser, NgClass } from '@angular/common';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -17,6 +17,7 @@ import { DomainService } from '../../../../core/services/domain.service';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit, OnDestroy {
+  private ngZone = inject(NgZone);
   isMobileMenuOpen = false;
   isScrolled = false;
   activeRoute = '/about';
@@ -89,7 +90,9 @@ export class NavComponent implements OnInit, OnDestroy {
     } else {
       // Si estamos en otra página, navegar a home y luego hacer scroll
       this.router.navigate(['/home']).then(() => {
-        setTimeout(() => this.scrollToSection(route), 300);
+        this.ngZone.runOutsideAngular(() => {
+          setTimeout(() => this.scrollToSection(route), 300);
+        });
       });
     }
 

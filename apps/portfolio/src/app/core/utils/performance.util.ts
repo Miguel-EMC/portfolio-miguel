@@ -1,4 +1,4 @@
-import { Injectable, inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, inject, PLATFORM_ID, NgZone } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 /**
@@ -11,6 +11,7 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class PerformanceService {
   private platformId = inject(PLATFORM_ID);
+  private ngZone = inject(NgZone);
   private marks = new Map<string, number>();
 
   /**
@@ -139,58 +140,67 @@ export class PerformanceService {
     console.log('CLS (Cumulative Layout Shift):', vitals.cls?.toFixed(4));
     console.log('TTFB (Time to First Byte):', vitals.ttfb?.toFixed(2), 'ms');
     console.groupEnd();
+  // Return metrics after a short delay to collect data
+  this.ngZone.runOutsideAngular(() => {
+    setTimeout(() => resolve(metrics), 1000);
+  });
+  });
   }
-
-  /**
-   * Debounce function for performance optimization
-   */
+  // ...
   debounce<T extends (...args: any[]) => any>(
-    func: T,
-    wait: number
+  func: T,
+  wait: number
   ): (...args: Parameters<T>) => void {
-    let timeout: ReturnType<typeof setTimeout> | null = null;
-    
-    return (...args: Parameters<T>) => {
-      if (timeout) {
-        clearTimeout(timeout);
-      }
-      timeout = setTimeout(() => func(...args), wait);
-    };
+  let timeout: ReturnType<typeof setTimeout> | null = null;
+
+  return (...args: Parameters<T>) => {
+  if (timeout) {
+    clearTimeout(timeout);
+  }
+  this.ngZone.runOutsideAngular(() => {
+    timeout = setTimeout(() => func(...args), wait);
+  });
+  };
   }
 
   /**
-   * Throttle function for performance optimization
-   */
+  * Throttle function for performance optimization
+  */
   throttle<T extends (...args: any[]) => any>(
-    func: T,
-    limit: number
+  func: T,
+  limit: number
   ): (...args: Parameters<T>) => void {
-    let inThrottle = false;
-    
-    return (...args: Parameters<T>) => {
-      if (!inThrottle) {
-        func(...args);
-        inThrottle = true;
-        setTimeout(() => (inThrottle = false), limit);
-      }
-    };
+  let inThrottle = false;
+
+  return (...args: Parameters<T>) => {
+  if (!inThrottle) {
+    func(...args);
+    inThrottle = true;
+    this.ngZone.runOutsideAngular(() => {
+      setTimeout(() => (inThrottle = false), limit);
+    });
+  }
+  };
   }
 
   /**
-   * Request idle callback with fallback
-   */
+  * Request idle callback with fallback
+  */
   requestIdleCallback(callback: () => void, options?: { timeout?: number }): void {
-    if (!isPlatformBrowser(this.platformId)) {
-      callback();
-      return;
-    }
-
-    if ('requestIdleCallback' in window) {
-      (window as any).requestIdleCallback(callback, options);
-    } else {
-      setTimeout(callback, 1);
-    }
+  if (!isPlatformBrowser(this.platformId)) {
+  callback();
+  return;
   }
+
+  if ('requestIdleCallback' in window) {
+  (window as any).requestIdleCallback(callback, options);
+  } else {
+  this.ngZone.runOutsideAngular(() => {
+    setTimeout(callback, 1);
+  });
+  }
+  }
+
 }
 
 /**

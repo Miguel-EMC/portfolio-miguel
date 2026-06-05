@@ -4,7 +4,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci --legacy-peer-deps
 COPY . .
-RUN npx ng build community --configuration production
+ARG CONFIG=production
+RUN npx ng build --project community --configuration $CONFIG
 
 # Etapa 2: Serve
 FROM nginx:alpine
