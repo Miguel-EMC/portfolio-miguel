@@ -1,25 +1,8 @@
-import { Routes, CanActivateFn, Router } from '@angular/router';
-import { inject } from '@angular/core';
-import { DomainService } from './core/services/domain.service';
-
-const domainGuard: CanActivateFn = (route, state) => {
-  const domainService = inject(DomainService);
-  const router = inject(Router);
-  const isBlog = domainService.isBlogDomain();
-  const currentPath = state.url;
-
-  // Si estamos en el dominio del blog y tratamos de entrar a la raíz, ir a /blog
-  if (isBlog && currentPath === '/') {
-    router.navigate(['/blog']);
-    return false;
-  }
-  return true;
-};
+import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
     path: '',
-    canActivate: [domainGuard],
     redirectTo: 'home',
     pathMatch: 'full'
   },
@@ -28,12 +11,35 @@ export const routes: Routes = [
     loadComponent: () => import('./features/home/home.component').then(c => c.HomeComponent),
     title: 'Home'
   },
-  // ... resto de rutas se mantienen igual
+  {
+    path: 'about',
+    loadComponent: () => import('./features/contact/about-me/about-me.component').then(c => c.AboutMeComponent),
+    title: 'About Me'
+  },
+  {
+    path: 'resume',
+    loadChildren: () => import('./features/resume/resume.module').then(m => m.ResumeModule),
+    title: 'Resume',
+    data: { preload: true }
+  },
+  {
+    path: 'portfolio',
+    loadChildren: () => import('./features/portfolio/portfolio.module').then(m => m.PortfolioModule),
+    title: 'Portfolio',
+    data: { preload: true }
+  },
+  {
+    path: 'contact',
+    loadComponent: () => import('./features/contact/contacts/contacts.component').then(c => c.ContactsComponent),
+    title: 'Contact'
+  },
+  // Redirección al dominio del blog para el enlace de Blog
   {
     path: 'blog',
-    loadChildren: () => import('./features/blog/blog.routes').then(m => m.blogRoutes),
-    title: 'Blog',
-    data: { preload: true, preloadDelay: 2000 }
+    redirectTo: 'home' // El componente Nav se encargará de la navegación externa
   },
-  // ...
+  {
+    path: '**',
+    redirectTo: 'home'
+  }
 ];

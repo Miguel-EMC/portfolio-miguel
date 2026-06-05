@@ -37,8 +37,8 @@ jobs:
           docker build -t $IMAGE_NAME ./backend
           docker push $IMAGE_NAME
 
-  frontend-build:
-    name: Build & Push Frontend
+  portfolio-build:
+    name: Build & Push Portfolio App
     runs-on: ubuntu-latest
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     steps:
@@ -50,15 +50,34 @@ jobs:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
       - name: ⚙️ Configure Docker for GCP
         run: gcloud auth configure-docker --quiet
-      - name: 🏗️ Build & Push Frontend Container
+      - name: 🏗️ Build & Push Container
         run: |
           IMAGE_NAME="gcr.io/${{ env.GCP_PROJECT_ID }}/migueldev-blog-${{ github.ref_name == 'main' && 'prod' || 'demo' }}-frontend:latest"
           docker build -t $IMAGE_NAME -f apps/portfolio/Dockerfile .
           docker push $IMAGE_NAME
 
+  community-build:
+    name: Build & Push Community App
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+      - name: 🔧 Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+      - name: ⚙️ Configure Docker for GCP
+        run: gcloud auth configure-docker --quiet
+      - name: 🏗️ Build & Push Container
+        run: |
+          IMAGE_NAME="gcr.io/${{ env.GCP_PROJECT_ID }}/migueldev-blog-${{ github.ref_name == 'main' && 'prod' || 'demo' }}-community:latest"
+          docker build -t $IMAGE_NAME -f apps/community/Dockerfile .
+          docker push $IMAGE_NAME
+
   infrastructure:
     name: Terraform Plan/Apply
-    needs: [backend-build, frontend-build]
+    needs: [backend-build, portfolio-build, community-build]
     runs-on: ubuntu-latest
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     steps:
@@ -76,8 +95,8 @@ jobs:
           terraform init
           terraform apply -auto-approve -var="project_id=${{ env.GCP_PROJECT_ID }}"
 
-  backend-deploy:
-    name: Force Refresh Backend
+  deployment-refresh:
+    name: Final Deployment Sync
     needs: infrastructure
     runs-on: ubuntu-latest
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
@@ -86,30 +105,12 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
-      - name: 🚀 Deploy to Cloud Run
+      - name: 🚀 Update All Services
         run: |
-          APP_NAME="migueldev-blog-${{ github.ref_name == 'main' && 'prod' || 'demo' }}-api"
-          gcloud run deploy $APP_NAME \
-            --image "gcr.io/${{ env.GCP_PROJECT_ID }}/migueldev-blog-${{ github.ref_name == 'main' && 'prod' || 'demo' }}-api:latest" \
-            --region ${{ env.REGION }} \
-            --platform managed \
-            --allow-unauthenticated
-
-  frontend-deploy:
-    name: Force Refresh Frontend
-    needs: infrastructure
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-    steps:
-      - name: 🔧 Authenticate to Google Cloud
-        uses: google-github-actions/auth@v2
-        with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
-      - name: 🚀 Deploy Frontend to Cloud Run
-        run: |
-          APP_NAME="migueldev-blog-${{ github.ref_name == 'main' && 'prod' || 'demo' }}-frontend"
-          gcloud run deploy $APP_NAME \
-            --image "gcr.io/${{ env.GCP_PROJECT_ID }}/migueldev-blog-${{ github.ref_name == 'main' && 'prod' || 'demo' }}-frontend:latest" \
-            --region ${{ env.REGION }} \
-            --platform managed \
-            --allow-unauthenticated
+          ENV="${{ github.ref_name == 'main' && 'prod' || 'demo' }}"
+          # Update API
+          gcloud run deploy migueldev-blog-$ENV-api --image gcr.io/${{ env.GCP_PROJECT_ID }}/migueldev-blog-$ENV-api:latest --region ${{ env.REGION }} --platform managed --allow-unauthenticated
+          # Update Portfolio
+          gcloud run deploy migueldev-blog-$ENV-frontend --image gcr.io/${{ env.GCP_PROJECT_ID }}/migueldev-blog-$ENV-frontend:latest --region ${{ env.REGION }} --platform managed --allow-unauthenticated
+          # Update Community
+          gcloud run deploy migueldev-blog-$ENV-community --image gcr.io/${{ env.GCP_PROJECT_ID }}/migueldev-blog-$ENV-community:latest --region ${{ env.REGION }} --platform managed --allow-unauthenticated

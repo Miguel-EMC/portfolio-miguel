@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve portfolio --port 44953",
+    "start": "ng serve portfolio",
     "start:portfolio": "ng serve portfolio",
     "build": "ng build portfolio",
     "build:es": "ng build --configuration=es",

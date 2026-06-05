@@ -1,4 +1,4 @@
-# Cloud Run Service for Frontend
+# Cloud Run Service for Frontend (Portfolio)
 resource "google_cloud_run_v2_service" "frontend" {
   name     = "${var.app_name}-frontend"
   location = var.region
@@ -17,7 +17,6 @@ resource "google_cloud_run_v2_service" "frontend" {
   }
 }
 
-# Allow public access to Frontend
 resource "google_cloud_run_v2_service_iam_member" "frontend_noauth" {
   location = google_cloud_run_v2_service.frontend.location
   name     = google_cloud_run_v2_service.frontend.name
@@ -29,20 +28,6 @@ resource "google_cloud_run_v2_service_iam_member" "frontend_noauth" {
 resource "google_cloud_run_domain_mapping" "portfolio_domain" {
   location = var.region
   name     = var.environment == "prod" ? "migueldev11.com" : "demo.migueldev11.com"
-
-  metadata {
-    namespace = var.project_id
-  }
-
-  spec {
-    route_name = google_cloud_run_v2_service.frontend.name
-  }
-}
-
-# Domain Mapping for Blog
-resource "google_cloud_run_domain_mapping" "blog_domain" {
-  location = var.region
-  name     = var.environment == "prod" ? "blog.migueldev11.com" : "blog.demo.migueldev11.com"
 
   metadata {
     namespace = var.project_id

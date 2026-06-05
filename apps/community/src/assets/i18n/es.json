@@ -1,0 +1,359 @@
+{
+  "nav": {
+    "brandSubtitle": "Backend Dev",
+    "home": "Inicio",
+    "about": "Sobre Mí",
+    "resume": "Resume",
+    "portfolio": "Portafolio",
+    "contact": "Contacto",
+    "blog": "Blog"
+  },
+  "home": {
+    "hero": {
+      "greeting": "",
+      "name": "Eduardo Miguel",
+      "surname": "Muzo",
+      "description": "Ingeniero de Software enfocado en el desarrollo de arquitecturas de Backend y soluciones de Inteligencia Artificial. Experiencia en la integración de modelos de lenguaje (LLMs) mediante agentes para consultas SQL utilizando LangGraph y AWS Bedrock. Especialista en la construcción de servicios escalables sobre AWS (Lambdas, S3) y la creación de dashboards técnicos, conectando eficientemente la lógica de servidor con aplicaciones web y móviles.",
+      "stats": {
+        "years": "Años",
+        "projects": "Proyectos",
+        "technologies": "Tecnologías"
+      },
+      "actions": {
+        "contact": "Contactar",
+        "projects": "Ver Proyectos",
+        "downloadCV": "Descargar CV"
+      },
+      "rolePrefix": "Soy un",
+      "status": "Disponible",
+      "location": "Quito, Ecuador",
+      "role": "Software Engineer | Backend & AI Focus"
+    },
+    "resume": {
+      "title": "Mi Trayectoria",
+      "subtitle": "Un recorrido por mi carrera profesional y académica",
+      "skills": "Habilidades Técnicas",
+      "experience": "Experiencia Profesional",
+      "education": "Educación"
+    },
+    "profile": {
+      "title": "Perfil Profesional",
+      "subtitle": "Experiencia, formación y habilidades técnicas",
+      "tabs": {
+        "skills": "Skills",
+        "experience": "Experiencia",
+        "education": "Formación"
+      },
+      "skills": {
+        "techStack": "Stack Tecnológico",
+        "technologiesUsed": "Tecnologías Utilizadas",
+        "techs": "techs"
+      }
+    },
+    "portfolio": {
+      "title": "Proyectos Destacados",
+      "subtitle": "Una selección de mis mejores trabajos",
+      "viewAll": "Ver Todos los Proyectos",
+      "viewProject": "Ver Proyecto",
+      "viewCode": "Código"
+    },
+    "skillsModal": {
+      "technologies": "Tecnologías",
+      "expert": "Experto+"
+    },
+    "contact": {
+      "title": "Contáctame",
+      "subtitle": "Estoy disponible para nuevos proyectos y oportunidades",
+      "description": "¿Tienes un proyecto en mente? Estoy disponible para nuevos proyectos y colaboraciones. ¡Hablemos!",
+      "projectTitle": "Hablemos de tu proyecto",
+      "methods": {
+        "email": "Email",
+        "whatsapp": "WhatsApp",
+        "linkedin": "LinkedIn",
+        "responses": {
+          "email": "Respuesta en 24h",
+          "whatsapp": "Respuesta inmediata",
+          "linkedin": "Red profesional"
+        }
+      },
+      "availability": {
+        "title": "Disponible para proyectos",
+        "response": "Respuesta: < 24h",
+        "start": "Inicio: Inmediato"
+      },
+      "form": {
+        "title": "Envíame un mensaje",
+        "description": "Cuéntame sobre tu proyecto",
+        "name": "Tu nombre",
+        "email": "Tu email",
+        "message": "Cuéntame sobre tu proyecto...",
+        "send": "Enviar Mensaje",
+        "projectType": "Tipo de Proyecto",
+        "selectType": "Selecciona una opción",
+        "types": {
+          "web": "Desarrollo Web",
+          "mobile": "Aplicación Móvil",
+          "ecommerce": "E-commerce",
+          "consulting": "Consultoría",
+          "other": "Otro"
+        }
+      },
+      "toast": {
+        "sending": "Enviando mensaje...",
+        "successTitle": "¡Mensaje Enviado!",
+        "successMessage": "¡Tu mensaje ha sido enviado con éxito! Me pondré en contacto contigo pronto.",
+        "errorTitle": "Error al enviar",
+        "errorMessage": "Hubo un problema al enviar tu mensaje. Por favor, intenta nuevamente.",
+        "connectionErrorTitle": "Error de Conexión",
+        "connectionErrorMessage": "No se pudo conectar con el servidor. Por favor, verifica tu conexión a internet."
+      }
+    }
+  },
+  "projects": {
+    "asobanca": {
+      "title": "Plataforma ASOBANCA",
+      "description": "Sistema integral para instituciones financieras con módulos de gestión de clientes, transacciones y reportes regulatorios.",
+      "longDescription": "Plataforma web completa desarrollada con Laravel y Vue.js que permite a las instituciones financieras gestionar clientes, procesar transacciones y generar reportes regulatorios con dashboards interactivos."
+    },
+    "munsterMind": {
+      "title": "Münster Mind App",
+      "description": "Solución estratégica de RH que ayuda a las empresas a entender a las personas, alinear fortalezas con la cultura y crear ambientes laborales prósperos.",
+      "longDescription": "Aplicación móvil que va más allá de los procesos tradicionales de RH analizando datos significativos sobre candidatos y equipos, facilitando mejores decisiones de contratación y reduciendo la rotación mediante insights estratégicos de talento."
+    },
+    "conafis": {
+      "title": "Sistema CONAFIS SARAS",
+      "description": "Plataforma gubernamental para gestión de recursos y análisis estadístico con alta disponibilidad y seguridad.",
+      "longDescription": "Sistema web gubernamental desarrollado con Angular y NestJS para la gestión eficiente de recursos públicos con módulos de análisis estadístico, alta disponibilidad y máxima seguridad."
+    },
+    "academicSystem": {
+      "title": "Sistema de Gestión Académica",
+      "description": "Plataforma web completa para la gestión de estudiantes, profesores y cursos con dashboard administrativo y reportes en tiempo real.",
+      "longDescription": "Sistema completo de gestión académica desarrollado con Angular que permite administrar estudiantes, profesores, cursos y generar reportes académicos con interfaz administrativa intuitiva."
+    },
+    "ecommerce": {
+      "title": "E-Commerce Moderno",
+      "description": "Tienda online responsive con carrito de compras, pasarela de pagos, gestión de inventario y panel de administración.",
+      "longDescription": "Plataforma de comercio electrónico desarrollada con React y Next.js que incluye carrito de compras, integración con Stripe para pagos y panel de administración completo para gestión de productos e inventario."
+    },
+    "taskApp": {
+      "title": "App de Gestión de Tareas",
+      "description": "Aplicación móvil multiplataforma para gestión de proyectos y tareas con sincronización en tiempo real y colaboración en equipo.",
+      "longDescription": "Aplicación móvil desarrollada con Flutter para gestión de proyectos y tareas que incluye colaboración en tiempo real, asignación de tareas y seguimiento de progreso con notificaciones."
+    },
+    "analyticsApp": {
+      "title": "Dashboard de Analytics",
+      "description": "Panel de control interactivo con visualización de datos, gráficos dinámicos y reportes personalizables para análisis de negocio.",
+      "longDescription": "Dashboard completo desarrollado con Vue.js y D3.js que permite visualizar datos complejos, crear gráficos interactivos y generar reportes personalizados para análisis empresarial."
+    },
+    "sinapsekEducation": {
+      "title": "Sinapsek Education",
+      "description": "Plataforma educativa enfocada al crecimiento profesional en áreas tecnológicas y matemáticas, diseñada para el ingreso a la universidad.",
+      "longDescription": "Plataforma educativa integral desarrollada con Django y React que ofrece cursos especializados en tecnología y matemáticas. Incluye rutas de aprendizaje personalizadas, seguimiento de progreso y módulos de preparación para exámenes de ingreso universitario."
+    },
+    "billusos": {
+      "title": "billusos",
+      "description": "Plataforma de facturación electrónica y gestión empresarial con integración a servicios gubernamentales.",
+      "longDescription": "Sistema empresarial desarrollado con Django y React para facturación electrónica, gestión de clientes y integración completa con servicios del SRI y otros organismos gubernamentales."
+    }
+  },
+  "experiences": {
+    "fullstack-lateral": {
+      "title": "Software Engineer | Backend & AI",
+      "subtitle": "Lateral Business Thinking",
+      "date": "Jul 2024 - Actualidad",
+      "tasks": [
+        "Lideré el desarrollo integral de un Agente de IA (Text-to-SQL) utilizando LangGraph y AWS Bedrock, integrando un ecosistema técnico con FastAPI y React",
+        "Desarrollé íntegramente el aplicativo móvil para Android e iOS utilizando Flutter, liderando su arquitectura y el ciclo completo de publicación en Play Store y App Store",
+        "Participé en el desarrollo y mantenimiento del backend serverless (AWS Lambdas, NestJS, Prisma) que sirve a la app móvil en Flutter y web en Angular",
+        "Contribuí al despliegue de infraestructura mediante Terraform (Lambdas, S3) e implementé procesos de CI/CD y monitoreo con CloudWatch y Google Cloud"
+      ]
+    },
+    "billusos-dev": {
+      "title": "Backend Developer",
+      "subtitle": "Billusos",
+      "date": "Dic 2023 - Nov 2024",
+      "tasks": [
+        "Desarrollé y optimicé servicios de backend para la generación de reportes y dashboards financieros utilizando Python y Django",
+        "Desarrollé y mantuve funcionalidades en el aplicativo móvil utilizando React Native, asegurando una integración fluida con los servicios del servidor",
+        "Gestioné la persistencia de datos y la optimización de la lógica de negocio sobre PostgreSQL"
+      ]
+    },
+    "junior-fullstack": {
+      "title": "Software Engineer",
+      "subtitle": "Centro Ecuatoriano de Eficiencia de Recursos (CEER)",
+      "date": "Feb 2023 - Jul 2023",
+      "tasks": [
+        "Desarrollé reportes dinámicos y dashboards interactivos mediante consultas optimizadas a la base de datos PostgreSQL para la plataforma CONAFIPS SARAS",
+        "Implementé funcionalidades tanto en Backend (Laravel/Lumen) como en Frontend (Angular), asegurando la visualización correcta de métricas clave",
+        "Participé en la integración de flujos de datos para el cumplimiento de lógica de negocio financiera"
+      ]
+    }
+  },
+  "education": {
+    "computer-engineering": {
+      "title": "Ingeniería en Ciencias de la Computación",
+      "institution": "Escuela Politécnica Nacional",
+      "date": "En curso (Nivel Avanzado)",
+      "description": "Formación integral en ciencias de la computación con énfasis en desarrollo de software, algoritmos avanzados, inteligencia artificial y análisis de sistemas complejos.",
+      "achievements": [
+        "Especialización en Algoritmos y Estructuras de Datos Avanzadas",
+        "Proyectos de Machine Learning y Deep Learning",
+        "Desarrollo de aplicaciones web full-stack",
+        "Participación en competencias de programación"
+      ]
+    },
+    "software-development": {
+      "title": "Tecnología Superior en Desarrollo de Software",
+      "institution": "Escuela Politécnica Nacional",
+      "date": "2023",
+      "description": "Formación técnica especializada en desarrollo de aplicaciones web y móviles, bases de datos, metodologías ágiles y arquitecturas de software modernas.",
+      "achievements": [
+        "Desarrollo de más de 15 proyectos web completos",
+        "Dominio de frameworks modernos (Angular, React, Vue.js)",
+        "Implementación de APIs RESTful y microservicios",
+        "Certificación en metodologías ágiles (Scrum)"
+      ]
+    },
+    "high-school": {
+      "title": "Bachillerato General Unificado",
+      "institution": "Unidad Educativa Leopoldo Mercado",
+      "date": "2013 - 2019",
+      "description": "Educación secundaria con especialización en ciencias exactas, matemáticas avanzadas y fundamentos de programación que sentaron las bases para mi carrera tecnológica.",
+      "achievements": [
+        "Graduado con honores en Ciencias Exactas",
+        "Participación en olimpiadas de matemáticas",
+        "Primer contacto con programación en Python",
+        "Liderazgo estudiantil y trabajo en equipo"
+      ]
+    }
+  },
+  "common": {
+    "current": "Actualidad",
+    "actualidad": "Actualidad",
+    "viewMore": "Ver Más",
+    "viewLess": "Ver Menos"
+  },
+  "skillAreas": {
+    "backend": {
+      "title": "Backend & AI Engineering",
+      "description": "APIs robustas, arquitecturas escalables y soluciones de IA"
+    },
+    "ai": {
+      "title": "Inteligencia Artificial",
+      "description": "Agentes de IA, LLMs, RAG y procesamiento de lenguaje natural"
+    },
+    "devops": {
+      "title": "Infrastructure & Cloud",
+      "description": "AWS, Terraform, CI/CD y administración de sistemas"
+    },
+    "frontend": {
+      "title": "Frontend",
+      "description": "Interfaces modernas y experiencias de usuario excepcionales"
+    },
+    "mobile": {
+      "title": "Mobile",
+      "description": "Aplicaciones móviles multiplataforma para Android e iOS"
+    },
+    "databases": {
+      "title": "Bases de Datos",
+      "description": "PostgreSQL, SQL Server, MySQL y modelado de datos"
+    },
+    "languages": {
+      "title": "Lenguajes de Programación",
+      "description": "Python, TypeScript, JavaScript, PHP y Dart"
+    }
+  },
+  "footer": {
+    "copyright": "© 2025 Mi Portafolio. Todos los derechos reservados."
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Reflexiones e ideas sobre tecnología, desarrollo e ingeniería de software",
+    "searchPlaceholder": "Buscar artículos...",
+    "filters": {
+      "all": "Todos"
+    },
+    "activeFilters": "Filtros activos",
+    "clearAll": "Limpiar todo",
+    "loading": "Cargando publicaciones...",
+    "loadingPost": "Cargando artículo...",
+    "featured": "Artículos Destacados",
+    "featuredBadge": "Destacado",
+    "latestPosts": "Últimas Publicaciones",
+    "results": "Resultados",
+    "relatedPosts": "Artículos Relacionados",
+    "backToBlog": "Volver al Blog",
+    "popularTags": "Etiquetas Populares",
+    "pagination": {
+      "prev": "Anterior",
+      "next": "Siguiente"
+    },
+    "empty": {
+      "title": "No se encontraron artículos",
+      "description": "Intenta ajustar tus filtros o términos de búsqueda",
+      "action": "Limpiar filtros"
+    },
+    "error": {
+      "title": "Error al cargar artículo",
+      "backToBlog": "Volver al Blog"
+    }
+  },
+  "portfolio": {
+    "header": {
+      "title": "Mi Portafolio",
+      "subtitle": "Una selección de proyectos que demuestran mis habilidades y experiencia en desarrollo"
+    },
+    "filters": {
+      "all": "Todos",
+      "personal": "Personales",
+      "professional": "Profesionales"
+    },
+    "project": {
+      "viewDetails": "Ver Detalles",
+      "personal": "Personal",
+      "professional": "Profesional",
+      "viewProject": "Ver Proyecto",
+      "viewCode": "Ver Código",
+      "viewLive": "Ver Demo",
+      "description": "Descripción del Proyecto",
+      "technologies": "Tecnologías Utilizadas",
+      "featured": "Destacado",
+      "aboutProject": "Acerca del Proyecto",
+      "projectInfo": "Información del Proyecto",
+      "client": "Cliente",
+      "role": "Rol",
+      "completed": "Completado",
+      "challenges": "Desafíos",
+      "solutions": "Soluciones",
+      "results": "Resultados"
+    },
+    "loading": "Cargando...",
+    "backToPortfolio": "Volver al Portafolio",
+    "relatedProjects": "Proyectos Relacionados",
+    "error": {
+      "title": "Proyecto no encontrado"
+    },
+    "empty": {
+      "title": "No hay proyectos",
+      "description": "No se encontraron proyectos para el filtro seleccionado"
+    }
+  },
+  "resume": {
+    "experience": {
+      "title": "Mi Experiencia",
+      "subtitle": "Un recorrido por mi carrera profesional en el desarrollo de software y tecnología",
+      "technologies": "Tecnologías",
+      "skills": "Skills",
+      "responsibilities": "Responsabilidades",
+      "viewMore": "Ver Más Experiencias",
+      "viewLess": "Ver Menos"
+    },
+    "education": {
+      "title": "Mi Trayectoria Educativa",
+      "subtitle": "El camino académico que ha forjado mi carrera profesional en tecnología",
+      "achievements": "Logros",
+      "viewMore": "Ver Más Educación",
+      "viewLess": "Ver Menos"
+    }
+  }
+}

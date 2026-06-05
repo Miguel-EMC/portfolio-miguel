@@ -1,0 +1,19 @@
+<button 
+  class="theme-toggle-btn" 
+  (click)="toggleTheme()"
+  [attr.aria-label]="isDarkTheme ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro'"
+  [title]="isDarkTheme ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro'">
+  
+  <div class="toggle-container">
+    <div class="toggle-track" [class.dark]="isDarkTheme">
+      <div class="toggle-thumb" [class.dark]="isDarkTheme">
+        <div class="icon-container">
+          <!-- Icono de sol (tema claro) -->
+          <i class="bi bi-sun-fill sun-icon" [class.active]="!isDarkTheme"></i>
+          <!-- Icono de luna (tema oscuro) -->
+          <i class="bi bi-moon-stars-fill moon-icon" [class.active]="isDarkTheme"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</button>

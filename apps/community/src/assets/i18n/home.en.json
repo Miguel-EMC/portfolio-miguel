@@ -1,0 +1,132 @@
+{
+  "nav": {
+    "brandSubtitle": "Backend Dev",
+    "home": "Home",
+    "about": "About Me",
+    "resume": "Resume",
+    "portfolio": "Portfolio",
+    "contact": "Contact"
+  },
+  "home": {
+    "hero": {
+      "greeting": "👋 Hello, I'm",
+      "name": "Eduardo Miguel",
+      "surname": "Muzo",
+      "description": "Software Engineer focused on Backend development with experience building scalable architectures using Python and TypeScript. Specialized in integrating Artificial Intelligence into business processes via LLMs, LangChain, LangGraph, and RAG. Proficient in API design (FastAPI/Django/NestJS) and multi-platform application development (Flutter and Angular). Seeking to provide high-impact technical solutions as an AI Backend Engineer.",
+      "stats": {
+        "years": "Years",
+        "projects": "Projects",
+        "technologies": "Technologies"
+      },
+      "actions": {
+        "contact": "Contact",
+        "projects": "View Projects"
+      },
+      "status": "Available",
+      "location": "Quito, Ecuador",
+      "role": "Software Engineer | Backend & AI Focus"
+    },
+    "profile": {
+      "title": "Professional Profile",
+      "tabs": {
+        "skills": "Skills",
+        "experience": "Experience",
+        "education": "Education"
+      }
+    },
+    "portfolio": {
+      "title": "Featured Projects",
+      "viewAll": "View All Projects"
+    },
+    "contact": {
+      "title": "Contact Me",
+      "description": "Do you have a project in mind? I'm available for new projects and collaborations. Let's talk!",
+      "methods": {
+        "email": "Email",
+        "whatsapp": "WhatsApp",
+        "linkedin": "LinkedIn"
+      },
+      "form": {
+        "name": "Your name",
+        "email": "Your email",
+        "message": "Tell me about your project...",
+        "send": "Send Message"
+      }
+    }
+  },
+  "projects": {
+    "asobanca": {
+      "title": "ASOBANCA Platform",
+      "description": "Comprehensive system for financial institutions with complete management modules."
+    },
+    "munsterMind": {
+      "title": "Münster Mind App",
+      "description": "Strategic HR solution for better hiring decisions and team alignment."
+    },
+    "sinapsekEducation": {
+      "title": "Sinapsek Education",
+      "description": "Educational platform for professional growth in tech and mathematics."
+    },
+    "conafis": {
+      "title": "CONAFIS SARAS System",
+      "description": "Government platform for resource management and statistical analysis."
+    }
+  },
+  "experiences": {
+    "fullstack-lateral": {
+      "title": "Full Stack Developer",
+      "subtitle": "Lateral Business Thinking | Innovate Empresarial Solutions"
+    },
+    "billusos-dev": {
+      "title": "Developer",
+      "subtitle": "Billusos"
+    },
+    "junior-fullstack": {
+      "title": "Full Stack Developer",
+      "subtitle": "Centro Ecuatoriano de Eficiencia de Recursos"
+    }
+  },
+  "education": {
+    "computer-engineering": {
+      "title": "Computer Science Engineering",
+      "institution": "Escuela Politécnica Nacional",
+      "description": "Comprehensive training in computer science with emphasis on software development, advanced algorithms, artificial intelligence and complex systems analysis."
+    },
+    "software-development": {
+      "title": "Higher Technology in Software Development",
+      "institution": "Escuela Politécnica Nacional",
+      "description": "Specialized technical training in web and mobile application development, databases, agile methodologies and modern software architectures."
+    },
+    "high-school": {
+      "title": "Unified General Baccalaureate",
+      "institution": "Unidad Educativa Leopoldo Mercado",
+      "description": "Secondary education with specialization in exact sciences, advanced mathematics and programming fundamentals that laid the foundation for my technological career."
+    }
+  },
+  "skillAreas": {
+    "frontend": {
+      "title": "Frontend",
+      "description": "Modern interfaces and exceptional user experiences"
+    },
+    "backend": {
+      "title": "Backend",
+      "description": "Robust APIs and scalable architectures"
+    },
+    "mobile": {
+      "title": "Mobile",
+      "description": "Innovative cross-platform mobile applications"
+    },
+    "devops": {
+      "title": "Networks & DevOps",
+      "description": "Cloud infrastructure and systems administration"
+    },
+    "languages": {
+      "title": "Programming Languages",
+      "description": "Solid foundation in multiple languages for different environments"
+    },
+    "databases": {
+      "title": "Databases",
+      "description": "Efficient data storage and management"
+    }
+  }
+}
