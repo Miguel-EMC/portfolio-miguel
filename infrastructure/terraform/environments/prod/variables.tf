@@ -6,18 +6,18 @@ variable "project_id" {
 
 variable "region" {
   description = "The GCP region to deploy resources"
-  type        = "string"
+  type        = string
   default     = "us-central1"
 }
 
 variable "environment" {
   description = "Environment name (e.g. prod, dev)"
-  type        = "string"
+  type        = string
   default     = "prod"
 }
 
 variable "app_name" {
   description = "The name of the application"
-  type        = "string"
+  type        = string
   default     = "migueldev-blog"
 }

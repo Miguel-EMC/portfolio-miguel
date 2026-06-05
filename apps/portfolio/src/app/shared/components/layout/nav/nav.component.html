@@ -31,7 +31,7 @@
           <div class="link-indicator"></div>
         </div>
       </a>
-      <a class="nav-link" routerLink="/blog" [class.active]="isActive('/blog')">
+      <a class="nav-link" (click)="navigateToBlog()" [class.active]="isActive('/blog')">
         <div class="link-content">
           <i class="bi bi-journal-text"></i>
           <span class="nav-text">{{ 'nav.blog' | translate }}</span>

@@ -4,6 +4,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemeService } from '../../../../../core/services/theme.service';
 
+import { DomainService } from '../../../../../core/services/domain.service';
+
 @Component({
   selector: 'app-blog-nav',
   standalone: true,
@@ -13,6 +15,7 @@ import { ThemeService } from '../../../../../core/services/theme.service';
 })
 export class BlogNavComponent {
   themeService = inject(ThemeService);
+  private domainService = inject(DomainService);
   isMenuOpen = false;
 
   toggleMenu() {
@@ -21,5 +24,9 @@ export class BlogNavComponent {
 
   toggleTheme() {
     this.themeService.toggleTheme();
+  }
+
+  navigateToPortfolio() {
+    window.location.href = this.domainService.getPortfolioUrl();
   }
 }

@@ -7,6 +7,8 @@ import { LanguageToggleComponent } from "../../ui/language-toggle/language-toggl
 import { ThemeToggleComponent } from "../../ui/theme-toggle/theme-toggle.component";
 import { filter } from 'rxjs/operators';
 
+import { DomainService } from '../../../../core/services/domain.service';
+
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -22,8 +24,15 @@ export class NavComponent implements OnInit, OnDestroy {
   constructor(
     private themeService: ThemeService,
     private router: Router,
+    private domainService: DomainService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) { }
+
+  navigateToBlog(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = this.domainService.getBlogUrl();
+    }
+  }
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {

@@ -14,6 +14,9 @@
       <a routerLink="/blog" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">
         <i class="bi bi-house-door"></i> Inicio
       </a>
+      <a (click)="navigateToPortfolio()" class="nav-link clickable">
+        <i class="bi bi-person-badge"></i> Portfolio
+      </a>
       <a routerLink="/blog/courses" routerLinkActive="active" class="nav-link">
         <i class="bi bi-mortarboard"></i> Cursos
       </a>
