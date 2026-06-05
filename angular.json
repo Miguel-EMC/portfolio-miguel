@@ -3,21 +3,21 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "portfolio-personal": {
+    "portfolio": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
         }
       },
-      "root": "",
-      "sourceRoot": "src",
+      "root": "apps/portfolio",
+      "sourceRoot": "apps/portfolio/src",
       "prefix": "app",
       "i18n": {
         "sourceLocale": "en",
         "locales": {
           "es": {
-            "translation": "src/locale/messages.es.xlf",
+            "translation": "apps/portfolio/src/locale/messages.es.xlf",
             "baseHref": ""
           }
         }
@@ -26,25 +26,26 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/portfolio-personal",
-            "index": "src/index.html",
-            "browser": "src/main.ts",
+            "outputPath": "dist/portfolio",
+            "index": "apps/portfolio/src/index.html",
+            "browser": "apps/portfolio/src/main.ts",
             "polyfills": [
               "zone.js",
               "@angular/localize/init"
             ],
-            "tsConfig": "tsconfig.app.json",
+            "tsConfig": "apps/portfolio/tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/404.html",
-              "src/googleab23b079823d4a4f.html",
-              "src/sitemap.xml",
-              "src/robots.txt"
+              "apps/portfolio/src/favicon.ico",
+              "apps/portfolio/src/assets",
+              "apps/portfolio/src/404.html",
+              "apps/portfolio/src/googleab23b079823d4a4f.html",
+              "apps/portfolio/src/sitemap.xml",
+              "apps/portfolio/src/robots.txt"
             ],
             "styles": [
               "node_modules/ngx-toastr/toastr.css",
-              "src/styles.scss",
+              "node_modules/highlight.js/styles/atom-one-dark.css",
+              "apps/portfolio/src/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/bootstrap-icons/font/bootstrap-icons.min.css"
             ],
@@ -79,7 +80,7 @@
             },
             "es": {
               "aot": true,
-              "outputPath": "dist/portfolio-personal/es/",
+              "outputPath": "dist/portfolio/es/",
               "i18nMissingTranslation": "error"
             }
           },
@@ -89,13 +90,13 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "portfolio-personal:build:production"
+              "buildTarget": "portfolio:build:production"
             },
             "development": {
-              "buildTarget": "portfolio-personal:build:development"
+              "buildTarget": "portfolio:build:development"
             },
             "es": {
-              "buildTarget": "portfolio-personal:build:es"
+              "buildTarget": "portfolio:build:es"
             }
           },
           "defaultConfiguration": "development"
@@ -103,7 +104,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "portfolio-personal:build"
+            "buildTarget": "portfolio:build"
           }
         },
         "test": {
@@ -113,13 +114,13 @@
               "zone.js",
               "zone.js/testing"
             ],
-            "tsConfig": "tsconfig.spec.json",
+            "tsConfig": "apps/portfolio/tsconfig.spec.json",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "apps/portfolio/src/favicon.ico",
+              "apps/portfolio/src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "apps/portfolio/src/styles.scss"
             ],
             "scripts": []
           }

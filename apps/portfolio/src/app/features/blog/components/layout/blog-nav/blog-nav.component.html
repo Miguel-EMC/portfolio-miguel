@@ -1,0 +1,42 @@
+<nav class="blog-nav glass">
+  <div class="nav-container">
+    <div class="nav-brand">
+      <a routerLink="/blog" class="brand-link">
+        <span class="brand-logo">M</span>
+        <div class="brand-text">
+          <span class="brand-name">MiguelDev</span>
+          <span class="brand-tagline">Community</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="nav-links" [class.open]="isMenuOpen">
+      <a routerLink="/blog" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">
+        <i class="bi bi-house-door"></i> Inicio
+      </a>
+      <a routerLink="/blog/courses" routerLinkActive="active" class="nav-link">
+        <i class="bi bi-mortarboard"></i> Cursos
+      </a>
+      <a routerLink="/blog/guides" routerLinkActive="active" class="nav-link">
+        <i class="bi bi-book"></i> Guías
+      </a>
+      
+      <div class="nav-actions mobile-only">
+        <button class="btn-auth login">Iniciar Sesión</button>
+        <button class="btn-auth signup">Unirse</button>
+      </div>
+    </div>
+
+    <div class="nav-actions desktop-only">
+      <button class="theme-toggle" (click)="toggleTheme()" [title]="'Cambiar tema'">
+        <i class="bi" [class.bi-sun]="themeService.isDarkMode()" [class.bi-moon-stars]="!themeService.isDarkMode()"></i>
+      </button>
+      <button class="btn-auth login">Log In</button>
+      <button class="btn-auth signup">Sign Up</button>
+    </div>
+
+    <button class="menu-toggle" (click)="toggleMenu()">
+      <i class="bi" [class.bi-list]="!isMenuOpen" [class.bi-x-lg]="isMenuOpen"></i>
+    </button>
+  </div>
+</nav>
