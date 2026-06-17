@@ -1,13 +1,13 @@
 # Basic configuration for Cloud Run
 resource "google_cloud_run_v2_service" "api" {
-  name     = "${var.app_name}-api"
+  name     = "${var.app_name}-${var.environment}-api"
   location = var.region
   ingress  = "INGRESS_TRAFFIC_ALL"
 
   template {
     containers {
-      image = "gcr.io/${var.project_id}/${var.app_name}-api:latest"
-      
+      image = "gcr.io/${var.project_id}/${var.app_name}-${var.environment}-api:latest"
+
       env {
         name  = "ENVIRONMENT"
         value = var.environment
