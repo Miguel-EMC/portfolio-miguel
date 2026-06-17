@@ -1,8 +1,37 @@
 <footer class="footer">
-  <div class="footer-content">
-    <p>{{ 'footer.copyright' | translate }}</p>
-    <button class="scroll-to-top" (click)="scrollToTop()">
-      <i class="bi bi-arrow-up-circle"></i>
-    </button>
+  <div class="footer-container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo">M</span>
+        <p class="description">
+          Ingeniero de Software enfocado en Backend y IA. Construyendo el futuro de la comunidad tecnológica.
+        </p>
+        <div class="social-links">
+          <a href="https://linkedin.com/in/eduardomuzo" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+          <a href="https://github.com/Miguel-EMC" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
+          <a href="mailto:eduardomuzo123456@gmail.com" title="Email"><i class="bi bi-envelope-fill"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-links">
+        <h4 class="footer-title">Navegación</h4>
+        <a (click)="scrollToTop()">Inicio</a>
+        <a routerLink="/resume">Resume</a>
+        <a routerLink="/portfolio">Portafolio</a>
+      </div>
+
+      <div class="footer-links">
+        <h4 class="footer-title">Plataforma</h4>
+        <a href="https://blog.migueldev11.com">Blog</a>
+        <a href="https://blog.migueldev11.com/courses">Cursos</a>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>© 2025 MiguelDev. Todos los derechos reservados.</p>
+      <button class="scroll-to-top" (click)="scrollToTop()">
+        <i class="bi bi-arrow-up"></i>
+      </button>
+    </div>
   </div>
 </footer>

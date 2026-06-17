@@ -9,20 +9,20 @@ export const experiences: Experience[] = [
     id: 'fullstack-lateral',
     location: 'Quito, Ecuador (Híbrido)',
     tasks: [
-      'Lideré el desarrollo integral de un Agente de IA (Text-to-SQL) utilizando LangGraph y AWS Bedrock, integrando un ecosistema técnico con FastAPI y React',
-      'Desarrollé íntegramente el aplicativo móvil para Android e iOS utilizando Flutter, liderando su arquitectura y el ciclo completo de publicación en Play Store y App Store',
-      'Participé en el desarrollo y mantenimiento del backend serverless (AWS Lambdas, NestJS, Prisma) que sirve a la app móvil en Flutter y web en Angular',
-      'Participé activamente en el desarrollo frontend e integración de APIs en la plataforma web mediante Angular',
-      'Contribuí al despliegue de infraestructura mediante Terraform (Lambdas, S3) e implementé procesos de CI/CD y monitoreo con CloudWatch y Google Cloud'
+      'Diseñé y construí la primera versión en producción de un agente de IA Text-to-SQL basado en grafos usando LangGraph y AWS Bedrock, integrado con un backend FastAPI, automatizando gran parte de la creación manual de consultas SQL.',
+      'Desarrollé servicios backend serverless en AWS Lambda que orquestan APIs de proveedores LLM (AWS Bedrock, OpenAI, Gemini) y los exponen mediante REST APIs consumidas por las aplicaciones web (Angular) y móvil (Flutter).',
+      'Construí y mantuve servicios backend serverless con AWS Lambda y Step Functions usando NestJS y Prisma ORM, sirviendo tanto a la aplicación móvil como a la plataforma web.',
+      'Desarrollé y publiqué una aplicación móvil multiplataforma con Flutter para Android e iOS, gestionando el ciclo completo de publicación en Google Play Store y Apple App Store.',
+      'Desplegué infraestructura en la nube con Terraform (Lambda, S3, Step Functions) e implementé pipelines de CI/CD con monitoreo en Amazon CloudWatch y Google Cloud Platform.'
     ]
   },
   {
     id: 'billusos-dev',
     location: 'Remoto',
     tasks: [
-      'Desarrollé y optimicé servicios de backend para la generación de reportes y dashboards financieros utilizando Python y Django',
-      'Desarrollé y mantuve funcionalidades en el aplicativo móvil utilizando React Native, asegurando una integración fluida con los servicios del servidor',
-      'Gestioné la persistencia de datos y la optimización de la lógica de negocio sobre PostgreSQL'
+      'Desarrollé y optimicé servicios backend en Python y Django para la generación automatizada de reportes financieros y dashboards operacionales, eliminando procesos manuales.',
+      'Construí y mantuve funcionalidades en la aplicación móvil con React Native, asegurando integración fluida con los endpoints REST y la lógica de negocio del servidor.',
+      'Gestioné la capa de persistencia de datos y optimicé consultas PostgreSQL complejas para reportería de inteligencia de negocio, mejorando tiempos de respuesta de los dashboards.'
     ]
   },
   {

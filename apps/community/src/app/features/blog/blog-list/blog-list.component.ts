@@ -4,6 +4,7 @@ import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Subject, takeUntil, debounceTime, distinctUntilChanged } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { BlogService } from '../../../core/services/blog.service';
 import { SeoService } from '../../../core/services/seo.service';
@@ -22,6 +23,7 @@ export class BlogListComponent implements OnInit, OnDestroy {
   private seoService = inject(SeoService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private translate = inject(TranslateService);
   private ngZone = inject(NgZone);
   private destroy$ = new Subject<void>();
   
@@ -190,7 +192,7 @@ export class BlogListComponent implements OnInit, OnDestroy {
   }
 
   formatDate(date: Date): string {
-    return new Intl.DateTimeFormat('en-US', {
+    return new Intl.DateTimeFormat(this.translate.currentLang === 'en' ? 'en-US' : 'es-ES', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'

@@ -8,9 +8,9 @@ export const educationItems: Education[] = [
   {
     id: 'computer-engineering',
     achievements: [
-      'Especialización en Algoritmos y Estructuras de Datos Avanzadas',
-      'Proyectos de Machine Learning y Deep Learning',
-      'Desarrollo de aplicaciones web full-stack',
+      'Énfasis en algoritmos, estructuras de datos y fundamentos matemáticos de IA',
+      'Proyectos en Machine Learning y sistemas de inteligencia artificial',
+      'Desarrollo de aplicaciones full-stack modernas',
       'Participación en competencias de programación'
     ],
     icon: 'bi-mortarboard'
@@ -18,10 +18,10 @@ export const educationItems: Education[] = [
   {
     id: 'software-development',
     achievements: [
-      'Desarrollo de más de 15 proyectos web completos',
-      'Dominio de frameworks modernos (Angular, React, Vue.js)',
-      'Implementación de APIs RESTful y microservicios',
-      'Certificación en metodologías ágiles (Scrum)'
+      'Graduado 2023 — base sólida en desarrollo web y backend',
+      'Dominio de Angular, Django, FastAPI y APIs RESTful',
+      'Diseño y optimización de bases de datos con PostgreSQL',
+      'Introducción a infraestructura cloud y prácticas DevOps'
     ],
     icon: 'bi-code-slash'
   },

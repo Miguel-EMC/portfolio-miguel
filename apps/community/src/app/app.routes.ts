@@ -12,6 +12,16 @@ export const routes: Routes = [
     title: 'MiguelDev Community'
   },
   {
+    path: 'auth/login',
+    loadComponent: () => import('./features/auth/login.component').then(m => m.CommunityLoginComponent),
+    title: 'Entrar | Community'
+  },
+  {
+    path: 'auth/signup',
+    loadComponent: () => import('./features/auth/signup.component').then(m => m.CommunitySignupComponent),
+    title: 'Unirse | Community'
+  },
+  {
     path: '**',
     redirectTo: 'blog'
   }

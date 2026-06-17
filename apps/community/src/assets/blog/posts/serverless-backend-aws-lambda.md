@@ -6,7 +6,7 @@ author: "Miguel"
 publishedAt: "2024-10-05T10:00:00.000Z"
 category: "devops"
 tags: ["AWS", "Lambda", "NestJS", "Terraform", "Serverless"]
-coverImage: "/assets/img/blog/serverless.jpg"
+coverImage: "/assets/img/asobancaPlataforma.png"
 featured: false
 published: true
 ---

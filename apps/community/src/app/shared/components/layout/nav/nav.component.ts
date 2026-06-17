@@ -21,13 +21,22 @@ export class NavComponent implements OnInit, OnDestroy {
   isMobileMenuOpen = false;
   isScrolled = false;
   activeRoute = '/about';
+  isBlog = false;
 
   constructor(
     private themeService: ThemeService,
     private router: Router,
     private domainService: DomainService,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) { }
+  ) { 
+    this.isBlog = this.domainService.isBlogDomain();
+  }
+
+  navigateToPortfolio(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = this.domainService.getPortfolioUrl();
+    }
+  }
 
   navigateToBlog(): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -84,21 +93,30 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   navigateToRoute(route: string): void {
-    // Si estamos en la página principal (home), hacer scroll a la sección
-    if (this.router.url === '/' || this.router.url === '/home') {
-      this.scrollToSection(route);
+    if (this.isBlog) {
+      // Logic for Blog/Community app
+      if (route.startsWith('admin/')) {
+        this.router.navigate(['/' + route]);
+      } else if (route === 'home' || route === '/') {
+        this.router.navigate(['/blog']);
+      } else {
+        this.scrollToSection(route);
+      }
     } else {
-      // Si estamos en otra página, navegar a home y luego hacer scroll
-      this.router.navigate(['/home']).then(() => {
-        this.ngZone.runOutsideAngular(() => {
-          setTimeout(() => {
-            this.scrollToSection(route);
-          }, 300);
+      // Logic for Portfolio app
+      if (this.router.url === '/' || this.router.url === '/home') {
+        this.scrollToSection(route);
+      } else {
+        this.router.navigate(['/home']).then(() => {
+          this.ngZone.runOutsideAngular(() => {
+            setTimeout(() => {
+              this.scrollToSection(route);
+            }, 300);
+          });
         });
-      });
+      }
     }
 
-    // Cerrar menú móvil si está abierto
     if (this.isMobileMenuOpen) {
       this.closeMobileMenu();
     }

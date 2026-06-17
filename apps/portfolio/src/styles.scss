@@ -1,5 +1,5 @@
 /* Importar fuentes profesionales */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 /* Importar estilos de ngx-toastr */
 @import 'ngx-toastr/toastr';
@@ -46,6 +46,32 @@
   --violet-700: #6d28d9;
   --violet-800: #5b21b6;
   --violet-900: #4c1d95;
+
+  /* === PALETA DE MARCA — MiguelDev11 === */
+  /* Extraída del logo: dark bg + neon green circuit glow */
+
+  /* Verde Neón — Color primario de marca */
+  --brand-green:         #39FF14;
+  --brand-green-dim:     #22c55e;
+  --brand-green-dark:    #16a34a;
+  --brand-green-deeper:  #15803d;
+  --brand-green-glow:    rgba(57, 255, 20, 0.4);
+  --brand-green-subtle:  rgba(57, 255, 20, 0.08);
+  --brand-green-muted:   rgba(57, 255, 20, 0.15);
+  --brand-green-border:  rgba(57, 255, 20, 0.2);
+
+  /* Fondos de Marca — Dark base del logo */
+  --brand-bg-base:       #0f1117;
+  --brand-bg-panel:      #1a1d24;
+  --brand-bg-elevated:   #22262f;
+  --brand-bg-overlay:    rgba(15, 17, 23, 0.95);
+  --brand-bg-glass:      rgba(26, 29, 36, 0.85);
+
+  /* Sombras de Marca — Glow neón */
+  --shadow-brand-sm:     0 0 8px rgba(57, 255, 20, 0.2);
+  --shadow-brand-md:     0 0 12px rgba(57, 255, 20, 0.3), 0 0 24px rgba(57, 255, 20, 0.15);
+  --shadow-brand-glow:   0 0 0 3px rgba(57, 255, 20, 0.25);
+  --shadow-brand-card:   0 0 0 1px rgba(57, 255, 20, 0.2), 0 8px 24px rgba(57, 255, 20, 0.1);
 
   /* Escala de Grises Profesional */
   --gray-50: #f9fafb;
@@ -178,83 +204,105 @@
 /* Tema Claro */
 .light-theme {
   /* Fondos */
-  --bg-primary: #ffffff;
-  --bg-secondary: var(--turquoise-50);
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
   --bg-tertiary: var(--gray-50);
-  --bg-accent: var(--turquoise-100);
+  --bg-accent: rgba(22, 163, 74, 0.06);
   --bg-muted: var(--gray-100);
-  
+
   /* Superficies */
   --surface-primary: #ffffff;
-  --surface-secondary: var(--turquoise-50);
+  --surface-secondary: #f8fafc;
   --surface-elevated: #ffffff;
   --surface-overlay: rgba(255, 255, 255, 0.95);
-  --surface-glass: rgba(255, 255, 255, 0.85);
-  
+  --surface-glass: rgba(255, 255, 255, 0.9);
+
   /* Textos */
   --text-primary: var(--gray-900);
   --text-secondary: var(--gray-700);
   --text-tertiary: var(--gray-600);
   --text-muted: var(--gray-500);
+  --text-accent: var(--brand-green-dark);
   --text-inverse: #ffffff;
-  
+
   /* Bordes */
-  --border-primary: var(--turquoise-200);
-  --border-secondary: var(--turquoise-300);
-  --border-muted: var(--turquoise-100);
-  --border-focus: var(--turquoise-500);
-  
-  /* Colores de Marca */
-  --accent-primary: var(--turquoise-600);
-  --accent-secondary: var(--blue-600);
+  --border-primary: #e2e8f0;
+  --border-secondary: #cbd5e1;
+  --border-muted: #f1f5f9;
+  --border-focus: var(--brand-green-dim);
+
+  /* Colores de Marca — Verde MiguelDev11 */
+  --accent-primary: var(--brand-green-dark);
+  --accent-secondary: var(--brand-green-deeper);
   --accent-tertiary: var(--violet-600);
-  
+  --accent-primary-rgb: 22, 163, 74;
+  --accent-secondary-rgb: 21, 128, 61;
+  --accent-tertiary-rgb: 124, 58, 237;
+  --accent-glow: rgba(22, 163, 74, 0.3);
+
   /* Estados */
-  --state-hover: var(--turquoise-50);
-  --state-active: var(--turquoise-100);
-  --state-focus: var(--turquoise-50);
+  --state-hover: rgba(22, 163, 74, 0.06);
+  --state-active: rgba(22, 163, 74, 0.12);
+  --state-focus: rgba(22, 163, 74, 0.1);
   --state-disabled: var(--gray-100);
+
+  /* Sombras de marca (light) */
+  --shadow-brand-sm:   0 0 8px rgba(22, 163, 74, 0.15);
+  --shadow-brand-md:   0 0 12px rgba(22, 163, 74, 0.2), 0 4px 16px rgba(0,0,0,0.08);
+  --shadow-brand-glow: 0 0 0 3px rgba(22, 163, 74, 0.2);
+  --shadow-brand-card: 0 0 0 1px rgba(22, 163, 74, 0.15), 0 4px 16px rgba(0,0,0,0.06);
 }
 
-/* Tema Oscuro */
+/* Tema Oscuro — Identidad visual del logo */
 .dark-theme {
-  /* Fondos */
-  --bg-primary: var(--gray-950);
-  --bg-secondary: var(--turquoise-950);
-  --bg-tertiary: var(--gray-900);
-  --bg-accent: rgba(20, 184, 166, 0.1);
-  --bg-muted: var(--gray-900);
-  
+  /* Fondos — del logo: charcoal #1e2124 con circuitos verdes */
+  --bg-primary: var(--brand-bg-base);
+  --bg-secondary: var(--brand-bg-panel);
+  --bg-tertiary: var(--brand-bg-elevated);
+  --bg-accent: var(--brand-green-subtle);
+  --bg-muted: var(--brand-bg-panel);
+
   /* Superficies */
-  --surface-primary: var(--gray-950);
-  --surface-secondary: var(--turquoise-950);
-  --surface-elevated: var(--gray-900);
-  --surface-overlay: rgba(4, 47, 46, 0.95);
-  --surface-glass: rgba(4, 47, 46, 0.8);
-  
+  --surface-primary: var(--brand-bg-panel);
+  --surface-secondary: var(--brand-bg-elevated);
+  --surface-elevated: var(--brand-bg-elevated);
+  --surface-overlay: var(--brand-bg-overlay);
+  --surface-glass: var(--brand-bg-glass);
+
   /* Textos */
-  --text-primary: var(--turquoise-50);
-  --text-secondary: var(--turquoise-200);
-  --text-tertiary: var(--turquoise-300);
-  --text-muted: var(--gray-400);
-  --text-inverse: var(--gray-950);
-  
-  /* Bordes */
-  --border-primary: var(--turquoise-800);
-  --border-secondary: var(--turquoise-700);
-  --border-muted: var(--turquoise-900);
-  --border-focus: var(--turquoise-400);
-  
-  /* Colores de Marca */
-  --accent-primary: var(--turquoise-400);
-  --accent-secondary: var(--blue-400);
+  --text-primary: #f0f0f0;
+  --text-secondary: var(--gray-300);
+  --text-tertiary: var(--gray-400);
+  --text-muted: var(--gray-500);
+  --text-accent: var(--brand-green);
+  --text-inverse: var(--brand-bg-base);
+
+  /* Bordes — verde neón con opacidad baja */
+  --border-primary: var(--brand-green-border);
+  --border-secondary: rgba(57, 255, 20, 0.12);
+  --border-muted: rgba(255, 255, 255, 0.06);
+  --border-focus: var(--brand-green);
+
+  /* Colores de Marca — Neón del logo */
+  --accent-primary: var(--brand-green);
+  --accent-secondary: var(--brand-green-dim);
   --accent-tertiary: var(--violet-400);
-  
+  --accent-primary-rgb: 57, 255, 20;
+  --accent-secondary-rgb: 34, 197, 94;
+  --accent-tertiary-rgb: 167, 139, 250;
+  --accent-glow: var(--brand-green-glow);
+
   /* Estados */
-  --state-hover: var(--turquoise-900);
-  --state-active: var(--turquoise-800);
-  --state-focus: rgba(20, 184, 166, 0.15);
-  --state-disabled: var(--gray-800);
+  --state-hover: var(--brand-green-subtle);
+  --state-active: var(--brand-green-muted);
+  --state-focus: rgba(57, 255, 20, 0.15);
+  --state-disabled: rgba(255, 255, 255, 0.04);
+
+  /* Sombras de marca (dark — glow neón) */
+  --shadow-brand-sm:   var(--shadow-brand-sm);
+  --shadow-brand-md:   var(--shadow-brand-md);
+  --shadow-brand-glow: var(--shadow-brand-glow);
+  --shadow-brand-card: var(--shadow-brand-card);
 }
 
 /* ===== RESET Y BASE ===== */
@@ -294,20 +342,22 @@ section, .section-spacing, .about-section, .education-section, .experience, .con
 
 /* ===== LAYOUT PARA NAVBAR HORIZONTAL ===== */
 
-/* Cada página individual necesita padding superior para el navbar horizontal fijo */
+/* ===== LAYOUT PARA NAVBAR FIJO ===== */
+
+/* El home usa un hero que ocupa toda la pantalla, pero otras páginas necesitan padding */
 app-about-me,
 app-resume,
-app-contacts,
-app-portafolio {
+app-portafolio,
+app-contacts {
   display: block;
   min-height: 100vh;
-  padding-top: 80px;
+  padding-top: 75px;
   background-color: var(--bg-primary);
-  
-  @media (max-width: 768px) {
-    padding-top: 75px;
-    min-height: 100vh;
-  }
+}
+
+/* El home maneja su propio padding en el hero */
+app-home {
+  display: block;
 }
 
 /* ===== TIPOGRAFÍA PROFESIONAL ===== */

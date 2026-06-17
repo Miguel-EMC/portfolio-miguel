@@ -1,61 +1,74 @@
 <nav class="navbar" [ngClass]="{'scrolled': isScrolled, 'open': isMobileMenuOpen}">
   <div class="nav-container">
+    <!-- Brand -->
+    <div class="nav-brand">
+      <a (click)="navigateToRoute('home')" class="brand-link">
+        <span class="brand-logo">M</span>
+        <div class="brand-text">
+          <span class="brand-name">Miguel Muzo</span>
+          <span class="brand-tagline">Software Engineer</span>
+        </div>
+      </a>
+    </div>
 
     <!-- Desktop Navigation -->
     <div class="nav-links desktop-nav">
-      <a class="nav-link" (click)="navigateToRoute('home')" [class.active]="isActive('/home') || isActive('/')">
-        <div class="link-content">
-          <i class="bi bi-house-fill"></i>
-          <span class="nav-text">{{ 'nav.home' | translate }}</span>
-          <div class="link-indicator"></div>
-        </div>
+      <a class="nav-link" (click)="navigateToRoute('home')" [class.active]="isActive('home')">
+        Inicio
       </a>
       <a class="nav-link" (click)="navigateToRoute('resume')" [class.active]="isActive('/resume')">
-        <div class="link-content">
-          <i class="bi bi-file-person-fill"></i>
-          <span class="nav-text">{{ 'nav.resume' | translate }}</span>
-          <div class="link-indicator"></div>
-        </div>
+        Resume
       </a>
       <a class="nav-link" (click)="navigateToRoute('portafolio')" [class.active]="isActive('/portfolio')">
-        <div class="link-content">
-          <i class="bi bi-collection-fill"></i>
-          <span class="nav-text">{{ 'nav.portfolio' | translate }}</span>
-          <div class="link-indicator"></div>
-        </div>
+        Portafolio
       </a>
       <a class="nav-link" (click)="navigateToRoute('contacto')" [class.active]="isActive('/contact')">
-        <div class="link-content">
-          <i class="bi bi-envelope-fill"></i>
-          <span class="nav-text">{{ 'nav.contact' | translate }}</span>
-          <div class="link-indicator"></div>
-        </div>
+        Contacto
       </a>
-      <a class="nav-link" (click)="navigateToBlog()" [class.active]="isActive('/blog')">
-        <div class="link-content">
-          <i class="bi bi-journal-text"></i>
-          <span class="nav-text">{{ 'nav.blog' | translate }}</span>
-          <div class="link-indicator"></div>
-        </div>
+      <a class="nav-link blog-link" (click)="navigateToBlog()">
+        Blog <i class="bi bi-arrow-up-right"></i>
       </a>
     </div>
 
-    <!-- Controls: Theme & Language -->
-    <div class="nav-controls">
-      <app-theme-toggle></app-theme-toggle>
-      <app-language-toggle></app-language-toggle>
-    </div>
-
-    <!-- Mobile Menu Toggle -->
-    <button class="mobile-toggle" (click)="toggleMobileMenu()" aria-label="Menú">
-      <div class="hamburger" [class.active]="isMobileMenuOpen">
-        <span></span>
-        <span></span>
-        <span></span>
+    <!-- Controls -->
+    <div class="nav-right">
+      <div class="nav-controls">
+        <app-theme-toggle></app-theme-toggle>
+        <app-language-toggle></app-language-toggle>
       </div>
-    </button>
+
+      <!-- Mobile Menu Toggle -->
+      <button class="mobile-toggle" (click)="toggleMobileMenu()" aria-label="Menú">
+        <div class="hamburger" [class.active]="isMobileMenuOpen">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </button>
+    </div>
   </div>
 
-  <!-- Mobile Menu Overlay -->
+  <!-- Mobile Menu -->
   <div class="mobile-overlay" [class.active]="isMobileMenuOpen" (click)="closeMobileMenu()"></div>
+  
+  <div class="mobile-menu" [class.open]="isMobileMenuOpen">
+    <div class="mobile-menu-content">
+      <a class="nav-link" (click)="navigateToRoute('home')" [class.active]="isActive('home')">
+        <i class="bi bi-house-fill"></i> Inicio
+      </a>
+      <a class="nav-link" (click)="navigateToRoute('resume')" [class.active]="isActive('/resume')">
+        <i class="bi bi-file-person-fill"></i> Resume
+      </a>
+      <a class="nav-link" (click)="navigateToRoute('portafolio')" [class.active]="isActive('/portfolio')">
+        <i class="bi bi-collection-fill"></i> Portafolio
+      </a>
+      <a class="nav-link" (click)="navigateToRoute('contacto')" [class.active]="isActive('/contact')">
+        <i class="bi bi-envelope-fill"></i> Contacto
+      </a>
+      <div class="divider"></div>
+      <a class="nav-link" (click)="navigateToBlog()">
+        <i class="bi bi-journal-text"></i> Ir al Blog
+      </a>
+    </div>
+  </div>
 </nav>

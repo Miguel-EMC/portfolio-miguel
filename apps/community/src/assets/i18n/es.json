@@ -268,8 +268,39 @@
   },
   "blog": {
     "title": "Blog",
-    "subtitle": "Reflexiones e ideas sobre tecnología, desarrollo e ingeniería de software",
+    "eyebrow": "Pensamientos & Tutoriales",
+    "subtitle": "Reflexiones prácticas sobre backend, IA, arquitectura y desarrollo moderno",
     "searchPlaceholder": "Buscar artículos...",
+    "readMore": "Leer más",
+    "readingTime": "min de lectura",
+    "filteringBy": "Filtrando por:",
+    "resetFilters": "Restablecer filtros",
+    "authorBio": "Desarrollador enfocado en backend, inteligencia artificial y arquitectura de software. Comparto notas prácticas, aprendizajes reales y decisiones técnicas detrás de proyectos modernos.",
+    "stats": {
+      "articles": "artículos",
+      "categories": "categorías",
+      "tags": "tags"
+    },
+    "nav": {
+      "community": "Comunidad",
+      "home": "Inicio",
+      "portfolio": "Portafolio",
+      "login": "Iniciar sesión",
+      "join": "Unirse",
+      "menu": "Abrir menú",
+      "themeToLight": "Cambiar a tema claro",
+      "themeToDark": "Cambiar a tema oscuro"
+    },
+    "categories": {
+      "technology": "Tecnología",
+      "programming": "Programación",
+      "web-development": "Desarrollo Web",
+      "mobile-development": "Desarrollo Mobile",
+      "devops": "DevOps",
+      "career": "Carrera",
+      "tutorials": "Tutoriales",
+      "general": "General"
+    },
     "filters": {
       "all": "Todos"
     },
@@ -286,7 +317,9 @@
     "popularTags": "Etiquetas Populares",
     "pagination": {
       "prev": "Anterior",
-      "next": "Siguiente"
+      "next": "Siguiente",
+      "page": "Página",
+      "of": "de"
     },
     "empty": {
       "title": "No se encontraron artículos",
@@ -296,6 +329,45 @@
     "error": {
       "title": "Error al cargar artículo",
       "backToBlog": "Volver al Blog"
+    },
+    "share": {
+      "label": "Compartir",
+      "twitter": "Compartir en X",
+      "linkedin": "Compartir en LinkedIn",
+      "copy": "Copiar enlace",
+      "copied": "Enlace copiado"
+    },
+    "footer": {
+      "description": "Comunidad de aprendizaje y colaboración para desarrolladores. Artículos técnicos, guías y notas de campo.",
+      "platform": "Plataforma",
+      "articles": "Artículos",
+      "resources": "Recursos",
+      "social": "Social",
+      "copyright": "© 2025 MiguelDev Community. Todos los derechos reservados."
+    }
+  },
+  "auth": {
+    "fields": {
+      "name": "Nombre completo",
+      "email": "Email",
+      "password": "Contraseña"
+    },
+    "placeholders": {
+      "name": "Tu nombre",
+      "email": "tu@email.com"
+    },
+    "login": {
+      "subtitle": "Bienvenido a la comunidad. Inicia sesión para continuar.",
+      "action": "Iniciar sesión",
+      "noAccount": "¿No tienes cuenta?",
+      "joinNow": "Únete ahora"
+    },
+    "signup": {
+      "title": "Crea tu cuenta",
+      "subtitle": "Únete a la comunidad para participar y aprender.",
+      "action": "Registrarme",
+      "hasAccount": "¿Ya tienes cuenta?",
+      "login": "Inicia sesión"
     }
   },
   "portfolio": {

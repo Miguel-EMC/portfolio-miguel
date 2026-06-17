@@ -6,7 +6,7 @@ author: "Miguel"
 publishedAt: "2024-12-15T10:00:00.000Z"
 category: "technology"
 tags: ["AI", "LangGraph", "AWS", "Python", "LLM"]
-coverImage: "/assets/img/blog/ai-agents.jpg"
+coverImage: "/assets/img/og-image.jpg"
 featured: true
 published: true
 ---

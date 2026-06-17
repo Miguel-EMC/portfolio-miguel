@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, of, catchError, map, tap } from 'rxjs';
+import { BehaviorSubject, Observable, of, catchError, map, tap, switchMap } from 'rxjs';
 import { marked } from 'marked';
 import hljs from 'highlight.js';
 import { 
@@ -19,8 +19,10 @@ import { environment } from '../../../environments/environment';
 export class BlogService {
   private http = inject(HttpClient);
   private readonly apiUrl = environment.api.baseUrl;
+  private readonly contentPath = environment.blog.contentPath;
   
   private postsCache = new Map<string, BlogPost>();
+  private localManifestCache: BlogManifest | null = null;
   private manifestSubject = new BehaviorSubject<BlogManifest | null>(null);
   
   manifest$ = this.manifestSubject.asObservable();
@@ -57,36 +59,22 @@ export class BlogService {
   loadManifest(): Observable<BlogManifest> {
     return this.http.get<BlogManifest>(`${this.apiUrl}/blog/manifest`).pipe(
       tap(manifest => {
-        manifest.posts = manifest.posts.map(post => ({
-          ...post,
-          publishedAt: new Date(post.publishedAt),
-          updatedAt: post.updatedAt ? new Date(post.updatedAt) : undefined
-        }));
+        manifest.posts = manifest.posts.map(post => this.normalizePostMeta(post));
         this.manifestSubject.next(manifest);
       }),
       catchError(error => {
         console.error('Failed to load blog manifest from API:', error);
-        const emptyManifest: BlogManifest = {
-          posts: [],
-          categories: [],
-          lastUpdated: new Date().toISOString()
-        };
-        this.manifestSubject.next(emptyManifest);
-        return of(emptyManifest);
+        return this.loadLocalManifest();
       })
     );
   }
 
   getAllPosts(): Observable<BlogPostMeta[]> {
     return this.http.get<BlogPostMeta[]>(`${this.apiUrl}/blog/posts`).pipe(
-      map(posts => posts.map(post => ({
-        ...post,
-        publishedAt: new Date(post.publishedAt),
-        updatedAt: post.updatedAt ? new Date(post.updatedAt) : undefined
-      }))),
+      map(posts => posts.map(post => this.normalizePostMeta(post))),
       catchError(error => {
         console.error('Failed to load posts from API:', error);
-        return of([]);
+        return this.loadLocalManifest().pipe(map(manifest => manifest.posts));
       })
     );
   }
@@ -110,7 +98,7 @@ export class BlogService {
       }),
       catchError(error => {
         console.error(`Failed to load post ${slug} from API:`, error);
-        return of(null);
+        return this.loadLocalPost(slug);
       })
     );
   }
@@ -197,6 +185,79 @@ export class BlogService {
 
   clearCache(): void {
     this.postsCache.clear();
+    this.localManifestCache = null;
     this.manifestSubject.next(null);
+  }
+
+  private loadLocalManifest(): Observable<BlogManifest> {
+    if (this.localManifestCache) {
+      this.manifestSubject.next(this.localManifestCache);
+      return of(this.localManifestCache);
+    }
+
+    return this.http.get<BlogManifest>(`${this.contentPath}manifest.json`).pipe(
+      map(manifest => ({
+        ...manifest,
+        posts: manifest.posts.map(post => this.normalizePostMeta(post))
+      })),
+      tap(manifest => {
+        this.localManifestCache = manifest;
+        this.manifestSubject.next(manifest);
+      }),
+      catchError(error => {
+        console.error('Failed to load local blog manifest:', error);
+        const emptyManifest: BlogManifest = {
+          posts: [],
+          categories: [],
+          lastUpdated: new Date().toISOString()
+        };
+        this.manifestSubject.next(emptyManifest);
+        return of(emptyManifest);
+      })
+    );
+  }
+
+  private loadLocalPost(slug: string): Observable<BlogPost | null> {
+    return this.loadLocalManifest().pipe(
+      map(manifest => manifest.posts.find(post => post.slug === slug) || null),
+      map(meta => {
+        if (!meta) return null;
+
+        return {
+          ...meta,
+          content: ''
+        };
+      }),
+      switchMap(fallbackPost => fallbackPost ? this.http.get(`${this.contentPath}posts/${slug}.md`, { responseType: 'text' }).pipe(
+        map(markdown => {
+          const meta = this.localManifestCache?.posts.find(post => post.slug === slug);
+          if (!meta) return null;
+
+          const post: BlogPost = {
+            ...meta,
+            content: marked.parse(this.stripFrontMatter(markdown)) as string
+          };
+          this.postsCache.set(slug, post);
+          return post;
+        }),
+        catchError(error => {
+          console.error(`Failed to load local markdown for ${slug}:`, error);
+          this.postsCache.set(slug, fallbackPost);
+          return of(fallbackPost);
+        })
+      ) : of(null))
+    );
+  }
+
+  private normalizePostMeta(post: BlogPostMeta): BlogPostMeta {
+    return {
+      ...post,
+      publishedAt: new Date(post.publishedAt),
+      updatedAt: post.updatedAt ? new Date(post.updatedAt) : undefined
+    };
+  }
+
+  private stripFrontMatter(markdown: string): string {
+    return markdown.replace(/^---[\s\S]*?---\s*/, '').trim();
   }
 }

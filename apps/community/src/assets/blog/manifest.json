@@ -8,7 +8,7 @@
       "publishedAt": "2024-12-15T10:00:00.000Z",
       "category": "technology",
       "tags": ["AI", "LangGraph", "AWS", "Python", "LLM"],
-      "coverImage": "/assets/img/blog/ai-agents.jpg",
+      "coverImage": "/assets/img/og-image.jpg",
       "readingTime": 8,
       "featured": true,
       "published": true
@@ -21,7 +21,7 @@
       "publishedAt": "2024-11-20T10:00:00.000Z",
       "category": "mobile-development",
       "tags": ["Flutter", "Dart", "Architecture", "Mobile"],
-      "coverImage": "/assets/img/blog/flutter-architecture.jpg",
+      "coverImage": "/assets/img/munstermain.png",
       "readingTime": 10,
       "featured": true,
       "published": true
@@ -34,7 +34,7 @@
       "publishedAt": "2024-10-05T10:00:00.000Z",
       "category": "devops",
       "tags": ["AWS", "Lambda", "NestJS", "Terraform", "Serverless"],
-      "coverImage": "/assets/img/blog/serverless.jpg",
+      "coverImage": "/assets/img/asobancaPlataforma.png",
       "readingTime": 12,
       "featured": false,
       "published": true
@@ -47,7 +47,7 @@
       "publishedAt": "2024-09-10T10:00:00.000Z",
       "category": "web-development",
       "tags": ["Angular", "Signals", "TypeScript", "Frontend"],
-      "coverImage": "/assets/img/blog/angular-signals.jpg",
+      "coverImage": "/assets/img/fondo-primary-2.webp",
       "readingTime": 7,
       "featured": false,
       "published": true
@@ -60,7 +60,7 @@
       "publishedAt": "2024-08-15T10:00:00.000Z",
       "category": "programming",
       "tags": ["PostgreSQL", "Database", "Performance", "SQL"],
-      "coverImage": "/assets/img/blog/postgresql.jpg",
+      "coverImage": "/assets/img/billusos.png",
       "readingTime": 9,
       "featured": false,
       "published": true

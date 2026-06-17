@@ -69,11 +69,44 @@
         </div>
       </div>
 
-      <!-- Right: Organic Visual -->
+      <!-- Right: Avatar Stage -->
       <div class="hero-visual">
-        <div class="organic-wrapper">
-          <div class="blob-backdrop"></div>
-          <ng-lottie [options]="options" class="profile-animation"></ng-lottie>
+        <div class="avatar-stage">
+
+          <!-- Circuit decoration rings -->
+          <div class="circuit-ring circuit-ring--outer"></div>
+          <div class="circuit-ring circuit-ring--mid"></div>
+
+          <!-- Main avatar frame -->
+          <div class="avatar-frame">
+            <div class="avatar-glow"></div>
+            <img
+              src="/assets/img/logo-avatar.png"
+              alt="Eduardo Miguel Muzo — AI Engineer"
+              class="avatar-img"
+              loading="eager"
+            />
+            <!-- Available badge -->
+            <div class="avatar-badge">
+              <span class="badge-pulse"></span>
+              <span>{{ 'common.available' | translate }}</span>
+            </div>
+          </div>
+
+          <!-- Floating tech chips -->
+          <div class="tech-chip tech-chip--1">
+            <span class="chip-dot"></span>LangGraph
+          </div>
+          <div class="tech-chip tech-chip--2">
+            <span class="chip-dot"></span>AWS Bedrock
+          </div>
+          <div class="tech-chip tech-chip--3">
+            <span class="chip-dot"></span>FastAPI
+          </div>
+          <div class="tech-chip tech-chip--4">
+            <span class="chip-dot"></span>Flutter
+          </div>
+
         </div>
       </div>
 
@@ -250,8 +283,8 @@
     </div>
 
     <div class="portfolio-cta">
-      <button class="btn-outline-large" (click)="viewAllProjects()">
-        <span>{{ 'home.portfolio.viewAll' | translate }}</span>
+      <button class="btn-text-explore" (click)="viewAllProjects()">
+        <span>Explorar todos los proyectos</span>
         <i class="bi bi-arrow-right"></i>
       </button>
     </div>

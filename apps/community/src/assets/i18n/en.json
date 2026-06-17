@@ -6,7 +6,7 @@
     "resume": "Resume",
     "portfolio": "Portfolio",
     "contact": "Contact",
-    "blog": "Blog"
+    "blog": "DevNotes"
   },
   "home": {
     "hero": {
@@ -268,8 +268,39 @@
   },
   "blog": {
     "title": "Blog",
-    "subtitle": "Thoughts and insights on technology, development, and software engineering",
+    "eyebrow": "Thoughts & Tutorials",
+    "subtitle": "Practical notes on backend, AI, architecture, and modern development",
     "searchPlaceholder": "Search articles...",
+    "readMore": "Read more",
+    "readingTime": "min read",
+    "filteringBy": "Filtering by:",
+    "resetFilters": "Reset filters",
+    "authorBio": "Developer focused on backend, artificial intelligence, and software architecture. I share practical notes, real learnings, and technical decisions behind modern projects.",
+    "stats": {
+      "articles": "articles",
+      "categories": "categories",
+      "tags": "tags"
+    },
+    "nav": {
+      "community": "Community",
+      "home": "Home",
+      "portfolio": "Portfolio",
+      "login": "Log in",
+      "join": "Join",
+      "menu": "Open menu",
+      "themeToLight": "Switch to light theme",
+      "themeToDark": "Switch to dark theme"
+    },
+    "categories": {
+      "technology": "Technology",
+      "programming": "Programming",
+      "web-development": "Web Development",
+      "mobile-development": "Mobile Development",
+      "devops": "DevOps",
+      "career": "Career",
+      "tutorials": "Tutorials",
+      "general": "General"
+    },
     "filters": {
       "all": "All"
     },
@@ -286,7 +317,9 @@
     "popularTags": "Popular Tags",
     "pagination": {
       "prev": "Previous",
-      "next": "Next"
+      "next": "Next",
+      "page": "Page",
+      "of": "of"
     },
     "empty": {
       "title": "No articles found",
@@ -296,6 +329,45 @@
     "error": {
       "title": "Error loading article",
       "backToBlog": "Back to Blog"
+    },
+    "share": {
+      "label": "Share",
+      "twitter": "Share on X",
+      "linkedin": "Share on LinkedIn",
+      "copy": "Copy link",
+      "copied": "Link copied"
+    },
+    "footer": {
+      "description": "A learning and collaboration community for developers. Technical articles, guides, and field notes.",
+      "platform": "Platform",
+      "articles": "Articles",
+      "resources": "Resources",
+      "social": "Social",
+      "copyright": "© 2025 MiguelDev Community. All rights reserved."
+    }
+  },
+  "auth": {
+    "fields": {
+      "name": "Full name",
+      "email": "Email",
+      "password": "Password"
+    },
+    "placeholders": {
+      "name": "Your name",
+      "email": "you@email.com"
+    },
+    "login": {
+      "subtitle": "Welcome to the community. Log in to continue.",
+      "action": "Log in",
+      "noAccount": "No account yet?",
+      "joinNow": "Join now"
+    },
+    "signup": {
+      "title": "Create your account",
+      "subtitle": "Join the community to participate and learn.",
+      "action": "Create account",
+      "hasAccount": "Already have an account?",
+      "login": "Log in"
     }
   },
   "portfolio": {

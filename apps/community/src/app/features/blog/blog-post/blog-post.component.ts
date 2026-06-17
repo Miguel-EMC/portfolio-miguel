@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil, switchMap } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { BlogService } from '../../../core/services/blog.service';
 import { SeoService } from '../../../core/services/seo.service';
@@ -20,6 +21,7 @@ export class BlogPostComponent implements OnInit, OnDestroy {
   private seoService = inject(SeoService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private translate = inject(TranslateService);
   private destroy$ = new Subject<void>();
 
   post = signal<BlogPost | null>(null);
@@ -89,7 +91,7 @@ export class BlogPostComponent implements OnInit, OnDestroy {
   }
 
   formatDate(date: Date): string {
-    return new Intl.DateTimeFormat('en-US', {
+    return new Intl.DateTimeFormat(this.translate.currentLang === 'en' ? 'en-US' : 'es-ES', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
@@ -110,8 +112,7 @@ export class BlogPostComponent implements OnInit, OnDestroy {
 
   copyLink(): void {
     navigator.clipboard.writeText(window.location.href).then(() => {
-      // Could show a toast notification here
-      alert('Link copied to clipboard!');
+      alert(this.translate.instant('blog.share.copied'));
     });
   }
 

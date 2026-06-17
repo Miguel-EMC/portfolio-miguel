@@ -6,7 +6,7 @@ author: "Miguel"
 publishedAt: "2024-09-10T10:00:00.000Z"
 category: "web-development"
 tags: ["Angular", "Signals", "TypeScript", "Frontend"]
-coverImage: "/assets/img/blog/angular-signals.jpg"
+coverImage: "/assets/img/fondo-primary-2.webp"
 featured: false
 published: true
 ---

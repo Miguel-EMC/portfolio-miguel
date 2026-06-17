@@ -12,7 +12,9 @@ import { LoadingService } from './core/services/loading.service';
   imports: [RouterOutlet, BlogNavComponent, BlogFooterComponent],
   template: `
     <app-blog-nav></app-blog-nav>
-    <router-outlet />
+    <main class="community-main">
+      <router-outlet />
+    </main>
     <app-blog-footer></app-blog-footer>
   `,
   styles: [`
@@ -20,6 +22,10 @@ import { LoadingService } from './core/services/loading.service';
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+    }
+    .community-main {
+      flex: 1;
+      padding-top: 70px; /* Navbar height */
     }
   `]
 })
@@ -34,7 +40,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     if (isPlatformBrowser(this.platformId)) {
       this.translate.addLangs(['en', 'es']);
       this.translate.setDefaultLang('es');
-      this.translate.use('es');
+      const savedLanguage = localStorage.getItem('portfolio-language');
+      const browserLanguage = navigator.language?.startsWith('en') ? 'en' : 'es';
+      this.translate.use(savedLanguage || browserLanguage);
     }
   }
 

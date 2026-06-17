@@ -6,7 +6,7 @@ author: "Miguel"
 publishedAt: "2024-11-20T10:00:00.000Z"
 category: "mobile-development"
 tags: ["Flutter", "Dart", "Architecture", "Mobile"]
-coverImage: "/assets/img/blog/flutter-architecture.jpg"
+coverImage: "/assets/img/munstermain.png"
 featured: true
 published: true
 ---

@@ -30,30 +30,35 @@ export const skillAreas: SkillArea[] = [
   {
     id: 'ai',
     emoji: '🤖',
-    color: '#9B59B6',
-    technologies: ['LangGraph', 'LangChain', 'RAG', 'AWS Bedrock', 'SQL Agents', 'Text-to-SQL'],
+    color: '#39FF14',
+    technologies: ['LangGraph', 'LangChain', 'AWS Bedrock', 'OpenAI', 'Gemini', 'RAG', 'Text-to-SQL', 'Embeddings', 'Prompt Engineering'],
     detailedTechs: [
       { name: 'LangGraph', mastery: 8 },
       { name: 'LangChain', mastery: 7.5 },
       { name: 'AWS Bedrock', mastery: 7 },
-      { name: 'RAG', mastery: 7 },
-      { name: 'SQL Agents', mastery: 7.5 }
+      { name: 'OpenAI API', mastery: 7.5 },
+      { name: 'Gemini API', mastery: 6.5 },
+      { name: 'RAG', mastery: 7.5 },
+      { name: 'Text-to-SQL', mastery: 8 },
+      { name: 'Embeddings', mastery: 7 },
+      { name: 'Prompt Engineering', mastery: 7.5 }
     ]
   },
   {
     id: 'devops',
     emoji: '☁️',
     color: '#74B9FF',
-    technologies: ['AWS Lambdas', 'S3', 'CloudWatch', 'Terraform', 'Docker', 'CI/CD', 'Google Cloud', 'Linux'],
+    technologies: ['AWS Lambda', 'Step Functions', 'S3', 'CloudWatch', 'Terraform', 'Docker', 'CI/CD', 'Google Cloud', 'Linux'],
     detailedTechs: [
-      { name: 'AWS Lambdas', mastery: 7 },
+      { name: 'AWS Lambda', mastery: 7.5 },
+      { name: 'Step Functions', mastery: 7 },
       { name: 'S3', mastery: 7 },
       { name: 'CloudWatch', mastery: 6 },
       { name: 'Terraform', mastery: 6.5 },
       { name: 'Docker', mastery: 7 },
-      { name: 'CI/CD', mastery: 7 },
+      { name: 'CI/CD', mastery: 7.5 },
       { name: 'Linux', mastery: 8 },
-      { name: 'Google Cloud', mastery: 5 }
+      { name: 'Google Cloud', mastery: 5.5 }
     ]
   },
   {

@@ -14,9 +14,11 @@ export class DomainService {
   getPortfolioUrl(): string {
     if (!this.isBrowser) return 'https://migueldev11.com';
     const host = window.location.host;
+    
     if (host.includes('localhost')) {
-      return 'http://localhost:4200';
+      return 'http://localhost:34209';
     }
+    
     return window.location.protocol + '//' + host.replace('blog.', '').replace('demo.', 'demo.');
   }
 
@@ -26,7 +28,7 @@ export class DomainService {
     const protocol = window.location.protocol;
     
     if (host.includes('localhost')) {
-      return `${protocol}//${host}/blog`; 
+      return `http://localhost:43565`;
     }
     
     if (host.startsWith('blog.')) return `${protocol}//${host}`;
@@ -36,13 +38,12 @@ export class DomainService {
   isBlogDomain(): boolean {
     if (!this.isBrowser) return false;
     const hostname = window.location.hostname;
+    const port = window.location.port;
     
-    // En internet, el dominio empieza por blog.
     if (hostname.startsWith('blog.')) return true;
     
-    // En local (localhost), el modo blog se activa si la ruta actual contiene /blog
     if (hostname === 'localhost') {
-      return window.location.pathname.startsWith('/blog');
+      return port === '43565' || window.location.pathname.startsWith('/blog');
     }
     
     return false;

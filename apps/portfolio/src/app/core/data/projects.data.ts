@@ -43,16 +43,8 @@ export const featuredProjects: Project[] = [
   {
     id: 'billusos',
     image: '/assets/img/billusos.png',
-    tech: ['Django', 'React', 'PostgreSQL'],
-    liveUrl: undefined,
-    githubUrl: undefined,
-    type: 'web'
-  },
-  {
-    id: 'ecommerce',
-    image: '/assets/img/ecommerce.png',
-    tech: ['React', 'Next.js', 'Stripe'],
-    liveUrl: undefined,
+    tech: ['Django', 'React Native', 'PostgreSQL'],
+    liveUrl: 'https://ecuador.billusos.com/#',
     githubUrl: undefined,
     type: 'web'
   }

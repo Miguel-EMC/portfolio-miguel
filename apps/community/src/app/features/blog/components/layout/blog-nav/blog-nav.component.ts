@@ -3,18 +3,18 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemeService } from '../../../../../core/services/theme.service';
-
 import { DomainService } from '../../../../../core/services/domain.service';
+import { LanguageToggleComponent } from '../../../../../shared/components/ui/language-toggle/language-toggle.component';
 
 @Component({
   selector: 'app-blog-nav',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, TranslateModule],
+  imports: [CommonModule, RouterLink, RouterLinkActive, TranslateModule, LanguageToggleComponent],
   templateUrl: './blog-nav.component.html',
   styleUrls: ['./blog-nav.component.scss']
 })
 export class BlogNavComponent {
-  themeService = inject(ThemeService);
+  public themeService = inject(ThemeService);
   private domainService = inject(DomainService);
   isMenuOpen = false;
 
