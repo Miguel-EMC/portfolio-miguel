@@ -1,0 +1,154 @@
+<article class="blog-post-page animate-fade-in">
+  <!-- Loading State -->
+  @if (isLoading()) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>{{ 'blog.loadingPost' | translate }}</p>
+    </div>
+  }
+
+  <!-- Error State -->
+  @if (error()) {
+    <div class="error-state animate-scale-in">
+      <div class="error-icon">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+      </div>
+      <h2>{{ 'blog.error.title' | translate }}</h2>
+      <p>{{ error() }}</p>
+      <button class="btn-primary" (click)="goBack()">
+        <i class="bi bi-arrow-left"></i>
+        {{ 'blog.error.backToBlog' | translate }}
+      </button>
+    </div>
+  }
+
+  <!-- Post Content -->
+  @if (!isLoading() && !error() && post()) {
+    <div class="post-container">
+      <!-- Back Button -->
+      <nav class="post-nav">
+        <button class="back-btn glass" (click)="goBack()">
+          <i class="bi bi-arrow-left"></i>
+          {{ 'blog.backToBlog' | translate }}
+        </button>
+      </nav>
+
+      <!-- Post Header -->
+      <header class="post-header">
+        <div class="post-meta">
+          <a 
+            [routerLink]="['/blog/category', post()!.category]"
+            class="category-link"
+            [style.background-color]="getCategoryInfo(post()!.category)?.color"
+          >
+            <i [class]="getCategoryInfo(post()!.category)?.icon"></i>
+            {{ getCategoryInfo(post()!.category)?.name }}
+          </a>
+          <span class="separator">/</span>
+          <span class="date">
+            <i class="bi bi-calendar-event"></i>
+            {{ formatDate(post()!.publishedAt) }}
+          </span>
+          <span class="separator">/</span>
+          <span class="reading-time">
+            <i class="bi bi-clock-history"></i>
+            {{ post()!.readingTime }} min read
+          </span>
+        </div>
+
+        <h1 class="post-title">{{ post()!.title }}</h1>
+        
+        <p class="post-excerpt">{{ post()!.excerpt }}</p>
+
+        <div class="post-author glass">
+          <div class="author-avatar">
+            <i class="bi bi-person-fill"></i>
+          </div>
+          <div class="author-info">
+            <span class="author-name">{{ post()!.author }}</span>
+            @if (post()!.updatedAt) {
+              <span class="updated-date">
+                <i class="bi bi-pencil-square"></i>
+                Updated {{ formatDate(post()!.updatedAt!) }}
+              </span>
+            }
+          </div>
+        </div>
+      </header>
+
+      <!-- Cover Image -->
+      <div class="post-cover shadow-lg">
+        <img [src]="post()!.coverImage" [alt]="post()!.title" class="animate-scale-in" />
+      </div>
+
+      <!-- Post Content -->
+      <div class="post-content" [innerHTML]="post()!.content"></div>
+
+      <!-- Tags -->
+      @if (post()!.tags.length > 0) {
+        <div class="post-tags">
+          <span class="tags-label">
+            <i class="bi bi-tags-fill"></i>
+            Tags:
+          </span>
+          @for (tag of post()!.tags; track tag) {
+            <a [routerLink]="['/blog/tag', tag]" class="tag glass">
+              #{{ tag }}
+            </a>
+          }
+        </div>
+      }
+
+      <!-- Share Section -->
+      <div class="share-section glass">
+        <span class="share-label">
+          <i class="bi bi-share-fill"></i>
+          Share this article:
+        </span>
+        <div class="share-buttons">
+          <button class="share-btn twitter" (click)="shareOnTwitter()" title="Share on X">
+            <i class="bi bi-twitter-x"></i>
+          </button>
+          <button class="share-btn linkedin" (click)="shareOnLinkedIn()" title="Share on LinkedIn">
+            <i class="bi bi-linkedin"></i>
+          </button>
+          <button class="share-btn copy" (click)="copyLink()" title="Copy Link">
+            <i class="bi bi-link-45deg"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Related Posts -->
+      @if (relatedPosts().length > 0) {
+        <section class="related-section">
+          <h2 class="related-title">
+            <i class="bi bi-journal-plus"></i>
+            {{ 'blog.relatedPosts' | translate }}
+          </h2>
+          <div class="related-grid">
+            @for (relatedPost of relatedPosts(); track relatedPost.slug) {
+              <article class="related-card shadow-sm" [routerLink]="['/blog/post', relatedPost.slug]">
+                <div class="related-image">
+                  <img [src]="relatedPost.coverImage" [alt]="relatedPost.title" />
+                </div>
+                <div class="related-content">
+                  <span 
+                    class="related-category"
+                    [style.color]="getCategoryInfo(relatedPost.category)?.color"
+                  >
+                    {{ getCategoryInfo(relatedPost.category)?.name }}
+                  </span>
+                  <h3 class="related-post-title">{{ relatedPost.title }}</h3>
+                  <span class="related-date">
+                    <i class="bi bi-calendar3"></i>
+                    {{ formatDate(relatedPost.publishedAt) }}
+                  </span>
+                </div>
+              </article>
+            }
+          </div>
+        </section>
+      }
+    </div>
+  }
+</article>

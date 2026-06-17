@@ -1,0 +1,13 @@
+@if (!isBlog) {
+  <app-nav></app-nav>
+} @else {
+  <app-blog-nav></app-blog-nav>
+}
+
+<router-outlet />
+
+@if (!isBlog) {
+  <app-footer></app-footer>
+} @else {
+  <app-blog-footer></app-blog-footer>
+}

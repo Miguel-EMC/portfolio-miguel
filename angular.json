@@ -3,21 +3,21 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "portfolio-personal": {
+    "portfolio": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
         }
       },
-      "root": "",
-      "sourceRoot": "src",
+      "root": "apps/portfolio",
+      "sourceRoot": "apps/portfolio/src",
       "prefix": "app",
       "i18n": {
         "sourceLocale": "en",
         "locales": {
           "es": {
-            "translation": "src/locale/messages.es.xlf",
+            "translation": "apps/portfolio/src/locale/messages.es.xlf",
             "baseHref": ""
           }
         }
@@ -26,34 +26,54 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/portfolio-personal",
-            "index": "src/index.html",
-            "browser": "src/main.ts",
+            "outputPath": "dist/portfolio",
+            "index": "apps/portfolio/src/index.html",
+            "browser": "apps/portfolio/src/main.ts",
             "polyfills": [
               "zone.js",
               "@angular/localize/init"
             ],
-            "tsConfig": "tsconfig.app.json",
+            "tsConfig": "apps/portfolio/tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/404.html",
-              "src/googleab23b079823d4a4f.html",
-              "src/sitemap.xml",
-              "src/robots.txt"
+              "apps/portfolio/src/favicon.ico",
+              "apps/portfolio/src/assets",
+              "apps/portfolio/src/404.html",
+              "apps/portfolio/src/googleab23b079823d4a4f.html",
+              "apps/portfolio/src/sitemap.xml",
+              "apps/portfolio/src/robots.txt"
             ],
             "styles": [
               "node_modules/ngx-toastr/toastr.css",
-              "src/styles.scss",
+              "node_modules/highlight.js/styles/atom-one-dark.css",
+              "apps/portfolio/src/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/bootstrap-icons/font/bootstrap-icons.min.css"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-            ]
+            ],
+            "server": "apps/portfolio/src/main.server.ts",
+            "prerender": false,
+            "ssr": false
           },
           "configurations": {
             "production": {
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": true
+                },
+                "fonts": {
+                  "inline": false
+                }
+              },
+              "fileReplacements": [
+                {
+                  "replace": "apps/portfolio/src/environments/environment.ts",
+                  "with": "apps/portfolio/src/environments/environment.prod.ts"
+                }
+              ],
               "budgets": [
                 {
                   "type": "initial",
@@ -66,21 +86,20 @@
                   "maximumError": "60kb"
                 }
               ],
-              "outputHashing": "all",
-              "prerender": false,
-              "ssr": false
+              "outputHashing": "all"
+            },
+            "demo": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/portfolio/src/environments/environment.ts",
+                  "with": "apps/portfolio/src/environments/environment.demo.ts"
+                }
+              ]
             },
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true,
-              "prerender": false,
-              "ssr": false
-            },
-            "es": {
-              "aot": true,
-              "outputPath": "dist/portfolio-personal/es/",
-              "i18nMissingTranslation": "error"
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
@@ -89,40 +108,100 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "portfolio-personal:build:production"
+              "buildTarget": "portfolio:build:production"
             },
             "development": {
-              "buildTarget": "portfolio-personal:build:development"
-            },
-            "es": {
-              "buildTarget": "portfolio-personal:build:es"
+              "buildTarget": "portfolio:build:development"
             }
           },
           "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+        }
+      }
+    },
+    "community": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/community",
+      "sourceRoot": "apps/community/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "buildTarget": "portfolio-personal:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
+            "outputPath": "dist/community",
+            "index": "apps/community/src/index.html",
+            "browser": "apps/community/src/main.ts",
             "polyfills": [
               "zone.js",
-              "zone.js/testing"
+              "@angular/localize/init"
             ],
-            "tsConfig": "tsconfig.spec.json",
+            "tsConfig": "apps/community/tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "apps/community/src/favicon.ico",
+              "apps/community/src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/highlight.js/styles/atom-one-dark.css",
+              "apps/community/src/styles.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.min.css"
             ],
-            "scripts": []
-          }
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ],
+            "server": "apps/community/src/main.server.ts",
+            "prerender": false,
+            "ssr": false
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/community/src/environments/environment.ts",
+                  "with": "apps/community/src/environments/environment.prod.ts"
+                }
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "1mb",
+                  "maximumError": "2mb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "demo": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/community/src/environments/environment.ts",
+                  "with": "apps/community/src/environments/environment.demo.ts"
+                }
+              ]
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "community:build:production"
+            },
+            "development": {
+              "buildTarget": "community:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
         }
       }
     }

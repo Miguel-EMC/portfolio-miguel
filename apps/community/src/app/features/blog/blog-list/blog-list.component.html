@@ -1,0 +1,140 @@
+<div class="blog-list-container">
+  <!-- Clean Editorial Header -->
+  <header class="blog-hero">
+    <div class="container">
+      <div class="hero-content">
+        <span class="eyebrow">{{ 'blog.eyebrow' | translate }}</span>
+        <h1 class="hero-title">{{ 'blog.title' | translate }}</h1>
+        <p class="hero-subtitle">{{ 'blog.subtitle' | translate }}</p>
+        <div class="hero-stats">
+          <span><strong>{{ posts().length }}</strong>{{ 'blog.stats.articles' | translate }}</span>
+          <span><strong>{{ categories().length }}</strong>{{ 'blog.stats.categories' | translate }}</span>
+          <span><strong>{{ tags().length }}</strong>{{ 'blog.stats.tags' | translate }}</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container main-content">
+    <!-- Streamlined Filters -->
+    <nav class="blog-toolbar">
+      <div class="search-wrapper">
+        <i class="bi bi-search"></i>
+        <input 
+          type="text" 
+          [value]="searchQuery()"
+          (input)="onSearch($any($event.target).value)"
+          [placeholder]="'blog.searchPlaceholder' | translate"
+          class="search-input"
+        />
+      </div>
+
+      <div class="category-scroll">
+        <button 
+          class="cat-chip"
+          [class.active]="!activeCategory() && !activeTag()"
+          (click)="clearFilters()"
+        >
+          {{ 'blog.filters.all' | translate }}
+        </button>
+        @for (category of categories(); track category.id) {
+          <button 
+            class="cat-chip"
+            [class.active]="activeCategory() === category.id"
+            (click)="setCategory(category.id)"
+          >
+            <i [class]="category.icon"></i>
+            {{ ('blog.categories.' + category.id) | translate }}
+          </button>
+        }
+      </div>
+    </nav>
+
+    <!-- Active Filter Status -->
+    @if (activeCategory() || activeTag() || searchQuery()) {
+      <div class="filter-status animate-fade-in">
+        <div class="status-text">
+          <i class="bi bi-info-circle"></i>
+          <span>
+            {{ 'blog.filteringBy' | translate }}
+            <strong>
+              @if (activeCategory()) {
+                {{ ('blog.categories.' + activeCategory()) | translate }}
+              } @else {
+                {{ activeTag() || searchQuery() }}
+              }
+            </strong>
+          </span>
+        </div>
+        <button (click)="clearFilters()" class="reset-link">{{ 'blog.resetFilters' | translate }}</button>
+      </div>
+    }
+
+    <!-- Content Grid -->
+    <main class="posts-layout">
+      @if (isLoading()) {
+        <div class="skeleton-grid">
+          @for (i of [1,2,3,4,5,6]; track i) {
+            <div class="skeleton-card"></div>
+          }
+        </div>
+      } @else if (filteredPosts().length > 0) {
+        <div class="posts-grid">
+          @for (post of paginatedPosts(); track post.slug) {
+            <article class="modern-card" [routerLink]="['/blog/post', post.slug]">
+              <div class="card-media">
+                <img [src]="post.coverImage" [alt]="post.title" loading="lazy" />
+                <span class="card-category" [style.background-color]="getCategoryInfo(post.category)?.color">
+                  {{ ('blog.categories.' + post.category) | translate }}
+                </span>
+              </div>
+              <div class="card-body">
+                <div class="card-meta">
+                  <span class="card-date">{{ formatDate(post.publishedAt) }}</span>
+                  <span class="dot"></span>
+                  <span class="card-read">{{ post.readingTime }} {{ 'blog.readingTime' | translate }}</span>
+                </div>
+                <h2 class="card-title">{{ post.title }}</h2>
+                <p class="card-excerpt">{{ post.excerpt }}</p>
+                <div class="card-tags">
+                  @for (tag of post.tags.slice(0, 3); track tag) {
+                    <button (click)="setTag(tag); $event.stopPropagation()">#{{ tag }}</button>
+                  }
+                </div>
+                <div class="card-footer">
+                  <div class="author">
+                    <i class="bi bi-person-circle"></i>
+                    <span>{{ post.author }}</span>
+                  </div>
+                  <span class="read-link">{{ 'blog.readMore' | translate }} <i class="bi bi-arrow-right"></i></span>
+                </div>
+              </div>
+            </article>
+          }
+        </div>
+
+        <!-- Better Pagination -->
+        @if (totalPages() > 1) {
+          <nav class="pagination-modern">
+            <button [disabled]="currentPage() === 1" (click)="goToPage(currentPage() - 1)">
+              <i class="bi bi-chevron-left"></i>
+            </button>
+            <span class="page-indicator">{{ 'blog.pagination.page' | translate }} {{ currentPage() }} {{ 'blog.pagination.of' | translate }} {{ totalPages() }}</span>
+            <button [disabled]="currentPage() === totalPages()" (click)="goToPage(currentPage() + 1)">
+              <i class="bi bi-chevron-right"></i>
+            </button>
+          </nav>
+        }
+      } @else {
+        <div class="empty-results">
+          <div class="empty-icon-wrapper">
+            <i class="bi bi-search-heart"></i>
+          </div>
+          <h3>{{ 'blog.empty.title' | translate }}</h3>
+          <p>{{ 'blog.empty.description' | translate }}</p>
+          <button class="text-btn" (click)="clearFilters()">{{ 'blog.empty.action' | translate }}</button>
+        </div>
+      }
+    </main>
+  </div>
+</div>

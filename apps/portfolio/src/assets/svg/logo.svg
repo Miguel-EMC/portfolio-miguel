@@ -1,0 +1,31 @@
+<svg viewBox="0 0 600 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Figura principal: Robot simplificado -->
+  <g transform="translate(50, 80) scale(1.5)">
+    <!-- Cabeza del robot -->
+    <rect x="20" y="0" width="40" height="30" rx="10" ry="10" fill="#33B379" />
+    <!-- Ojos del robot -->
+    <circle cx="30" cy="15" r="4" fill="#FFFFFF" />
+    <circle cx="50" cy="15" r="4" fill="#FFFFFF" />
+    <!-- Antena del robot -->
+    <line x1="40" y1="-10" x2="40" y2="0" stroke="#0E9445" stroke-width="3" />
+    <circle cx="40" cy="-14" r="4" fill="#0E9445" />
+    <!-- Cuerpo del robot -->
+    <rect x="20" y="30" width="40" height="40" rx="10" ry="10" fill="#09673A" />
+    <!-- Brazos del robot -->
+    <line x1="10" y1="40" x2="20" y2="40" stroke="#33B379" stroke-width="4" />
+    <line x1="60" y1="40" x2="70" y2="40" stroke="#33B379" stroke-width="4" />
+    <!-- Manos del robot -->
+    <circle cx="10" cy="40" r="4" fill="#33B379" />
+    <circle cx="70" cy="40" r="4" fill="#33B379" />
+  </g>
+  <!-- Texto "Miguel Muzo" -->
+  <text x="150" y="100" font-family="Poppins, sans-serif" font-size="48" fill="url(#techGradient)" font-weight="bold" text-anchor="start" alignment-baseline="middle" letter-spacing="2">MIGUEL MUZO</text>
+  <!-- Gradiente para el texto -->
+  <defs>
+    <linearGradient id="techGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#33B379" />
+      <stop offset="50%" stop-color="#0E9445" />
+      <stop offset="100%" stop-color="#09673A" />
+    </linearGradient>
+  </defs>
+</svg>

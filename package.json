@@ -3,15 +3,18 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "start:es": "ng serve --configuration=es",
-    "build": "ng build",
-    "build:es": "ng build --configuration=es",
-    "build:all": "npm run build && npm run build:es",
-    "watch": "ng build --watch --configuration development",
+    "start": "ng serve portfolio",
+    "start:portfolio": "ng serve portfolio",
+    "start:community": "ng serve community",
+    "build": "ng build portfolio",
+    "build:community": "ng build community",
+    "build:es": "ng build portfolio --configuration=es",
+    "build:all": "npm run build && npm run build:community && npm run build:es",
+    "watch": "ng build portfolio --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:portfolio-personal": "node dist/portfolio-personal/server/server.mjs",
-    "postbuild": "cp dist/portfolio-personal/browser/index.html dist/portfolio-personal/browser/404.html"
+    "serve:ssr:portfolio": "node dist/portfolio/server/server.mjs",
+    "serve:ssr:community": "node dist/community/server/server.mjs",
+    "postbuild:portfolio": "cp dist/portfolio/browser/index.html dist/portfolio/browser/404.html"
   },
   "private": true,
   "dependencies": {

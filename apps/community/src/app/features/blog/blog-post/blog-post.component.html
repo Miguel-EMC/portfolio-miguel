@@ -1,0 +1,97 @@
+<article class="post-detail-container">
+  @if (isLoading()) {
+    <div class="loader-overlay">
+      <div class="spinner"></div>
+      <p>{{ 'blog.loadingPost' | translate }}</p>
+    </div>
+  } @else if (error()) {
+    <div class="error-container container">
+      <i class="bi bi-exclamation-triangle"></i>
+      <h2>{{ 'blog.error.title' | translate }}</h2>
+      <p>{{ error() }}</p>
+      <button class="btn-primary" (click)="goBack()">{{ 'blog.error.backToBlog' | translate }}</button>
+    </div>
+  } @else if (post()) {
+    <!-- Hero Header -->
+    <header class="post-hero">
+      <div class="container">
+        <nav class="post-breadcrumb">
+          <a routerLink="/blog">Blog</a>
+          <i class="bi bi-chevron-right"></i>
+          <span>{{ ('blog.categories.' + post()!.category) | translate }}</span>
+        </nav>
+        
+        <h1 class="post-title">{{ post()!.title }}</h1>
+        
+        <div class="post-meta-detailed">
+          <div class="author-pill">
+            <i class="bi bi-person-circle"></i>
+            <span>{{ post()!.author }}</span>
+          </div>
+          <span class="divider"></span>
+          <time>{{ formatDate(post()!.publishedAt) }}</time>
+          <span class="divider"></span>
+          <span>{{ post()!.readingTime }} {{ 'blog.readingTime' | translate }}</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="container post-layout">
+      <!-- Sidebar for Share (Desktop) -->
+      <aside class="post-sidebar-left">
+        <div class="sticky-tools">
+          <span class="tool-label">{{ 'blog.share.label' | translate }}</span>
+          <button (click)="shareOnTwitter()" class="tool-btn" [title]="'blog.share.twitter' | translate"><i class="bi bi-twitter-x"></i></button>
+          <button (click)="shareOnLinkedIn()" class="tool-btn" [title]="'blog.share.linkedin' | translate"><i class="bi bi-linkedin"></i></button>
+          <button (click)="copyLink()" class="tool-btn" [title]="'blog.share.copy' | translate"><i class="bi bi-link-45deg"></i></button>
+        </div>
+      </aside>
+
+      <main class="post-content-wrapper">
+        <div class="post-cover-image">
+          <img [src]="post()!.coverImage" [alt]="post()!.title" class="animate-scale-in" />
+        </div>
+
+        <div class="post-body-content" [innerHTML]="post()!.content"></div>
+
+        <footer class="post-footer-area">
+          <div class="post-tags-list">
+            @for (tag of post()!.tags; track tag) {
+              <a [routerLink]="['/blog/tag', tag]" class="tag-link">#{{ tag }}</a>
+            }
+          </div>
+
+          <div class="author-bio-card">
+            <div class="bio-avatar">
+              <i class="bi bi-person-fill"></i>
+            </div>
+            <div class="bio-text">
+              <h4>{{ post()!.author }}</h4>
+              <p>{{ 'blog.authorBio' | translate }}</p>
+            </div>
+          </div>
+        </footer>
+
+        <!-- Related Posts Modern -->
+        @if (relatedPosts().length > 0) {
+          <section class="related-modern">
+            <h3 class="section-title">{{ 'blog.relatedPosts' | translate }}</h3>
+            <div class="related-grid">
+              @for (relatedPost of relatedPosts(); track relatedPost.slug) {
+                <a [routerLink]="['/blog/post', relatedPost.slug]" class="related-item">
+                  <div class="related-img">
+                    <img [src]="relatedPost.coverImage" [alt]="relatedPost.title" />
+                  </div>
+                  <div class="related-info">
+                    <h4>{{ relatedPost.title }}</h4>
+                    <span>{{ formatDate(relatedPost.publishedAt) }}</span>
+                  </div>
+                </a>
+              }
+            </div>
+          </section>
+        }
+      </main>
+    </div>
+  }
+</article>

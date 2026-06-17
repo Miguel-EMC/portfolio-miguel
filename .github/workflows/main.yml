@@ -1,10 +1,10 @@
-name: Deploy Angular to GitHub Pages
+name: CI/CD MiguelDev Community Platform
 
 on:
   push:
-    branches: ["demo"]
+    branches: ["demo", "main"]
   pull_request:
-    branches: ["demo"]
+    branches: ["demo", "main"]
   workflow_dispatch:
 
 permissions:
@@ -12,178 +12,110 @@ permissions:
   pages: write
   id-token: write
 
-# Prevent concurrent deployments
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 env:
+  GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  REGION: us-central1
   NODE_VERSION: '18'
-  CACHE_KEY_PREFIX: 'node-modules'
 
 jobs:
-  build:
-    name: Build Angular Application
+  backend-build:
+    name: Build & Push Backend
     runs-on: ubuntu-latest
-
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
+      - name: 🔧 Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
         with:
-          fetch-depth: 0
-
-      - name: 🔧 Setup Node.js ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-
-      - name: 📦 Cache node modules
-        uses: actions/cache@v3
-        id: npm-cache
-        with:
-          path: |
-            ~/.npm
-            node_modules
-          key: ${{ runner.os }}-${{ env.CACHE_KEY_PREFIX }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ env.CACHE_KEY_PREFIX }}-
-
-      - name: 📚 Install dependencies
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+      - name: ⚙️ Configure Docker for GCP
+        run: gcloud auth configure-docker --quiet
+      - name: 🏗️ Build & Push Container
         run: |
-          echo "::group::Installing dependencies"
-          npm ci --legacy-peer-deps --prefer-offline --no-audit
-          echo "::endgroup::"
+          ENV="${{ github.ref_name == 'main' && 'prod' || 'demo' }}"
+          IMAGE_NAME="gcr.io/${{ env.GCP_PROJECT_ID }}/migueldev-blog-$ENV-api:latest"
+          docker build -t $IMAGE_NAME ./backend
+          docker push $IMAGE_NAME
 
-      - name: 🔍 Display npm info
-        run: |
-          echo "::group::NPM Information"
-          echo "Node version: $(node --version)"
-          echo "NPM version: $(npm --version)"
-          echo "Angular CLI version:"
-          npx ng version
-          echo "::endgroup::"
-
-      - name: 🏗️ Build Angular application
-        run: |
-          echo "::group::Building application"
-          echo "Build started at: $(date)"
-          npm run build -- --configuration production --base-href /
-          echo "Build completed at: $(date)"
-          echo "::endgroup::"
-
-      - name: 📊 Verify build output
-        run: |
-          echo "::group::Build Output Verification"
-          if [ -d "dist/portfolio-personal/browser" ]; then
-            echo "✅ Build directory exists"
-            echo "Build size:"
-            du -sh dist/portfolio-personal/browser
-            echo ""
-            echo "Main files:"
-            ls -lh dist/portfolio-personal/browser/*.{html,ico} 2>/dev/null || true
-            echo ""
-            echo "Total files generated:"
-            find dist/portfolio-personal/browser -type f | wc -l
-          else
-            echo "❌ Build directory not found!"
-            exit 1
-          fi
-          echo "::endgroup::"
-
-      - name: 📋 List build artifacts
-        run: |
-          echo "::group::Build Artifacts"
-          tree -L 3 dist/portfolio-personal/browser || ls -R dist/portfolio-personal/browser
-          echo "::endgroup::"
-
-      - name: 🔎 Check for critical files
-        run: |
-          echo "::group::Critical Files Check"
-          critical_files=("index.html" "favicon.ico" "main*.js" "polyfills*.js" "styles*.css")
-          missing_files=0
-
-          for file_pattern in "${critical_files[@]}"; do
-            if ls dist/portfolio-personal/browser/$file_pattern 1> /dev/null 2>&1; then
-              echo "✅ Found: $file_pattern"
-            else
-              echo "❌ Missing: $file_pattern"
-              missing_files=$((missing_files + 1))
-            fi
-          done
-
-          if [ $missing_files -gt 0 ]; then
-            echo "⚠️ Warning: Some critical files are missing!"
-          else
-            echo "✅ All critical files present"
-          fi
-          echo "::endgroup::"
-
-      - name: 📤 Upload build artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist/portfolio-personal/browser
-
-      - name: 💾 Upload build logs (on failure)
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-logs
-          path: |
-            npm-debug.log
-            dist/
-          retention-days: 5
-          if-no-files-found: ignore
-
-  deploy:
-    name: Deploy to GitHub Pages
-    needs: build
+  portfolio-build:
+    name: Build & Push Portfolio App
     runs-on: ubuntu-latest
-
-    # Only deploy on push to demo branch (not on PRs)
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
-      - name: 🚀 Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-
-      - name: 📝 Deployment summary
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+      - name: 🔧 Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+      - name: ⚙️ Configure Docker for GCP
+        run: gcloud auth configure-docker --quiet
+      - name: 🏗️ Build & Push Container
         run: |
-          echo "::notice::🎉 Deployment successful!"
-          echo "::notice::🌐 URL: ${{ steps.deployment.outputs.page_url }}"
-          echo "### 🚀 Deployment Complete! 🎉" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Deployed to:** ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Triggered by:** ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+          ENV="${{ github.ref_name == 'main' && 'prod' || 'demo' }}"
+          CONFIG="${{ github.ref_name == 'main' && 'production' || 'demo' }}"
+          IMAGE_NAME="gcr.io/${{ env.GCP_PROJECT_ID }}/migueldev-blog-$ENV-frontend:latest"
+          docker build --build-arg CONFIG=$CONFIG -t $IMAGE_NAME -f apps/portfolio/Dockerfile .
+          docker push $IMAGE_NAME
 
-  notify:
-    name: Build Status Notification
-    needs: [build, deploy]
+  community-build:
+    name: Build & Push Community App
     runs-on: ubuntu-latest
-    if: always()
-
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     steps:
-      - name: 📢 Build Status
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+      - name: 🔧 Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+      - name: ⚙️ Configure Docker for GCP
+        run: gcloud auth configure-docker --quiet
+      - name: 🏗️ Build & Push Container
         run: |
-          if [ "${{ needs.build.result }}" == "success" ] && [ "${{ needs.deploy.result }}" == "success" ]; then
-            echo "::notice::✅ Build and Deploy completed successfully!"
-            echo "### ✅ Success!" >> $GITHUB_STEP_SUMMARY
-            echo "Both build and deployment completed successfully." >> $GITHUB_STEP_SUMMARY
-          elif [ "${{ needs.build.result }}" == "failure" ]; then
-            echo "::error::❌ Build failed!"
-            echo "### ❌ Build Failed" >> $GITHUB_STEP_SUMMARY
-            echo "The build process encountered errors. Check the logs above." >> $GITHUB_STEP_SUMMARY
-          elif [ "${{ needs.deploy.result }}" == "failure" ]; then
-            echo "::error::❌ Deployment failed!"
-            echo "### ❌ Deployment Failed" >> $GITHUB_STEP_SUMMARY
-            echo "The deployment process encountered errors. Check the logs above." >> $GITHUB_STEP_SUMMARY
-          else
-            echo "::warning::⚠️ Workflow completed with warnings"
-          fi
+          ENV="${{ github.ref_name == 'main' && 'prod' || 'demo' }}"
+          CONFIG="${{ github.ref_name == 'main' && 'production' || 'demo' }}"
+          IMAGE_NAME="gcr.io/${{ env.GCP_PROJECT_ID }}/migueldev-blog-$ENV-community:latest"
+          docker build --build-arg CONFIG=$CONFIG -t $IMAGE_NAME -f apps/community/Dockerfile .
+          docker push $IMAGE_NAME
+
+  infrastructure:
+    name: Terraform Plan/Apply
+    needs: [backend-build, portfolio-build, community-build]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+      - name: 🔧 Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+      - name: 🛠️ Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+      - name: 🏗️ Terraform Init & Apply
+        run: |
+          cd infrastructure/terraform/environments/${{ github.ref_name == 'main' && 'prod' || 'demo' }}
+          terraform init
+          terraform apply -auto-approve -var="project_id=${{ env.GCP_PROJECT_ID }}"
+
+  deployment-refresh:
+    name: Final Deployment Sync
+    needs: infrastructure
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: 🔧 Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+      - name: 🚀 Update All Services
+        run: |
+          ENV="${{ github.ref_name == 'main' && 'prod' || 'demo' }}"
+          # Update API
+          gcloud run deploy migueldev-blog-$ENV-api --image gcr.io/${{ env.GCP_PROJECT_ID }}/migueldev-blog-$ENV-api:latest --region ${{ env.REGION }} --platform managed --allow-unauthenticated
+          # Update Portfolio
+          gcloud run deploy migueldev-blog-$ENV-frontend --image gcr.io/${{ env.GCP_PROJECT_ID }}/migueldev-blog-$ENV-frontend:latest --region ${{ env.REGION }} --platform managed --allow-unauthenticated
+          # Update Community
+          gcloud run deploy migueldev-blog-$ENV-community --image gcr.io/${{ env.GCP_PROJECT_ID }}/migueldev-blog-$ENV-community:latest --region ${{ env.REGION }} --platform managed --allow-unauthenticated
