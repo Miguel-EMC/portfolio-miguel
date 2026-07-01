@@ -29,7 +29,10 @@ export class ThemeService {
 
   setTheme(theme: Theme): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Actualizar clase en body
+      // Actualizar clase en html y body para asegurar que todo el viewport resuelva las variables
+      document.documentElement.classList.remove('light-theme', 'dark-theme');
+      document.documentElement.classList.add(`${theme}-theme`);
+      
       document.body.classList.remove('light-theme', 'dark-theme');
       document.body.classList.add(`${theme}-theme`);
       

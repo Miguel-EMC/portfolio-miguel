@@ -1,10 +1,9 @@
-import { Component, Inject, PLATFORM_ID, OnInit, AfterViewInit, inject, NgZone } from '@angular/core';
+import { Component, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { NavComponent } from './shared/components/layout/nav/nav.component';
 import { FooterComponent } from './shared/components/layout/footer/footer.component';
-import { LoadingService } from './core/services/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -17,11 +16,7 @@ import { LoadingService } from './core/services/loading.service';
   `,
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit, AfterViewInit {
-  private loadingService = inject(LoadingService);
-
-  private ngZone = inject(NgZone);
-
+export class AppComponent implements OnInit {
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private translate: TranslateService
@@ -34,14 +29,4 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {}
-
-  ngAfterViewInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.ngZone.runOutsideAngular(() => {
-        setTimeout(() => {
-          this.loadingService.hideInitialLoader();
-        }, 500);
-      });
-    }
-  }
 }

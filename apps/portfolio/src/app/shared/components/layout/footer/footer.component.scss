@@ -1,12 +1,12 @@
 .footer {
   background-color: var(--bg-secondary);
   color: var(--text-secondary);
-  padding: var(--space-12) 0 var(--space-6);
+  padding: var(--space-20) 0 var(--space-6);
   text-align: left;
   position: relative;
   border-top: 1px solid var(--border-primary);
-  margin-top: var(--space-20);
-  
+  margin-top: 0;
+
   // Laser line gradient highlight at the top of the footer
   &::before {
     content: '';
@@ -54,7 +54,7 @@
     box-shadow: var(--shadow-brand-sm);
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    
+
     &:hover {
       transform: rotate(5deg) scale(1.05);
       box-shadow: var(--shadow-brand-md);
@@ -94,7 +94,7 @@
       transform: translateY(-3px);
       box-shadow: var(--shadow-brand-sm);
     }
-    
+
     &:active {
       transform: translateY(-1px);
     }
@@ -139,7 +139,7 @@
     &:hover {
       color: var(--text-primary);
       transform: translateX(4px);
-      
+
       &::after {
         width: 100%;
       }
@@ -182,12 +182,12 @@
   box-shadow: var(--shadow-brand-sm);
   z-index: 99;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  
+
   // Hidden state transition triggers
   opacity: 0;
   visibility: hidden;
   transform: translateY(20px) scale(0.8);
-  
+
   &.visible {
     opacity: 1;
     visibility: visible;
@@ -201,7 +201,7 @@
     box-shadow: var(--shadow-brand-md);
     border-color: var(--accent-primary);
   }
-  
+
   &:active {
     transform: translateY(-2px) scale(0.98);
   }
