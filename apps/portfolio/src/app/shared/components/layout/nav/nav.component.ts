@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener, Inject, PLATFORM_ID, inject, NgZone, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, PLATFORM_ID, inject, NgZone, ChangeDetectorRef } from '@angular/core';
 import { isPlatformBrowser, NgClass } from '@angular/common';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -6,7 +6,6 @@ import { ThemeService } from "../../../../core/services/theme.service";
 import { LanguageToggleComponent } from "../../ui/language-toggle/language-toggle.component";
 import { ThemeToggleComponent } from "../../ui/theme-toggle/theme-toggle.component";
 import { filter } from 'rxjs/operators';
-import { DomainService } from '../../../../core/services/domain.service';
 
 @Component({
   selector: 'app-nav',
@@ -20,7 +19,6 @@ export class NavComponent implements OnInit, OnDestroy {
   private cdr = inject(ChangeDetectorRef);
   private themeService = inject(ThemeService);
   private router = inject(Router);
-  private domainService = inject(DomainService);
   private platformId = inject(PLATFORM_ID);
 
   isMobileMenuOpen = false;
@@ -62,12 +60,6 @@ export class NavComponent implements OnInit, OnDestroy {
       if (window.innerWidth >= 992) {
         this.closeMobileMenu();
       }
-    }
-  }
-
-  navigateToBlog(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      window.location.href = this.domainService.getBlogUrl();
     }
   }
 
@@ -182,6 +174,6 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   isActive(route: string): boolean {
-    return this.activeRoute === route || this.activeRoute === `/${route}` || (route === 'home' && this.activeRoute === '/');
+    return this.activeRoute === route || this.activeRoute === `/${route}` || this.activeRoute.startsWith(route) || (route === 'home' && this.activeRoute === '/');
   }
 }

@@ -33,10 +33,10 @@ export const routes: Routes = [
     loadComponent: () => import('./features/contact/contacts/contacts.component').then(c => c.ContactsComponent),
     title: 'Contact'
   },
-  // Redirección al dominio del blog para el enlace de Blog
   {
     path: 'blog',
-    redirectTo: 'home' // El componente Nav se encargará de la navegación externa
+    loadChildren: () => import('./features/blog/blog.routes').then(m => m.blogRoutes),
+    title: 'Blog'
   },
   {
     path: '**',
