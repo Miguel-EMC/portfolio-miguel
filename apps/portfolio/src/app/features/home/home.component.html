@@ -251,7 +251,7 @@
     <div class="projects-showcase">
       <div class="project-card" *ngFor="let project of featuredProjects">
         <div class="project-image">
-          <img [src]="project.image" [alt]="'projects.' + project.id + '.title' | translate" />
+          <img [src]="project.images?.[0]" [alt]="t(project.title)" />
           <div class="project-overlay">
             <div class="project-actions">
               <a [href]="project.liveUrl" target="_blank" class="action-btn primary" *ngIf="project.liveUrl">
@@ -268,13 +268,13 @@
 
         <div class="project-info">
           <div class="project-header">
-            <h3 class="project-title">{{ 'projects.' + project.id + '.title' | translate }}</h3>
+            <h3 class="project-title">{{ t(project.title) }}</h3>
             <span class="project-type" [class]="project.type">{{ project.type }}</span>
           </div>
-          <p class="project-description">{{ 'projects.' + project.id + '.description' | translate }}</p>
+          <p class="project-description">{{ t(project.description) }}</p>
 
           <div class="project-tech">
-            <span class="tech-badge" *ngFor="let tech of project.tech.slice(0, 3)">
+            <span class="tech-badge" *ngFor="let tech of project.frameworks?.slice(0, 3)">
               {{ tech }}
             </span>
           </div>

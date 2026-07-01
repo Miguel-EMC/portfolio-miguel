@@ -17,21 +17,42 @@ export const portfolioProjects: PortfolioProject[] = [
     featured: true,
     completedAt: '2024-06-15',
     role: 'Full Stack Developer',
-    challenges: [
-      'Building a scalable learning management system',
-      'Implementing real-time collaboration features',
-      'Creating an intuitive user experience for students and teachers'
-    ],
-    solutions: [
-      'Used Django Channels for WebSocket support',
-      'Implemented Redis caching for improved performance',
-      'Created a modular React component architecture'
-    ],
-    results: [
-      'Reduced page load times by 60%',
-      'Achieved 99.9% uptime',
-      'Supported 500+ concurrent users'
-    ]
+    challenges: {
+      es: [
+        'Construir un sistema de gestión de aprendizaje escalable',
+        'Implementar funciones de colaboración en tiempo real',
+        'Crear una experiencia de usuario intuitiva para estudiantes y profesores'
+      ],
+      en: [
+        'Building a scalable learning management system',
+        'Implementing real-time collaboration features',
+        'Creating an intuitive user experience for students and teachers'
+      ]
+    },
+    solutions: {
+      es: [
+        'Se usó Django Channels para soporte WebSocket',
+        'Se implementó caché Redis para mejorar el rendimiento',
+        'Se creó una arquitectura modular de componentes React'
+      ],
+      en: [
+        'Used Django Channels for WebSocket support',
+        'Implemented Redis caching for improved performance',
+        'Created a modular React component architecture'
+      ]
+    },
+    results: {
+      es: [
+        'Reducción del tiempo de carga en 60%',
+        'Disponibilidad del 99.9%',
+        'Soporte para 500+ usuarios concurrentes'
+      ],
+      en: [
+        'Reduced page load times by 60%',
+        'Achieved 99.9% uptime',
+        'Supported 500+ concurrent users'
+      ]
+    }
   },
   
   // Professional Projects
@@ -49,21 +70,42 @@ export const portfolioProjects: PortfolioProject[] = [
     completedAt: '2024-03-20',
     client: 'ASOBANCA',
     role: 'Lead Developer',
-    challenges: [
-      'Handling complex financial risk calculations',
-      'Ensuring data security and compliance',
-      'Building a multi-tenant architecture'
-    ],
-    solutions: [
-      'Implemented robust authentication with 2FA',
-      'Created efficient database indexing strategies',
-      'Built a comprehensive API with rate limiting'
-    ],
-    results: [
-      'Processed 1M+ risk assessments monthly',
-      'Reduced manual processing time by 80%',
-      'Zero security incidents since launch'
-    ]
+    challenges: {
+      es: [
+        'Manejar cálculos complejos de riesgo financiero',
+        'Garantizar la seguridad de datos y cumplimiento normativo',
+        'Construir una arquitectura multi-tenant'
+      ],
+      en: [
+        'Handling complex financial risk calculations',
+        'Ensuring data security and compliance',
+        'Building a multi-tenant architecture'
+      ]
+    },
+    solutions: {
+      es: [
+        'Se implementó autenticación robusta con 2FA',
+        'Se crearon estrategias eficientes de indexación de base de datos',
+        'Se construyó una API completa con limitación de tasa'
+      ],
+      en: [
+        'Implemented robust authentication with 2FA',
+        'Created efficient database indexing strategies',
+        'Built a comprehensive API with rate limiting'
+      ]
+    },
+    results: {
+      es: [
+        'Procesadas más de 1M de evaluaciones de riesgo mensuales',
+        'Reducción del tiempo de procesamiento manual en 80%',
+        'Cero incidentes de seguridad desde el lanzamiento'
+      ],
+      en: [
+        'Processed 1M+ risk assessments monthly',
+        'Reduced manual processing time by 80%',
+        'Zero security incidents since launch'
+      ]
+    }
   },
   {
     id: 'munsterMind',

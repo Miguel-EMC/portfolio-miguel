@@ -1,16 +1,12 @@
-import { Component, OnInit, OnDestroy, inject, signal, computed } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, switchMap } from 'rxjs';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { SeoService } from '../../../core/services/seo.service';
-import { 
-  portfolioProjects, 
-  findProjectBySlug, 
-  getRelatedProjects,
-  PortfolioProject 
-} from '../../../core/data/portfolio-projects.data';
+import { PortfolioService } from '../../../core/services/portfolio.service';
+import { PortfolioProject, LocalizedText } from '../../../interfaces/project.interface';
 
 @Component({
   selector: 'app-project-detail',
@@ -23,6 +19,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private seoService = inject(SeoService);
+  private portfolioService = inject(PortfolioService);
   private translateService = inject(TranslateService);
   private destroy$ = new Subject<void>();
 
@@ -31,16 +28,33 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   currentImageIndex = signal(0);
   isLoading = signal(true);
   error = signal<string | null>(null);
+  currentLang: 'es' | 'en' = 'es';
 
   ngOnInit(): void {
-    this.route.paramMap.pipe(takeUntil(this.destroy$)).subscribe(params => {
-      const slug = params.get('slug');
-      if (slug) {
-        this.loadProject(slug);
+    this.currentLang = (this.translateService.currentLang || this.translateService.defaultLang || 'es') as 'es' | 'en';
+    this.translateService.onLangChange.pipe(takeUntil(this.destroy$)).subscribe(event => {
+      this.currentLang = (event.lang || 'es') as 'es' | 'en';
+    });
+
+    this.route.paramMap.pipe(
+      takeUntil(this.destroy$),
+      switchMap(params => {
+        const slug = params.get('slug') ?? '';
+        this.isLoading.set(true);
+        this.error.set(null);
+        return this.portfolioService.getBySlug(slug);
+      })
+    ).subscribe(project => {
+      if (project) {
+        this.project.set(project);
+        this.currentImageIndex.set(0);
+        this.updateSeo(project);
+        this.portfolioService.getRelated(project.slug).pipe(takeUntil(this.destroy$))
+          .subscribe(related => this.relatedProjects.set(related));
       } else {
         this.error.set('Project not found');
-        this.isLoading.set(false);
       }
+      this.isLoading.set(false);
     });
   }
 
@@ -49,31 +63,16 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  private loadProject(slug: string): void {
-    this.isLoading.set(true);
-    this.error.set(null);
-
-    const project = findProjectBySlug(slug);
-    
-    if (project) {
-      this.project.set(project);
-      this.relatedProjects.set(getRelatedProjects(slug, 3));
-      this.currentImageIndex.set(0);
-      this.updateSeo(project);
-    } else {
-      this.error.set('Project not found');
-    }
-    
-    this.isLoading.set(false);
+  /** Get localized text from a bilingual field. */
+  t(field: LocalizedText | undefined): string {
+    if (!field) return '';
+    return field[this.currentLang] || field['es'] || field['en'] || '';
   }
 
   private updateSeo(project: PortfolioProject): void {
-    const title = this.translateService.instant(`projects.${project.id}.title`);
-    const description = this.translateService.instant(`projects.${project.id}.description`);
-    
     this.seoService.updateForProject({
-      title,
-      description,
+      title: this.t(project.title),
+      description: this.t(project.description),
       image: project.images[0] || '',
       slug: project.slug
     });
@@ -133,9 +132,8 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
       'AWS': 'bi-cloud',
       'Stripe': 'bi-credit-card',
       'Chart.js': 'bi-bar-chart',
-      'D3.js': 'bi-graph-up'
+      'D3.js': 'bi-graph-up',
     };
-
     return icons[tech] || 'bi-code-slash';
   }
 

@@ -48,8 +48,8 @@
           }
         </div>
         
-        <h1 class="project-title">{{ 'projects.' + project()!.id + '.title' | translate }}</h1>
-        <p class="project-description">{{ 'projects.' + project()!.id + '.description' | translate }}</p>
+        <h1 class="project-title">{{ t(project()!.title) }}</h1>
+        <p class="project-description">{{ t(project()!.description) }}</p>
 
         <!-- Quick Links -->
         <div class="project-links">
@@ -73,7 +73,7 @@
         <div class="gallery-main">
           <img 
             [src]="project()!.images[currentImageIndex()]" 
-            [alt]="'projects.' + project()!.id + '.title' | translate"
+            [alt]="t(project()!.title)"
             class="main-image"
           />
           
@@ -121,7 +121,7 @@
             {{ 'portfolio.project.aboutProject' | translate }}
           </h2>
           <p class="long-description">
-            {{ 'projects.' + project()!.id + '.longDescription' | translate }}
+            {{ t(project()!.longDescription) }}
           </p>
         </div>
 
@@ -172,14 +172,14 @@
         </div>
 
         <!-- Challenges & Solutions -->
-        @if (project()!.challenges && project()!.challenges!.length > 0) {
+        @if (project()!.challenges && project()!.challenges![currentLang].length > 0) {
           <div class="info-card">
             <h2>
               <i class="bi bi-lightning"></i>
               {{ 'portfolio.project.challenges' | translate }}
             </h2>
             <ul class="feature-list">
-              @for (challenge of project()!.challenges; track challenge) {
+              @for (challenge of project()!.challenges![currentLang]; track challenge) {
                 <li>
                   <i class="bi bi-exclamation-circle"></i>
                   {{ challenge }}
@@ -189,14 +189,14 @@
           </div>
         }
 
-        @if (project()!.solutions && project()!.solutions!.length > 0) {
+        @if (project()!.solutions && project()!.solutions![currentLang].length > 0) {
           <div class="info-card">
             <h2>
               <i class="bi bi-check-circle"></i>
               {{ 'portfolio.project.solutions' | translate }}
             </h2>
             <ul class="feature-list solutions">
-              @for (solution of project()!.solutions; track solution) {
+              @for (solution of project()!.solutions![currentLang]; track solution) {
                 <li>
                   <i class="bi bi-check-lg"></i>
                   {{ solution }}
@@ -207,14 +207,14 @@
         }
 
         <!-- Results -->
-        @if (project()!.results && project()!.results!.length > 0) {
+        @if (project()!.results && project()!.results![currentLang].length > 0) {
           <div class="info-card results full-width">
             <h2>
               <i class="bi bi-graph-up-arrow"></i>
               {{ 'portfolio.project.results' | translate }}
             </h2>
             <div class="results-grid">
-              @for (result of project()!.results; track result) {
+              @for (result of project()!.results![currentLang]; track result) {
                 <div class="result-item">
                   <i class="bi bi-trophy"></i>
                   <span>{{ result }}</span>
@@ -236,7 +236,7 @@
             @for (related of relatedProjects(); track related.slug) {
               <article class="related-card" [routerLink]="['/portfolio/project', related.slug]">
                 <div class="related-image">
-                  <img [src]="related.images[0]" [alt]="'projects.' + related.id + '.title' | translate" />
+                  <img [src]="related.images[0]" [alt]="t(related.title)" />
                 </div>
                 <div class="related-content">
                   <span class="related-type" [class]="related.type">
