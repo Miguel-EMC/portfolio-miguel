@@ -1,0 +1,109 @@
+{
+  "posts": [
+    {
+      "slug": "building-ai-agents-with-langgraph",
+      "lang": "es",
+      "title": "Construyendo Agentes de IA con LangGraph y AWS Bedrock",
+      "excerpt": "Un análisis profundo sobre cómo crear agentes Text-to-SQL inteligentes usando la orquestación de LangGraph y los modelos fundacionales de AWS Bedrock.",
+      "author": "Miguel",
+      "publishedAt": "2024-12-15T00:00:00.000Z",
+      "category": "technology",
+      "tags": [
+        "AI",
+        "LangGraph",
+        "AWS",
+        "Python",
+        "LLM"
+      ],
+      "coverImage": "/assets/img/blog/ai-agents.jpg",
+      "readingTime": 3,
+      "featured": true,
+      "published": true
+    },
+    {
+      "slug": "flutter-clean-architecture",
+      "lang": "es",
+      "title": "Arquitectura Limpia en Flutter: Guía Práctica",
+      "excerpt": "Aprende a estructurar tus aplicaciones Flutter usando principios de arquitectura limpia para mayor mantenibilidad y testabilidad.",
+      "author": "Miguel",
+      "publishedAt": "2024-11-20T00:00:00.000Z",
+      "category": "mobile-development",
+      "tags": [
+        "Flutter",
+        "Dart",
+        "Architecture",
+        "Mobile"
+      ],
+      "coverImage": "/assets/img/blog/flutter-architecture.jpg",
+      "readingTime": 3,
+      "featured": true,
+      "published": true
+    },
+    {
+      "slug": "serverless-backend-aws-lambda",
+      "lang": "es",
+      "title": "Construyendo Backends Serverless con AWS Lambda y NestJS",
+      "excerpt": "Cómo desplegar APIs serverless escalables usando NestJS en AWS Lambda con Terraform como infraestructura como código.",
+      "author": "Miguel",
+      "publishedAt": "2024-10-05T00:00:00.000Z",
+      "category": "devops",
+      "tags": [
+        "AWS",
+        "Lambda",
+        "NestJS",
+        "Terraform",
+        "Serverless"
+      ],
+      "coverImage": "/assets/img/blog/serverless.jpg",
+      "readingTime": 3,
+      "featured": false,
+      "published": true
+    },
+    {
+      "slug": "angular-signals-deep-dive",
+      "lang": "es",
+      "title": "Angular Signals: Un Análisis Profundo del Estado Reactivo",
+      "excerpt": "Comprende la nueva API de signals de Angular y cómo cambia nuestra forma de pensar sobre la reactividad en aplicaciones Angular.",
+      "author": "Miguel",
+      "publishedAt": "2024-09-10T00:00:00.000Z",
+      "category": "web-development",
+      "tags": [
+        "Angular",
+        "Signals",
+        "TypeScript",
+        "Frontend"
+      ],
+      "coverImage": "/assets/img/blog/angular-signals.jpg",
+      "readingTime": 3,
+      "featured": false,
+      "published": true
+    },
+    {
+      "slug": "postgresql-performance-optimization",
+      "lang": "es",
+      "title": "Consejos para Optimizar el Rendimiento de PostgreSQL",
+      "excerpt": "Técnicas esenciales para optimizar el rendimiento de PostgreSQL, incluyendo estrategias de indexación y optimización de consultas.",
+      "author": "Miguel",
+      "publishedAt": "2024-08-15T00:00:00.000Z",
+      "category": "programming",
+      "tags": [
+        "PostgreSQL",
+        "Database",
+        "Performance",
+        "SQL"
+      ],
+      "coverImage": "/assets/img/blog/postgresql.jpg",
+      "readingTime": 3,
+      "featured": false,
+      "published": true
+    }
+  ],
+  "categories": [
+    "web-development",
+    "technology",
+    "mobile-development",
+    "programming",
+    "devops"
+  ],
+  "lastUpdated": "2026-07-01T04:14:17.217Z"
+}

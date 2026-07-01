@@ -191,7 +191,7 @@
                 [class.active]="i === currentImageIndex"
                 (click)="currentImageIndex = i"
               >
-                <img [src]="image" [alt]="t(selectedProject.title) + ' - ' + (i + 1)">
+                <img [src]="image" [alt]="selectedProject.title + ' - ' + (i + 1)">
               </button>
             </div>
           </div>

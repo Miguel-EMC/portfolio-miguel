@@ -3,9 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "content:blog": "node scripts/generate-blog-manifest.mjs",
-    "content:portfolio": "node scripts/generate-portfolio-manifest.mjs",
-    "content": "npm run content:blog && npm run content:portfolio",
+    "content": "node scripts/generate-content.mjs",
     "prestart": "npm run content",
     "start": "ng serve portfolio",
     "start:portfolio": "ng serve portfolio",

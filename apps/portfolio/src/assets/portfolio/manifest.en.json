@@ -1,0 +1,111 @@
+{
+  "projects": [
+    {
+      "slug": "asobanca-risk-platform",
+      "lang": "en",
+      "id": "asobanca",
+      "title": "ASOBANCA Platform",
+      "description": "Comprehensive system for financial institutions with client management, transaction processing and regulatory reporting modules.",
+      "type": "professional",
+      "frameworks": [
+        "Laravel",
+        "Angular",
+        "PostgreSQL"
+      ],
+      "images": [
+        "/assets/img/asobancaPlataforma.png"
+      ],
+      "liveUrl": "https://plataformariesgos.app/",
+      "featured": true,
+      "completedAt": "2024-03-20T00:00:00.000Z",
+      "client": "ASOBANCA",
+      "role": "Lead Developer"
+    },
+    {
+      "slug": "munster-mind-mobile-app",
+      "lang": "en",
+      "id": "munsterMind",
+      "title": "Münster Mind App",
+      "description": "Strategic HR solution helping companies understand people, align strengths with culture, and create thriving work environments.",
+      "type": "professional",
+      "frameworks": [
+        "Flutter",
+        "PostgreSQL",
+        "NestJS"
+      ],
+      "images": [
+        "/assets/img/munstermain.png"
+      ],
+      "liveUrl": "https://play.google.com/store/apps/details?id=io.munstermind.dev&pcampaignid=web_share",
+      "featured": true,
+      "completedAt": "2024-01-10T00:00:00.000Z",
+      "client": "MunsterMind",
+      "role": "Mobile Developer"
+    },
+    {
+      "slug": "synapsek-education-platform",
+      "lang": "en",
+      "id": "sinapsekEducation",
+      "title": "Sinapsek Education",
+      "description": "Educational platform focused on professional growth in technological and mathematical areas, designed for university preparation.",
+      "type": "personal",
+      "frameworks": [
+        "Django",
+        "React",
+        "PostgreSQL",
+        "Docker"
+      ],
+      "images": [
+        "/assets/img/sinapsekEducation.png"
+      ],
+      "liveUrl": "https://import-synapsek-plat-5b7i.bolt.host/",
+      "featured": true,
+      "completedAt": "2024-06-15T00:00:00.000Z",
+      "role": "Full Stack Developer"
+    },
+    {
+      "slug": "billusos-fintech-platform",
+      "lang": "en",
+      "id": "billusos",
+      "title": "billusos",
+      "description": "Electronic invoicing and business management platform with integration to government services.",
+      "type": "professional",
+      "frameworks": [
+        "Django",
+        "PostgreSQL",
+        "Docker",
+        "React Native"
+      ],
+      "images": [
+        "/assets/img/billusos.png"
+      ],
+      "liveUrl": "https://ecuador.billusos.com/#",
+      "featured": false,
+      "completedAt": "2023-08-22T00:00:00.000Z",
+      "client": "Billusos",
+      "role": "Full Stack Developer"
+    },
+    {
+      "slug": "conafis-saras-system",
+      "lang": "en",
+      "id": "conafis",
+      "title": "CONAFIS SARAS System",
+      "description": "Government platform for resource management and statistical analysis with high availability and security.",
+      "type": "professional",
+      "frameworks": [
+        "Laravel",
+        "Angular",
+        "PostgreSQL"
+      ],
+      "images": [
+        "/assets/img/conafis.png"
+      ],
+      "liveUrl": "https://saras.finanzaspopulares.gob.ec/View/SARAS/index.php",
+      "featured": false,
+      "completedAt": "2023-11-05T00:00:00.000Z",
+      "client": "CONAFIPS",
+      "role": "Backend Developer"
+    }
+  ],
+  "lastUpdated": "2026-07-01T04:14:17.243Z"
+}

@@ -12,7 +12,7 @@ import { educationItems, type Education } from '../../core/data/education.data';
 import { experiences, type Experience } from '../../core/data/experience.data';
 import { skillAreas, type SkillArea } from '../../core/data/skills.data';
 import { PortfolioService } from '../../core/services/portfolio.service';
-import { PortfolioProject, LocalizedText } from '../../interfaces/project.interface';
+import { PortfolioProjectMeta } from '../../interfaces/project.interface';
 
 import { LottieAnimationComponent } from '../../shared/components/ui/lottie-animation/lottie-animation.component';
 import { AboutMeComponent } from '../contact/about-me/about-me.component';
@@ -180,14 +180,8 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   // Use skillAreas from data file instead of duplicating
 
   // Featured projects for compact portfolio (loaded from portfolio service)
-  featuredProjects: PortfolioProject[] = [];
+  featuredProjects: PortfolioProjectMeta[] = [];
   currentLang: 'es' | 'en' = 'es';
-
-  /** Get localized text from bilingual field. */
-  t(field: LocalizedText | undefined): string {
-    if (!field) return '';
-    return field[this.currentLang] || field['es'] || field['en'] || '';
-  }
 
   // Detailed data for tabs
   educationItems: Education[] = educationItems;
@@ -217,7 +211,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     });
 
     // Load featured projects from portfolio service
-    this.portfolioService.getFeatured().subscribe(projects => {
+    this.portfolioService.getFeaturedProjects().subscribe((projects: PortfolioProjectMeta[]) => {
       this.featuredProjects = projects;
       this.cdr.markForCheck();
     });
