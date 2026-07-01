@@ -1,4 +1,4 @@
-name: CI/CD MiguelDev Community Platform
+name: CI/CD MiguelDev Portfolio
 
 on:
   push:
@@ -18,26 +18,6 @@ env:
   NODE_VERSION: '18'
 
 jobs:
-  backend-build:
-    name: Build & Push Backend
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-    steps:
-      - name: 📥 Checkout repository
-        uses: actions/checkout@v4
-      - name: 🔧 Authenticate to Google Cloud
-        uses: google-github-actions/auth@v2
-        with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
-      - name: ⚙️ Configure Docker for GCP
-        run: gcloud auth configure-docker --quiet
-      - name: 🏗️ Build & Push Container
-        run: |
-          ENV="${{ github.ref_name == 'main' && 'prod' || 'demo' }}"
-          IMAGE_NAME="gcr.io/${{ env.GCP_PROJECT_ID }}/migueldev-blog-$ENV-api:latest"
-          docker build -t $IMAGE_NAME ./backend
-          docker push $IMAGE_NAME
-
   portfolio-build:
     name: Build & Push Portfolio App
     runs-on: ubuntu-latest
@@ -82,7 +62,7 @@ jobs:
 
   infrastructure:
     name: Terraform Plan/Apply
-    needs: [backend-build, portfolio-build, community-build]
+    needs: [portfolio-build, community-build]
     runs-on: ubuntu-latest
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     steps:
@@ -110,11 +90,9 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
-      - name: 🚀 Update All Services
+      - name: 🚀 Update Services
         run: |
           ENV="${{ github.ref_name == 'main' && 'prod' || 'demo' }}"
-          # Update API
-          gcloud run deploy migueldev-blog-$ENV-api --image gcr.io/${{ env.GCP_PROJECT_ID }}/migueldev-blog-$ENV-api:latest --region ${{ env.REGION }} --platform managed --allow-unauthenticated
           # Update Portfolio
           gcloud run deploy migueldev-blog-$ENV-frontend --image gcr.io/${{ env.GCP_PROJECT_ID }}/migueldev-blog-$ENV-frontend:latest --region ${{ env.REGION }} --platform managed --allow-unauthenticated
           # Update Community

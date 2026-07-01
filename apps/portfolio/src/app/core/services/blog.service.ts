@@ -1,12 +1,12 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, of, catchError, map, tap } from 'rxjs';
+import { BehaviorSubject, Observable, of, catchError, map, tap, forkJoin } from 'rxjs';
 import { marked } from 'marked';
 import hljs from 'highlight.js';
-import { 
-  BlogPost, 
-  BlogPostMeta, 
-  BlogCategory, 
+import {
+  BlogPost,
+  BlogPostMeta,
+  BlogCategory,
   BlogManifest,
   BLOG_CATEGORIES,
   BlogCategoryInfo
@@ -18,11 +18,11 @@ import { environment } from '../../../environments/environment';
 })
 export class BlogService {
   private http = inject(HttpClient);
-  private readonly apiUrl = environment.api.baseUrl;
-  
+  private readonly contentPath = environment.blog.contentPath;
+
   private postsCache = new Map<string, BlogPost>();
   private manifestSubject = new BehaviorSubject<BlogManifest | null>(null);
-  
+
   manifest$ = this.manifestSubject.asObservable();
 
   constructor() {
@@ -36,7 +36,7 @@ export class BlogService {
     });
 
     const renderer = new marked.Renderer();
-    
+
     renderer.code = ({ text, lang }: { text: string; lang?: string }) => {
       const language = lang && hljs.getLanguage(lang) ? lang : 'plaintext';
       const highlighted = hljs.highlight(text, { language }).value;
@@ -54,18 +54,26 @@ export class BlogService {
     marked.use({ renderer });
   }
 
+  private stripFrontmatter(content: string): string {
+    return content.replace(/^---[\s\S]*?---\s*\n/, '');
+  }
+
+  private normalizePost(post: BlogPostMeta): BlogPostMeta {
+    return {
+      ...post,
+      publishedAt: new Date(post.publishedAt),
+      updatedAt: post.updatedAt ? new Date(post.updatedAt) : undefined
+    };
+  }
+
   loadManifest(): Observable<BlogManifest> {
-    return this.http.get<BlogManifest>(`${this.apiUrl}/blog/manifest`).pipe(
+    return this.http.get<BlogManifest>(`${this.contentPath}manifest.json`).pipe(
       tap(manifest => {
-        manifest.posts = manifest.posts.map(post => ({
-          ...post,
-          publishedAt: new Date(post.publishedAt),
-          updatedAt: post.updatedAt ? new Date(post.updatedAt) : undefined
-        }));
+        manifest.posts = manifest.posts.map(p => this.normalizePost(p));
         this.manifestSubject.next(manifest);
       }),
       catchError(error => {
-        console.error('Failed to load blog manifest from API:', error);
+        console.error('Failed to load blog manifest:', error);
         const emptyManifest: BlogManifest = {
           posts: [],
           categories: [],
@@ -78,14 +86,10 @@ export class BlogService {
   }
 
   getAllPosts(): Observable<BlogPostMeta[]> {
-    return this.http.get<BlogPostMeta[]>(`${this.apiUrl}/blog/posts`).pipe(
-      map(posts => posts.map(post => ({
-        ...post,
-        publishedAt: new Date(post.publishedAt),
-        updatedAt: post.updatedAt ? new Date(post.updatedAt) : undefined
-      }))),
+    return this.http.get<BlogManifest>(`${this.contentPath}manifest.json`).pipe(
+      map(manifest => manifest.posts.map(p => this.normalizePost(p))),
       catchError(error => {
-        console.error('Failed to load posts from API:', error);
+        console.error('Failed to load posts:', error);
         return of([]);
       })
     );
@@ -96,20 +100,26 @@ export class BlogService {
       return of(this.postsCache.get(slug)!);
     }
 
-    return this.http.get<BlogPost>(`${this.apiUrl}/blog/posts/${slug}`).pipe(
-      map(post => ({
-        ...post,
-        publishedAt: new Date(post.publishedAt),
-        updatedAt: post.updatedAt ? new Date(post.updatedAt) : undefined,
-        content: marked.parse(post.content) as string
-      })),
+    return forkJoin({
+      manifest: this.http.get<BlogManifest>(`${this.contentPath}manifest.json`),
+      rawContent: this.http.get(`${this.contentPath}posts/${slug}.md`, { responseType: 'text' })
+    }).pipe(
+      map(({ manifest, rawContent }) => {
+        const meta = manifest.posts.find(p => p.slug === slug);
+        if (!meta) return null;
+
+        const markdownContent = this.stripFrontmatter(rawContent);
+        const post: BlogPost = {
+          ...this.normalizePost(meta),
+          content: marked.parse(markdownContent) as string
+        };
+        return post;
+      }),
       tap(post => {
-        if (post) {
-          this.postsCache.set(slug, post);
-        }
+        if (post) this.postsCache.set(slug, post);
       }),
       catchError(error => {
-        console.error(`Failed to load post ${slug} from API:`, error);
+        console.error(`Failed to load post ${slug}:`, error);
         return of(null);
       })
     );
@@ -123,7 +133,7 @@ export class BlogService {
 
   getPostsByTag(tag: string): Observable<BlogPostMeta[]> {
     return this.getAllPosts().pipe(
-      map(posts => posts.filter(post => 
+      map(posts => posts.filter(post =>
         post.tags.some(t => t.toLowerCase() === tag.toLowerCase())
       ))
     );
@@ -152,7 +162,7 @@ export class BlogService {
           .map(post => {
             let score = 0;
             if (post.category === currentPost.category) score += 2;
-            const matchingTags = post.tags.filter(tag => 
+            const matchingTags = post.tags.filter(tag =>
               currentPost.tags.includes(tag)
             ).length;
             score += matchingTags;
@@ -168,7 +178,7 @@ export class BlogService {
 
   searchPosts(query: string): Observable<BlogPostMeta[]> {
     const searchTerms = query.toLowerCase().split(' ').filter(Boolean);
-    
+
     return this.getAllPosts().pipe(
       map(posts => posts.filter(post => {
         const searchableText = `${post.title} ${post.excerpt} ${post.tags.join(' ')}`.toLowerCase();
