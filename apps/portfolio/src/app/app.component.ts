@@ -4,18 +4,16 @@ import { isPlatformBrowser } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { NavComponent } from './shared/components/layout/nav/nav.component';
 import { FooterComponent } from './shared/components/layout/footer/footer.component';
-import { LanguageToggleComponent } from './shared/components/ui/language-toggle/language-toggle.component';
 import { LoadingService } from './core/services/loading.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavComponent, FooterComponent, LanguageToggleComponent],
+  imports: [RouterOutlet, NavComponent, FooterComponent],
   template: `
     <app-nav></app-nav>
     <router-outlet />
     <app-footer></app-footer>
-    <app-language-toggle></app-language-toggle>
   `,
   styleUrls: ['./app.component.scss'],
 })
