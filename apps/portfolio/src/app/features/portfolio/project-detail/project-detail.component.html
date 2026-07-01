@@ -242,7 +242,7 @@
                   <span class="related-type" [class]="related.type">
                     {{ related.type === 'personal' ? ('portfolio.project.personal' | translate) : ('portfolio.project.professional' | translate) }}
                   </span>
-                  <h3>{{ 'projects.' + related.id + '.title' | translate }}</h3>
+                  <h3>{{ t(related.title) }}</h3>
                   <div class="related-tech">
                     @for (tech of related.frameworks.slice(0, 3); track tech) {
                       <span class="tech-tag">{{ tech }}</span>

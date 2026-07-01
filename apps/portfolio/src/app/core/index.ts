@@ -14,6 +14,5 @@ export * from './guards/admin-auth.guard';
 // Strategies
 export * from './strategies/selective-preload.strategy';
 
-// Data
-export * from './data/portfolio-projects.data';
-export * from './data/projects.data';
+// Services (portfolio)
+export * from './services/portfolio.service';
