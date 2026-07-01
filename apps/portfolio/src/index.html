@@ -221,24 +221,24 @@
   </script>
 </head>
 <body class="dark-theme">
-  <app-root>
-    <!-- Loading inicial para evitar flash blanco -->
-    <div id="initial-loader">
-      <!-- Logo/Inicial -->
-      <div class="loader-logo">
-        <span style="color: white; font-size: 32px; font-weight: 700; letter-spacing: -1px;">EM</span>
-      </div>
-      
-      <!-- Texto de carga -->
-      <h2 class="loader-text">Eduardo Miguel Muzo</h2>
-      <p class="loader-subtitle">Software Engineer | Backend & AI</p>
-      
-      <!-- Barra de progreso animada -->
-      <div class="loader-progress">
-        <div class="loader-bar"></div>
-      </div>
+  <!-- Loading inicial para evitar flash blanco (fuera de app-root para permitir fade-out suave) -->
+  <div id="initial-loader">
+    <!-- Logo/Inicial -->
+    <div class="loader-logo">
+      <span style="color: white; font-size: 32px; font-weight: 700; letter-spacing: -1px;">EM</span>
     </div>
-  </app-root>
+    
+    <!-- Texto de carga -->
+    <h2 class="loader-text">Eduardo Miguel Muzo</h2>
+    <p class="loader-subtitle">Software Engineer | Backend & AI</p>
+    
+    <!-- Barra de progreso animada -->
+    <div class="loader-progress">
+      <div class="loader-bar"></div>
+    </div>
+  </div>
+
+  <app-root></app-root>
   
   <!-- Performance monitoring -->
   <script>
