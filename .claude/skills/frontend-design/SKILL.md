@@ -53,3 +53,126 @@ Use active voice as default. A control should say exactly what happens when it's
 Treat failure and emptiness as moments for direction, not mood. Explain what went wrong and how to fix it, in the interface's voice rather than a person's. Errors don't apologize, and they are never vague about what happened. An empty screen is an invitation to act.
 
 Keep the register conversational and tuned: plain verbs, sentence case, no filler, with tone matched to the brand and the audience. Let each element do exactly one job. A label labels, an example demonstrates, and nothing quietly does double duty.
+
+---
+
+## MiguelDev11 — Project Design Tokens
+
+**Brand identity:** Dark charcoal base (`#0f1117`) with neon-green circuit glow (`#39FF14`). Extracted from logo. All new UI must feel coherent with this identity.
+
+### Fonts (`styles.scss :root`)
+- `--font-sans`: `'Inter'` — body, UI, labels
+- `--font-mono`: `'JetBrains Mono'` — code, terminal, data
+
+### Brand Colors (always available via `:root`)
+```
+--brand-green:          #39FF14   ← primary neon accent (dark theme)
+--brand-green-dim:      #22c55e
+--brand-green-dark:     #16a34a   ← primary accent (light theme)
+--brand-green-deeper:   #15803d
+--brand-green-glow:     rgba(57, 255, 20, 0.4)
+--brand-green-subtle:   rgba(57, 255, 20, 0.08)
+--brand-green-muted:    rgba(57, 255, 20, 0.15)
+--brand-green-border:   rgba(57, 255, 20, 0.2)
+
+--brand-bg-base:        #0f1117   ← dark bg (logo base)
+--brand-bg-panel:       #1a1d24
+--brand-bg-elevated:    #22262f
+--brand-bg-overlay:     rgba(15, 17, 23, 0.95)
+--brand-bg-glass:       rgba(26, 29, 36, 0.85)
+
+--shadow-brand-sm:      0 0 8px rgba(57, 255, 20, 0.2)
+--shadow-brand-md:      0 0 12px rgba(57, 255, 20, 0.3), 0 0 24px rgba(57, 255, 20, 0.15)
+--shadow-brand-glow:    0 0 0 3px rgba(57, 255, 20, 0.25)
+--shadow-brand-card:    0 0 0 1px rgba(57, 255, 20, 0.2), 0 8px 24px rgba(57, 255, 20, 0.1)
+```
+
+### `.light-theme` — effective tokens (second block wins CSS cascade)
+```
+/* Backgrounds */
+--bg-primary:    #ffffff
+--bg-secondary:  #f8fafc
+--bg-tertiary:   #f1f5f9
+--bg-accent:     #e2e8f0
+--bg-muted:      #f8fafc
+
+/* Text */
+--text-primary:   #0f172a
+--text-secondary: #475569
+--text-tertiary:  #64748b
+--text-muted:     #94a3b8
+--text-inverse:   #ffffff
+
+/* Borders */
+--border-primary:   #e2e8f0
+--border-secondary: #cbd5e1
+--border-tertiary:  #94a3b8
+
+/* Accents */
+--accent-primary:   var(--turquoise-600)   → #0d9488
+--accent-secondary: var(--blue-600)         → #2563eb
+--accent-tertiary:  var(--violet-600)       → #7c3aed
+
+/* Gradients */
+--gradient-primary:   linear-gradient(135deg, #14b8a6, #2563eb)
+--gradient-secondary: linear-gradient(135deg, #3b82f6, #7c3aed)
+--gradient-accent:    linear-gradient(135deg, #8b5cf6, #14b8a6)
+
+/* Shadows */
+--shadow-card:       0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06)
+--shadow-card-hover: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05)
+
+/* State colors */
+--success-bg: #f0fdf4  --success-text: #166534  --success-border: #bbf7d0
+--warning-bg: #fffbeb  --warning-text: #a16207  --warning-border: #fde68a
+--error-bg:   #fef2f2  --error-text:   #dc2626  --error-border:   #fecaca
+```
+
+### `.dark-theme` — effective tokens (second block wins CSS cascade)
+```
+/* Backgrounds */
+--bg-primary:    #0f172a
+--bg-secondary:  #1e293b
+--bg-tertiary:   #334155
+--bg-accent:     #475569
+--bg-muted:      #1e293b
+
+/* Text */
+--text-primary:   #f8fafc
+--text-secondary: #cbd5e1
+--text-tertiary:  #94a3b8
+--text-muted:     #64748b
+--text-inverse:   #0f172a
+
+/* Borders */
+--border-primary:   #334155
+--border-secondary: #475569
+--border-tertiary:  #64748b
+
+/* Accents */
+--accent-primary:   var(--turquoise-400)  → #2dd4bf
+--accent-secondary: var(--blue-400)        → #60a5fa
+--accent-tertiary:  var(--violet-400)      → #a78bfa
+
+/* Gradients */
+--gradient-primary:   linear-gradient(135deg, #2dd4bf, #3b82f6)
+--gradient-secondary: linear-gradient(135deg, #60a5fa, #8b5cf6)
+--gradient-accent:    linear-gradient(135deg, #a78bfa, #2dd4bf)
+
+/* Shadows */
+--shadow-card:       0 4px 6px -1px rgba(0,0,0,0.3), 0 2px 4px -1px rgba(0,0,0,0.2)
+--shadow-card-hover: 0 10px 15px -3px rgba(0,0,0,0.4), 0 4px 6px -2px rgba(0,0,0,0.3)
+
+/* State colors */
+--success-bg: #064e3b  --success-text: #6ee7b7  --success-border: #047857
+--warning-bg: #78350f  --warning-text: #fbbf24  --warning-border: #a16207
+--error-bg:   #7f1d1d  --error-text:   #fca5a5  --error-border:   #dc2626
+```
+
+### Key rules when building UI for this project
+- Always use semantic CSS vars (`--bg-primary`, `--text-secondary`, `--accent-primary`) — never raw hex values
+- Dark theme: neon-green (`--brand-green`) is the hero accent — use `--brand-*` vars for brand moments
+- Light theme: softer green (`--brand-green-dark` / `--turquoise-600`) replaces neon — still green identity
+- Glassmorphism: `background: var(--surface-glass); backdrop-filter: blur(20px); border: 1px solid var(--border-primary)`
+- Theme transition: `transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease` (already on `*`)
+- Theme classes applied to `<body>`: `.dark-theme` or `.light-theme`
