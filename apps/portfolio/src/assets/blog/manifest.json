@@ -7,9 +7,15 @@
       "author": "Miguel",
       "publishedAt": "2024-12-15T10:00:00.000Z",
       "category": "technology",
-      "tags": ["AI", "LangGraph", "AWS", "Python", "LLM"],
+      "tags": [
+        "AI",
+        "LangGraph",
+        "AWS",
+        "Python",
+        "LLM"
+      ],
       "coverImage": "/assets/img/blog/ai-agents.jpg",
-      "readingTime": 8,
+      "readingTime": 2,
       "featured": true,
       "published": true
     },
@@ -20,9 +26,14 @@
       "author": "Miguel",
       "publishedAt": "2024-11-20T10:00:00.000Z",
       "category": "mobile-development",
-      "tags": ["Flutter", "Dart", "Architecture", "Mobile"],
+      "tags": [
+        "Flutter",
+        "Dart",
+        "Architecture",
+        "Mobile"
+      ],
       "coverImage": "/assets/img/blog/flutter-architecture.jpg",
-      "readingTime": 10,
+      "readingTime": 1,
       "featured": true,
       "published": true
     },
@@ -33,9 +44,15 @@
       "author": "Miguel",
       "publishedAt": "2024-10-05T10:00:00.000Z",
       "category": "devops",
-      "tags": ["AWS", "Lambda", "NestJS", "Terraform", "Serverless"],
+      "tags": [
+        "AWS",
+        "Lambda",
+        "NestJS",
+        "Terraform",
+        "Serverless"
+      ],
       "coverImage": "/assets/img/blog/serverless.jpg",
-      "readingTime": 12,
+      "readingTime": 1,
       "featured": false,
       "published": true
     },
@@ -46,9 +63,14 @@
       "author": "Miguel",
       "publishedAt": "2024-09-10T10:00:00.000Z",
       "category": "web-development",
-      "tags": ["Angular", "Signals", "TypeScript", "Frontend"],
+      "tags": [
+        "Angular",
+        "Signals",
+        "TypeScript",
+        "Frontend"
+      ],
       "coverImage": "/assets/img/blog/angular-signals.jpg",
-      "readingTime": 7,
+      "readingTime": 2,
       "featured": false,
       "published": true
     },
@@ -59,22 +81,24 @@
       "author": "Miguel",
       "publishedAt": "2024-08-15T10:00:00.000Z",
       "category": "programming",
-      "tags": ["PostgreSQL", "Database", "Performance", "SQL"],
+      "tags": [
+        "PostgreSQL",
+        "Database",
+        "Performance",
+        "SQL"
+      ],
       "coverImage": "/assets/img/blog/postgresql.jpg",
-      "readingTime": 9,
+      "readingTime": 1,
       "featured": false,
       "published": true
     }
   ],
   "categories": [
-    "technology",
-    "programming",
     "web-development",
+    "technology",
     "mobile-development",
-    "devops",
-    "career",
-    "tutorials",
-    "general"
+    "programming",
+    "devops"
   ],
-  "lastUpdated": "2024-12-15T10:00:00.000Z"
+  "lastUpdated": "2026-07-01T03:56:19.270Z"
 }

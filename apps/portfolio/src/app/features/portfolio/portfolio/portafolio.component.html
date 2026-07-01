@@ -44,9 +44,9 @@
         (click)="showDetails(project)"
       >
         <div class="card-image">
-          <img 
-            [src]="project.images[0] || 'https://images.pexels.com/photos/270348/pexels-photo-270348.jpeg'" 
-            [alt]="project.title"
+          <img
+            [src]="project.images[0] || 'https://images.pexels.com/photos/270348/pexels-photo-270348.jpeg'"
+            [alt]="t(project.title)"
             class="project-image"
           />
           <div class="image-overlay">
@@ -87,8 +87,8 @@
             </span>
           </div>
           
-          <h3 class="project-title">{{ 'projects.' + project.id + '.title' | translate }}</h3>
-          <p class="project-description">{{ 'projects.' + project.id + '.description' | translate }}</p>
+          <h3 class="project-title">{{ t(project.title) }}</h3>
+          <p class="project-description">{{ t(project.description) }}</p>
           
           <div class="tech-stack">
             <div class="tech-item" *ngFor="let tech of project.frameworks.slice(0, 4)">
@@ -124,7 +124,7 @@
     <div class="modal-content" (click)="$event.stopPropagation()">
       <div class="modal-header">
         <div class="modal-title-section">
-          <h3 class="modal-title">{{ 'projects.' + selectedProject.id + '.title' | translate }}</h3>
+          <h3 class="modal-title">{{ t(selectedProject.title) }}</h3>
           <span class="modal-category" [class]="selectedProject.type">
             <i [class]="selectedProject.type === 'personal' ? 'bi bi-person' : 'bi bi-briefcase'"></i>
             {{ selectedProject.type === 'personal' ? ('portfolio.project.personal' | translate) : ('portfolio.project.professional' | translate) }}
@@ -151,9 +151,9 @@
                   <span>{{ selectedProject.liveUrl }}</span>
                 </div>
               </div>
-              <img 
-                [src]="selectedProject.images[0]" 
-                [alt]="selectedProject.title"
+              <img
+                [src]="selectedProject.images[0]"
+                [alt]="t(selectedProject.title)"
                 class="preview-image"
                 style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;"
               />
@@ -163,9 +163,9 @@
           <!-- Image Gallery -->
           <div *ngIf="!selectedProject.liveUrl && selectedProject.images.length > 0" class="image-gallery">
             <div class="gallery-main">
-              <img 
-                [src]="selectedProject.images[currentImageIndex]" 
-                [alt]="selectedProject.title"
+              <img
+                [src]="selectedProject.images[currentImageIndex]"
+                [alt]="t(selectedProject.title)"
                 class="gallery-image"
                 style="width: 100%; height: 250px; object-fit: cover;"
               />
@@ -191,7 +191,7 @@
                 [class.active]="i === currentImageIndex"
                 (click)="currentImageIndex = i"
               >
-                <img [src]="image" [alt]="selectedProject.title + ' - ' + (i + 1)">
+                <img [src]="image" [alt]="t(selectedProject.title) + ' - ' + (i + 1)">
               </button>
             </div>
           </div>
@@ -200,7 +200,7 @@
         <div class="project-info">
           <div class="project-details">
             <h4 class="details-title">{{ 'portfolio.project.description' | translate }}</h4>
-            <p class="project-full-description">{{ 'projects.' + selectedProject.id + '.longDescription' | translate }}</p>
+            <p class="project-full-description">{{ t(selectedProject.longDescription) }}</p>
             
             <div class="tech-section">
               <h4 class="details-title">{{ 'portfolio.project.technologies' | translate }}</h4>

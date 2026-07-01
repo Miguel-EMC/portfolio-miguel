@@ -14,6 +14,11 @@ export const environment = {
     enableSearch: true,
     contentPath: '/assets/blog/'
   },
+
+  // Portfolio Configuration
+  portfolio: {
+    contentPath: '/assets/portfolio/'
+  },
   
   // Admin Configuration
   admin: {

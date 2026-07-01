@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, inject, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, signal, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil, switchMap } from 'rxjs';
@@ -13,7 +13,8 @@ import { BlogPost, BlogPostMeta, BLOG_CATEGORIES } from '../../../interfaces/blo
   standalone: true,
   imports: [CommonModule, RouterModule, TranslateModule],
   templateUrl: './blog-post.component.html',
-  styleUrls: ['./blog-post.component.scss']
+  styleUrls: ['./blog-post.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class BlogPostComponent implements OnInit, OnDestroy {
   private blogService = inject(BlogService);

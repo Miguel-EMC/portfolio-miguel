@@ -1,9 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgForOf, NgIf } from "@angular/common";
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Subject, takeUntil } from 'rxjs';
 
-// Data imports
-import { portfolioProjects, type PortfolioProject } from '../../../core/data/portfolio-projects.data';
+import { PortfolioService } from '../../../core/services/portfolio.service';
+import { PortfolioProject } from '../../../interfaces/project.interface';
 
 @Component({
   selector: 'app-portafolio',
@@ -13,32 +14,56 @@ import { portfolioProjects, type PortfolioProject } from '../../../core/data/por
   styleUrls: ['./portafolio.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PortafolioComponent implements OnInit {
+export class PortafolioComponent implements OnInit, OnDestroy {
+  private portfolioService = inject(PortfolioService);
+  private translate = inject(TranslateService);
+  private cdr = inject(ChangeDetectorRef);
+  private destroy$ = new Subject<void>();
+
   activeFilter: 'all' | 'personal' | 'professional' = 'all';
-  selectedProject: any = null;
-  currentImageIndex: number = 0;
-  allProjects: any[] = [];
-  filteredProjects: any[] = [];
+  selectedProject: PortfolioProject | null = null;
+  currentImageIndex = 0;
+  allProjects: PortfolioProject[] = [];
+  filteredProjects: PortfolioProject[] = [];
+  currentLang: 'es' | 'en' = 'es';
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  ngOnInit(): void {
+    // Track language changes
+    this.currentLang = (this.translate.currentLang || this.translate.defaultLang || 'es') as 'es' | 'en';
+    this.translate.onLangChange.pipe(takeUntil(this.destroy$)).subscribe(event => {
+      this.currentLang = (event.lang || 'es') as 'es' | 'en';
+      this.cdr.markForCheck();
+    });
 
-  ngOnInit() {
-    this.allProjects = portfolioProjects;
-    this.filteredProjects = this.allProjects;
+    // Load projects from generated JSON
+    this.portfolioService.loadProjects().pipe(takeUntil(this.destroy$)).subscribe(projects => {
+      this.allProjects = projects;
+      this.applyFilter();
+      this.cdr.markForCheck();
+    });
   }
 
-  get personalProjects(): any[] {
-    return this.allProjects.filter(project => project.type === 'personal');
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
-  get professionalProjects(): any[] {
-    return this.allProjects.filter(project => project.type === 'professional');
+  get personalProjects(): PortfolioProject[] {
+    return this.allProjects.filter(p => p.type === 'personal');
   }
 
-  setFilter(filter: 'all' | 'personal' | 'professional') {
+  get professionalProjects(): PortfolioProject[] {
+    return this.allProjects.filter(p => p.type === 'professional');
+  }
+
+  setFilter(filter: 'all' | 'personal' | 'professional'): void {
     this.activeFilter = filter;
-    
-    switch (filter) {
+    this.applyFilter();
+    this.cdr.detectChanges();
+  }
+
+  private applyFilter(): void {
+    switch (this.activeFilter) {
       case 'personal':
         this.filteredProjects = this.personalProjects;
         break;
@@ -48,10 +73,21 @@ export class PortafolioComponent implements OnInit {
       default:
         this.filteredProjects = this.allProjects;
     }
-    this.cdr.detectChanges();
   }
 
-  showDetails(project: any): void {
+  /** Get localized text from a project's bilingual field, fallback to empty string. */
+  t(field: { es: string; en: string } | undefined): string {
+    if (!field) return '';
+    return field[this.currentLang] || field['es'] || field['en'] || '';
+  }
+
+  /** Get localized list from a project's bilingual list field, fallback to empty array. */
+  tList(field: { es: string[]; en: string[] } | undefined): string[] {
+    if (!field) return [];
+    return field[this.currentLang] || field['es'] || [];
+  }
+
+  showDetails(project: PortfolioProject): void {
     this.selectedProject = project;
     this.currentImageIndex = 0;
     document.body.style.overflow = 'hidden';
@@ -71,7 +107,7 @@ export class PortafolioComponent implements OnInit {
 
   prevImage(): void {
     if (this.selectedProject && this.selectedProject.images.length > 1) {
-      this.currentImageIndex = 
+      this.currentImageIndex =
         (this.currentImageIndex - 1 + this.selectedProject.images.length) % this.selectedProject.images.length;
     }
   }
@@ -87,7 +123,6 @@ export class PortafolioComponent implements OnInit {
       'HTML5': 'bi-filetype-html',
       'CSS3': 'bi-filetype-css',
       'Next.js': 'bi-arrow-repeat',
-      
       // Backend
       'Node.js': 'bi-server',
       'Python': 'bi-filetype-py',
@@ -95,24 +130,20 @@ export class PortafolioComponent implements OnInit {
       'Laravel': 'bi-boxes',
       'NestJS': 'bi-hexagon',
       'FastAPI': 'bi-lightning',
-      
       // Databases
       'PostgreSQL': 'bi-database',
       'MySQL': 'bi-database-fill',
       'MongoDB': 'bi-database-down',
       'Firebase': 'bi-fire',
       'Redis': 'bi-database-gear',
-      
       // Mobile
       'Flutter': 'bi-phone',
       'React Native': 'bi-phone-landscape',
       'Dart': 'bi-lightning-charge',
-      
       // Styling
       'Bootstrap': 'bi-bootstrap',
       'Tailwind CSS': 'bi-wind',
       'Material Design': 'bi-palette',
-      
       // Tools & Services
       'Docker': 'bi-box-seam',
       'Kubernetes': 'bi-diagram-3',
@@ -121,15 +152,12 @@ export class PortafolioComponent implements OnInit {
       'Chart.js': 'bi-bar-chart',
       'D3.js': 'bi-graph-up',
       'TensorFlow Lite': 'bi-cpu',
-      
       // State Management
       'Provider': 'bi-arrow-repeat',
       'Redux': 'bi-arrow-clockwise',
-      
       // Others
-      'Celery': 'bi-gear'
+      'Celery': 'bi-gear',
     };
-
     return icons[tech] || 'bi-code-slash';
   }
 }
