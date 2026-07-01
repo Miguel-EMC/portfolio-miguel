@@ -11,6 +11,7 @@ import {
   BLOG_CATEGORIES,
   BlogCategoryInfo
 } from '../../interfaces/blog.interface';
+import { LanguageService } from '../../shared/services/language.service';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -18,6 +19,7 @@ import { environment } from '../../../environments/environment';
 })
 export class BlogService {
   private http = inject(HttpClient);
+  private languageService = inject(LanguageService);
   private readonly contentPath = environment.blog.contentPath;
 
   private postsCache = new Map<string, BlogPost>();
@@ -54,6 +56,23 @@ export class BlogService {
     marked.use({ renderer });
   }
 
+  private get lang(): string {
+    const l = this.languageService.getCurrentLanguage();
+    return l.startsWith('es') ? 'es' : 'en';
+  }
+
+  private get manifestUrl(): string {
+    return `${this.contentPath}manifest.${this.lang}.json`;
+  }
+
+  private postUrl(slug: string): string {
+    return `${this.contentPath}posts/${slug}.${this.lang}.md`;
+  }
+
+  private cacheKey(slug: string): string {
+    return `${this.lang}:${slug}`;
+  }
+
   private stripFrontmatter(content: string): string {
     return content.replace(/^---[\s\S]*?---\s*\n/, '');
   }
@@ -67,7 +86,7 @@ export class BlogService {
   }
 
   loadManifest(): Observable<BlogManifest> {
-    return this.http.get<BlogManifest>(`${this.contentPath}manifest.json`).pipe(
+    return this.http.get<BlogManifest>(this.manifestUrl).pipe(
       tap(manifest => {
         manifest.posts = manifest.posts.map(p => this.normalizePost(p));
         this.manifestSubject.next(manifest);
@@ -86,7 +105,7 @@ export class BlogService {
   }
 
   getAllPosts(): Observable<BlogPostMeta[]> {
-    return this.http.get<BlogManifest>(`${this.contentPath}manifest.json`).pipe(
+    return this.http.get<BlogManifest>(this.manifestUrl).pipe(
       map(manifest => manifest.posts.map(p => this.normalizePost(p))),
       catchError(error => {
         console.error('Failed to load posts:', error);
@@ -96,13 +115,14 @@ export class BlogService {
   }
 
   getPostBySlug(slug: string): Observable<BlogPost | null> {
-    if (this.postsCache.has(slug)) {
-      return of(this.postsCache.get(slug)!);
+    const key = this.cacheKey(slug);
+    if (this.postsCache.has(key)) {
+      return of(this.postsCache.get(key)!);
     }
 
     return forkJoin({
-      manifest: this.http.get<BlogManifest>(`${this.contentPath}manifest.json`),
-      rawContent: this.http.get(`${this.contentPath}posts/${slug}.md`, { responseType: 'text' })
+      manifest: this.http.get<BlogManifest>(this.manifestUrl),
+      rawContent: this.http.get(this.postUrl(slug), { responseType: 'text' })
     }).pipe(
       map(({ manifest, rawContent }) => {
         const meta = manifest.posts.find(p => p.slug === slug);
@@ -116,7 +136,7 @@ export class BlogService {
         return post;
       }),
       tap(post => {
-        if (post) this.postsCache.set(slug, post);
+        if (post) this.postsCache.set(key, post);
       }),
       catchError(error => {
         console.error(`Failed to load post ${slug}:`, error);

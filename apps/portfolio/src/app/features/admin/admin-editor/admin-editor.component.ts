@@ -130,12 +130,14 @@ export class AdminEditorComponent implements OnInit, OnDestroy {
 
   generateMarkdownFile(): string {
     const form = this.form();
+    const today = new Date().toISOString().split('T')[0];
     const frontmatter = `---
-title: "${form.title}"
 slug: "${form.slug}"
+lang: en
+title: "${form.title}"
 excerpt: "${form.excerpt}"
 author: "${form.author}"
-publishedAt: "${new Date().toISOString()}"
+publishedAt: ${today}
 category: "${form.category}"
 tags: [${form.tags.split(',').map(t => `"${t.trim()}"`).join(', ')}]
 coverImage: "${form.coverImage}"

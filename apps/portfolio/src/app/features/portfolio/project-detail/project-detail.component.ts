@@ -1,55 +1,49 @@
-import { Component, OnInit, OnDestroy, inject, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, signal, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil, switchMap } from 'rxjs';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { SeoService } from '../../../core/services/seo.service';
 import { PortfolioService } from '../../../core/services/portfolio.service';
-import { PortfolioProject, LocalizedText } from '../../../interfaces/project.interface';
+import { PortfolioProject, PortfolioProjectMeta } from '../../../interfaces/project.interface';
 
 @Component({
   selector: 'app-project-detail',
   standalone: true,
   imports: [CommonModule, RouterModule, TranslateModule],
   templateUrl: './project-detail.component.html',
-  styleUrls: ['./project-detail.component.scss']
+  styleUrls: ['./project-detail.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ProjectDetailComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private seoService = inject(SeoService);
   private portfolioService = inject(PortfolioService);
-  private translateService = inject(TranslateService);
   private destroy$ = new Subject<void>();
 
   project = signal<PortfolioProject | null>(null);
-  relatedProjects = signal<PortfolioProject[]>([]);
+  relatedProjects = signal<PortfolioProjectMeta[]>([]);
   currentImageIndex = signal(0);
   isLoading = signal(true);
   error = signal<string | null>(null);
-  currentLang: 'es' | 'en' = 'es';
 
   ngOnInit(): void {
-    this.currentLang = (this.translateService.currentLang || this.translateService.defaultLang || 'es') as 'es' | 'en';
-    this.translateService.onLangChange.pipe(takeUntil(this.destroy$)).subscribe(event => {
-      this.currentLang = (event.lang || 'es') as 'es' | 'en';
-    });
-
     this.route.paramMap.pipe(
       takeUntil(this.destroy$),
       switchMap(params => {
         const slug = params.get('slug') ?? '';
         this.isLoading.set(true);
         this.error.set(null);
-        return this.portfolioService.getBySlug(slug);
+        return this.portfolioService.getProjectBySlug(slug);
       })
     ).subscribe(project => {
       if (project) {
         this.project.set(project);
         this.currentImageIndex.set(0);
         this.updateSeo(project);
-        this.portfolioService.getRelated(project.slug).pipe(takeUntil(this.destroy$))
+        this.portfolioService.getRelatedProjects(project.slug).pipe(takeUntil(this.destroy$))
           .subscribe(related => this.relatedProjects.set(related));
       } else {
         this.error.set('Project not found');
@@ -63,16 +57,10 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  /** Get localized text from a bilingual field. */
-  t(field: LocalizedText | undefined): string {
-    if (!field) return '';
-    return field[this.currentLang] || field['es'] || field['en'] || '';
-  }
-
   private updateSeo(project: PortfolioProject): void {
     this.seoService.updateForProject({
-      title: this.t(project.title),
-      description: this.t(project.description),
+      title: project.title,
+      description: project.description,
       image: project.images[0] || '',
       slug: project.slug
     });
@@ -81,9 +69,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   nextImage(): void {
     const project = this.project();
     if (project && project.images.length > 1) {
-      this.currentImageIndex.set(
-        (this.currentImageIndex() + 1) % project.images.length
-      );
+      this.currentImageIndex.set((this.currentImageIndex() + 1) % project.images.length);
     }
   }
 
@@ -101,36 +87,36 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   }
 
   getTechIcon(tech: string): string {
-    const icons: { [key: string]: string } = {
-      'Angular': 'bi-triangle',
-      'React': 'bi-atom',
+    const icons: Record<string, string> = {
+      Angular: 'bi-triangle',
+      React: 'bi-atom',
       'Vue.js': 'bi-lightning',
-      'TypeScript': 'bi-braces',
-      'JavaScript': 'bi-braces',
-      'HTML5': 'bi-filetype-html',
-      'CSS3': 'bi-filetype-css',
+      TypeScript: 'bi-braces',
+      JavaScript: 'bi-braces',
+      HTML5: 'bi-filetype-html',
+      CSS3: 'bi-filetype-css',
       'Next.js': 'bi-arrow-repeat',
       'Node.js': 'bi-server',
-      'Python': 'bi-filetype-py',
-      'Django': 'bi-diagram-3',
-      'Laravel': 'bi-boxes',
-      'NestJS': 'bi-hexagon',
-      'FastAPI': 'bi-lightning',
-      'PostgreSQL': 'bi-database',
-      'MySQL': 'bi-database-fill',
-      'MongoDB': 'bi-database-down',
-      'Firebase': 'bi-fire',
-      'Redis': 'bi-database-gear',
-      'Flutter': 'bi-phone',
+      Python: 'bi-filetype-py',
+      Django: 'bi-diagram-3',
+      Laravel: 'bi-boxes',
+      NestJS: 'bi-hexagon',
+      FastAPI: 'bi-lightning',
+      PostgreSQL: 'bi-database',
+      MySQL: 'bi-database-fill',
+      MongoDB: 'bi-database-down',
+      Firebase: 'bi-fire',
+      Redis: 'bi-database-gear',
+      Flutter: 'bi-phone',
       'React Native': 'bi-phone-landscape',
-      'Dart': 'bi-lightning-charge',
-      'Bootstrap': 'bi-bootstrap',
+      Dart: 'bi-lightning-charge',
+      Bootstrap: 'bi-bootstrap',
       'Tailwind CSS': 'bi-wind',
       'Material Design': 'bi-palette',
-      'Docker': 'bi-box-seam',
-      'Kubernetes': 'bi-diagram-3',
-      'AWS': 'bi-cloud',
-      'Stripe': 'bi-credit-card',
+      Docker: 'bi-box-seam',
+      Kubernetes: 'bi-diagram-3',
+      AWS: 'bi-cloud',
+      Stripe: 'bi-credit-card',
       'Chart.js': 'bi-bar-chart',
       'D3.js': 'bi-graph-up',
     };

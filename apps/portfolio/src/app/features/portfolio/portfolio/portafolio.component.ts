@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
-import { NgForOf, NgIf } from "@angular/common";
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { NgForOf, NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { Subject, takeUntil } from 'rxjs';
 
 import { PortfolioService } from '../../../core/services/portfolio.service';
-import { PortfolioProject } from '../../../interfaces/project.interface';
+import { PortfolioProjectMeta } from '../../../interfaces/project.interface';
 
 @Component({
   selector: 'app-portafolio',
@@ -16,30 +16,30 @@ import { PortfolioProject } from '../../../interfaces/project.interface';
 })
 export class PortafolioComponent implements OnInit, OnDestroy {
   private portfolioService = inject(PortfolioService);
-  private translate = inject(TranslateService);
   private cdr = inject(ChangeDetectorRef);
   private destroy$ = new Subject<void>();
 
   activeFilter: 'all' | 'personal' | 'professional' = 'all';
-  selectedProject: PortfolioProject | null = null;
+  selectedProject: PortfolioProjectMeta | null = null;
   currentImageIndex = 0;
-  allProjects: PortfolioProject[] = [];
-  filteredProjects: PortfolioProject[] = [];
-  currentLang: 'es' | 'en' = 'es';
+  allProjects: PortfolioProjectMeta[] = [];
+  filteredProjects: PortfolioProjectMeta[] = [];
+  isLoading = true;
 
   ngOnInit(): void {
-    // Track language changes
-    this.currentLang = (this.translate.currentLang || this.translate.defaultLang || 'es') as 'es' | 'en';
-    this.translate.onLangChange.pipe(takeUntil(this.destroy$)).subscribe(event => {
-      this.currentLang = (event.lang || 'es') as 'es' | 'en';
-      this.cdr.markForCheck();
-    });
-
-    // Load projects from generated JSON
-    this.portfolioService.loadProjects().pipe(takeUntil(this.destroy$)).subscribe(projects => {
-      this.allProjects = projects;
-      this.applyFilter();
-      this.cdr.markForCheck();
+    this.portfolioService.getAllProjects().pipe(
+      takeUntil(this.destroy$)
+    ).subscribe({
+      next: projects => {
+        this.allProjects = projects;
+        this.applyFilter();
+        this.isLoading = false;
+        this.cdr.markForCheck();
+      },
+      error: () => {
+        this.isLoading = false;
+        this.cdr.markForCheck();
+      }
     });
   }
 
@@ -48,11 +48,11 @@ export class PortafolioComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  get personalProjects(): PortfolioProject[] {
+  get personalProjects(): PortfolioProjectMeta[] {
     return this.allProjects.filter(p => p.type === 'personal');
   }
 
-  get professionalProjects(): PortfolioProject[] {
+  get professionalProjects(): PortfolioProjectMeta[] {
     return this.allProjects.filter(p => p.type === 'professional');
   }
 
@@ -75,19 +75,7 @@ export class PortafolioComponent implements OnInit, OnDestroy {
     }
   }
 
-  /** Get localized text from a project's bilingual field, fallback to empty string. */
-  t(field: { es: string; en: string } | undefined): string {
-    if (!field) return '';
-    return field[this.currentLang] || field['es'] || field['en'] || '';
-  }
-
-  /** Get localized list from a project's bilingual list field, fallback to empty array. */
-  tList(field: { es: string[]; en: string[] } | undefined): string[] {
-    if (!field) return [];
-    return field[this.currentLang] || field['es'] || [];
-  }
-
-  showDetails(project: PortfolioProject): void {
+  showDetails(project: PortfolioProjectMeta): void {
     this.selectedProject = project;
     this.currentImageIndex = 0;
     document.body.style.overflow = 'hidden';
@@ -97,11 +85,13 @@ export class PortafolioComponent implements OnInit, OnDestroy {
   closeDetails(): void {
     this.selectedProject = null;
     document.body.style.overflow = '';
+    this.cdr.detectChanges();
   }
 
   nextImage(): void {
     if (this.selectedProject && this.selectedProject.images.length > 1) {
       this.currentImageIndex = (this.currentImageIndex + 1) % this.selectedProject.images.length;
+      this.cdr.detectChanges();
     }
   }
 
@@ -109,54 +99,47 @@ export class PortafolioComponent implements OnInit, OnDestroy {
     if (this.selectedProject && this.selectedProject.images.length > 1) {
       this.currentImageIndex =
         (this.currentImageIndex - 1 + this.selectedProject.images.length) % this.selectedProject.images.length;
+      this.cdr.detectChanges();
     }
   }
 
   getTechIcon(tech: string): string {
-    const icons: { [key: string]: string } = {
-      // Frontend
-      'Angular': 'bi-triangle',
-      'React': 'bi-atom',
+    const icons: Record<string, string> = {
+      Angular: 'bi-triangle',
+      React: 'bi-atom',
       'Vue.js': 'bi-lightning',
-      'TypeScript': 'bi-braces',
-      'JavaScript': 'bi-braces',
-      'HTML5': 'bi-filetype-html',
-      'CSS3': 'bi-filetype-css',
+      TypeScript: 'bi-braces',
+      JavaScript: 'bi-braces',
+      HTML5: 'bi-filetype-html',
+      CSS3: 'bi-filetype-css',
       'Next.js': 'bi-arrow-repeat',
-      // Backend
       'Node.js': 'bi-server',
-      'Python': 'bi-filetype-py',
-      'Django': 'bi-diagram-3',
-      'Laravel': 'bi-boxes',
-      'NestJS': 'bi-hexagon',
-      'FastAPI': 'bi-lightning',
-      // Databases
-      'PostgreSQL': 'bi-database',
-      'MySQL': 'bi-database-fill',
-      'MongoDB': 'bi-database-down',
-      'Firebase': 'bi-fire',
-      'Redis': 'bi-database-gear',
-      // Mobile
-      'Flutter': 'bi-phone',
+      Python: 'bi-filetype-py',
+      Django: 'bi-diagram-3',
+      Laravel: 'bi-boxes',
+      NestJS: 'bi-hexagon',
+      FastAPI: 'bi-lightning',
+      PostgreSQL: 'bi-database',
+      MySQL: 'bi-database-fill',
+      MongoDB: 'bi-database-down',
+      Firebase: 'bi-fire',
+      Redis: 'bi-database-gear',
+      Flutter: 'bi-phone',
       'React Native': 'bi-phone-landscape',
-      'Dart': 'bi-lightning-charge',
-      // Styling
-      'Bootstrap': 'bi-bootstrap',
+      Dart: 'bi-lightning-charge',
+      Bootstrap: 'bi-bootstrap',
       'Tailwind CSS': 'bi-wind',
       'Material Design': 'bi-palette',
-      // Tools & Services
-      'Docker': 'bi-box-seam',
-      'Kubernetes': 'bi-diagram-3',
-      'AWS': 'bi-cloud',
-      'Stripe': 'bi-credit-card',
+      Docker: 'bi-box-seam',
+      Kubernetes: 'bi-diagram-3',
+      AWS: 'bi-cloud',
+      Stripe: 'bi-credit-card',
       'Chart.js': 'bi-bar-chart',
       'D3.js': 'bi-graph-up',
       'TensorFlow Lite': 'bi-cpu',
-      // State Management
-      'Provider': 'bi-arrow-repeat',
-      'Redux': 'bi-arrow-clockwise',
-      // Others
-      'Celery': 'bi-gear',
+      Provider: 'bi-arrow-repeat',
+      Redux: 'bi-arrow-clockwise',
+      Celery: 'bi-gear',
     };
     return icons[tech] || 'bi-code-slash';
   }

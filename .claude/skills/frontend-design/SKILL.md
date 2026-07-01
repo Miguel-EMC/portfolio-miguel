@@ -87,92 +87,91 @@ Keep the register conversational and tuned: plain verbs, sentence case, no fille
 --shadow-brand-card:    0 0 0 1px rgba(57, 255, 20, 0.2), 0 8px 24px rgba(57, 255, 20, 0.1)
 ```
 
-### `.light-theme` — effective tokens (second block wins CSS cascade)
+### `.light-theme` — effective tokens (from `styles.scss`, second block wins CSS cascade)
 ```
 /* Backgrounds */
---bg-primary:    #ffffff
---bg-secondary:  #f8fafc
---bg-tertiary:   #f1f5f9
---bg-accent:     #e2e8f0
---bg-muted:      #f8fafc
+--bg-primary:    #f8fafc     ← page background
+--bg-secondary:  #f1f5f9
+--bg-tertiary:   #f1f5f9     (var(--gray-50))
+--bg-accent:     rgba(22,163,74,0.06)  ← subtle green tint
+--bg-muted:      #f1f5f9     (var(--gray-100))
+
+/* Surfaces */
+--surface-primary:   #ffffff
+--surface-secondary: #f8fafc
+--surface-glass:     rgba(255,255,255,0.9)
 
 /* Text */
---text-primary:   #0f172a
---text-secondary: #475569
---text-tertiary:  #64748b
---text-muted:     #94a3b8
+--text-primary:   var(--gray-900)   → ~#0f172a
+--text-secondary: var(--gray-700)   → ~#374151
+--text-muted:     var(--gray-500)   → ~#6b7280
 --text-inverse:   #ffffff
 
 /* Borders */
 --border-primary:   #e2e8f0
 --border-secondary: #cbd5e1
---border-tertiary:  #94a3b8
+--border-muted:     #f1f5f9
 
-/* Accents */
---accent-primary:   var(--turquoise-600)   → #0d9488
---accent-secondary: var(--blue-600)         → #2563eb
---accent-tertiary:  var(--violet-600)       → #7c3aed
-
-/* Gradients */
---gradient-primary:   linear-gradient(135deg, #14b8a6, #2563eb)
---gradient-secondary: linear-gradient(135deg, #3b82f6, #7c3aed)
---gradient-accent:    linear-gradient(135deg, #8b5cf6, #14b8a6)
+/* Accents — GREEN identity in light mode */
+--accent-primary:   var(--brand-green-dark)    → #16a34a  ← USE THIS for buttons/highlights
+--accent-secondary: var(--brand-green-deeper)  → #15803d
+--accent-tertiary:  var(--violet-600)           → #7c3aed
 
 /* Shadows */
---shadow-card:       0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06)
---shadow-card-hover: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05)
-
-/* State colors */
---success-bg: #f0fdf4  --success-text: #166534  --success-border: #bbf7d0
---warning-bg: #fffbeb  --warning-text: #a16207  --warning-border: #fde68a
---error-bg:   #fef2f2  --error-text:   #dc2626  --error-border:   #fecaca
+--shadow-sm:  0 1px 3px 0 rgb(0 0 0 / 0.1)
+--shadow-md:  0 4px 6px -1px rgb(0 0 0 / 0.1)
+--shadow-lg:  0 10px 15px -3px rgb(0 0 0 / 0.1)
+--shadow-xl:  0 20px 25px -5px rgb(0 0 0 / 0.1)
 ```
 
-### `.dark-theme` — effective tokens (second block wins CSS cascade)
+### `.dark-theme` — effective tokens (from `styles.scss`)
 ```
 /* Backgrounds */
---bg-primary:    #0f172a
---bg-secondary:  #1e293b
---bg-tertiary:   #334155
---bg-accent:     #475569
---bg-muted:      #1e293b
+--bg-primary:    var(--brand-bg-base)      → #0f1117  ← logo base color
+--bg-secondary:  var(--brand-bg-panel)     → #1a1d24
+--bg-tertiary:   var(--brand-bg-elevated)  → #22262f
+--bg-accent:     var(--brand-green-subtle) → rgba(57,255,20,0.08)
+
+/* Surfaces */
+--surface-primary:   var(--brand-bg-panel)    → #1a1d24
+--surface-secondary: var(--brand-bg-elevated) → #22262f
+--surface-glass:     var(--brand-bg-glass)    → rgba(26,29,36,0.85)
 
 /* Text */
---text-primary:   #f8fafc
---text-secondary: #cbd5e1
---text-tertiary:  #94a3b8
---text-muted:     #64748b
---text-inverse:   #0f172a
+--text-primary:   #f0f0f0
+--text-secondary: var(--gray-300)  → ~#d1d5db
+--text-muted:     var(--gray-500)  → ~#6b7280
+--text-inverse:   var(--brand-bg-base)  → #0f1117
 
 /* Borders */
---border-primary:   #334155
---border-secondary: #475569
---border-tertiary:  #64748b
+--border-primary:   var(--brand-green-border)  → rgba(57,255,20,0.2)
+--border-secondary: rgba(57,255,20,0.12)
+--border-muted:     rgba(255,255,255,0.06)
 
-/* Accents */
---accent-primary:   var(--turquoise-400)  → #2dd4bf
---accent-secondary: var(--blue-400)        → #60a5fa
---accent-tertiary:  var(--violet-400)      → #a78bfa
+/* Accents — NEON GREEN identity in dark mode */
+--accent-primary:   var(--brand-green)      → #39FF14  ← neon glow accent
+--accent-secondary: var(--brand-green-dim)  → #22c55e
+--accent-tertiary:  var(--violet-400)       → #a78bfa
 
-/* Gradients */
---gradient-primary:   linear-gradient(135deg, #2dd4bf, #3b82f6)
---gradient-secondary: linear-gradient(135deg, #60a5fa, #8b5cf6)
---gradient-accent:    linear-gradient(135deg, #a78bfa, #2dd4bf)
-
-/* Shadows */
---shadow-card:       0 4px 6px -1px rgba(0,0,0,0.3), 0 2px 4px -1px rgba(0,0,0,0.2)
---shadow-card-hover: 0 10px 15px -3px rgba(0,0,0,0.4), 0 4px 6px -2px rgba(0,0,0,0.3)
-
-/* State colors */
---success-bg: #064e3b  --success-text: #6ee7b7  --success-border: #047857
---warning-bg: #78350f  --warning-text: #fbbf24  --warning-border: #a16207
---error-bg:   #7f1d1d  --error-text:   #fca5a5  --error-border:   #dc2626
+/* Brand glow shadows (dark mode only) */
+--shadow-brand-sm:   0 0 8px rgba(57,255,20,0.2)
+--shadow-brand-md:   0 0 12px rgba(57,255,20,0.3), 0 0 24px rgba(57,255,20,0.15)
+--shadow-brand-glow: 0 0 0 3px rgba(57,255,20,0.25)
+--shadow-brand-card: 0 0 0 1px rgba(57,255,20,0.2), 0 8px 24px rgba(57,255,20,0.1)
 ```
 
 ### Key rules when building UI for this project
-- Always use semantic CSS vars (`--bg-primary`, `--text-secondary`, `--accent-primary`) — never raw hex values
-- Dark theme: neon-green (`--brand-green`) is the hero accent — use `--brand-*` vars for brand moments
-- Light theme: softer green (`--brand-green-dark` / `--turquoise-600`) replaces neon — still green identity
+- Always use semantic CSS vars — never raw hex values outside of `:root`/theme blocks
+- **Dark mode accents**: `--brand-green` (#39FF14) is the hero neon; `--shadow-brand-*` for glows
+- **Light mode accents**: `--accent-primary` resolves to `#16a34a` (green) — NOT turquoise
 - Glassmorphism: `background: var(--surface-glass); backdrop-filter: blur(20px); border: 1px solid var(--border-primary)`
-- Theme transition: `transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease` (already on `*`)
-- Theme classes applied to `<body>`: `.dark-theme` or `.light-theme`
+- Theme classes on `<body>`: `.dark-theme` or `.light-theme`
+- Never hardcode theme-specific colors inside component SCSS — always go through the semantic var layer
+
+### Blog design patterns (established)
+- **Layout**: masthead full-width → hero featured card → 2-col `[main 1fr 1fr 1fr] | [sidebar 1fr]` on desktop
+- **Hero card**: full-width, tall (400px), cover image with dark overlay, editorial text left-anchored
+- **Sidebar**: sticky, contains tag cloud + category counts — floats next to posts grid (NOT below)
+- **Cards**: cover image top, category pill, title (-webkit-line-clamp: 2), excerpt (3 lines), reading time + date footer
+- **Featured badge**: amber/orange gradient `linear-gradient(135deg, #F59E0B, #EF4444)` pill
+- **Reading time pill**: `--accent-primary` tint background, clockface icon
