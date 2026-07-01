@@ -1,5 +1,6 @@
 export interface BlogPost {
   slug: string;
+  lang: string;
   title: string;
   excerpt: string;
   content: string;
@@ -16,6 +17,7 @@ export interface BlogPost {
 
 export interface BlogPostMeta {
   slug: string;
+  lang: string;
   title: string;
   excerpt: string;
   author: string;
@@ -29,7 +31,7 @@ export interface BlogPostMeta {
   published: boolean;
 }
 
-export type BlogCategory = 
+export type BlogCategory =
   | 'technology'
   | 'programming'
   | 'web-development'

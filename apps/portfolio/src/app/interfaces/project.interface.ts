@@ -1,6 +1,3 @@
-export type LocalizedText = { es: string; en: string };
-export type LocalizedList = { es: string[]; en: string[] };
-
 export interface Project {
   id: number;
   slug: string;
@@ -21,11 +18,14 @@ export interface Project {
   results?: string[];
 }
 
-export interface PortfolioProject {
+/** Metadata loaded from the portfolio manifest (no body content). */
+export interface PortfolioProjectMeta {
   id: string;
   slug: string;
+  lang: string;
+  title: string;
+  description: string;
   type: 'personal' | 'professional';
-  platform?: 'web' | 'mobile';
   frameworks: string[];
   images: string[];
   githubUrl?: string;
@@ -34,13 +34,16 @@ export interface PortfolioProject {
   completedAt?: string;
   client?: string;
   role?: string;
-  // Bilingual text — present when loaded from projects.json
-  title?: LocalizedText;
-  description?: LocalizedText;
-  longDescription?: LocalizedText;
-  challenges?: LocalizedList;
-  solutions?: LocalizedList;
-  results?: LocalizedList;
+}
+
+/** Full project including rendered HTML body (challenges / solutions / results). */
+export interface PortfolioProject extends PortfolioProjectMeta {
+  content: string;
+}
+
+export interface PortfolioManifest {
+  projects: PortfolioProjectMeta[];
+  lastUpdated: string;
 }
 
 export interface Tool {
