@@ -60,29 +60,9 @@ jobs:
           docker build --build-arg CONFIG=$CONFIG -t $IMAGE_NAME -f apps/community/Dockerfile .
           docker push $IMAGE_NAME
 
-  infrastructure:
-    name: Terraform Plan/Apply
-    needs: [portfolio-build, community-build]
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-    steps:
-      - name: 📥 Checkout repository
-        uses: actions/checkout@v4
-      - name: 🔧 Authenticate to Google Cloud
-        uses: google-github-actions/auth@v2
-        with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
-      - name: 🛠️ Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-      - name: 🏗️ Terraform Init & Apply
-        run: |
-          cd infrastructure/terraform/environments/${{ github.ref_name == 'main' && 'prod' || 'demo' }}
-          terraform init
-          terraform apply -auto-approve -var="project_id=${{ env.GCP_PROJECT_ID }}"
-
   deployment-refresh:
     name: Final Deployment Sync
-    needs: infrastructure
+    needs: [portfolio-build, community-build]
     runs-on: ubuntu-latest
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     steps:
