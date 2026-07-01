@@ -327,7 +327,7 @@ body {
   font-weight: 400;
   line-height: var(--leading-normal);
   color: var(--text-primary);
-  background-color: var(--bg-primary);
+  background: var(--bg-primary);
   transition: var(--transition-normal);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
