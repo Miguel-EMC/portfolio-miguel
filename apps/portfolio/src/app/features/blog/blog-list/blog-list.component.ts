@@ -41,13 +41,24 @@ export class BlogListComponent implements OnInit, OnDestroy {
   
   // Computed values
   paginatedPosts = computed(() => {
+    let list = this.filteredPosts();
+    // Exclude the hero post if no filter is active and we have featured posts
+    if (!this.activeCategory() && !this.activeTag() && !this.searchQuery() && this.featuredPosts().length > 0) {
+      const heroSlug = this.featuredPosts()[0].slug;
+      list = list.filter(p => p.slug !== heroSlug);
+    }
     const start = (this.currentPage() - 1) * this.postsPerPage;
-    return this.filteredPosts().slice(start, start + this.postsPerPage);
+    return list.slice(start, start + this.postsPerPage);
   });
   
-  totalPages = computed(() => 
-    Math.ceil(this.filteredPosts().length / this.postsPerPage)
-  );
+  totalPages = computed(() => {
+    let list = this.filteredPosts();
+    if (!this.activeCategory() && !this.activeTag() && !this.searchQuery() && this.featuredPosts().length > 0) {
+      const heroSlug = this.featuredPosts()[0].slug;
+      list = list.filter(p => p.slug !== heroSlug);
+    }
+    return Math.ceil(list.length / this.postsPerPage);
+  });
 
   featuredPosts = computed(() => 
     this.posts().filter(p => p.featured).slice(0, 3)

@@ -81,40 +81,43 @@
         <img [src]="post()!.coverImage" [alt]="post()!.title" class="animate-scale-in" />
       </div>
 
-      <!-- Post Content -->
-      <div class="post-content" [innerHTML]="post()!.content"></div>
+      <!-- Constrained width body content for premium readability -->
+      <div class="post-body-wrapper">
+        <!-- Post Content -->
+        <div class="post-content" [innerHTML]="post()!.content"></div>
 
-      <!-- Tags -->
-      @if (post()!.tags.length > 0) {
-        <div class="post-tags">
-          <span class="tags-label">
-            <i class="bi bi-tags-fill"></i>
-            Tags:
+        <!-- Tags -->
+        @if (post()!.tags.length > 0) {
+          <div class="post-tags">
+            <span class="tags-label">
+              <i class="bi bi-tags-fill"></i>
+              Tags:
+            </span>
+            @for (tag of post()!.tags; track tag) {
+              <a [routerLink]="['/blog/tag', tag]" class="tag glass">
+                #{{ tag }}
+              </a>
+            }
+          </div>
+        }
+
+        <!-- Share Section -->
+        <div class="share-section glass">
+          <span class="share-label">
+            <i class="bi bi-share-fill"></i>
+            Share this article:
           </span>
-          @for (tag of post()!.tags; track tag) {
-            <a [routerLink]="['/blog/tag', tag]" class="tag glass">
-              #{{ tag }}
-            </a>
-          }
-        </div>
-      }
-
-      <!-- Share Section -->
-      <div class="share-section glass">
-        <span class="share-label">
-          <i class="bi bi-share-fill"></i>
-          Share this article:
-        </span>
-        <div class="share-buttons">
-          <button class="share-btn twitter" (click)="shareOnTwitter()" title="Share on X">
-            <i class="bi bi-twitter-x"></i>
-          </button>
-          <button class="share-btn linkedin" (click)="shareOnLinkedIn()" title="Share on LinkedIn">
-            <i class="bi bi-linkedin"></i>
-          </button>
-          <button class="share-btn copy" (click)="copyLink()" title="Copy Link">
-            <i class="bi bi-link-45deg"></i>
-          </button>
+          <div class="share-buttons">
+            <button class="share-btn twitter" (click)="shareOnTwitter()" title="Share on X">
+              <i class="bi bi-twitter-x"></i>
+            </button>
+            <button class="share-btn linkedin" (click)="shareOnLinkedIn()" title="Share on LinkedIn">
+              <i class="bi bi-linkedin"></i>
+            </button>
+            <button class="share-btn copy" (click)="copyLink()" title="Copy Link">
+              <i class="bi bi-link-45deg"></i>
+            </button>
+          </div>
         </div>
       </div>
 

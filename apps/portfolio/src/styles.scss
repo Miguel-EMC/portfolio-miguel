@@ -1216,20 +1216,7 @@ p {
   --error-border: #dc2626;
 }
 
-/* Transiciones suaves para cambio de tema */
-* {
-  transition: 
-    background-color 0.3s ease,
-    border-color 0.3s ease,
-    color 0.3s ease,
-    fill 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-/* Deshabilitar transiciones en animaciones específicas */
-[data-no-theme-transition] * {
-  transition: none !important;
-}
+/* Transiciones administradas individualmente por componente para evitar cuellos de botella */
 /* ===== CUSTOM TOAST STYLES ===== */
 .toast-container .ngx-toastr {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 4px 10px rgba(0, 0, 0, 0.1);
