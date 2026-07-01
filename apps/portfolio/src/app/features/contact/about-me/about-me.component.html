@@ -10,11 +10,20 @@
     <div class="about-content">
       <!-- Profile Section -->
       <div class="profile-section">
-        <div class="profile-image">
-          <img src="/assets/img/logo-avatar.png" alt="Eduardo Miguel Muzo" />
-          <div class="profile-status">
-            <div class="status-dot"></div>
-            <span>Disponible</span>
+        <div class="avatar-stage">
+          <!-- Circuit decoration rings -->
+          <div class="circuit-ring circuit-ring--outer"></div>
+          <div class="circuit-ring circuit-ring--mid"></div>
+
+          <!-- Main avatar frame -->
+          <div class="avatar-frame">
+            <div class="avatar-glow"></div>
+            <img src="/assets/img/logo-avatar.png" alt="Eduardo Miguel Muzo" class="avatar-img" />
+            <!-- Available badge -->
+            <div class="avatar-badge">
+              <span class="badge-pulse"></span>
+              <span>{{ 'common.available' | translate }}</span>
+            </div>
           </div>
         </div>
 

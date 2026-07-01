@@ -29,9 +29,10 @@
     
     <div class="footer-bottom">
       <p>© 2025 MiguelDev. Todos los derechos reservados.</p>
-      <button class="scroll-to-top" (click)="scrollToTop()">
-        <i class="bi bi-arrow-up"></i>
-      </button>
     </div>
   </div>
 </footer>
+
+<button class="scroll-to-top" [class.visible]="showScrollButton" (click)="scrollToTop()" aria-label="Volver arriba">
+  <i class="bi bi-arrow-up"></i>
+</button>
