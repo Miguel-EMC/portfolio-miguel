@@ -9,8 +9,16 @@
     <!-- Featured Hero Post (Full width, editorial look) -->
     @if (!isLoading() && featuredPosts().length > 0 && !activeCategory() && !activeTag() && !searchQuery()) {
       <div class="blog-hero" [routerLink]="['/blog/post', featuredPosts()[0].slug]">
-        <div class="blog-hero-image">
-          <img [src]="featuredPosts()[0].coverImage" [alt]="featuredPosts()[0].title" loading="eager" />
+        <div class="blog-hero-image" [class.no-image]="imageErrors()[featuredPosts()[0].slug]">
+          @if (!imageErrors()[featuredPosts()[0].slug]) {
+            <img [src]="featuredPosts()[0].coverImage" [alt]="featuredPosts()[0].title" (error)="onImageError(featuredPosts()[0].slug)" loading="eager" />
+          } @else {
+            <div class="mesh-gradient-placeholder">
+              <div class="glow-sphere glow-sphere-1"></div>
+              <div class="glow-sphere glow-sphere-2"></div>
+              <div class="glow-sphere glow-sphere-3"></div>
+            </div>
+          }
           <div class="blog-hero-overlay"></div>
         </div>
         <div class="blog-hero-content">
@@ -147,8 +155,19 @@
               <div class="posts-grid">
                 @for (post of paginatedPosts(); track post.slug) {
                   <article class="post-card" [routerLink]="['/blog/post', post.slug]">
-                    <div class="card-image">
-                      <img [src]="post.coverImage" [alt]="post.title" loading="lazy" />
+                    <div class="card-image" [class.no-image]="imageErrors()[post.slug]">
+                      @if (!imageErrors()[post.slug]) {
+                        <img [src]="post.coverImage" [alt]="post.title" (error)="onImageError(post.slug)" loading="lazy" />
+                      } @else {
+                        <div class="mesh-gradient-placeholder">
+                          <div class="glow-sphere glow-sphere-1"></div>
+                          <div class="glow-sphere glow-sphere-2"></div>
+                          <div class="glow-sphere glow-sphere-3"></div>
+                          <div class="placeholder-icon">
+                            <i [class]="getCategoryInfo(post.category)?.icon"></i>
+                          </div>
+                        </div>
+                      }
                       <div class="category-badge" [style.background-color]="getCategoryInfo(post.category)?.color">
                         {{ getCategoryInfo(post.category)?.name }}
                       </div>

@@ -34,6 +34,11 @@ export class BlogListComponent implements OnInit, OnDestroy {
   searchQuery = signal('');
   activeCategory = signal<BlogCategory | null>(null);
   activeTag = signal<string | null>(null);
+  imageErrors = signal<{ [slug: string]: boolean }>({});
+
+  onImageError(slug: string): void {
+    this.imageErrors.update(errors => ({ ...errors, [slug]: true }));
+  }
   
   // Pagination
   currentPage = signal(1);

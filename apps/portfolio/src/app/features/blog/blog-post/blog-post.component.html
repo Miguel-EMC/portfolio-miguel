@@ -60,7 +60,8 @@
         
         <p class="post-excerpt">{{ post()!.excerpt }}</p>
 
-        <div class="post-author glass">
+        <!-- Author Widget (Mobile only, hidden on desktop sidebar) -->
+        <div class="post-author glass mobile-only">
           <div class="author-avatar">
             <i class="bi bi-person-fill"></i>
           </div>
@@ -76,52 +77,94 @@
         </div>
       </header>
 
-      <!-- Cover Image -->
-      <div class="post-cover shadow-lg">
-        <img [src]="post()!.coverImage" [alt]="post()!.title" class="animate-scale-in" />
-      </div>
-
-      <!-- Constrained width body content for premium readability -->
-      <div class="post-body-wrapper">
-        <!-- Post Content -->
-        <div class="post-content" [innerHTML]="post()!.content"></div>
-
-        <!-- Tags -->
-        @if (post()!.tags.length > 0) {
-          <div class="post-tags">
-            <span class="tags-label">
-              <i class="bi bi-tags-fill"></i>
-              Tags:
-            </span>
-            @for (tag of post()!.tags; track tag) {
-              <a [routerLink]="['/blog/tag', tag]" class="tag glass">
-                #{{ tag }}
-              </a>
-            }
+      <!-- Cover Image or Beautiful Mesh Gradient -->
+      <div class="post-cover shadow-lg" [class.no-image]="imageError()">
+        @if (!imageError() && post()!.coverImage) {
+          <img [src]="post()!.coverImage" [alt]="post()!.title" (error)="onImageError()" class="animate-scale-in" />
+        } @else {
+          <!-- Premium mesh gradient backdrop for posts without images -->
+          <div class="mesh-gradient-placeholder detail-placeholder">
+            <div class="glow-sphere glow-sphere-1"></div>
+            <div class="glow-sphere glow-sphere-2"></div>
+            <div class="glow-sphere glow-sphere-3"></div>
+            <div class="placeholder-content">
+              <i [class]="getCategoryInfo(post()!.category)?.icon"></i>
+              <span class="category-name">{{ getCategoryInfo(post()!.category)?.name }}</span>
+            </div>
           </div>
         }
-
-        <!-- Share Section -->
-        <div class="share-section glass">
-          <span class="share-label">
-            <i class="bi bi-share-fill"></i>
-            Share this article:
-          </span>
-          <div class="share-buttons">
-            <button class="share-btn twitter" (click)="shareOnTwitter()" title="Share on X">
-              <i class="bi bi-twitter-x"></i>
-            </button>
-            <button class="share-btn linkedin" (click)="shareOnLinkedIn()" title="Share on LinkedIn">
-              <i class="bi bi-linkedin"></i>
-            </button>
-            <button class="share-btn copy" (click)="copyLink()" title="Copy Link">
-              <i class="bi bi-link-45deg"></i>
-            </button>
-          </div>
-        </div>
       </div>
 
-      <!-- Related Posts -->
+      <!-- Modern 2-column Widescreen Grid Layout -->
+      <div class="post-layout-grid">
+        <!-- Main Content Column (Left) -->
+        <main class="post-main-col">
+          <!-- Post Content -->
+          <div class="post-content" [innerHTML]="post()!.content"></div>
+
+          <!-- Tags -->
+          @if (post()!.tags.length > 0) {
+            <div class="post-tags">
+              <span class="tags-label">
+                <i class="bi bi-tags-fill"></i>
+                Tags:
+              </span>
+              @for (tag of post()!.tags; track tag) {
+                <a [routerLink]="['/blog/tag', tag]" class="tag glass">
+                  #{{ tag }}
+                </a>
+              }
+            </div>
+          }
+        </main>
+
+        <!-- Sidebar Column (Right) -->
+        <aside class="post-sidebar-col">
+          <!-- Author Profile Card -->
+          <div class="sidebar-widget author-widget glass">
+            <h4 class="widget-title">
+              <i class="bi bi-person-badge"></i>
+              Sobre el Autor
+            </h4>
+            <div class="author-card">
+              <div class="author-avatar-img">
+                <i class="bi bi-person-fill"></i>
+              </div>
+              <div class="author-details">
+                <span class="author-name">{{ post()!.author }}</span>
+                <span class="author-title">AI & Backend Engineer</span>
+              </div>
+            </div>
+            <p class="author-bio">
+              Ingeniero de Software especializado en el desarrollo de arquitecturas de IA robustas, LLM Pipelines y backends de alta escalabilidad.
+            </p>
+          </div>
+
+          <!-- Share Section -->
+          <div class="sidebar-widget share-widget glass">
+            <h4 class="widget-title">
+              <i class="bi bi-share"></i>
+              Compartir Artículo
+            </h4>
+            <div class="share-buttons-sidebar">
+              <button class="share-sidebar-btn twitter" (click)="shareOnTwitter()" title="Share on X">
+                <i class="bi bi-twitter-x"></i>
+                <span>Twitter</span>
+              </button>
+              <button class="share-sidebar-btn linkedin" (click)="shareOnLinkedIn()" title="Share on LinkedIn">
+                <i class="bi bi-linkedin"></i>
+                <span>LinkedIn</span>
+              </button>
+              <button class="share-sidebar-btn copy" (click)="copyLink()" title="Copy Link">
+                <i class="bi bi-link-45deg"></i>
+                <span>Copiar Enlace</span>
+              </button>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Related Posts Section -->
       @if (relatedPosts().length > 0) {
         <section class="related-section">
           <h2 class="related-title">
@@ -131,8 +174,15 @@
           <div class="related-grid">
             @for (relatedPost of relatedPosts(); track relatedPost.slug) {
               <article class="related-card shadow-sm" [routerLink]="['/blog/post', relatedPost.slug]">
-                <div class="related-image">
-                  <img [src]="relatedPost.coverImage" [alt]="relatedPost.title" />
+                <div class="related-image" [class.no-image]="relatedImageErrors()[relatedPost.slug]">
+                  @if (!relatedImageErrors()[relatedPost.slug] && relatedPost.coverImage) {
+                    <img [src]="relatedPost.coverImage" [alt]="relatedPost.title" (error)="onRelatedImageError(relatedPost.slug)" />
+                  } @else {
+                    <div class="mesh-gradient-placeholder related-placeholder">
+                      <div class="glow-sphere glow-sphere-1"></div>
+                      <div class="glow-sphere glow-sphere-2"></div>
+                    </div>
+                  }
                 </div>
                 <div class="related-content">
                   <span 
