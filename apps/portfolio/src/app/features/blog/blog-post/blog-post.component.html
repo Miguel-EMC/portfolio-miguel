@@ -6,7 +6,7 @@
   @if (isLoading()) {
     <div class="loading-state">
       <div class="spinner"></div>
-      <p>{{ 'blog.loadingPost' | translate }}</p>
+      <p>{{ "blog.loadingPost" | translate }}</p>
     </div>
   }
 
@@ -16,11 +16,11 @@
       <div class="error-icon">
         <i class="bi bi-exclamation-triangle-fill"></i>
       </div>
-      <h2>{{ 'blog.error.title' | translate }}</h2>
+      <h2>{{ "blog.error.title" | translate }}</h2>
       <p>{{ error() }}</p>
       <button class="btn-primary" (click)="goBack()">
         <i class="bi bi-arrow-left"></i>
-        {{ 'blog.error.backToBlog' | translate }}
+        {{ "blog.error.backToBlog" | translate }}
       </button>
     </div>
   }
@@ -31,13 +31,22 @@
       <!-- Breadcrumbs Bar -->
       <nav class="post-breadcrumbs" aria-label="Breadcrumb">
         <a class="breadcrumb-link" routerLink="/home">Inicio</a>
-        <span class="breadcrumb-separator"><i class="bi bi-chevron-right"></i></span>
+        <span class="breadcrumb-separator"
+          ><i class="bi bi-chevron-right"></i
+        ></span>
         <a class="breadcrumb-link" routerLink="/blog">Blog</a>
-        <span class="breadcrumb-separator"><i class="bi bi-chevron-right"></i></span>
-        <a class="breadcrumb-link" [routerLink]="['/blog/category', post()!.category]">
+        <span class="breadcrumb-separator"
+          ><i class="bi bi-chevron-right"></i
+        ></span>
+        <a
+          class="breadcrumb-link"
+          [routerLink]="['/blog/category', post()!.category]"
+        >
           {{ getCategoryInfo(post()!.category)?.name }}
         </a>
-        <span class="breadcrumb-separator"><i class="bi bi-chevron-right"></i></span>
+        <span class="breadcrumb-separator"
+          ><i class="bi bi-chevron-right"></i
+        ></span>
         <span class="breadcrumb-current">{{ post()!.title }}</span>
       </nav>
 
@@ -48,8 +57,12 @@
             [routerLink]="['/blog/category', post()!.category]"
             class="category-link"
             [style.color]="getCategoryInfo(post()!.category)?.color"
-            [style.border-color]="getCategoryInfo(post()!.category)?.color + '40'"
-            [style.background-color]="getCategoryInfo(post()!.category)?.color + '1A'"
+            [style.border-color]="
+              getCategoryInfo(post()!.category)?.color + '40'
+            "
+            [style.background-color]="
+              getCategoryInfo(post()!.category)?.color + '1A'
+            "
           >
             <i [class]="getCategoryInfo(post()!.category)?.icon"></i>
             {{ getCategoryInfo(post()!.category)?.name }}
@@ -62,12 +75,12 @@
           <span class="separator">/</span>
           <span class="reading-time">
             <i class="bi bi-clock-history"></i>
-            {{ post()!.readingTime }} min read
+            {{ post()!.readingTime }} {{ "ui.reading" | translate }}
           </span>
         </div>
 
         <h1 class="post-title">{{ post()!.title }}</h1>
-        
+
         <p class="post-excerpt">{{ post()!.excerpt }}</p>
 
         <!-- Author Widget (Mobile only, hidden on desktop sidebar) -->
@@ -88,14 +101,25 @@
       </header>
 
       <!-- Cover Image or category-tinted placeholder -->
-      <div class="post-cover shadow-lg" [class.no-image]="imageError()" [style.--card-glow-color]="getCategoryInfo(post()!.category)?.color">
+      <div
+        class="post-cover shadow-lg"
+        [class.no-image]="imageError()"
+        [style.--card-glow-color]="getCategoryInfo(post()!.category)?.color"
+      >
         @if (!imageError() && post()!.coverImage) {
-          <img [src]="post()!.coverImage" [alt]="post()!.title" (error)="onImageError()" class="animate-scale-in" />
+          <img
+            [src]="post()!.coverImage"
+            [alt]="post()!.title"
+            (error)="onImageError()"
+            class="animate-scale-in"
+          />
         } @else {
           <div class="mesh-gradient-placeholder detail-placeholder">
             <div class="placeholder-content">
               <i [class]="getCategoryInfo(post()!.category)?.icon"></i>
-              <span class="category-name">{{ getCategoryInfo(post()!.category)?.name }}</span>
+              <span class="category-name">{{
+                getCategoryInfo(post()!.category)?.name
+              }}</span>
             </div>
           </div>
         }
@@ -137,17 +161,25 @@
             <div class="sidebar-widget toc-widget glass">
               <h4 class="widget-title">
                 <i class="bi bi-list-nested"></i>
-                Tabla de Contenidos
+                {{ "ui.toc" | translate }}
               </h4>
               <nav class="toc-navigation">
                 <ul class="toc-list">
                   @for (item of toc(); track item.id) {
-                    <li 
-                      class="toc-item" 
-                      [class.toc-h3]="item.level === 3" 
+                    <li
+                      class="toc-item"
+                      [class.toc-h3]="item.level === 3"
                       [class.active]="item.active"
                     >
-                      <a (click)="scrollToHeading(item.id)" role="button" tabindex="0">
+                      <a
+                        (click)="scrollToHeading(item.id)"
+                        (keydown.enter)="scrollToHeading(item.id)"
+                        (keydown.space)="
+                          $event.preventDefault(); scrollToHeading(item.id)
+                        "
+                        role="button"
+                        tabindex="0"
+                      >
                         {{ item.text }}
                       </a>
                     </li>
@@ -161,7 +193,7 @@
           <div class="sidebar-widget author-widget glass">
             <h4 class="widget-title">
               <i class="bi bi-person-badge"></i>
-              Sobre el Autor
+              {{ "ui.author" | translate }}
             </h4>
             <div class="author-card">
               <div class="author-avatar-img">
@@ -169,31 +201,51 @@
               </div>
               <div class="author-details">
                 <span class="author-name">{{ post()!.author }}</span>
-                <span class="author-title">Software Developer · Backend & AWS</span>
+                <span class="author-title"
+                  >Software Developer · Backend & AWS</span
+                >
               </div>
             </div>
-            <p class="author-bio">
-              Desarrollador de software y estudiante de Computación. Trabajo con APIs, AWS e integraciones con LLMs, y comparto lo que aprendo sobre backend y seguridad de IA.
-            </p>
+            <p class="author-bio">{{ "ui.authorBio" | translate }}</p>
           </div>
 
           <!-- Share Section -->
           <div class="sidebar-widget share-widget glass">
             <h4 class="widget-title">
               <i class="bi bi-share"></i>
-              Compartir Artículo
+              {{ "ui.share" | translate }}
             </h4>
             <div class="share-buttons-sidebar">
-              <button class="share-icon-btn twitter" (click)="shareOnTwitter()" title="Compartir en X" aria-label="Compartir en X">
+              <button
+                class="share-icon-btn twitter"
+                (click)="shareOnTwitter()"
+                title="Compartir en X"
+                aria-label="Compartir en X"
+              >
                 <i class="bi bi-twitter-x"></i>
               </button>
-              <button class="share-icon-btn linkedin" (click)="shareOnLinkedIn()" title="Compartir en LinkedIn" aria-label="Compartir en LinkedIn">
+              <button
+                class="share-icon-btn linkedin"
+                (click)="shareOnLinkedIn()"
+                title="Compartir en LinkedIn"
+                aria-label="Compartir en LinkedIn"
+              >
                 <i class="bi bi-linkedin"></i>
               </button>
-              <button class="share-icon-btn whatsapp" (click)="shareOnWhatsApp()" title="Compartir en WhatsApp" aria-label="Compartir en WhatsApp">
+              <button
+                class="share-icon-btn whatsapp"
+                (click)="shareOnWhatsApp()"
+                title="Compartir en WhatsApp"
+                aria-label="Compartir en WhatsApp"
+              >
                 <i class="bi bi-whatsapp"></i>
               </button>
-              <button class="share-icon-btn copy" (click)="copyLink()" title="Copiar enlace" aria-label="Copiar enlace">
+              <button
+                class="share-icon-btn copy"
+                (click)="copyLink()"
+                title="Copiar enlace"
+                aria-label="Copiar enlace"
+              >
                 <i class="bi bi-link-45deg"></i>
               </button>
             </div>
@@ -209,7 +261,9 @@
               <i class="bi bi-chat-square-heart"></i>
               ¿Te sirvió este artículo?
             </h2>
-            <p class="feedback-subtitle">Deja una reacción rápida o escríbeme una sugerencia directa.</p>
+            <p class="feedback-subtitle">
+              Deja una reacción rápida o escríbeme una sugerencia directa.
+            </p>
           </div>
           <div class="reaction-buttons">
             @for (reaction of reactionTypes; track reaction.id) {
@@ -236,28 +290,46 @@
         <section class="related-section">
           <h2 class="related-title">
             <i class="bi bi-journal-plus"></i>
-            {{ 'blog.relatedPosts' | translate }}
+            {{ "blog.relatedPosts" | translate }}
           </h2>
           <div class="related-grid">
             @for (relatedPost of relatedPosts(); track relatedPost.slug) {
-              <article class="related-card shadow-sm" [routerLink]="['/blog/post', relatedPost.slug]" [style.--card-glow-color]="getCategoryInfo(relatedPost.category)?.color">
-                <div class="related-image" [class.no-image]="relatedImageErrors()[relatedPost.slug]">
-                  @if (!relatedImageErrors()[relatedPost.slug] && relatedPost.coverImage) {
-                    <img [src]="relatedPost.coverImage" [alt]="relatedPost.title" (error)="onRelatedImageError(relatedPost.slug)" />
+              <article
+                class="related-card shadow-sm"
+                [routerLink]="['/blog/post', relatedPost.slug]"
+                [style.--card-glow-color]="
+                  getCategoryInfo(relatedPost.category)?.color
+                "
+              >
+                <div
+                  class="related-image"
+                  [class.no-image]="relatedImageErrors()[relatedPost.slug]"
+                >
+                  @if (
+                    !relatedImageErrors()[relatedPost.slug] &&
+                    relatedPost.coverImage
+                  ) {
+                    <img
+                      [src]="relatedPost.coverImage"
+                      [alt]="relatedPost.title"
+                      (error)="onRelatedImageError(relatedPost.slug)"
+                    />
                   } @else {
                     <div class="mesh-gradient-placeholder related-placeholder">
                       <div class="placeholder-icon">
-                        <i [class]="getCategoryInfo(relatedPost.category)?.icon"></i>
+                        <i
+                          [class]="getCategoryInfo(relatedPost.category)?.icon"
+                        ></i>
                       </div>
                     </div>
                   }
                 </div>
                 <div class="related-content">
-                  <span 
+                  <span
                     class="related-category"
                     [style.color]="getCategoryInfo(relatedPost.category)?.color"
                   >
-                    {{ getCategoryInfo(relatedPost.category)?.name }}
+                    {{ "ui.categoryNames." + relatedPost.category | translate }}
                   </span>
                   <h3 class="related-post-title">{{ relatedPost.title }}</h3>
                   <span class="related-date">
@@ -277,22 +349,37 @@
   @if (lightboxSvg()) {
     <div class="diagram-lightbox" (click)="closeDiagramLightbox()">
       <div class="diagram-lightbox-toolbar" (click)="$event.stopPropagation()">
-        <span class="zoom-level">{{ (lightboxZoom() * 100) | number:'1.0-0' }}%</span>
+        <span class="zoom-level"
+          >{{ lightboxZoom() * 100 | number: "1.0-0" }}%</span
+        >
         <button type="button" (click)="zoomDiagram(-0.25)" aria-label="Alejar">
           <i class="bi bi-dash-lg"></i>
         </button>
         <button type="button" (click)="zoomDiagram(0.25)" aria-label="Acercar">
           <i class="bi bi-plus-lg"></i>
         </button>
-        <button type="button" (click)="resetDiagramZoom()" aria-label="Restablecer zoom">
+        <button
+          type="button"
+          (click)="resetDiagramZoom()"
+          aria-label="Restablecer zoom"
+        >
           <i class="bi bi-aspect-ratio"></i>
         </button>
-        <button type="button" class="close-btn" (click)="closeDiagramLightbox()" aria-label="Cerrar">
+        <button
+          type="button"
+          class="close-btn"
+          (click)="closeDiagramLightbox()"
+          aria-label="Cerrar"
+        >
           <i class="bi bi-x-lg"></i>
         </button>
       </div>
       <div class="diagram-lightbox-viewport" (click)="$event.stopPropagation()">
-        <div class="diagram-lightbox-canvas" [style.transform]="'scale(' + lightboxZoom() + ')'" [innerHTML]="lightboxSvg()"></div>
+        <div
+          class="diagram-lightbox-canvas"
+          [style.transform]="'scale(' + lightboxZoom() + ')'"
+          [innerHTML]="lightboxSvg()"
+        ></div>
       </div>
     </div>
   }

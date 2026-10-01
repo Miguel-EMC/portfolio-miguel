@@ -1,12 +1,23 @@
-import { Component, OnInit, OnDestroy, inject, signal, ViewEncapsulation } from '@angular/core';
+import { LanguageService } from '../../../shared/services/language.service';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  inject,
+  signal,
+  ViewEncapsulation,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
-import { Subject, takeUntil, switchMap } from 'rxjs';
+import { Subject, takeUntil, switchMap, combineLatest } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { SeoService } from '../../../core/services/seo.service';
 import { PortfolioService } from '../../../core/services/portfolio.service';
-import { PortfolioProject, PortfolioProjectMeta } from '../../../interfaces/project.interface';
+import {
+  PortfolioProject,
+  PortfolioProjectMeta,
+} from '../../../interfaces/project.interface';
 import { ProjectCardComponent } from '../../../shared/components/ui/project-card/project-card.component';
 
 @Component({
@@ -15,9 +26,10 @@ import { ProjectCardComponent } from '../../../shared/components/ui/project-card
   imports: [CommonModule, RouterModule, TranslateModule, ProjectCardComponent],
   templateUrl: './project-detail.component.html',
   styleUrls: ['./project-detail.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class ProjectDetailComponent implements OnInit, OnDestroy {
+  private language = inject(LanguageService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private seoService = inject(SeoService);
@@ -31,26 +43,31 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   error = signal<string | null>(null);
 
   ngOnInit(): void {
-    this.route.paramMap.pipe(
-      takeUntil(this.destroy$),
-      switchMap(params => {
-        const slug = params.get('slug') ?? '';
-        this.isLoading.set(true);
-        this.error.set(null);
-        return this.portfolioService.getProjectBySlug(slug);
-      })
-    ).subscribe(project => {
-      if (project) {
-        this.project.set(project);
-        this.currentImageIndex.set(0);
-        this.updateSeo(project);
-        this.portfolioService.getRelatedProjects(project.slug).pipe(takeUntil(this.destroy$))
-          .subscribe(related => this.relatedProjects.set(related));
-      } else {
-        this.error.set('Project not found');
-      }
-      this.isLoading.set(false);
-    });
+    combineLatest([this.route.paramMap, this.language.currentLanguage$])
+      .pipe(
+        switchMap(([params]) => {
+          const slug = params.get('slug') ?? '';
+          this.isLoading.set(true);
+          this.currentImageIndex.set(0);
+          this.error.set(null);
+          return this.portfolioService.getProjectBySlug(slug);
+        }),
+        takeUntil(this.destroy$),
+      )
+      .subscribe((project) => {
+        if (project) {
+          this.project.set(project);
+          this.currentImageIndex.set(0);
+          this.updateSeo(project);
+          this.portfolioService
+            .getRelatedProjects(project.slug)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((related) => this.relatedProjects.set(related));
+        } else {
+          this.error.set('Project not found');
+        }
+        this.isLoading.set(false);
+      });
   }
 
   ngOnDestroy(): void {
@@ -63,14 +80,16 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
       title: project.title,
       description: project.description,
       image: project.images[0] || '',
-      slug: project.slug
+      slug: project.slug,
     });
   }
 
   nextImage(): void {
     const project = this.project();
     if (project && project.images.length > 1) {
-      this.currentImageIndex.set((this.currentImageIndex() + 1) % project.images.length);
+      this.currentImageIndex.set(
+        (this.currentImageIndex() + 1) % project.images.length,
+      );
     }
   }
 
@@ -78,7 +97,8 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     const project = this.project();
     if (project && project.images.length > 1) {
       this.currentImageIndex.set(
-        (this.currentImageIndex() - 1 + project.images.length) % project.images.length
+        (this.currentImageIndex() - 1 + project.images.length) %
+          project.images.length,
       );
     }
   }

@@ -1,169 +1,268 @@
 <!doctype html>
 <html lang="es" class="dark-theme">
-<head>
-  <meta charset="utf-8">
-  <title>Miguel Muzo | EMCode - Software Developer | Backend, AWS & LLM Integrations</title>
-  <base href="/">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Miguel Muzo | EMCode - Software Developer | Backend, AWS & LLM
+      Integrations
+    </title>
+    <base href="/" />
 
-  <!-- Critical CSS para evitar flash blanco (colocado al inicio para impedir renderizado bloqueado en blanco) -->
-  <style>
-    html, body {
-      margin: 0;
-      background: #0f1117 !important;
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    }
-  </style>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="Miguel Muzo · EMCode. Desarrollador de software y estudiante de Computación. APIs, Python, NestJS, AWS, Angular e integraciones con LLMs.">
-  <meta name="keywords" content="Miguel Muzo, Eduardo Miguel Muzo, migueldev11, software developer, backend developer, AI, inteligencia artificial, python, fastapi, langgraph, aws bedrock, angular, flutter, ecuador tech, desarrollador ecuador, LLMs, RAG, SQL Agents, NestJS, Terraform">
-  <meta name="author" content="Eduardo Miguel Muzo Cansigña">
-  <meta name="creator" content="Eduardo Miguel Muzo Cansigña (migueldev11)">
-  <meta name="publisher" content="Eduardo Miguel Muzo Cansigña">
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <meta name="googlebot" content="index, follow">
-  <meta name="google-site-verification" content="VkCk_CL_6zvpzgIqDL2t-sTT2FODM6gelH2RB5dJ73Y">
-
-  <!-- Canonical URL - Unifica todas las versiones del dominio -->
-  <link rel="canonical" href="https://migueldev11.com">
-
-  <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://migueldev11.com">
-  <meta property="og:title" content="Miguel Muzo | EMCode - Software Developer | Backend, AWS & LLM Integrations">
-  <meta property="og:description" content="Miguel Muzo · EMCode. Desarrollador de software y estudiante de Computación. APIs, Python, NestJS, AWS, Angular e integraciones con LLMs.">
-  <meta property="og:image" content="https://migueldev11.com/assets/img/og-image.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Miguel Muzo - EMCode Software Developer">
-  <meta property="og:site_name" content="Miguel Muzo | EMCode">
-  <meta property="og:locale" content="es_EC">
-
-  <!-- Twitter / X -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://migueldev11.com">
-  <meta name="twitter:title" content="Miguel Muzo | EMCode - Software Developer | Backend, AWS & LLM Integrations">
-  <meta name="twitter:description" content="Miguel Muzo · EMCode. Desarrollador de software y estudiante de Computación. APIs, Python, NestJS, AWS, Angular e integraciones con LLMs.">
-  <meta name="twitter:image" content="https://migueldev11.com/assets/img/og-image.jpg">
-  <meta name="twitter:image:alt" content="Miguel Muzo - EMCode Software Developer">
-  <meta name="twitter:creator" content="@migueldev11">
-  
-<link rel="icon" type="image/svg+xml" href="/assets/img/favicon-emcode.svg?v=emcode2">
-  <link rel="icon" href="/favicon.ico?v=emcode2" sizes="any">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon-emcode.png?v=emcode2">
-<link rel="icon" type="image/webp" sizes="16x16" href="/assets/img/logoMIguel.webp">
-  
-  <!-- Preconnect to external domains -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
-  
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
-  
-  <!-- DevIcons -->
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
-  
-  <!-- Theme Color -->
-  <meta name="theme-color" content="#34D399">
-  <meta name="msapplication-TileColor" content="#34D399">
-  
-  <!-- Preload critical resources -->
-  <link rel="preload" href="/assets/img/img-mia.png" as="image" type="image/png">
-  
-  <!-- Estilos críticos recolocados al inicio del head -->
-  
-  <!-- Structured Data - JSON-LD for SEO -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "@id": "https://migueldev11.com/#person",
-    "name": "Eduardo Miguel Muzo Cansigña",
-    "givenName": "Eduardo Miguel",
-    "familyName": "Muzo Cansigña",
-    "alternateName": ["Eduardo Miguel Muzo Cansigna", "Eduardo Miguel Muzo", "migueldev11", "EMCode", "Miguel Muzo", "Miguel-EMC"],
-    "jobTitle": "Software Developer | Backend, AWS & LLM Integrations",
-    "description": "Soy desarrollador de software y estudiante de Computación en la Escuela Politécnica Nacional. Desarrollo APIs y servicios backend con Python y NestJS, trabajo con AWS y Angular e integro distintos modelos de lenguaje en aplicaciones.",
-    "url": "https://migueldev11.com",
-    "image": {
-      "@type": "ImageObject",
-      "url": "https://migueldev11.com/assets/img/og-image.jpg",
-      "width": 1200,
-      "height": 630
-    },
-    "sameAs": [
-      "https://www.linkedin.com/in/eduardo-miguel-muzo-6379b2234/",
-      "https://github.com/Miguel-EMC"
-    ],
-    "knowsAbout": [
-      "Backend Development",
-      "Python",
-      "FastAPI",
-      "LangGraph",
-      "AWS Bedrock",
-      "LLMs",
-      "RAG",
-      "SQL Agents",
-      "AWS Lambdas",
-      "Terraform",
-      "Flutter",
-      "Angular",
-      "NestJS",
-      "PostgreSQL"
-    ],
-    "hasOccupation": {
-      "@type": "Occupation",
-      "name": "Software Developer",
-      "occupationalCategory": "15-1252.00",
-      "skills": "API Development, Python, NestJS, AWS, LLM Integrations, Angular"
-    },
-    "nationality": {
-      "@type": "Country",
-      "name": "Ecuador"
-    },
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Quito",
-      "addressRegion": "Pichincha",
-      "addressCountry": "EC"
-    },
-    "email": "eduardomuzo123456@gmail.com",
-    "telephone": "+593999763190"
-  }
-  </script>
-
-  <!-- Website Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "@id": "https://migueldev11.com/#website",
-    "url": "https://migueldev11.com",
-    "name": "Miguel Muzo | EMCode",
-    "description": "Portafolio profesional de Miguel Muzo (migueldev11) - Software Developer | Backend, AWS & LLM Integrations",
-    "publisher": {
-      "@id": "https://migueldev11.com/#person"
-    },
-    "inLanguage": "es-EC"
-  }
-  </script>
-</head>
-<body class="dark-theme">
-
-
-  <app-root></app-root>
-  
-  <!-- Performance monitoring -->
-  <script>
-    // Simple performance monitoring
-    window.addEventListener('load', function() {
-      if ('performance' in window) {
-        const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
-        console.log('Page load time:', loadTime + 'ms');
+    <!-- Critical CSS para evitar flash blanco (colocado al inicio para impedir renderizado bloqueado en blanco) -->
+    <style>
+      html,
+      body {
+        margin: 0;
+        background: #0f1117;
+        font-family:
+          "Inter",
+          system-ui,
+          -apple-system,
+          sans-serif;
       }
-    });
-  </script>
-</body>
+    </style>
+    <script>
+      (function () {
+        var t = "system";
+        try {
+          t = localStorage.getItem("portfolio-theme") || t;
+        } catch (e) {}
+        var dark =
+          t === "dark" ||
+          (t !== "light" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches);
+        document.documentElement.dataset.theme = dark ? "dark" : "light";
+        document.documentElement.className = dark
+          ? "dark-theme"
+          : "light-theme";
+      })();
+    </script>
+    <style>
+      html[data-theme="light"],
+      html[data-theme="light"] body {
+        background: #f6f8f7;
+        color: #17231e;
+      }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- SEO Meta Tags -->
+    <meta
+      name="description"
+      content="Miguel Muzo · EMCode. Desarrollador de software y estudiante de Computación. APIs, Python, NestJS, AWS, Angular e integraciones con LLMs."
+    />
+    <meta
+      name="keywords"
+      content="Miguel Muzo, Eduardo Miguel Muzo, migueldev11, software developer, backend developer, AI, inteligencia artificial, python, fastapi, langgraph, aws bedrock, angular, flutter, ecuador tech, desarrollador ecuador, LLMs, RAG, NestJS, Terraform"
+    />
+    <meta name="author" content="Eduardo Miguel Muzo Cansigña" />
+    <meta name="creator" content="Eduardo Miguel Muzo Cansigña (migueldev11)" />
+    <meta name="publisher" content="Eduardo Miguel Muzo Cansigña" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <meta name="googlebot" content="index, follow" />
+    <meta
+      name="google-site-verification"
+      content="VkCk_CL_6zvpzgIqDL2t-sTT2FODM6gelH2RB5dJ73Y"
+    />
+
+    <!-- Canonical URL - Unifica todas las versiones del dominio -->
+    <link rel="canonical" href="https://migueldev11.com" />
+
+    <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://migueldev11.com" />
+    <meta
+      property="og:title"
+      content="Miguel Muzo | EMCode - Software Developer | Backend, AWS & LLM Integrations"
+    />
+    <meta
+      property="og:description"
+      content="Miguel Muzo · EMCode. Desarrollador de software y estudiante de Computación. APIs, Python, NestJS, AWS, Angular e integraciones con LLMs."
+    />
+    <meta
+      property="og:image"
+      content="https://migueldev11.com/assets/img/og-image.jpg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Miguel Muzo - EMCode Software Developer"
+    />
+    <meta property="og:site_name" content="Miguel Muzo | EMCode" />
+    <meta property="og:locale" content="es_EC" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://migueldev11.com" />
+    <meta
+      name="twitter:title"
+      content="Miguel Muzo | EMCode - Software Developer | Backend, AWS & LLM Integrations"
+    />
+    <meta
+      name="twitter:description"
+      content="Miguel Muzo · EMCode. Desarrollador de software y estudiante de Computación. APIs, Python, NestJS, AWS, Angular e integraciones con LLMs."
+    />
+    <meta
+      name="twitter:image"
+      content="https://migueldev11.com/assets/img/og-image.jpg"
+    />
+    <meta
+      name="twitter:image:alt"
+      content="Miguel Muzo - EMCode Software Developer"
+    />
+    <meta name="twitter:creator" content="@migueldev11" />
+
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/assets/img/favicon-emcode.svg?v=emcode2"
+    />
+    <link rel="icon" href="/favicon.ico?v=emcode2" sizes="any" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/img/apple-touch-icon-emcode.png?v=emcode2"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Outfit:wght@500;600;700;800&amp;display=swap"
+    />
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- DevIcons -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+    />
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#34D399" />
+    <meta name="msapplication-TileColor" content="#34D399" />
+
+    <!-- Preload critical resources -->
+    <link
+      rel="preload"
+      href="/assets/img/logo-avatar.png"
+      as="image"
+      type="image/png"
+    />
+
+    <!-- Estilos críticos recolocados al inicio del head -->
+
+    <!-- Structured Data - JSON-LD for SEO -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "@id": "https://migueldev11.com/#person",
+        "name": "Eduardo Miguel Muzo Cansigña",
+        "givenName": "Eduardo Miguel",
+        "familyName": "Muzo Cansigña",
+        "alternateName": [
+          "Eduardo Miguel Muzo Cansigna",
+          "Eduardo Miguel Muzo",
+          "migueldev11",
+          "EMCode",
+          "Miguel Muzo",
+          "Miguel-EMC"
+        ],
+        "jobTitle": "Software Developer | Backend, AWS & LLM Integrations",
+        "description": "Soy desarrollador de software y estudiante de Computación en la Escuela Politécnica Nacional. Desarrollo APIs y servicios backend con Python y NestJS, trabajo con AWS y Angular e integro distintos modelos de lenguaje en aplicaciones.",
+        "url": "https://migueldev11.com",
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://migueldev11.com/assets/img/og-image.jpg",
+          "width": 1200,
+          "height": 630
+        },
+        "sameAs": [
+          "https://www.linkedin.com/in/eduardo-miguel-muzo-6379b2234/",
+          "https://github.com/Miguel-EMC"
+        ],
+        "knowsAbout": [
+          "Backend Development",
+          "Python",
+          "FastAPI",
+          "LangGraph",
+          "AWS Bedrock",
+          "LLMs",
+          "RAG",
+          "AWS Lambdas",
+          "Terraform",
+          "Flutter",
+          "Angular",
+          "NestJS",
+          "PostgreSQL"
+        ],
+        "hasOccupation": {
+          "@type": "Occupation",
+          "name": "Software Developer",
+          "occupationalCategory": "15-1252.00",
+          "skills": "API Development, Python, NestJS, AWS, LLM Integrations, Angular"
+        },
+        "nationality": {
+          "@type": "Country",
+          "name": "Ecuador"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Quito",
+          "addressRegion": "Pichincha",
+          "addressCountry": "EC"
+        },
+        "email": "eduardomuzo123456@gmail.com",
+        "telephone": "+593999763190"
+      }
+    </script>
+
+    <!-- Website Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "@id": "https://migueldev11.com/#website",
+        "url": "https://migueldev11.com",
+        "name": "Miguel Muzo | EMCode",
+        "description": "Portafolio profesional de Miguel Muzo (migueldev11) - Software Developer | Backend, AWS & LLM Integrations",
+        "publisher": {
+          "@id": "https://migueldev11.com/#person"
+        },
+        "inLanguage": "es-EC"
+      }
+    </script>
+  </head>
+  <body>
+    <app-root></app-root>
+
+    <!-- Performance monitoring -->
+    <script>
+      // Simple performance monitoring
+      window.addEventListener("load", function () {
+        if ("performance" in window) {
+          const loadTime =
+            performance.timing.loadEventEnd -
+            performance.timing.navigationStart;
+          console.log("Page load time:", loadTime + "ms");
+        }
+      });
+    </script>
+  </body>
 </html>

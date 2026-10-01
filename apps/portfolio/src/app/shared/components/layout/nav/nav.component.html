@@ -1,11 +1,21 @@
-<nav class="navbar" [ngClass]="{'scrolled': isScrolled, 'open': isMobileMenuOpen}">
+<nav
+  class="navbar"
+  [ngClass]="{ scrolled: isScrolled, open: isMobileMenuOpen }"
+>
   <div class="nav-container">
     <!-- Brand -->
     <div class="nav-brand">
       <a routerLink="/home" class="brand-link">
-        <img class="brand-logo" src="/assets/img/emcode-mark.svg" alt="" aria-hidden="true">
+        <img
+          class="brand-logo"
+          src="/assets/img/emcode-mark.svg"
+          alt=""
+          aria-hidden="true"
+        />
         <div class="brand-text">
-          <span class="brand-name"><span>EM</span><span class="brand-code">Code</span></span>
+          <span class="brand-name"
+            ><span>EM</span><span class="brand-code">Code</span></span
+          >
           <span class="brand-tagline">Software Developer</span>
         </div>
       </a>
@@ -14,16 +24,35 @@
     <!-- Desktop Navigation -->
     <div class="nav-links desktop-nav">
       <a class="nav-link" routerLink="/home" [class.active]="isActive('home')">
-        {{ 'nav.home' | translate }}
+        {{ "nav.home" | translate }}
       </a>
-      <a class="nav-link" routerLink="/resume" [class.active]="isActive('/resume')">
-        {{ 'nav.resume' | translate }}
+      <a
+        class="nav-link"
+        routerLink="/resume"
+        [class.active]="isActive('/resume')"
+      >
+        {{ "nav.resume" | translate }}
       </a>
-      <a class="nav-link" routerLink="/portfolio" [class.active]="isActive('/portfolio')">
-        {{ 'nav.portfolio' | translate }}
+      <a
+        class="nav-link"
+        routerLink="/portfolio"
+        [class.active]="isActive('/portfolio')"
+      >
+        {{ "nav.portfolio" | translate }}
       </a>
-      <a class="nav-link" routerLink="/contact" [class.active]="isActive('/contact')">
-        {{ 'nav.contact' | translate }}
+      <a
+        class="nav-link"
+        routerLink="/blog"
+        [class.active]="isActive('/blog')"
+        (click)="closeMobileMenu()"
+        >{{ "nav.blog" | translate }}</a
+      >
+      <a
+        class="nav-link"
+        routerLink="/contact"
+        [class.active]="isActive('/contact')"
+      >
+        {{ "nav.contact" | translate }}
       </a>
     </div>
 
@@ -31,10 +60,17 @@
     <div class="nav-right">
       <div class="nav-controls">
         <app-language-toggle></app-language-toggle>
+        <app-theme-toggle></app-theme-toggle>
       </div>
 
       <!-- Mobile Menu Toggle -->
-      <button class="mobile-toggle" (click)="toggleMobileMenu()" aria-label="Menú">
+      <button
+        class="mobile-toggle"
+        (click)="toggleMobileMenu()"
+        [attr.aria-label]="'ui.menu' | translate"
+        [attr.aria-expanded]="isMobileMenuOpen"
+        aria-controls="mobile-navigation"
+      >
         <div class="hamburger" [class.active]="isMobileMenuOpen">
           <span></span>
           <span></span>
@@ -45,21 +81,57 @@
   </div>
 
   <!-- Mobile Menu -->
-  <div class="mobile-overlay" [class.active]="isMobileMenuOpen" (click)="closeMobileMenu()"></div>
+  <div
+    class="mobile-overlay"
+    [class.active]="isMobileMenuOpen"
+    (click)="closeMobileMenu()"
+  ></div>
 
-  <div class="mobile-menu" [class.open]="isMobileMenuOpen">
+  <div
+    id="mobile-navigation"
+    class="mobile-menu"
+    [class.open]="isMobileMenuOpen"
+    [attr.inert]="isMobileMenuOpen ? null : ''"
+  >
     <div class="mobile-menu-content">
-      <a class="nav-link" routerLink="/home" [class.active]="isActive('home')" (click)="closeMobileMenu()">
-        <i class="bi bi-house-fill"></i> {{ 'nav.home' | translate }}
+      <a
+        class="nav-link"
+        routerLink="/home"
+        [class.active]="isActive('home')"
+        (click)="closeMobileMenu()"
+      >
+        <i class="bi bi-house-fill"></i> {{ "nav.home" | translate }}
       </a>
-      <a class="nav-link" routerLink="/resume" [class.active]="isActive('/resume')" (click)="closeMobileMenu()">
-        <i class="bi bi-file-person-fill"></i> {{ 'nav.resume' | translate }}
+      <a
+        class="nav-link"
+        routerLink="/resume"
+        [class.active]="isActive('/resume')"
+        (click)="closeMobileMenu()"
+      >
+        <i class="bi bi-file-person-fill"></i> {{ "nav.resume" | translate }}
       </a>
-      <a class="nav-link" routerLink="/portfolio" [class.active]="isActive('/portfolio')" (click)="closeMobileMenu()">
-        <i class="bi bi-collection-fill"></i> {{ 'nav.portfolio' | translate }}
+      <a
+        class="nav-link"
+        routerLink="/portfolio"
+        [class.active]="isActive('/portfolio')"
+        (click)="closeMobileMenu()"
+      >
+        <i class="bi bi-collection-fill"></i> {{ "nav.portfolio" | translate }}
       </a>
-      <a class="nav-link" routerLink="/contact" [class.active]="isActive('/contact')" (click)="closeMobileMenu()">
-        <i class="bi bi-envelope-fill"></i> {{ 'nav.contact' | translate }}
+      <a
+        class="nav-link"
+        routerLink="/blog"
+        [class.active]="isActive('/blog')"
+        (click)="closeMobileMenu()"
+        >{{ "nav.blog" | translate }}</a
+      >
+      <a
+        class="nav-link"
+        routerLink="/contact"
+        [class.active]="isActive('/contact')"
+        (click)="closeMobileMenu()"
+      >
+        <i class="bi bi-envelope-fill"></i> {{ "nav.contact" | translate }}
       </a>
     </div>
   </div>

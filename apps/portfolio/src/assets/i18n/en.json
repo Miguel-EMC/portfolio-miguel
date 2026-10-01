@@ -3,8 +3,8 @@
     "brandSubtitle": "Software Developer",
     "home": "Home",
     "about": "About Me",
-    "resume": "Resume",
-    "portfolio": "Portfolio",
+    "resume": "Background",
+    "portfolio": "Projects",
     "contact": "Contact",
     "blog": "Blog"
   },
@@ -25,11 +25,7 @@
         "downloadCV": "Download CV"
       },
       "rolePrefix": "My focus",
-      "roles": [
-        "Software Developer",
-        "Backend Developer",
-        "LLM Integrations"
-      ],
+      "roles": ["Software Developer"],
       "status": "Available",
       "location": "Quito, Ecuador",
       "role": "Software Developer · Backend, AWS & LLM Integrations"
@@ -56,8 +52,8 @@
       }
     },
     "portfolio": {
-      "eyebrow": "Own projects",
-      "title": "Featured Projects",
+      "eyebrow": "WORK AND PROJECTS",
+      "title": "Featured projects",
       "subtitle": "A selection of my best work",
       "viewAll": "View All Projects",
       "viewProject": "View Project",
@@ -65,9 +61,9 @@
     },
     "blog": {
       "eyebrow": "Blog",
-      "title": "A Space of Its Own",
-      "subtitle": "Longer-form writing on AI in production, cloud, and backend systems — without the portfolio's constraints.",
-      "viewAll": "Enter the blog",
+      "title": "Development notes",
+      "subtitle": "Experiences and lessons on backend, AWS and applied AI.",
+      "viewAll": "Explore the blog",
       "empty": "No posts published yet."
     },
     "clientProjects": {
@@ -98,15 +94,15 @@
         "whatsapp": "WhatsApp",
         "linkedin": "LinkedIn",
         "responses": {
-          "email": "Response in 24h",
-          "whatsapp": "Immediate response",
-          "linkedin": "Professional network"
+          "email": "Tell me about your project.",
+          "whatsapp": "Let’s discuss the details.",
+          "linkedin": "Let’s connect professionally."
         }
       },
       "availability": {
         "title": "Available for projects",
-        "response": "Response: < 24h",
-        "start": "Start: Immediate"
+        "response": "I will get back to you when available.",
+        "start": "Let’s discuss scope and availability."
       },
       "form": {
         "title": "Send me a message",
@@ -165,62 +161,70 @@
   },
   "experiences": {
     "fullstack-lateral": {
-      "title": "AI Engineer | Backend",
+      "title": "Software Developer · Backend",
       "subtitle": "Münster Mind Latinoamérica",
-      "date": "Jun 2024 - Present",
+      "date": "Jun 2024 – Present",
+      "kind": "Current role",
       "tasks": [
-        "Architected and built the first production version of a graph-based Text-to-SQL AI agent using LangGraph and AWS Bedrock, integrated with a FastAPI backend, automating a large share of previously manual SQL query creation.",
-        "Developed serverless backend services on AWS Lambda that orchestrate LLM provider APIs (AWS Bedrock, OpenAI, Gemini) and expose them through REST APIs consumed by the web (Angular) and mobile (Flutter) applications.",
-        "Built and maintained serverless backend services with AWS Lambda and Step Functions using NestJS and Prisma ORM, serving both the mobile application and the web platform.",
-        "Developed and shipped a cross-platform mobile application with Flutter for Android and iOS, managing the full release cycle on Google Play Store and Apple App Store.",
-        "Deployed cloud infrastructure with Terraform (Lambda, S3, Step Functions) and implemented CI/CD pipelines with monitoring on Amazon CloudWatch and Google Cloud Platform."
+        "Develop REST APIs and services on AWS Lambda for Angular and Flutter applications.",
+        "Integrate language models through AWS Bedrock and OpenAI, Anthropic and Gemini APIs.",
+        "Build features with Python and NestJS, workflows with Step Functions and data access with Prisma.",
+        "Work with Terraform, CI/CD and CloudWatch; developed and published a Flutter app on Google Play and the App Store."
       ]
     },
     "billusos-dev": {
-      "title": "Backend Developer (Freelance, part-time)",
-      "subtitle": "Billusos",
-      "date": "Dec 2023 - Nov 2024",
+      "title": "Backend Developer",
+      "subtitle": "Billusos · Remote",
+      "date": "Dec 2023 – Nov 2024",
+      "kind": "Part-time freelance",
       "tasks": [
-        "Developed and optimized backend services in Python and Django for automated generation of financial reports and operational dashboards, eliminating manual processes.",
-        "Built and maintained mobile application features with React Native, ensuring seamless integration with REST API endpoints and server-side business logic.",
-        "Managed the data persistence layer and optimized complex PostgreSQL queries for business intelligence reporting, improving dashboard response times."
+        "Built Python/Django services for financial reports and operational dashboards.",
+        "Integrated React Native features with REST APIs and worked on PostgreSQL reporting queries."
       ]
     },
     "junior-fullstack": {
-      "title": "Software Engineer",
-      "subtitle": "Centro Ecuatoriano de Eficiencia de Recursos (CEER)",
-      "date": "Feb 2023 - Jul 2023",
+      "title": "Full Stack Developer",
+      "subtitle": "CEER · CONAFIPS SARAS",
+      "date": "Jan 2023 – Jun 2023",
+      "kind": "Fixed-term contract",
       "tasks": [
-        "Developed dynamic reports and interactive dashboards through optimized PostgreSQL database queries for the CONAFIPS SARAS platform",
-        "Implemented features in both Backend (Laravel/Lumen) and Frontend (Angular), ensuring correct visualization of key metrics",
-        "Participated in data flow integration for financial business logic compliance"
+        "Developed SARAS interfaces and features with PHP/Laravel and Angular.",
+        "Prepared queries and scripts for data management and reporting."
+      ]
+    },
+    "latin-trails": {
+      "title": "Frontend Development Intern",
+      "subtitle": "Latin Trails · Quito",
+      "date": "Sep 2022 – Dec 2022",
+      "kind": "Internship",
+      "tasks": [
+        "Updated the website with Nuxt and Vue, preparing coordinates, images and descriptions for interactive maps."
+      ]
+    },
+    "it-ecuador": {
+      "title": "Systems Intern",
+      "subtitle": "Información Tecnológica del Ecuador S.A. · Quito",
+      "date": "Apr 2022 – Aug 2022",
+      "kind": "Internship",
+      "tasks": [
+        "Updated software documentation, configured internal tools and contributed to an auxiliary CG/Web application."
       ]
     }
   },
   "education": {
     "computer-engineering": {
-      "title": "Computer Science · In progress",
+      "title": "Computer Science",
       "institution": "Escuela Politécnica Nacional",
       "date": "Expected graduation: 2027",
-      "description": "Comprehensive training in computer science with emphasis on software development, advanced algorithms, artificial intelligence and complex systems analysis.",
-      "achievements": [
-        "Focus on algorithms, data structures, and mathematical foundations of AI",
-        "Projects in Machine Learning and AI systems",
-        "Full-stack application development",
-        "Participation in programming competitions"
-      ]
+      "description": "Currently studying toward this degree.",
+      "achievements": []
     },
     "software-development": {
-      "title": "Associate Degree in Software Development",
+      "title": "Higher Technology Degree in Software Development",
       "institution": "Escuela Politécnica Nacional",
       "date": "2023",
-      "description": "Specialized technical training in web and mobile application development, databases, agile methodologies and modern software architectures.",
-      "achievements": [
-        "Graduated 2023 — strong foundation in web and backend development",
-        "Proficiency in Angular, Django, FastAPI, and REST APIs",
-        "Database design and optimization with PostgreSQL",
-        "Introduction to cloud infrastructure and DevOps practices"
-      ]
+      "description": "Software development education; OffHouse graduation project, a marketplace with a Laravel backend.",
+      "achievements": []
     },
     "high-school": {
       "title": "Unified General Baccalaureate",
@@ -233,6 +237,12 @@
         "First contact with Python programming",
         "Student leadership and teamwork"
       ]
+    },
+    "nde": {
+      "title": "Network Defense Essentials",
+      "institution": "EC-Council",
+      "date": "2026",
+      "description": "Certification in network defense fundamentals."
     }
   },
   "common": {
@@ -319,7 +329,7 @@
     },
     "project": {
       "viewDetails": "View Details",
-      "comingSoon": "In progress",
+      "comingSoon": "Planned",
       "personal": "Personal",
       "professional": "Professional",
       "viewProject": "View Project",
@@ -364,6 +374,94 @@
       "achievements": "Achievements",
       "viewMore": "View More Education",
       "viewLess": "View Less"
+    }
+  },
+  "ui": {
+    "theme": "Theme",
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark",
+    "skip": "Skip to content",
+    "menu": "Open or close menu",
+    "navigation": "Navigation",
+    "backTop": "Back to top",
+    "footerDescription": "Software developer. APIs, AWS and language model integrations from Quito, Ecuador.",
+    "careerEyebrow": "EXPERIENCE AND EDUCATION",
+    "careerTitle": "My background",
+    "careerIntro": "Software development since April 2022: internships, projects, a fixed-term contract and professional work.",
+    "careerNavigation": "Background sections",
+    "experience": "Professional experience",
+    "experienceNote": "Dates and work arrangements are shown separately; part-time freelance work overlapped with my current role.",
+    "skillTitle": "Technologies and focus",
+    "education": "Education and certification",
+    "studying": "In progress",
+    "completed": "Degree awarded",
+    "certified": "Certification",
+    "exploreCareer": "Explore my background",
+    "skillIntro": "The tools I use to build APIs, applications and cloud services.",
+    "required": "Complete this field.",
+    "invalidEmail": "Enter a valid email address.",
+    "portfolioTitle": "Projects and things I have built",
+    "portfolioIntro": "Applications, services and personal projects. Explore the context, technologies and my contribution.",
+    "loadError": "Content could not be loaded. Please try again.",
+    "retry": "Try again",
+    "previous": "Previous image",
+    "next": "Next image",
+    "skills": {
+      "backend": {
+        "title": "Backend and APIs",
+        "description": "Current work: server logic, services and data integration."
+      },
+      "cloud": {
+        "title": "AWS and deployment",
+        "description": "Serverless services, infrastructure and operations."
+      },
+      "applications": {
+        "title": "Applications and data",
+        "description": "Web and mobile applications connected to backend services."
+      },
+      "llms": {
+        "title": "LLM integrations",
+        "description": "Models from different providers through server-side APIs."
+      },
+      "projects": {
+        "title": "Project experience",
+        "description": "Tools used in previous roles and personal projects."
+      },
+      "learning": {
+        "title": "Developing my specialization",
+        "description": "LangGraph in an early project; going deeper into AI security and cloud architecture."
+      }
+    },
+    "aboutTitle": "About me",
+    "aboutBody": "I study Computer Science at EPN. My professional work focuses on APIs, AWS, applications and language model integrations. In personal projects, I built a RAG demo and started exploring LangGraph. My specialization direction is AI Security Engineering and cloud architecture.",
+    "toc": "In this article",
+    "share": "Share article",
+    "clearSearch": "Clear search",
+    "removeFilter": "Remove filter",
+    "categories": "Categories",
+    "categoryNames": {
+      "technology": "Technology",
+      "programming": "Programming",
+      "web-development": "Web development",
+      "mobile-development": "Mobile development",
+      "devops": "DevOps",
+      "career": "Career",
+      "tutorials": "Tutorials",
+      "general": "General"
+    },
+    "author": "About the author",
+    "authorBio": "Software developer and Computer Science student. I work with APIs, AWS and LLM integrations, and share what I learn about backend development and AI security.",
+    "reading": "min read",
+    "upcoming": {
+      "serverless-rag-agent": {
+        "title": "Serverless RAG on AWS",
+        "description": "A planned project to explore document retrieval on serverless infrastructure."
+      },
+      "retrieval-engine-from-scratch": {
+        "title": "Retrieval engine from scratch",
+        "description": "A planned project to go deeper into BM25, embeddings and evaluation."
+      }
     }
   }
 }

@@ -3,10 +3,12 @@
     <div class="section-header">
       <div class="section-badge">
         <span class="badge-icon"><i class="bi bi-broadcast"></i></span>
-        <span class="badge-text">{{ 'home.contact.availability.title' | translate }}</span>
+        <span class="badge-text">{{
+          "home.contact.availability.title" | translate
+        }}</span>
       </div>
-      <h1 class="section-title">{{ 'home.contact.title' | translate }}</h1>
-      <p class="section-subtitle">{{ 'home.contact.subtitle' | translate }}</p>
+      <h1 class="section-title">{{ "home.contact.title" | translate }}</h1>
+      <p class="section-subtitle">{{ "home.contact.subtitle" | translate }}</p>
     </div>
 
     <div class="contact-content">
@@ -14,69 +16,218 @@
         <div class="form-container">
           <div class="form-header">
             <div class="form-icon"><i class="bi bi-send"></i></div>
-            <h2 class="form-title">{{ 'home.contact.form.title' | translate }}</h2>
-            <p class="form-subtitle">{{ 'home.contact.form.description' | translate }}</p>
+            <h2 class="form-title">
+              {{ "home.contact.form.title" | translate }}
+            </h2>
+            <p class="form-subtitle">
+              {{ "home.contact.form.description" | translate }}
+            </p>
           </div>
 
-          <form class="contact-form" #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)" novalidate>
+          <form
+            class="contact-form"
+            #contactForm="ngForm"
+            (ngSubmit)="onSubmit(contactForm)"
+            novalidate
+          >
             <div class="form-group">
-              <label class="form-label" for="name"><i class="bi bi-person"></i> {{ 'home.contact.form.name' | translate }}</label>
+              <label class="form-label" for="name"
+                ><i class="bi bi-person"></i>
+                {{ "home.contact.form.name" | translate }}</label
+              >
               <div class="input-container">
-                <input class="form-control" type="text" id="name" name="name" ngModel required
-                  [placeholder]="'home.contact.form.name' | translate">
+                <input
+                  class="form-control"
+                  type="text"
+                  autocomplete="name"
+                  id="name"
+                  name="name"
+                  ngModel
+                  required
+                  #nameModel="ngModel"
+                  [attr.aria-invalid]="
+                    nameModel.invalid &&
+                    (nameModel.touched || contactForm.submitted)
+                  "
+                  aria-describedby="name-error"
+                  [placeholder]="'home.contact.form.name' | translate"
+                />
+                <p
+                  id="name-error"
+                  class="field-error"
+                  *ngIf="
+                    nameModel.invalid &&
+                    (nameModel.touched || contactForm.submitted)
+                  "
+                >
+                  {{ "ui.required" | translate }}
+                </p>
                 <span class="input-focus-border"></span>
               </div>
             </div>
 
             <div class="form-group">
-              <label class="form-label" for="email"><i class="bi bi-envelope"></i> {{ 'home.contact.form.email' | translate }}</label>
+              <label class="form-label" for="email"
+                ><i class="bi bi-envelope"></i>
+                {{ "home.contact.form.email" | translate }}</label
+              >
               <div class="input-container">
-                <input class="form-control" type="email" id="email" name="email" ngModel required email
-                  [placeholder]="'home.contact.form.email' | translate">
+                <input
+                  class="form-control"
+                  type="email"
+                  autocomplete="email"
+                  id="email"
+                  name="email"
+                  ngModel
+                  required
+                  #emailModel="ngModel"
+                  [attr.aria-invalid]="
+                    emailModel.invalid &&
+                    (emailModel.touched || contactForm.submitted)
+                  "
+                  aria-describedby="email-error"
+                  email
+                  [placeholder]="'home.contact.form.email' | translate"
+                />
+                <p
+                  id="email-error"
+                  class="field-error"
+                  *ngIf="
+                    emailModel.invalid &&
+                    (emailModel.touched || contactForm.submitted)
+                  "
+                >
+                  {{ "ui.invalidEmail" | translate }}
+                </p>
                 <span class="input-focus-border"></span>
               </div>
             </div>
 
             <div class="form-group">
-              <label class="form-label" for="subject"><i class="bi bi-briefcase"></i> {{ 'home.contact.form.projectType' | translate }}</label>
+              <label class="form-label" for="subject"
+                ><i class="bi bi-briefcase"></i>
+                {{ "home.contact.form.projectType" | translate }}</label
+              >
               <div class="select-container">
-                <select class="form-control" id="subject" name="subject" ngModel required>
-                  <option value="" disabled selected>{{ 'home.contact.form.selectType' | translate }}</option>
-                  <option value="web">{{ 'home.contact.form.types.web' | translate }}</option>
-                  <option value="mobile">{{ 'home.contact.form.types.mobile' | translate }}</option>
-                  <option value="ecommerce">{{ 'home.contact.form.types.ecommerce' | translate }}</option>
-                  <option value="consulting">{{ 'home.contact.form.types.consulting' | translate }}</option>
-                  <option value="other">{{ 'home.contact.form.types.other' | translate }}</option>
+                <select
+                  class="form-control"
+                  id="subject"
+                  name="subject"
+                  ngModel
+                  required
+                  #subjectModel="ngModel"
+                  [attr.aria-invalid]="
+                    subjectModel.invalid &&
+                    (subjectModel.touched || contactForm.submitted)
+                  "
+                  aria-describedby="subject-error"
+                >
+                  <option value="" disabled selected>
+                    {{ "home.contact.form.selectType" | translate }}
+                  </option>
+                  <option value="web">
+                    {{ "home.contact.form.types.web" | translate }}
+                  </option>
+                  <option value="mobile">
+                    {{ "home.contact.form.types.mobile" | translate }}
+                  </option>
+                  <option value="ecommerce">
+                    {{ "home.contact.form.types.ecommerce" | translate }}
+                  </option>
+                  <option value="consulting">
+                    {{ "home.contact.form.types.consulting" | translate }}
+                  </option>
+                  <option value="other">
+                    {{ "home.contact.form.types.other" | translate }}
+                  </option>
                 </select>
-                <span class="select-arrow"><i class="bi bi-chevron-down"></i></span>
+                <p
+                  id="subject-error"
+                  class="field-error"
+                  *ngIf="
+                    subjectModel.invalid &&
+                    (subjectModel.touched || contactForm.submitted)
+                  "
+                >
+                  {{ "ui.required" | translate }}
+                </p>
+                <span class="select-arrow"
+                  ><i class="bi bi-chevron-down"></i
+                ></span>
               </div>
             </div>
 
             <div class="form-group">
-              <label class="form-label" for="message"><i class="bi bi-chat-text"></i> {{ 'home.contact.form.message' | translate }}</label>
+              <label class="form-label" for="message"
+                ><i class="bi bi-chat-text"></i>
+                {{ "home.contact.form.message" | translate }}</label
+              >
               <div class="textarea-container">
-                <textarea class="form-control" id="message" name="message" ngModel required rows="4"
-                  [placeholder]="'home.contact.form.message' | translate"></textarea>
+                <textarea
+                  class="form-control"
+                  id="message"
+                  name="message"
+                  ngModel
+                  required
+                  #messageModel="ngModel"
+                  [attr.aria-invalid]="
+                    messageModel.invalid &&
+                    (messageModel.touched || contactForm.submitted)
+                  "
+                  aria-describedby="message-error"
+                  rows="4"
+                  [placeholder]="'home.contact.form.message' | translate"
+                ></textarea>
+                <p
+                  id="message-error"
+                  class="field-error"
+                  *ngIf="
+                    messageModel.invalid &&
+                    (messageModel.touched || contactForm.submitted)
+                  "
+                >
+                  {{ "ui.required" | translate }}
+                </p>
                 <span class="textarea-focus-border"></span>
               </div>
             </div>
 
             <div class="form-actions">
-              <button class="submit-button" type="submit" [disabled]="isSubmitting">
+              <button
+                class="submit-button"
+                type="submit"
+                [disabled]="isSubmitting"
+              >
                 <span class="button-content">
-                  <i class="bi" [class.bi-send]="!isSubmitting" [class.bi-arrow-repeat]="isSubmitting" [class.spin]="isSubmitting"></i>
-                  <span>{{ 'home.contact.form.send' | translate }}</span>
+                  <i
+                    class="bi"
+                    [class.bi-send]="!isSubmitting"
+                    [class.bi-arrow-repeat]="isSubmitting"
+                    [class.spin]="isSubmitting"
+                  ></i>
+                  <span>{{ "home.contact.form.send" | translate }}</span>
                 </span>
                 <span class="button-shine"></span>
               </button>
 
-              <div class="alert alert-success" *ngIf="showSuccessMessage">
+              <div
+                class="alert alert-success"
+                role="status"
+                aria-live="polite"
+                *ngIf="showSuccessMessage"
+              >
                 <i class="bi bi-check-circle-fill"></i>
-                <span>{{ 'home.contact.toast.successMessage' | translate }}</span>
+                <span>{{
+                  "home.contact.toast.successMessage" | translate
+                }}</span>
               </div>
-              <div class="alert alert-error" *ngIf="showErrorMessage">
+              <div
+                class="alert alert-error"
+                role="alert"
+                *ngIf="showErrorMessage"
+              >
                 <i class="bi bi-exclamation-triangle-fill"></i>
-                <span>{{ 'home.contact.toast.errorMessage' | translate }}</span>
+                <span>{{ "home.contact.toast.errorMessage" | translate }}</span>
               </div>
             </div>
           </form>
@@ -85,57 +236,105 @@
 
       <div class="contact-info-section">
         <div class="quick-contact">
-          <h3 class="info-title"><i class="bi bi-broadcast"></i> {{ 'home.contact.projectTitle' | translate }}</h3>
+          <h3 class="info-title">
+            <i class="bi bi-broadcast"></i>
+            {{ "home.contact.projectTitle" | translate }}
+          </h3>
 
           <div class="contact-methods">
-            <a class="contact-method email" href="mailto:eduardomuzo123456@gmail.com">
-              <span class="method-icon"><i class="bi bi-envelope-fill"></i></span>
+            <a
+              class="contact-method email"
+              href="mailto:eduardomuzo123456@gmail.com"
+            >
+              <span class="method-icon"
+                ><i class="bi bi-envelope-fill"></i
+              ></span>
               <div class="method-content">
-                <div class="method-title">{{ 'home.contact.methods.email' | translate }}</div>
+                <div class="method-title">
+                  {{ "home.contact.methods.email" | translate }}
+                </div>
                 <div class="method-value">eduardomuzo123456&#64;gmail.com</div>
-                <div class="method-description">{{ 'home.contact.methods.responses.email' | translate }}</div>
+                <div class="method-description">
+                  {{ "home.contact.methods.responses.email" | translate }}
+                </div>
               </div>
-              <span class="method-status"><span class="status-dot active"></span></span>
+              <span class="method-status"
+                ><span class="status-dot active"></span
+              ></span>
             </a>
 
-            <a class="contact-method whatsapp" href="https://wa.me/593999763190" target="_blank">
+            <a
+              class="contact-method whatsapp"
+              href="https://wa.me/593999763190"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <span class="method-icon"><i class="bi bi-whatsapp"></i></span>
               <div class="method-content">
-                <div class="method-title">{{ 'home.contact.methods.whatsapp' | translate }}</div>
+                <div class="method-title">
+                  {{ "home.contact.methods.whatsapp" | translate }}
+                </div>
                 <div class="method-value">+593 99 976 3190</div>
-                <div class="method-description">{{ 'home.contact.methods.responses.whatsapp' | translate }}</div>
+                <div class="method-description">
+                  {{ "home.contact.methods.responses.whatsapp" | translate }}
+                </div>
               </div>
-              <span class="method-status"><span class="status-dot active"></span></span>
+              <span class="method-status"
+                ><span class="status-dot active"></span
+              ></span>
             </a>
 
-            <a class="contact-method linkedin" href="https://www.linkedin.com/in/eduardo-miguel-muzo-6379b2234/" target="_blank">
+            <a
+              class="contact-method linkedin"
+              href="https://www.linkedin.com/in/eduardo-miguel-muzo-6379b2234/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <span class="method-icon"><i class="bi bi-linkedin"></i></span>
               <div class="method-content">
-                <div class="method-title">{{ 'home.contact.methods.linkedin' | translate }}</div>
+                <div class="method-title">
+                  {{ "home.contact.methods.linkedin" | translate }}
+                </div>
                 <div class="method-value">Eduardo Miguel Muzo</div>
-                <div class="method-description">{{ 'home.contact.methods.responses.linkedin' | translate }}</div>
+                <div class="method-description">
+                  {{ "home.contact.methods.responses.linkedin" | translate }}
+                </div>
               </div>
-              <span class="method-status"><span class="status-dot active"></span></span>
+              <span class="method-status"
+                ><span class="status-dot active"></span
+              ></span>
             </a>
           </div>
         </div>
 
         <div class="availability-card">
           <div class="availability-header">
-            <span class="availability-icon"><i class="bi bi-calendar-check"></i></span>
+            <span class="availability-icon"
+              ><i class="bi bi-calendar-check"></i
+            ></span>
             <div class="availability-info">
-              <div class="availability-title">{{ 'home.contact.availability.title' | translate }}</div>
+              <div class="availability-title">
+                {{ "home.contact.availability.title" | translate }}
+              </div>
               <div class="availability-status">
                 <span class="status-indicator">
                   <span class="status-dot active"></span>
-                  <span class="status-text">{{ 'home.contact.availability.title' | translate }}</span>
+                  <span class="status-text">{{
+                    "home.contact.availability.title" | translate
+                  }}</span>
                 </span>
               </div>
             </div>
           </div>
           <div class="availability-details">
-            <div class="detail-item"><i class="bi bi-clock"></i> {{ 'home.contact.availability.response' | translate }}</div>
-            <div class="detail-item"><i class="bi bi-rocket-takeoff"></i> {{ 'home.contact.availability.start' | translate }}</div>
+            <div class="detail-item">
+              <i class="bi bi-clock"></i>
+              {{ "home.contact.availability.response" | translate }}
+            </div>
+            <div class="detail-item">
+              <i class="bi bi-rocket-takeoff"></i>
+              {{ "home.contact.availability.start" | translate }}
+            </div>
           </div>
         </div>
       </div>

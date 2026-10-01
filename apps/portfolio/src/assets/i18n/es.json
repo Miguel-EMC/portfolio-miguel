@@ -3,8 +3,8 @@
     "brandSubtitle": "Desarrollador de software",
     "home": "Inicio",
     "about": "Sobre Mí",
-    "resume": "Resume",
-    "portfolio": "Portafolio",
+    "resume": "Trayectoria",
+    "portfolio": "Proyectos",
     "contact": "Contacto",
     "blog": "Blog"
   },
@@ -25,11 +25,7 @@
         "downloadCV": "Descargar CV"
       },
       "rolePrefix": "Mi enfoque",
-      "roles": [
-        "Desarrollador de software",
-        "Desarrollador backend",
-        "Integraciones con LLMs"
-      ],
+      "roles": ["Software Developer"],
       "status": "Disponible",
       "location": "Quito, Ecuador",
       "role": "Desarrollador de software · Backend, AWS e integraciones con LLMs"
@@ -56,8 +52,8 @@
       }
     },
     "portfolio": {
-      "eyebrow": "Proyectos propios",
-      "title": "Proyectos Destacados",
+      "eyebrow": "TRABAJO Y PROYECTOS",
+      "title": "Proyectos destacados",
       "subtitle": "Una selección de mis mejores trabajos",
       "viewAll": "Ver Todos los Proyectos",
       "viewProject": "Ver Proyecto",
@@ -65,9 +61,9 @@
     },
     "blog": {
       "eyebrow": "Blog",
-      "title": "Un espacio aparte",
-      "subtitle": "Donde escribo con más profundidad sobre IA en producción, cloud y sistemas backend — sin las prisas del portafolio.",
-      "viewAll": "Entrar al blog",
+      "title": "Notas de desarrollo",
+      "subtitle": "Experiencias y aprendizajes sobre backend, AWS e IA aplicada.",
+      "viewAll": "Explorar el blog",
       "empty": "Todavía no hay posts publicados."
     },
     "clientProjects": {
@@ -98,15 +94,15 @@
         "whatsapp": "WhatsApp",
         "linkedin": "LinkedIn",
         "responses": {
-          "email": "Respuesta en 24h",
-          "whatsapp": "Respuesta inmediata",
-          "linkedin": "Red profesional"
+          "email": "Escríbeme sobre tu proyecto.",
+          "whatsapp": "Conversemos sobre los detalles.",
+          "linkedin": "Conectemos profesionalmente."
         }
       },
       "availability": {
         "title": "Disponible para proyectos",
-        "response": "Respuesta: < 24h",
-        "start": "Inicio: Inmediato"
+        "response": "Te responderé cuando esté disponible.",
+        "start": "Coordinemos alcance y disponibilidad."
       },
       "form": {
         "title": "Envíame un mensaje",
@@ -165,62 +161,70 @@
   },
   "experiences": {
     "fullstack-lateral": {
-      "title": "AI Engineer | Backend",
+      "title": "Desarrollador de software · Backend",
       "subtitle": "Münster Mind Latinoamérica",
-      "date": "Jun 2024 - Actualidad",
+      "date": "jun 2024 – actualidad",
+      "kind": "Trabajo actual",
       "tasks": [
-        "Diseñé y construí la primera versión en producción de un agente de IA Text-to-SQL basado en grafos usando LangGraph y AWS Bedrock, integrado con un backend FastAPI, automatizando gran parte de la creación manual de consultas SQL.",
-        "Desarrollé servicios backend serverless en AWS Lambda que orquestan APIs de proveedores LLM (AWS Bedrock, OpenAI, Gemini) y los exponen mediante REST APIs consumidas por las aplicaciones web (Angular) y móvil (Flutter).",
-        "Construí y mantuve servicios backend serverless con AWS Lambda y Step Functions usando NestJS y Prisma ORM, sirviendo tanto a la aplicación móvil como a la plataforma web.",
-        "Desarrollé y publiqué una aplicación móvil multiplataforma con Flutter para Android e iOS, gestionando el ciclo completo de publicación en Google Play Store y Apple App Store.",
-        "Desplegué infraestructura en la nube con Terraform (Lambda, S3, Step Functions) e implementé pipelines de CI/CD con monitoreo en Amazon CloudWatch y Google Cloud Platform."
+        "Desarrollo servicios y APIs REST en AWS Lambda para aplicaciones Angular y Flutter.",
+        "Integro distintos modelos de lenguaje mediante AWS Bedrock y APIs de OpenAI, Anthropic y Gemini.",
+        "Construyo funcionalidades con Python y NestJS, orquestación en Step Functions y acceso a datos con Prisma.",
+        "Trabajo con Terraform, CI/CD y CloudWatch; desarrollé y publiqué una aplicación Flutter en Google Play y App Store."
       ]
     },
     "billusos-dev": {
-      "title": "Backend Developer (Freelance, part-time)",
-      "subtitle": "Billusos",
-      "date": "Dic 2023 - Nov 2024",
+      "title": "Backend Developer",
+      "subtitle": "Billusos · Remoto",
+      "date": "dic 2023 – nov 2024",
+      "kind": "Freelance a tiempo parcial",
       "tasks": [
-        "Desarrollé y optimicé servicios backend en Python y Django para la generación automatizada de reportes financieros y dashboards operacionales, eliminando procesos manuales.",
-        "Construí y mantuve funcionalidades en la aplicación móvil con React Native, asegurando integración fluida con los endpoints REST y la lógica de negocio del servidor.",
-        "Gestioné la capa de persistencia de datos y optimicé consultas PostgreSQL complejas para reportería de inteligencia de negocio, mejorando los tiempos de respuesta de los dashboards."
+        "Construí servicios Python/Django para reportes financieros y paneles de operación.",
+        "Integré funcionalidades React Native con APIs REST y trabajé en consultas PostgreSQL para los reportes."
       ]
     },
     "junior-fullstack": {
-      "title": "Software Engineer",
-      "subtitle": "Centro Ecuatoriano de Eficiencia de Recursos (CEER)",
-      "date": "Feb 2023 - Jul 2023",
+      "title": "Full Stack Developer",
+      "subtitle": "CEER · CONAFIPS SARAS",
+      "date": "ene 2023 – jun 2023",
+      "kind": "Contrato temporal",
       "tasks": [
-        "Desarrollé reportes dinámicos y dashboards interactivos mediante consultas optimizadas a la base de datos PostgreSQL para la plataforma CONAFIPS SARAS",
-        "Implementé funcionalidades tanto en Backend (Laravel/Lumen) como en Frontend (Angular), asegurando la visualización correcta de métricas clave",
-        "Participé en la integración de flujos de datos para el cumplimiento de lógica de negocio financiera"
+        "Desarrollé pantallas y funcionalidades de SARAS con PHP/Laravel y Angular.",
+        "Preparé consultas y scripts para la gestión de datos y generación de reportes."
+      ]
+    },
+    "latin-trails": {
+      "title": "Pasante de desarrollo frontend",
+      "subtitle": "Latin Trails · Quito",
+      "date": "sep 2022 – dic 2022",
+      "kind": "Pasantía",
+      "tasks": [
+        "Actualicé el sitio web con Nuxt y Vue y estructuré coordenadas, imágenes y descripciones para mapas interactivos."
+      ]
+    },
+    "it-ecuador": {
+      "title": "Pasante en sistemas",
+      "subtitle": "Información Tecnológica del Ecuador S.A. · Quito",
+      "date": "abr 2022 – ago 2022",
+      "kind": "Pasantía",
+      "tasks": [
+        "Actualicé documentación de software, configuré herramientas internas y contribuí a una aplicación auxiliar del sistema CG/Web."
       ]
     }
   },
   "education": {
     "computer-engineering": {
-      "title": "Computación · En curso",
+      "title": "Computación",
       "institution": "Escuela Politécnica Nacional",
-      "date": "Graduación esperada: 2027",
-      "description": "Formación integral en ciencias de la computación con énfasis en desarrollo de software, algoritmos avanzados, inteligencia artificial y análisis de sistemas complejos.",
-      "achievements": [
-        "Énfasis en algoritmos, estructuras de datos y fundamentos matemáticos de IA",
-        "Proyectos en Machine Learning y sistemas de IA",
-        "Desarrollo de aplicaciones full-stack",
-        "Participación en competencias de programación"
-      ]
+      "date": "Graduación prevista: 2027",
+      "description": "Actualmente cursando la carrera.",
+      "achievements": []
     },
     "software-development": {
       "title": "Tecnología Superior en Desarrollo de Software",
       "institution": "Escuela Politécnica Nacional",
       "date": "2023",
-      "description": "Formación técnica especializada en desarrollo de aplicaciones web y móviles, bases de datos, metodologías ágiles y arquitecturas de software modernas.",
-      "achievements": [
-        "Graduado 2023 — base sólida en desarrollo web y backend",
-        "Dominio de Angular, Django, FastAPI y APIs RESTful",
-        "Diseño y optimización de bases de datos con PostgreSQL",
-        "Introducción a infraestructura cloud y prácticas DevOps"
-      ]
+      "description": "Formación en desarrollo de software; proyecto de titulación OffHouse, un marketplace con backend Laravel.",
+      "achievements": []
     },
     "high-school": {
       "title": "Bachillerato General Unificado",
@@ -233,6 +237,12 @@
         "Primer contacto con programación en Python",
         "Liderazgo estudiantil y trabajo en equipo"
       ]
+    },
+    "nde": {
+      "title": "Network Defense Essentials",
+      "institution": "EC-Council",
+      "date": "2026",
+      "description": "Certificación en fundamentos de defensa de redes."
     }
   },
   "common": {
@@ -319,7 +329,7 @@
     },
     "project": {
       "viewDetails": "Ver Detalles",
-      "comingSoon": "En construcción",
+      "comingSoon": "Planificado",
       "personal": "Personal",
       "professional": "Profesional",
       "viewProject": "Ver Proyecto",
@@ -364,6 +374,94 @@
       "achievements": "Logros",
       "viewMore": "Ver Más Educación",
       "viewLess": "Ver Menos"
+    }
+  },
+  "ui": {
+    "theme": "Tema",
+    "system": "Sistema",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "skip": "Saltar al contenido",
+    "menu": "Abrir o cerrar menú",
+    "navigation": "Navegación",
+    "backTop": "Volver arriba",
+    "footerDescription": "Desarrollador de software. APIs, AWS e integración de modelos de lenguaje desde Quito, Ecuador.",
+    "careerEyebrow": "EXPERIENCIA Y FORMACIÓN",
+    "careerTitle": "Mi trayectoria",
+    "careerIntro": "Desarrollo de software desde abril de 2022: pasantías, proyectos, un contrato temporal y trabajo profesional.",
+    "careerNavigation": "Secciones de trayectoria",
+    "experience": "Experiencia profesional",
+    "experienceNote": "Las modalidades y fechas se muestran por separado; el trabajo freelance coincidió parcialmente con mi puesto actual.",
+    "skillTitle": "Tecnologías y enfoque",
+    "education": "Educación y certificación",
+    "studying": "En curso",
+    "completed": "Título obtenido",
+    "certified": "Certificación",
+    "exploreCareer": "Ver trayectoria completa",
+    "skillIntro": "Las herramientas que uso para construir APIs, aplicaciones y servicios en la nube.",
+    "required": "Completa este campo.",
+    "invalidEmail": "Introduce un correo válido.",
+    "portfolioTitle": "Proyectos y trabajo construido",
+    "portfolioIntro": "Aplicaciones, servicios y proyectos propios. Explora el contexto, las tecnologías y mi participación.",
+    "loadError": "No se pudo cargar el contenido. Intenta de nuevo.",
+    "retry": "Reintentar",
+    "previous": "Imagen anterior",
+    "next": "Imagen siguiente",
+    "skills": {
+      "backend": {
+        "title": "Backend y APIs",
+        "description": "Trabajo actual: lógica del servidor, servicios e integración de datos."
+      },
+      "cloud": {
+        "title": "AWS y despliegues",
+        "description": "Servicios serverless, infraestructura y operación."
+      },
+      "applications": {
+        "title": "Aplicaciones y datos",
+        "description": "Aplicaciones web y móviles conectadas a servicios backend."
+      },
+      "llms": {
+        "title": "Integraciones con LLMs",
+        "description": "Modelos de diferentes proveedores a través de APIs del servidor."
+      },
+      "projects": {
+        "title": "Experiencia en proyectos",
+        "description": "Herramientas utilizadas en otros empleos y proyectos propios."
+      },
+      "learning": {
+        "title": "Especialización en desarrollo",
+        "description": "LangGraph en un proyecto iniciado; profundizando en seguridad de IA y arquitectura cloud."
+      }
+    },
+    "aboutTitle": "Sobre mí",
+    "aboutBody": "Soy estudiante de Computación en la EPN. Mi experiencia profesional se centra en APIs, AWS, aplicaciones e integraciones con modelos de lenguaje. En proyectos propios construí una demo RAG y comencé a explorar LangGraph. Mi dirección de especialización es AI Security Engineering y arquitectura cloud.",
+    "toc": "En este artículo",
+    "share": "Compartir artículo",
+    "clearSearch": "Borrar búsqueda",
+    "removeFilter": "Quitar filtro",
+    "categories": "Categorías",
+    "categoryNames": {
+      "technology": "Tecnología",
+      "programming": "Programación",
+      "web-development": "Desarrollo web",
+      "mobile-development": "Desarrollo móvil",
+      "devops": "DevOps",
+      "career": "Carrera",
+      "tutorials": "Tutoriales",
+      "general": "General"
+    },
+    "author": "Sobre el autor",
+    "authorBio": "Desarrollador de software y estudiante de Computación. Trabajo con APIs, AWS e integraciones con LLMs, y comparto lo que aprendo sobre backend y seguridad de IA.",
+    "reading": "min de lectura",
+    "upcoming": {
+      "serverless-rag-agent": {
+        "title": "RAG serverless en AWS",
+        "description": "Proyecto planificado para explorar recuperación de documentos en infraestructura serverless."
+      },
+      "retrieval-engine-from-scratch": {
+        "title": "Motor de recuperación desde cero",
+        "description": "Proyecto planificado para profundizar en BM25, embeddings y evaluación."
+      }
     }
   }
 }

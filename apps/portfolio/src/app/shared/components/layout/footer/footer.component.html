@@ -2,36 +2,45 @@
   <div class="footer-container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <span class="logo">M</span>
-        <p class="description">
-          Ingeniero de Software enfocado en Backend y IA. Construyendo el futuro de la comunidad tecnológica.
-        </p>
+        <a routerLink="/home" class="footer-wordmark">EM<span>Code</span></a>
+        <p class="description">{{ "ui.footerDescription" | translate }}</p>
         <div class="social-links">
-          <a href="https://linkedin.com/in/eduardomuzo" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
-          <a href="https://github.com/Miguel-EMC" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
-          <a href="mailto:eduardomuzo123456@gmail.com" title="Email"><i class="bi bi-envelope-fill"></i></a>
+          <a
+            href="https://www.linkedin.com/in/eduardo-miguel-muzo-6379b2234/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            ><i class="bi bi-linkedin"></i></a
+          ><a
+            href="https://github.com/Miguel-EMC"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            ><i class="bi bi-github"></i></a
+          ><a href="mailto:eduardomuzo123456@gmail.com" aria-label="Email"
+            ><i class="bi bi-envelope"></i
+          ></a>
         </div>
       </div>
-
-      <div class="footer-links">
-        <h4 class="footer-title">Navegación</h4>
-        <a (click)="scrollToTop()">Inicio</a>
-        <a routerLink="/resume">Resume</a>
-        <a routerLink="/portfolio">Portafolio</a>
-      </div>
-
-      <div class="footer-links">
-        <h4 class="footer-title">Plataforma</h4>
-        <a routerLink="/blog">Blog</a>
-      </div>
+      <nav class="footer-links" [attr.aria-label]="'ui.navigation' | translate">
+        <a routerLink="/home">{{ "nav.home" | translate }}</a
+        ><a routerLink="/resume">{{ "nav.resume" | translate }}</a
+        ><a routerLink="/portfolio">{{ "nav.portfolio" | translate }}</a
+        ><a routerLink="/blog">{{ "nav.blog" | translate }}</a
+        ><a routerLink="/contact">{{ "nav.contact" | translate }}</a>
+      </nav>
     </div>
-
     <div class="footer-bottom">
-      <p>© 2025 MiguelDev. Todos los derechos reservados.</p>
+      <p>© {{ year }} Miguel Muzo · EMCode</p>
+      <span>Quito, Ecuador</span>
     </div>
   </div>
 </footer>
-
-<button class="scroll-to-top" [class.visible]="showScrollButton" (click)="scrollToTop()" aria-label="Volver arriba">
+<button
+  class="scroll-to-top"
+  [class.visible]="showScrollButton"
+  (click)="scrollToTop()"
+  [attr.aria-label]="'ui.backTop' | translate"
+>
   <i class="bi bi-arrow-up"></i>
 </button>

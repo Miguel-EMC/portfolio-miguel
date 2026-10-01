@@ -1,24 +1,38 @@
 @switch (variant) {
-
-  @case ('featured') {
+  @case ("featured") {
     <div class="project-card featured-card" *ngIf="project as p">
       <div class="card-image" *ngIf="p.images[0]; else featuredGlow">
         <img
           [src]="p.images[0]"
           [alt]="p.title"
           class="project-image"
+          loading="lazy"
         />
         <div class="image-overlay">
           <div class="overlay-content">
             <a class="overlay-button primary" [routerLink]="detailLink">
               <i class="bi bi-eye"></i>
-              <span>{{ 'portfolio.project.viewDetails' | translate }}</span>
+              <span>{{ "portfolio.project.viewDetails" | translate }}</span>
             </a>
             <div class="overlay-links">
-              <a *ngIf="p.githubUrl" [href]="p.githubUrl" target="_blank" class="overlay-link">
+              <a
+                *ngIf="p.githubUrl"
+                [href]="p.githubUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="overlay-link"
+                [attr.aria-label]="p.title"
+              >
                 <i class="bi bi-github"></i>
               </a>
-              <a *ngIf="p.liveUrl" [href]="p.liveUrl" target="_blank" class="overlay-link">
+              <a
+                *ngIf="p.liveUrl"
+                [href]="p.liveUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="overlay-link"
+                [attr.aria-label]="p.title"
+              >
                 <i class="bi bi-box-arrow-up-right"></i>
               </a>
             </div>
@@ -27,22 +41,42 @@
       </div>
 
       <ng-template #featuredGlow>
-        <a class="card-glow" [class]="'category-' + category" [routerLink]="detailLink">
+        <a
+          class="card-glow"
+          [class]="'category-' + category"
+          [routerLink]="detailLink"
+        >
           <span class="category-icon lg">
-            <i [class]="p.type === 'personal' ? 'bi bi-person' : 'bi bi-briefcase'"></i>
+            <i
+              [class]="
+                p.type === 'personal' ? 'bi bi-person' : 'bi bi-briefcase'
+              "
+            ></i>
           </span>
         </a>
       </ng-template>
 
       <div class="card-content">
         <span class="category-badge" [class]="p.type">
-          <i [class]="p.type === 'personal' ? 'bi bi-person' : 'bi bi-briefcase'"></i>
-          {{ p.type === 'personal' ? ('portfolio.project.personal' | translate) : ('portfolio.project.professional' | translate) }}
+          <i
+            [class]="p.type === 'personal' ? 'bi bi-person' : 'bi bi-briefcase'"
+          ></i>
+          {{
+            p.type === "personal"
+              ? ("portfolio.project.personal" | translate)
+              : ("portfolio.project.professional" | translate)
+          }}
         </span>
 
-        <h3 class="project-title">{{ p.title }}</h3>
+        <h3 class="project-title">
+          <a [routerLink]="detailLink">{{ p.title }}</a>
+        </h3>
         <p class="project-description">{{ p.description }}</p>
 
+        <a class="project-readmore" [routerLink]="detailLink"
+          >{{ "portfolio.project.viewDetails" | translate }}
+          <i class="bi bi-arrow-right"></i
+        ></a>
         <div class="tech-stack">
           <div class="tech-item" *ngFor="let tech of stackTags">
             <i [class]="getTechIcon(tech)"></i>
@@ -56,18 +90,22 @@
     </div>
   }
 
-  @case ('coming-soon') {
+  @case ("coming-soon") {
     <div class="project-card coming-soon-card" *ngIf="upcoming as u">
       <div class="card-glow align-bottom" [class]="'category-' + category">
         <span class="status-chip">
           <span class="status-dot"></span>
-          {{ 'portfolio.project.comingSoon' | translate }}
+          {{ "portfolio.project.comingSoon" | translate }}
         </span>
       </div>
 
       <div class="card-content">
-        <h3 class="project-title">{{ u.title }}</h3>
-        <p class="project-description">{{ u.description }}</p>
+        <h3 class="project-title">
+          {{ "ui.upcoming." + u.id + ".title" | translate }}
+        </h3>
+        <p class="project-description">
+          {{ "ui.upcoming." + u.id + ".description" | translate }}
+        </p>
 
         <div class="tech-stack">
           <div class="tech-item" *ngFor="let tech of stackTags">
@@ -79,11 +117,17 @@
     </div>
   }
 
-  @case ('client-secondary') {
-    <a class="project-card client-card" *ngIf="project as p" [routerLink]="detailLink">
+  @case ("client-secondary") {
+    <a
+      class="project-card client-card"
+      *ngIf="project as p"
+      [routerLink]="detailLink"
+    >
       <div class="card-glow small" [class]="'category-' + category">
         <span class="category-icon">
-          <i [class]="p.type === 'personal' ? 'bi bi-person' : 'bi bi-briefcase'"></i>
+          <i
+            [class]="p.type === 'personal' ? 'bi bi-person' : 'bi bi-briefcase'"
+          ></i>
         </span>
       </div>
 
@@ -92,10 +136,11 @@
         <p class="project-description">{{ p.description }}</p>
 
         <div class="tech-stack compact">
-          <span class="tech-tag" *ngFor="let tech of stackTags">{{ tech }}</span>
+          <span class="tech-tag" *ngFor="let tech of stackTags">{{
+            tech
+          }}</span>
         </div>
       </div>
     </a>
   }
-
 }

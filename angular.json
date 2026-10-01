@@ -29,10 +29,7 @@
             "outputPath": "dist/portfolio",
             "index": "apps/portfolio/src/index.html",
             "browser": "apps/portfolio/src/main.ts",
-            "polyfills": [
-              "zone.js",
-              "@angular/localize/init"
-            ],
+            "polyfills": ["zone.js", "@angular/localize/init"],
             "tsConfig": "apps/portfolio/tsconfig.app.json",
             "assets": [
               "apps/portfolio/src/favicon.ico",
@@ -45,9 +42,9 @@
             "styles": [
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/highlight.js/styles/atom-one-dark.css",
-              "apps/portfolio/src/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/bootstrap-icons/font/bootstrap-icons.min.css"
+              "node_modules/bootstrap-icons/font/bootstrap-icons.min.css",
+              "apps/portfolio/src/styles.scss"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
@@ -62,7 +59,7 @@
                 "scripts": true,
                 "styles": {
                   "minify": true,
-                  "inlineCritical": true
+                  "inlineCritical": false
                 },
                 "fonts": {
                   "inline": false

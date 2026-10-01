@@ -1,13 +1,27 @@
-import { Component, OnInit, OnDestroy, inject, signal, ViewEncapsulation, PLATFORM_ID, HostListener } from '@angular/core';
+import { LanguageService } from '../../../shared/services/language.service';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  inject,
+  signal,
+  ViewEncapsulation,
+  PLATFORM_ID,
+  HostListener,
+} from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { Subject, takeUntil, switchMap } from 'rxjs';
+import { Subject, takeUntil, switchMap, combineLatest } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { BlogService } from '../../../core/services/blog.service';
 import { SeoService } from '../../../core/services/seo.service';
-import { BlogPost, BlogPostMeta, BLOG_CATEGORIES } from '../../../interfaces/blog.interface';
+import {
+  BlogPost,
+  BlogPostMeta,
+  BLOG_CATEGORIES,
+} from '../../../interfaces/blog.interface';
 
 interface TocItem {
   id: string;
@@ -22,16 +36,33 @@ interface TocItem {
   imports: [CommonModule, RouterModule, TranslateModule],
   templateUrl: './blog-post.component.html',
   styleUrls: ['./blog-post.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class BlogPostComponent implements OnInit, OnDestroy {
   private blogService = inject(BlogService);
   private seoService = inject(SeoService);
+  private language = inject(LanguageService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private sanitizer = inject(DomSanitizer);
   private destroy$ = new Subject<void>();
   private platformId = inject(PLATFORM_ID);
+  private pendingTimers = new Set<ReturnType<typeof setTimeout>>();
+  private schedule(
+    callback: () => void,
+    delay: number,
+  ): ReturnType<typeof setTimeout> {
+    const id = setTimeout(() => {
+      this.pendingTimers.delete(id);
+      callback();
+    }, delay);
+    this.pendingTimers.add(id);
+    return id;
+  }
+  private clearPendingTimers(): void {
+    this.pendingTimers.forEach((id) => clearTimeout(id));
+    this.pendingTimers.clear();
+  }
   private observer?: IntersectionObserver;
 
   post = signal<BlogPost | null>(null);
@@ -57,7 +88,7 @@ export class BlogPostComponent implements OnInit, OnDestroy {
   }
 
   onRelatedImageError(slug: string): void {
-    this.relatedImageErrors.update(errors => ({ ...errors, [slug]: true }));
+    this.relatedImageErrors.update((errors) => ({ ...errors, [slug]: true }));
   }
 
   ngOnInit(): void {
@@ -66,55 +97,60 @@ export class BlogPostComponent implements OnInit, OnDestroy {
       window.addEventListener('scroll', this.onScroll, { passive: true });
     }
 
-    this.route.paramMap.pipe(
-      takeUntil(this.destroy$),
-      switchMap(params => {
-        const slug = params.get('slug');
-        if (!slug) {
-          this.error.set('Post not found');
+    combineLatest([this.route.paramMap, this.language.currentLanguage$])
+      .pipe(
+        switchMap(([params]) => {
+          const slug = params.get('slug');
+          if (!slug) {
+            this.error.set('Post not found');
+            this.isLoading.set(false);
+            return [];
+          }
+          this.clearPendingTimers();
+          this.isLoading.set(true);
+          this.error.set(null);
+          // Reset image error, reading states, and TOC when routing between posts
+          this.imageError.set(false);
+          this.relatedImageErrors.set({});
+          this.readingProgress.set(0);
+          this.toc.set([]);
+          this.disposeCharts();
+          this.closeDiagramLightbox();
+
+          if (this.observer) {
+            this.observer.disconnect();
+          }
+
+          return this.blogService.getPostBySlug(slug);
+        }),
+        takeUntil(this.destroy$),
+      )
+      .subscribe({
+        next: (post) => {
+          if (post) {
+            this.post.set(post);
+            this.updateSeo(post);
+            this.loadRelatedPosts(post.slug);
+            this.loadReactions(post.slug);
+            this.addCopyButtons();
+            this.buildToc();
+            this.renderMermaidDiagrams();
+            this.renderCharts();
+          } else {
+            this.error.set('Post not found');
+          }
           this.isLoading.set(false);
-          return [];
-        }
-        this.isLoading.set(true);
-        // Reset image error, reading states, and TOC when routing between posts
-        this.imageError.set(false);
-        this.relatedImageErrors.set({});
-        this.readingProgress.set(0);
-        this.toc.set([]);
-        this.disposeCharts();
-        this.closeDiagramLightbox();
-
-        if (this.observer) {
-          this.observer.disconnect();
-        }
-
-        return this.blogService.getPostBySlug(slug);
-      })
-    ).subscribe({
-      next: (post) => {
-        if (post) {
-          this.post.set(post);
-          this.updateSeo(post);
-          this.loadRelatedPosts(post.slug);
-          this.loadReactions(post.slug);
-          this.addCopyButtons();
-          this.buildToc();
-          this.renderMermaidDiagrams();
-          this.renderCharts();
-        } else {
-          this.error.set('Post not found');
-        }
-        this.isLoading.set(false);
-      },
-      error: (err) => {
-        console.error('Failed to load post:', err);
-        this.error.set('Failed to load post');
-        this.isLoading.set(false);
-      }
-    });
+        },
+        error: (err) => {
+          console.error('Failed to load post:', err);
+          this.error.set('Failed to load post');
+          this.isLoading.set(false);
+        },
+      });
   }
 
   ngOnDestroy(): void {
+    this.clearPendingTimers();
     this.destroy$.next();
     this.destroy$.complete();
 
@@ -133,12 +169,14 @@ export class BlogPostComponent implements OnInit, OnDestroy {
   }
 
   private disposeCharts(): void {
-    this.chartRoots.forEach(root => root.dispose());
+    this.chartRoots.forEach((root) => root.dispose());
     this.chartRoots = [];
   }
 
   private onScroll = (): void => {
-    const totalHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const totalHeight =
+      document.documentElement.scrollHeight -
+      document.documentElement.clientHeight;
     if (totalHeight > 0) {
       const percentage = (window.scrollY / totalHeight) * 100;
       this.readingProgress.set(percentage);
@@ -148,9 +186,10 @@ export class BlogPostComponent implements OnInit, OnDestroy {
   };
 
   private loadRelatedPosts(currentSlug: string): void {
-    this.blogService.getRelatedPosts(currentSlug, 3).pipe(
-      takeUntil(this.destroy$)
-    ).subscribe(posts => this.relatedPosts.set(posts));
+    this.blogService
+      .getRelatedPosts(currentSlug, 3)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((posts) => this.relatedPosts.set(posts));
   }
 
   private updateSeo(post: BlogPost): void {
@@ -163,17 +202,25 @@ export class BlogPostComponent implements OnInit, OnDestroy {
       updatedAt: post.updatedAt,
       category: post.category,
       tags: post.tags,
-      slug: post.slug
+      slug: post.slug,
     });
   }
 
   getCategoryInfo(categoryId: string) {
-    return BLOG_CATEGORIES.find(c => c.id === categoryId);
+    return BLOG_CATEGORIES.find((c) => c.id === categoryId);
   }
 
   // Deterministic color per tag (same tag = same color everywhere), pulled
   // from the existing blog category palette — variety without randomness.
-  private readonly tagPalette = ['#3B82F6', '#10B981', '#8B5CF6', '#F59E0B', '#EF4444', '#EC4899', '#06B6D4'];
+  private readonly tagPalette = [
+    '#3B82F6',
+    '#10B981',
+    '#8B5CF6',
+    '#F59E0B',
+    '#EF4444',
+    '#EC4899',
+    '#06B6D4',
+  ];
 
   getTagColor(tag: string): string {
     let hash = 0;
@@ -184,11 +231,14 @@ export class BlogPostComponent implements OnInit, OnDestroy {
   }
 
   formatDate(date: Date): string {
-    return new Intl.DateTimeFormat('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    }).format(new Date(date));
+    return new Intl.DateTimeFormat(
+      this.language.getCurrentLanguage() === 'es' ? 'es-EC' : 'en-US',
+      {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      },
+    ).format(new Date(date));
   }
 
   shareOnTwitter(): void {
@@ -239,14 +289,16 @@ export class BlogPostComponent implements OnInit, OnDestroy {
     } else {
       localStorage.removeItem(key);
     }
-    this.reactions.update(r => ({ ...r, [id]: active }));
+    this.reactions.update((r) => ({ ...r, [id]: active }));
   }
 
   get feedbackMailto(): string {
     const post = this.post();
-    const subject = encodeURIComponent(`Sugerencia sobre: ${post?.title ?? 'el blog'}`);
+    const subject = encodeURIComponent(
+      `Sugerencia sobre: ${post?.title ?? 'el blog'}`,
+    );
     const body = encodeURIComponent(
-      `Hola Miguel,\n\nTengo una sugerencia sobre el artículo "${post?.title ?? ''}"${isPlatformBrowser(this.platformId) ? ' (' + window.location.href + ')' : ''}:\n\n`
+      `Hola Miguel,\n\nTengo una sugerencia sobre el artículo "${post?.title ?? ''}"${isPlatformBrowser(this.platformId) ? ' (' + window.location.href + ')' : ''}:\n\n`,
     );
     return `mailto:eduardomuzo123456@gmail.com?subject=${subject}&body=${body}`;
   }
@@ -263,7 +315,7 @@ export class BlogPostComponent implements OnInit, OnDestroy {
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
     }
   }
@@ -272,7 +324,7 @@ export class BlogPostComponent implements OnInit, OnDestroy {
     if (!isPlatformBrowser(this.platformId)) return;
 
     // Wait slightly to make sure the markdown innerHTML is fully rendered in the DOM
-    setTimeout(() => {
+    this.schedule(() => {
       const postContentEl = document.querySelector('.post-content');
       if (!postContentEl) return;
 
@@ -290,7 +342,7 @@ export class BlogPostComponent implements OnInit, OnDestroy {
             .replace(/[\u0300-\u036f]/g, '')
             .replace(/[^a-z0-9]+/g, '-')
             .replace(/(^-|-$)/g, ''); // remove leading/trailing dashes
-          
+
           id = `toc-${index}-${slug}`;
           heading.setAttribute('id', id);
         }
@@ -299,7 +351,7 @@ export class BlogPostComponent implements OnInit, OnDestroy {
           id: id,
           text: heading.textContent?.trim() || '',
           level: heading.tagName.toLowerCase() === 'h2' ? 2 : 3,
-          active: false
+          active: false,
         });
       });
 
@@ -316,7 +368,7 @@ export class BlogPostComponent implements OnInit, OnDestroy {
     }
 
     const headingElements: Element[] = [];
-    this.toc().forEach(item => {
+    this.toc().forEach((item) => {
       const el = document.getElementById(item.id);
       if (el) headingElements.push(el);
     });
@@ -326,70 +378,77 @@ export class BlogPostComponent implements OnInit, OnDestroy {
     const options = {
       root: null,
       rootMargin: '-100px 0px -70% 0px',
-      threshold: 0
+      threshold: 0,
     };
 
     this.observer = new IntersectionObserver((entries) => {
       // Find the first intersecting entry
-      const intersectingEntry = entries.find(entry => entry.isIntersecting);
+      const intersectingEntry = entries.find((entry) => entry.isIntersecting);
       if (intersectingEntry) {
         const id = intersectingEntry.target.getAttribute('id');
         if (id) {
-          this.toc.update(items =>
-            items.map(item => ({
+          this.toc.update((items) =>
+            items.map((item) => ({
               ...item,
-              active: item.id === id
-            }))
+              active: item.id === id,
+            })),
           );
         }
       }
     }, options);
 
-    headingElements.forEach(el => this.observer?.observe(el));
+    headingElements.forEach((el) => this.observer?.observe(el));
   }
 
   private addCopyButtons(): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    
+
     // Wait for the next tick to ensure the DOM is updated via innerHTML
-    setTimeout(() => {
+    this.schedule(() => {
       const postContentEl = document.querySelector('.post-content');
       if (!postContentEl) return;
-      
-      const preElements = postContentEl.querySelectorAll<HTMLPreElement>('pre:not(.mermaid-source):not(.chart-spec)');
+
+      const preElements = postContentEl.querySelectorAll<HTMLPreElement>(
+        'pre:not(.mermaid-source):not(.chart-spec)',
+      );
       preElements.forEach((pre) => {
         // Prevent duplicate copy buttons
         if (pre.querySelector('.copy-code-btn')) return;
-        
+
         // Relative position container for absolute position of copy button
         pre.style.position = 'relative';
-        
+
         // Create button
         const button = document.createElement('button');
         button.className = 'copy-code-btn';
         button.type = 'button';
         button.setAttribute('aria-label', 'Copy code');
         button.innerHTML = '<i class="bi bi-clipboard"></i><span>Copy</span>';
-        
+
         // Retrieve code content to copy
         const codeEl = pre.querySelector('code');
         const codeText = codeEl ? codeEl.innerText : '';
-        
+
         // Add click listener
         button.addEventListener('click', () => {
-          navigator.clipboard.writeText(codeText).then(() => {
-            button.innerHTML = '<i class="bi bi-check2"></i><span>Copied!</span>';
-            button.classList.add('copied');
-            
-            setTimeout(() => {
-              button.innerHTML = '<i class="bi bi-clipboard"></i><span>Copy</span>';
-              button.classList.remove('copied');
-            }, 2000);
-          }).catch(err => {
-            console.error('Could not copy code text: ', err);
-          });
+          navigator.clipboard
+            .writeText(codeText)
+            .then(() => {
+              button.innerHTML =
+                '<i class="bi bi-check2"></i><span>Copied!</span>';
+              button.classList.add('copied');
+
+              this.schedule(() => {
+                button.innerHTML =
+                  '<i class="bi bi-clipboard"></i><span>Copy</span>';
+                button.classList.remove('copied');
+              }, 2000);
+            })
+            .catch((err) => {
+              console.error('Could not copy code text: ', err);
+            });
         });
-        
+
         pre.appendChild(button);
       });
     }, 200);
@@ -398,11 +457,13 @@ export class BlogPostComponent implements OnInit, OnDestroy {
   private renderMermaidDiagrams(): void {
     if (!isPlatformBrowser(this.platformId)) return;
 
-    setTimeout(async () => {
+    this.schedule(async () => {
       const postContentEl = document.querySelector('.post-content');
       if (!postContentEl) return;
 
-      const containers = Array.from(postContentEl.querySelectorAll<HTMLElement>('.mermaid-diagram'));
+      const containers = Array.from(
+        postContentEl.querySelectorAll<HTMLElement>('.mermaid-diagram'),
+      );
       if (containers.length === 0) return;
 
       // Wait for webfonts to load first — mermaid measures label text at render
@@ -417,14 +478,17 @@ export class BlogPostComponent implements OnInit, OnDestroy {
         try {
           await Promise.all([
             fontSet.load('400 16px Inter'),
-            fontSet.load('700 16px Inter')
+            fontSet.load('700 16px Inter'),
           ]);
           await fontSet.ready;
-        } catch { /* ignore */ }
+        } catch {
+          /* ignore */
+        }
       }
 
       const { default: mermaid } = await import('mermaid');
       mermaid.initialize({
+        securityLevel: 'strict',
         startOnLoad: false,
         theme: 'dark',
         fontFamily: 'Inter, sans-serif',
@@ -440,16 +504,20 @@ export class BlogPostComponent implements OnInit, OnDestroy {
           mainBkg: '#22262f',
           nodeBorder: '#34D399',
           clusterBkg: '#1a1d24',
-          edgeLabelBackground: '#1a1d24'
-        }
+          edgeLabelBackground: '#1a1d24',
+        },
       });
 
       for (const [index, container] of containers.entries()) {
-        const source = container.querySelector('.mermaid-source')?.textContent ?? '';
+        const source =
+          container.querySelector('.mermaid-source')?.textContent ?? '';
         if (!source.trim()) continue;
 
         try {
-          const { svg } = await mermaid.render(`mermaid-diagram-${index}`, source.trim());
+          const { svg } = await mermaid.render(
+            `mermaid-diagram-${index}`,
+            source.trim(),
+          );
           container.innerHTML = svg;
           container.classList.add('rendered');
 
@@ -458,11 +526,14 @@ export class BlogPostComponent implements OnInit, OnDestroy {
           expandBtn.className = 'diagram-expand-btn';
           expandBtn.setAttribute('aria-label', 'Ver diagrama en grande');
           expandBtn.innerHTML = '<i class="bi bi-arrows-fullscreen"></i>';
-          expandBtn.addEventListener('click', () => this.openDiagramLightbox(svg));
+          expandBtn.addEventListener('click', () =>
+            this.openDiagramLightbox(svg),
+          );
           container.appendChild(expandBtn);
         } catch (err) {
           console.error('Mermaid render failed:', err);
-          container.innerHTML = '<p class="rich-content-error">No se pudo renderizar el diagrama.</p>';
+          container.innerHTML =
+            '<p class="rich-content-error">No se pudo renderizar el diagrama.</p>';
         }
       }
     }, 400);
@@ -487,7 +558,9 @@ export class BlogPostComponent implements OnInit, OnDestroy {
   }
 
   zoomDiagram(delta: number): void {
-    this.lightboxZoom.update(z => Math.min(8, Math.max(0.5, +(z + delta).toFixed(2))));
+    this.lightboxZoom.update((z) =>
+      Math.min(8, Math.max(0.5, +(z + delta).toFixed(2))),
+    );
   }
 
   resetDiagramZoom(): void {
@@ -522,27 +595,35 @@ export class BlogPostComponent implements OnInit, OnDestroy {
   private renderCharts(): void {
     if (!isPlatformBrowser(this.platformId)) return;
 
-    setTimeout(async () => {
+    this.schedule(async () => {
       const postContentEl = document.querySelector('.post-content');
       if (!postContentEl) return;
 
-      const containers = Array.from(postContentEl.querySelectorAll<HTMLElement>('.chart-container'));
+      const containers = Array.from(
+        postContentEl.querySelectorAll<HTMLElement>('.chart-container'),
+      );
       if (containers.length === 0) return;
 
       const [am5, am5xy, am5themesAnimated] = await Promise.all([
         import('@amcharts/amcharts5'),
         import('@amcharts/amcharts5/xy'),
-        import('@amcharts/amcharts5/themes/Animated')
+        import('@amcharts/amcharts5/themes/Animated'),
       ]);
 
       containers.forEach((container, index) => {
-        const specText = container.querySelector('.chart-spec')?.textContent ?? '';
-        let spec: { type: string; title?: string; data: { label: string; value: number; unit?: string }[] };
+        const specText =
+          container.querySelector('.chart-spec')?.textContent ?? '';
+        let spec: {
+          type: string;
+          title?: string;
+          data: { label: string; value: number; unit?: string }[];
+        };
         try {
           spec = JSON.parse(specText);
         } catch (err) {
           console.error('Invalid chart spec:', err);
-          container.innerHTML = '<p class="rich-content-error">Gráfico inválido.</p>';
+          container.innerHTML =
+            '<p class="rich-content-error">Gráfico inválido.</p>';
           return;
         }
 
@@ -569,31 +650,36 @@ export class BlogPostComponent implements OnInit, OnDestroy {
             wheelX: 'none',
             wheelY: 'none',
             layout: root.verticalLayout,
-            paddingLeft: 0
-          })
+            paddingLeft: 0,
+          }),
         );
 
-        const xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 30 });
+        const xRenderer = am5xy.AxisRendererX.new(root, {
+          minGridDistance: 30,
+        });
         xRenderer.labels.template.setAll({ fill: am5.color(0xa0a0a0) });
         xRenderer.grid.template.set('visible', false);
 
         const xAxis = chart.xAxes.push(
           am5xy.CategoryAxis.new(root, {
             categoryField: 'label',
-            renderer: xRenderer
-          })
+            renderer: xRenderer,
+          }),
         );
         xAxis.data.setAll(spec.data);
 
         const yRenderer = am5xy.AxisRendererY.new(root, {});
         yRenderer.labels.template.setAll({ fill: am5.color(0xa0a0a0) });
-        yRenderer.grid.template.setAll({ stroke: am5.color(0xffffff), strokeOpacity: 0.06 });
+        yRenderer.grid.template.setAll({
+          stroke: am5.color(0xffffff),
+          strokeOpacity: 0.06,
+        });
 
         const yAxis = chart.yAxes.push(
           am5xy.ValueAxis.new(root, {
             min: 0,
-            renderer: yRenderer
-          })
+            renderer: yRenderer,
+          }),
         );
 
         const series = chart.series.push(
@@ -603,17 +689,17 @@ export class BlogPostComponent implements OnInit, OnDestroy {
             valueYField: 'value',
             categoryXField: 'label',
             tooltip: am5.Tooltip.new(root, {
-              labelText: `{valueY}${spec.data[0]?.unit ?? ''}`
-            })
-          })
+              labelText: `{valueY}${spec.data[0]?.unit ?? ''}`,
+            }),
+          }),
         );
 
         series.columns.template.setAll({
-          fill: am5.color(0x34D399),
-          stroke: am5.color(0x34D399),
+          fill: am5.color(0x34d399),
+          stroke: am5.color(0x34d399),
           cornerRadiusTL: 8,
           cornerRadiusTR: 8,
-          width: am5.percent(50)
+          width: am5.percent(50),
         });
 
         series.data.setAll(spec.data);

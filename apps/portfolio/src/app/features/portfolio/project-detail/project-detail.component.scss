@@ -33,7 +33,9 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .error-icon {
@@ -402,7 +404,8 @@
   color: var(--text-secondary);
   line-height: 1.8;
 
-  h2, h3 {
+  h2,
+  h3 {
     color: var(--text-primary);
     font-weight: 600;
     margin: 1.5em 0 0.75em;
@@ -424,7 +427,8 @@
     margin: 0 0 1em;
   }
 
-  ul, ol {
+  ul,
+  ol {
     margin: 0 0 1em;
     padding-left: 1.25em;
 
@@ -513,5 +517,48 @@
 
   .related-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* EMCode layout refinement */
+.project-detail-page {
+  padding-top: 112px;
+}
+.project-container {
+  max-width: 1180px;
+  padding: 0 28px;
+}
+.project-title {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  letter-spacing: -0.04em;
+}
+.project-description {
+  max-width: 65ch;
+  line-height: 1.8;
+}
+.project-header {
+  text-align: left;
+}
+.gallery-main {
+  border-radius: 16px;
+  border: 1px solid var(--border-muted);
+}
+.gallery-main .main-image {
+  max-height: 560px;
+  object-fit: contain;
+  background: var(--surface-primary);
+}
+.project-content {
+  line-height: 1.85;
+}
+.project-content pre {
+  overflow: auto;
+}
+@media (max-width: 600px) {
+  .project-container {
+    padding: 0 20px;
+  }
+  .project-detail-page {
+    padding-top: 100px;
   }
 }

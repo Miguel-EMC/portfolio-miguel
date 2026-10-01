@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, catchError, map, tap, forkJoin } from 'rxjs';
-import { marked } from 'marked';
+import { marked, Marked } from 'marked';
 import hljs from 'highlight.js';
 
 import {
@@ -11,10 +11,18 @@ import {
 } from '../../interfaces/project.interface';
 import { LanguageService } from '../../shared/services/language.service';
 
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PortfolioService {
+  private markdown = new Marked();
   private http = inject(HttpClient);
   private languageService = inject(LanguageService);
 
@@ -44,15 +52,23 @@ export class PortfolioService {
       </div>`;
     };
 
-    renderer.image = ({ href, title, text }: { href: string; title?: string | null; text: string }) => {
-      const titleAttr = title ? ` title="${title}"` : '';
+    renderer.image = ({
+      href,
+      title,
+      text,
+    }: {
+      href: string;
+      title?: string | null;
+      text: string;
+    }) => {
+      const titleAttr = title ? ` title="${escapeHtml(title)}"` : '';
       return `<figure class="blog-image">
-        <img src="${href}" alt="${text}" loading="lazy"${titleAttr}>
-        ${text ? `<figcaption>${text}</figcaption>` : ''}
+        <img src="${escapeHtml(href)}" alt="${escapeHtml(text)}" loading="lazy"${titleAttr}>
+        ${text ? `<figcaption>${escapeHtml(text)}</figcaption>` : ''}
       </figure>`;
     };
 
-    marked.use({ renderer });
+    this.markdown.use({ renderer });
   }
 
   private get lang(): string {
@@ -65,16 +81,9 @@ export class PortfolioService {
   }
 
   getAllProjects(): Observable<PortfolioProjectMeta[]> {
-    const lang = this.lang;
     return this.http
-      .get<PortfolioManifest>(`${this.basePath}/manifest.${lang}.json`)
-      .pipe(
-        map(manifest => manifest.projects),
-        catchError(err => {
-          console.error('Failed to load portfolio manifest:', err);
-          return of([]);
-        })
-      );
+      .get<PortfolioManifest>(`${this.basePath}/manifest.${this.lang}.json`)
+      .pipe(map((manifest) => manifest.projects));
   }
 
   getProjectBySlug(slug: string): Observable<PortfolioProject | null> {
@@ -86,55 +95,64 @@ export class PortfolioService {
     }
 
     return forkJoin({
-      manifest: this.http.get<PortfolioManifest>(`${this.basePath}/manifest.${lang}.json`),
-      rawContent: this.http.get(`${this.basePath}/posts/${slug}.${lang}.md`, { responseType: 'text' })
+      manifest: this.http.get<PortfolioManifest>(
+        `${this.basePath}/manifest.${lang}.json`,
+      ),
+      rawContent: this.http.get(`${this.basePath}/posts/${slug}.${lang}.md`, {
+        responseType: 'text',
+      }),
     }).pipe(
       map(({ manifest, rawContent }) => {
-        const meta = manifest.projects.find(p => p.slug === slug);
+        const meta = manifest.projects.find((p) => p.slug === slug);
         if (!meta) return null;
 
         const markdownBody = this.stripFrontmatter(rawContent);
         const project: PortfolioProject = {
           ...meta,
-          content: marked.parse(markdownBody) as string,
+          content: this.markdown.parse(markdownBody) as string,
         };
         return project;
       }),
-      tap(project => {
+      tap((project) => {
         if (project) this.projectsCache.set(cacheKey, project);
       }),
-      catchError(err => {
+      catchError((err) => {
         console.error(`Failed to load project ${slug}:`, err);
         return of(null);
-      })
+      }),
     );
   }
 
   getFeaturedProjects(): Observable<PortfolioProjectMeta[]> {
     return this.getAllProjects().pipe(
-      map(projects => projects.filter(p => p.featured))
+      map((projects) => projects.filter((p) => p.featured)),
     );
   }
 
-  getRelatedProjects(currentSlug: string, limit = 3): Observable<PortfolioProjectMeta[]> {
+  getRelatedProjects(
+    currentSlug: string,
+    limit = 3,
+  ): Observable<PortfolioProjectMeta[]> {
     return this.getAllProjects().pipe(
-      map(projects => {
-        const current = projects.find(p => p.slug === currentSlug);
+      map((projects) => {
+        const current = projects.find((p) => p.slug === currentSlug);
         if (!current) return [];
 
         return projects
-          .filter(p => p.slug !== currentSlug)
-          .map(p => {
+          .filter((p) => p.slug !== currentSlug)
+          .map((p) => {
             let score = 0;
             if (p.type === current.type) score += 2;
-            score += p.frameworks.filter(f => current.frameworks.includes(f)).length;
+            score += p.frameworks.filter((f) =>
+              current.frameworks.includes(f),
+            ).length;
             return { p, score };
           })
-          .filter(item => item.score > 0)
+          .filter((item) => item.score > 0)
           .sort((a, b) => b.score - a.score)
           .slice(0, limit)
-          .map(item => item.p);
-      })
+          .map((item) => item.p);
+      }),
     );
   }
 

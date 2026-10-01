@@ -8,24 +8,27 @@
 
   <div class="fluid-hero-container">
     <div class="hero-content">
-
       <!-- Left: Massive Typography -->
       <div class="hero-text">
         <div class="greeting-pill">
-          <span>{{ 'home.hero.greeting' | translate }}</span>
+          <span>{{ "home.hero.greeting" | translate }}</span>
         </div>
 
-        <h1 class="massive-title">
+        <h1 class="massive-title" aria-label="Eduardo Miguel Muzo">
           <span class="block-reveal">
-            <span class="name">{{ 'home.hero.name' | translate }}</span>
+            <span class="name">{{ "home.hero.name" | translate }}</span>
           </span>
           <span class="block-reveal delay-1">
-            <span class="surname gradient-text">{{ 'home.hero.surname' | translate }}</span>
+            <span class="surname gradient-text">{{
+              "home.hero.surname" | translate
+            }}</span>
           </span>
         </h1>
 
         <div class="role-container">
-          <span class="role-prefix">{{ 'home.hero.rolePrefix' | translate }}</span>
+          <span class="role-prefix">{{
+            "home.hero.rolePrefix" | translate
+          }}</span>
           <div class="role-rotator">
             <span class="role-text">{{ currentRole }}</span>
             <span class="cursor">_</span>
@@ -33,35 +36,71 @@
         </div>
 
         <p class="hero-description">
-          {{ 'home.hero.description' | translate }}
+          {{ "home.hero.description" | translate }}
         </p>
 
         <div class="hero-actions">
           <a routerLink="/contact" class="btn-primary-fluid">
-            <span>{{ 'home.hero.actions.contact' | translate }}</span>
+            <span>{{ "home.hero.actions.contact" | translate }}</span>
             <i class="bi bi-arrow-right"></i>
           </a>
           <a routerLink="/portfolio" class="btn-secondary-fluid">
-            <span>{{ 'home.hero.actions.projects' | translate }}</span>
+            <span>{{ "home.hero.actions.projects" | translate }}</span>
           </a>
-          <a [href]="getCvUrl()" target="_blank" class="btn-outline-fluid" download>
-            <span>{{ 'home.hero.actions.downloadCV' | translate }}</span>
+          <a
+            [href]="getCvUrl()"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-outline-fluid"
+            download
+          >
+            <span>{{ "home.hero.actions.downloadCV" | translate }}</span>
             <i class="bi bi-download"></i>
           </a>
         </div>
 
+        <nav
+          class="hero-shortcuts"
+          [attr.aria-label]="'ui.careerNavigation' | translate"
+        >
+          <a routerLink="/resume">{{ "ui.experience" | translate }}</a
+          ><a href="#habilidades">{{ "ui.skillTitle" | translate }}</a
+          ><a href="#educacion">{{ "ui.education" | translate }}</a
+          ><a routerLink="/blog">Blog</a>
+        </nav>
         <div class="hero-socials">
-          <a href="https://www.linkedin.com/in/eduardo-miguel-muzo-6379b2234/" target="_blank" class="social-icon"
-            title="LinkedIn">
+          <a
+            href="https://www.linkedin.com/in/eduardo-miguel-muzo-6379b2234/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-icon"
+            title="LinkedIn"
+          >
             <i class="bi bi-linkedin"></i>
           </a>
-          <a href="https://wa.me/593999763190" target="_blank" class="social-icon" title="WhatsApp">
+          <a
+            href="https://wa.me/593999763190"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-icon"
+            title="WhatsApp"
+          >
             <i class="bi bi-whatsapp"></i>
           </a>
-          <a href="mailto:eduardomuzo123456@gmail.com" class="social-icon" title="Email">
+          <a
+            href="mailto:eduardomuzo123456@gmail.com"
+            class="social-icon"
+            title="Email"
+          >
             <i class="bi bi-envelope"></i>
           </a>
-          <a href="https://github.com/Miguel-EMC" target="_blank" class="social-icon" title="GitHub">
+          <a
+            href="https://github.com/Miguel-EMC"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-icon"
+            title="GitHub"
+          >
             <i class="bi bi-github"></i>
           </a>
         </div>
@@ -70,7 +109,6 @@
       <!-- Right: Avatar Stage -->
       <div class="hero-visual">
         <div class="avatar-stage">
-
           <!-- Circuit decoration rings -->
           <div class="circuit-ring circuit-ring--outer"></div>
           <div class="circuit-ring circuit-ring--mid"></div>
@@ -87,38 +125,129 @@
             <!-- Available badge -->
             <div class="avatar-badge">
               <span class="badge-pulse"></span>
-              <span>{{ 'common.available' | translate }}</span>
+              <span>{{ "common.available" | translate }}</span>
             </div>
           </div>
 
           <!-- Floating tech chips -->
           <div class="tech-chip tech-chip--1">
-            <span class="chip-dot"></span>LangGraph
+            <span class="chip-dot"></span>Python
           </div>
           <div class="tech-chip tech-chip--2">
-            <span class="chip-dot"></span>AWS Bedrock
+            <span class="chip-dot"></span>AWS
           </div>
           <div class="tech-chip tech-chip--3">
-            <span class="chip-dot"></span>FastAPI
+            <span class="chip-dot"></span>NestJS
           </div>
           <div class="tech-chip tech-chip--4">
-            <span class="chip-dot"></span>Flutter
+            <span class="chip-dot"></span>Angular
           </div>
-
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
+<!-- Experience (condensed, secondary) -->
+<section id="experiencia" class="experience-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">{{
+        "home.experienceEyebrow" | translate
+      }}</span>
+      <h2 class="section-title">{{ "home.resume.experience" | translate }}</h2>
+    </div>
+
+    <div class="experience-condensed">
+      <div class="experience-role">
+        <span class="role-icon"><i class="bi bi-briefcase-fill"></i></span>
+        <div class="role-body">
+          <div class="role-head">
+            <div class="role-heading">
+              <span class="role-title">{{
+                "experiences.fullstack-lateral.title" | translate
+              }}</span>
+              <span class="role-company">{{
+                "experiences.fullstack-lateral.subtitle" | translate
+              }}</span>
+            </div>
+            <span class="role-date">{{
+              "experiences.fullstack-lateral.date" | translate
+            }}</span>
+          </div>
+          <p>{{ "home.experienceRoles.munsterMind" | translate }}</p>
+        </div>
+      </div>
+
+      <div class="experience-role">
+        <span class="role-icon"><i class="bi bi-briefcase-fill"></i></span>
+        <div class="role-body">
+          <div class="role-head">
+            <div class="role-heading">
+              <span class="role-title">{{
+                "experiences.billusos-dev.title" | translate
+              }}</span>
+              <span class="role-company">{{
+                "experiences.billusos-dev.subtitle" | translate
+              }}</span>
+            </div>
+            <span class="role-date">{{
+              "experiences.billusos-dev.date" | translate
+            }}</span>
+          </div>
+          <p>{{ "home.experienceRoles.billusos" | translate }}</p>
+        </div>
+      </div>
+
+      <div class="experience-role">
+        <span class="role-icon"><i class="bi bi-briefcase-fill"></i></span>
+        <div class="role-body">
+          <div class="role-head">
+            <div class="role-heading">
+              <span class="role-title">{{
+                "experiences.junior-fullstack.title" | translate
+              }}</span>
+              <span class="role-company">{{
+                "experiences.junior-fullstack.subtitle" | translate
+              }}</span>
+            </div>
+            <span class="role-date">{{
+              "experiences.junior-fullstack.date" | translate
+            }}</span>
+          </div>
+          <p>{{ "home.experienceRoles.ceer" | translate }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="section-cta">
+      <a routerLink="/resume" class="btn-text-explore"
+        >{{ "ui.exploreCareer" | translate }} <i class="bi bi-arrow-right"></i
+      ></a>
+    </div>
+  </div>
+</section>
+
+<section id="habilidades" class="skills-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">STACK</span>
+      <h2 class="section-title">{{ "ui.skillTitle" | translate }}</h2>
+      <p class="section-subtitle">{{ "ui.skillIntro" | translate }}</p>
+    </div>
+    <app-skills />
+  </div>
+</section>
 <!-- Featured own projects -->
 <section id="proyectos" class="portfolio-section">
   <div class="container">
     <div class="section-header">
-      <span class="section-eyebrow">{{ 'home.portfolio.eyebrow' | translate }}</span>
-      <h2 class="section-title">{{ 'home.portfolio.title' | translate }}</h2>
-      <p class="section-subtitle">{{ 'home.portfolio.subtitle' | translate }}</p>
+      <span class="section-eyebrow">{{
+        "home.portfolio.eyebrow" | translate
+      }}</span>
+      <h2 class="section-title">{{ "home.portfolio.title" | translate }}</h2>
+      <p class="section-subtitle">
+        {{ "home.portfolio.subtitle" | translate }}
+      </p>
     </div>
 
     <div class="projects-showcase">
@@ -136,7 +265,7 @@
 
     <div class="section-cta">
       <a routerLink="/portfolio" class="btn-text-explore">
-        <span>{{ 'home.portfolio.viewAll' | translate }}</span>
+        <span>{{ "home.portfolio.viewAll" | translate }}</span>
         <i class="bi bi-arrow-right"></i>
       </a>
     </div>
@@ -147,9 +276,9 @@
 <section id="blog" class="blog-section">
   <div class="container">
     <div class="section-header">
-      <span class="section-eyebrow">{{ 'home.blog.eyebrow' | translate }}</span>
-      <h2 class="section-title">{{ 'home.blog.title' | translate }}</h2>
-      <p class="section-subtitle">{{ 'home.blog.subtitle' | translate }}</p>
+      <span class="section-eyebrow">{{ "home.blog.eyebrow" | translate }}</span>
+      <h2 class="section-title">{{ "home.blog.title" | translate }}</h2>
+      <p class="section-subtitle">{{ "home.blog.subtitle" | translate }}</p>
     </div>
 
     <ng-container *ngIf="recentPosts.length; else noPosts">
@@ -159,12 +288,17 @@
           class="blog-row"
           [routerLink]="['/blog', 'post', post.slug]"
         >
-          <span class="blog-row-icon" [style.--cat-color]="getCategoryInfo(post.category).color">
+          <span
+            class="blog-row-icon"
+            [style.--cat-color]="getCategoryInfo(post.category).color"
+          >
             <i [class]="getCategoryInfo(post.category).icon"></i>
           </span>
           <span class="blog-row-content">
             <span class="blog-row-meta">
-              <span class="blog-row-category">{{ getCategoryInfo(post.category).name }}</span>
+              <span class="blog-row-category">{{
+                "ui.categoryNames." + post.category | translate
+              }}</span>
               <span class="blog-row-dot">·</span>
               <span class="blog-row-read">{{ post.readingTime }} min</span>
             </span>
@@ -176,78 +310,26 @@
       </div>
     </ng-container>
     <ng-template #noPosts>
-      <p class="section-subtitle">{{ 'home.blog.empty' | translate }}</p>
+      <p class="section-subtitle">{{ "home.blog.empty" | translate }}</p>
     </ng-template>
 
     <div class="section-cta">
       <a routerLink="/blog" class="btn-text-explore btn-portal">
-        <span>{{ 'home.blog.viewAll' | translate }}</span>
+        <span>{{ "home.blog.viewAll" | translate }}</span>
         <i class="bi bi-arrow-right"></i>
       </a>
     </div>
   </div>
 </section>
 
-<!-- Experience (condensed, secondary) -->
-<section id="experiencia" class="experience-section">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-eyebrow">{{ 'home.experienceEyebrow' | translate }}</span>
-      <h2 class="section-title">{{ 'home.resume.experience' | translate }}</h2>
-    </div>
-
-    <div class="experience-condensed">
-      <div class="experience-role">
-        <span class="role-icon"><i class="bi bi-briefcase-fill"></i></span>
-        <div class="role-body">
-          <div class="role-head">
-            <div class="role-heading">
-              <span class="role-title">{{ 'experiences.fullstack-lateral.title' | translate }}</span>
-              <span class="role-company">{{ 'experiences.fullstack-lateral.subtitle' | translate }}</span>
-            </div>
-            <span class="role-date">{{ 'experiences.fullstack-lateral.date' | translate }}</span>
-          </div>
-          <p>{{ 'home.experienceRoles.munsterMind' | translate }}</p>
-        </div>
-      </div>
-
-      <div class="experience-role">
-        <span class="role-icon"><i class="bi bi-briefcase-fill"></i></span>
-        <div class="role-body">
-          <div class="role-head">
-            <div class="role-heading">
-              <span class="role-title">{{ 'experiences.billusos-dev.title' | translate }}</span>
-              <span class="role-company">{{ 'experiences.billusos-dev.subtitle' | translate }}</span>
-            </div>
-            <span class="role-date">{{ 'experiences.billusos-dev.date' | translate }}</span>
-          </div>
-          <p>{{ 'home.experienceRoles.billusos' | translate }}</p>
-        </div>
-      </div>
-
-      <div class="experience-role">
-        <span class="role-icon"><i class="bi bi-briefcase-fill"></i></span>
-        <div class="role-body">
-          <div class="role-head">
-            <div class="role-heading">
-              <span class="role-title">{{ 'experiences.junior-fullstack.title' | translate }}</span>
-              <span class="role-company">{{ 'experiences.junior-fullstack.subtitle' | translate }}</span>
-            </div>
-            <span class="role-date">{{ 'experiences.junior-fullstack.date' | translate }}</span>
-          </div>
-          <p>{{ 'home.experienceRoles.ceer' | translate }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- Education (bottom, secondary — same structure as experience, smaller scale) -->
-<section id="educacion" class="education-section-quiet">
+<section id="educacion" class="education-section">
   <div class="container">
     <div class="section-header">
-      <span class="section-eyebrow">{{ 'home.educationEyebrow' | translate }}</span>
-      <h2 class="section-title">{{ 'home.resume.education' | translate }}</h2>
+      <span class="section-eyebrow">{{
+        "home.educationEyebrow" | translate
+      }}</span>
+      <h2 class="section-title">{{ "home.resume.education" | translate }}</h2>
     </div>
 
     <div class="experience-condensed">
@@ -256,12 +338,18 @@
         <div class="role-body">
           <div class="role-head">
             <div class="role-heading">
-              <span class="role-title">{{ 'education.computer-engineering.title' | translate }}</span>
-              <span class="role-company">{{ 'education.computer-engineering.institution' | translate }}</span>
+              <span class="role-title">{{
+                "education.computer-engineering.title" | translate
+              }}</span>
+              <span class="role-company">{{
+                "education.computer-engineering.institution" | translate
+              }}</span>
             </div>
-            <span class="role-date">{{ 'education.computer-engineering.date' | translate }}</span>
+            <span class="role-date">{{
+              "education.computer-engineering.date" | translate
+            }}</span>
           </div>
-          <p>{{ 'education.computer-engineering.description' | translate }}</p>
+          <p>{{ "education.computer-engineering.description" | translate }}</p>
         </div>
       </div>
 
@@ -270,12 +358,18 @@
         <div class="role-body">
           <div class="role-head">
             <div class="role-heading">
-              <span class="role-title">{{ 'education.software-development.title' | translate }}</span>
-              <span class="role-company">{{ 'education.software-development.institution' | translate }}</span>
+              <span class="role-title">{{
+                "education.software-development.title" | translate
+              }}</span>
+              <span class="role-company">{{
+                "education.software-development.institution" | translate
+              }}</span>
             </div>
-            <span class="role-date">{{ 'education.software-development.date' | translate }}</span>
+            <span class="role-date">{{
+              "education.software-development.date" | translate
+            }}</span>
           </div>
-          <p>{{ 'education.software-development.description' | translate }}</p>
+          <p>{{ "education.software-development.description" | translate }}</p>
         </div>
       </div>
     </div>
@@ -286,29 +380,41 @@
 <section id="contacto" class="contact-section">
   <div class="container">
     <div class="section-header">
-      <span class="section-eyebrow">{{ 'home.contactEyebrow' | translate }}</span>
-      <h2 class="section-title">{{ 'home.contact.title' | translate }}</h2>
-      <p class="section-subtitle">{{ 'home.contact.subtitle' | translate }}</p>
+      <span class="section-eyebrow">{{
+        "home.contactEyebrow" | translate
+      }}</span>
+      <h2 class="section-title">{{ "home.contact.title" | translate }}</h2>
+      <p class="section-subtitle">{{ "home.contact.subtitle" | translate }}</p>
     </div>
 
     <div class="contact-preview">
       <a class="contact-method-mini" href="mailto:eduardomuzo123456@gmail.com">
         <i class="bi bi-envelope-fill"></i>
-        <span>{{ 'home.contact.methods.email' | translate }}</span>
+        <span>{{ "home.contact.methods.email" | translate }}</span>
       </a>
-      <a class="contact-method-mini" href="https://wa.me/593999763190" target="_blank">
+      <a
+        class="contact-method-mini"
+        href="https://wa.me/593999763190"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <i class="bi bi-whatsapp"></i>
-        <span>{{ 'home.contact.methods.whatsapp' | translate }}</span>
+        <span>{{ "home.contact.methods.whatsapp" | translate }}</span>
       </a>
-      <a class="contact-method-mini" href="https://www.linkedin.com/in/eduardo-miguel-muzo-6379b2234/" target="_blank">
+      <a
+        class="contact-method-mini"
+        href="https://www.linkedin.com/in/eduardo-miguel-muzo-6379b2234/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <i class="bi bi-linkedin"></i>
-        <span>{{ 'home.contact.methods.linkedin' | translate }}</span>
+        <span>{{ "home.contact.methods.linkedin" | translate }}</span>
       </a>
     </div>
 
     <div class="section-cta">
       <a routerLink="/contact" class="btn-primary contact-cta">
-        <span>{{ 'home.hero.actions.contact' | translate }}</span>
+        <span>{{ "home.hero.actions.contact" | translate }}</span>
         <i class="bi bi-arrow-right"></i>
       </a>
     </div>

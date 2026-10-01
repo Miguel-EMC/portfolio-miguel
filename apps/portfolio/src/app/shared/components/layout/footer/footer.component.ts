@@ -8,14 +8,15 @@ import { TranslateModule } from '@ngx-translate/core';
   standalone: true,
   imports: [TranslateModule, NgClass, RouterLink],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.scss'
+  styleUrl: './footer.component.scss',
 })
 export class FooterComponent {
+  readonly year = new Date().getFullYear();
   showScrollButton = false;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
-    private router: Router
+    private router: Router,
   ) {}
 
   @HostListener('window:scroll', [])
@@ -27,22 +28,12 @@ export class FooterComponent {
 
   scrollToTop(): void {
     if (isPlatformBrowser(this.platformId)) {
-      const isHome = this.router.url === '/' || this.router.url === '/home' || this.router.url.startsWith('/home#');
-      if (isHome) {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      } else {
-        this.router.navigate(['/home']).then(() => {
-          setTimeout(() => {
-            window.scrollTo({
-              top: 0,
-              behavior: 'smooth'
-            });
-          }, 100);
-        });
-      }
+      window.scrollTo({
+        top: 0,
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+          ? 'auto'
+          : 'smooth',
+      });
     }
   }
 }

@@ -1,44 +1,14 @@
-<div class="education-section">
-  <div class="education-list">
-    <div class="education-item" *ngFor="let item of getVisibleItems(); let i = index"
-      [class.expanded]="expandedIndex === i">
-
-      <div class="education-header" (click)="toggleItem(i)">
-        <div class="header-content">
-          <h3 class="degree-title">{{ 'education.' + item.id + '.title' | translate }}</h3>
-          <h4 class="institution">{{ 'education.' + item.id + '.institution' | translate }}</h4>
-        </div>
-        <div class="header-meta">
-          <span class="date-badge">{{ 'education.' + item.id + '.date' | translate }}</span>
-          <div class="expand-icon">
-            <i class="bi" [class.bi-chevron-down]="expandedIndex !== i" [class.bi-chevron-up]="expandedIndex === i"></i>
-          </div>
-        </div>
-      </div>
-
-      <div class="education-details" *ngIf="expandedIndex === i">
-        <div class="detail-block">
-          <p class="education-description">
-            {{ 'education.' + item.id + '.description' | translate }}
-          </p>
-        </div>
-
-        <div class="detail-block" *ngIf="item.achievements && item.achievements.length > 0">
-          <h5><i class="bi bi-trophy"></i> {{ 'resume.education.achievements' | translate }}</h5>
-          <ul class="achievements-list">
-            <li class="achievement" *ngFor="let achievement of ('education.' + item.id + '.achievements' | translate)">
-              {{ achievement }}
-            </li>
-          </ul>
-        </div>
-      </div>
+<div class="education-grid">
+  <article class="education-card" *ngFor="let item of educationItems">
+    <div class="education-meta">
+      <i class="bi" [ngClass]="item.icon" aria-hidden="true"></i
+      ><span>{{ "ui." + item.status | translate }}</span>
     </div>
-  </div>
-
-  <div class="view-more-container" *ngIf="educationItems.length > 2">
-    <button class="btn-view-more" (click)="toggleShowAll()" [class.expanded]="showAllItems">
-      {{ showAllItems ? ('resume.education.viewLess' | translate) : ('resume.education.viewMore' | translate) }}
-      <i class="bi bi-chevron-down"></i>
-    </button>
-  </div>
+    <h3>{{ "education." + item.id + ".title" | translate }}</h3>
+    <p class="institution">
+      {{ "education." + item.id + ".institution" | translate }}
+    </p>
+    <p class="date">{{ "education." + item.id + ".date" | translate }}</p>
+    <p>{{ "education." + item.id + ".description" | translate }}</p>
+  </article>
 </div>

@@ -1,13 +1,4 @@
-@if (!isBlog) {
-  <app-nav></app-nav>
-} @else {
-  <app-blog-nav></app-blog-nav>
-}
-
-<router-outlet />
-
-@if (!isBlog) {
-  <app-footer></app-footer>
-} @else {
-  <app-blog-footer></app-blog-footer>
-}
+<a class="skip-link" href="#main-content">{{ "ui.skip" | translate }}</a>
+<app-nav></app-nav>
+<main id="main-content" tabindex="-1"><router-outlet /></main>
+<app-footer></app-footer>

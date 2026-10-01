@@ -1,7 +1,15 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, of, catchError, map, tap, forkJoin } from 'rxjs';
-import { marked } from 'marked';
+import {
+  BehaviorSubject,
+  Observable,
+  of,
+  catchError,
+  map,
+  tap,
+  forkJoin,
+} from 'rxjs';
+import { marked, Marked } from 'marked';
 import hljs from 'highlight.js';
 import {
   BlogPost,
@@ -9,7 +17,7 @@ import {
   BlogCategory,
   BlogManifest,
   BLOG_CATEGORIES,
-  BlogCategoryInfo
+  BlogCategoryInfo,
 } from '../../interfaces/blog.interface';
 import { LanguageService } from '../../shared/services/language.service';
 import { environment } from '../../../environments/environment';
@@ -27,7 +35,7 @@ const LANGUAGE_COLORS: Record<string, string> = {
   yaml: '#CB171E',
   html: '#E34F26',
   css: '#1572B6',
-  dockerfile: '#2496ED'
+  dockerfile: '#2496ED',
 };
 
 function escapeHtml(value: string): string {
@@ -39,9 +47,10 @@ function escapeHtml(value: string): string {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BlogService {
+  private markdown = new Marked();
   private http = inject(HttpClient);
   private languageService = inject(LanguageService);
   private readonly contentPath = environment.blog.contentPath;
@@ -56,9 +65,9 @@ export class BlogService {
   }
 
   private configureMarked(): void {
-    marked.setOptions({
+    this.markdown.setOptions({
       gfm: true,
-      breaks: true
+      breaks: true,
     });
 
     const renderer = new marked.Renderer();
@@ -89,15 +98,23 @@ export class BlogService {
       </div>`;
     };
 
-    renderer.image = ({ href, title, text }: { href: string; title?: string | null; text: string }) => {
-      const titleAttr = title ? ` title="${title}"` : '';
+    renderer.image = ({
+      href,
+      title,
+      text,
+    }: {
+      href: string;
+      title?: string | null;
+      text: string;
+    }) => {
+      const titleAttr = title ? ` title="${escapeHtml(title)}"` : '';
       return `<figure class="blog-image">
-        <img src="${href}" alt="${text}" loading="lazy"${titleAttr}>
-        ${text ? `<figcaption>${text}</figcaption>` : ''}
+        <img src="${escapeHtml(href)}" alt="${escapeHtml(text)}" loading="lazy"${titleAttr}>
+        ${text ? `<figcaption>${escapeHtml(text)}</figcaption>` : ''}
       </figure>`;
     };
 
-    marked.use({ renderer });
+    this.markdown.use({ renderer });
   }
 
   private get lang(): string {
@@ -125,37 +142,35 @@ export class BlogService {
     return {
       ...post,
       publishedAt: new Date(post.publishedAt),
-      updatedAt: post.updatedAt ? new Date(post.updatedAt) : undefined
+      updatedAt: post.updatedAt ? new Date(post.updatedAt) : undefined,
     };
   }
 
   loadManifest(): Observable<BlogManifest> {
     return this.http.get<BlogManifest>(this.manifestUrl).pipe(
-      tap(manifest => {
-        manifest.posts = manifest.posts.map(p => this.normalizePost(p));
+      tap((manifest) => {
+        manifest.posts = manifest.posts.map((p) => this.normalizePost(p));
         this.manifestSubject.next(manifest);
       }),
-      catchError(error => {
+      catchError((error) => {
         console.error('Failed to load blog manifest:', error);
         const emptyManifest: BlogManifest = {
           posts: [],
           categories: [],
-          lastUpdated: new Date().toISOString()
+          lastUpdated: new Date().toISOString(),
         };
         this.manifestSubject.next(emptyManifest);
         return of(emptyManifest);
-      })
+      }),
     );
   }
 
   getAllPosts(): Observable<BlogPostMeta[]> {
-    return this.http.get<BlogManifest>(this.manifestUrl).pipe(
-      map(manifest => manifest.posts.map(p => this.normalizePost(p))),
-      catchError(error => {
-        console.error('Failed to load posts:', error);
-        return of([]);
-      })
-    );
+    return this.http
+      .get<BlogManifest>(this.manifestUrl)
+      .pipe(
+        map((manifest) => manifest.posts.map((p) => this.normalizePost(p))),
+      );
   }
 
   getPostBySlug(slug: string): Observable<BlogPost | null> {
@@ -166,77 +181,80 @@ export class BlogService {
 
     return forkJoin({
       manifest: this.http.get<BlogManifest>(this.manifestUrl),
-      rawContent: this.http.get(this.postUrl(slug), { responseType: 'text' })
+      rawContent: this.http.get(this.postUrl(slug), { responseType: 'text' }),
     }).pipe(
       map(({ manifest, rawContent }) => {
-        const meta = manifest.posts.find(p => p.slug === slug);
+        const meta = manifest.posts.find((p) => p.slug === slug);
         if (!meta) return null;
 
         const markdownContent = this.stripFrontmatter(rawContent);
         const post: BlogPost = {
           ...this.normalizePost(meta),
-          content: marked.parse(markdownContent) as string
+          content: this.markdown.parse(markdownContent) as string,
         };
         return post;
       }),
-      tap(post => {
+      tap((post) => {
         if (post) this.postsCache.set(key, post);
       }),
-      catchError(error => {
+      catchError((error) => {
         console.error(`Failed to load post ${slug}:`, error);
         return of(null);
-      })
+      }),
     );
   }
 
   getPostsByCategory(category: BlogCategory): Observable<BlogPostMeta[]> {
     return this.getAllPosts().pipe(
-      map(posts => posts.filter(post => post.category === category))
+      map((posts) => posts.filter((post) => post.category === category)),
     );
   }
 
   getPostsByTag(tag: string): Observable<BlogPostMeta[]> {
     return this.getAllPosts().pipe(
-      map(posts => posts.filter(post =>
-        post.tags.some(t => t.toLowerCase() === tag.toLowerCase())
-      ))
+      map((posts) =>
+        posts.filter((post) =>
+          post.tags.some((t) => t.toLowerCase() === tag.toLowerCase()),
+        ),
+      ),
     );
   }
 
   getFeaturedPosts(): Observable<BlogPostMeta[]> {
     return this.getAllPosts().pipe(
-      map(posts => posts.filter(post => post.featured))
+      map((posts) => posts.filter((post) => post.featured)),
     );
   }
 
   getRecentPosts(limit: number = 5): Observable<BlogPostMeta[]> {
-    return this.getAllPosts().pipe(
-      map(posts => posts.slice(0, limit))
-    );
+    return this.getAllPosts().pipe(map((posts) => posts.slice(0, limit)));
   }
 
-  getRelatedPosts(currentSlug: string, limit: number = 3): Observable<BlogPostMeta[]> {
+  getRelatedPosts(
+    currentSlug: string,
+    limit: number = 3,
+  ): Observable<BlogPostMeta[]> {
     return this.getAllPosts().pipe(
-      map(posts => {
-        const currentPost = posts.find(p => p.slug === currentSlug);
+      map((posts) => {
+        const currentPost = posts.find((p) => p.slug === currentSlug);
         if (!currentPost) return [];
 
         return posts
-          .filter(post => post.slug !== currentSlug)
-          .map(post => {
+          .filter((post) => post.slug !== currentSlug)
+          .map((post) => {
             let score = 0;
             if (post.category === currentPost.category) score += 2;
-            const matchingTags = post.tags.filter(tag =>
-              currentPost.tags.includes(tag)
+            const matchingTags = post.tags.filter((tag) =>
+              currentPost.tags.includes(tag),
             ).length;
             score += matchingTags;
             return { post, score };
           })
-          .filter(item => item.score > 0)
+          .filter((item) => item.score > 0)
           .sort((a, b) => b.score - a.score)
           .slice(0, limit)
-          .map(item => item.post);
-      })
+          .map((item) => item.post);
+      }),
     );
   }
 
@@ -244,10 +262,13 @@ export class BlogService {
     const searchTerms = query.toLowerCase().split(' ').filter(Boolean);
 
     return this.getAllPosts().pipe(
-      map(posts => posts.filter(post => {
-        const searchableText = `${post.title} ${post.excerpt} ${post.tags.join(' ')}`.toLowerCase();
-        return searchTerms.every(term => searchableText.includes(term));
-      }))
+      map((posts) =>
+        posts.filter((post) => {
+          const searchableText =
+            `${post.title} ${post.excerpt} ${post.tags.join(' ')}`.toLowerCase();
+          return searchTerms.every((term) => searchableText.includes(term));
+        }),
+      ),
     );
   }
 
@@ -256,16 +277,16 @@ export class BlogService {
   }
 
   getCategoryInfo(categoryId: BlogCategory): BlogCategoryInfo | undefined {
-    return BLOG_CATEGORIES.find(c => c.id === categoryId);
+    return BLOG_CATEGORIES.find((c) => c.id === categoryId);
   }
 
   getAllTags(): Observable<string[]> {
     return this.getAllPosts().pipe(
-      map(posts => {
+      map((posts) => {
         const tagSet = new Set<string>();
-        posts.forEach(post => post.tags.forEach(tag => tagSet.add(tag)));
+        posts.forEach((post) => post.tags.forEach((tag) => tagSet.add(tag)));
         return Array.from(tagSet).sort();
-      })
+      }),
     );
   }
 

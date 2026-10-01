@@ -2,40 +2,49 @@
   <div class="container">
     <!-- Header Section -->
     <div class="section-header">
-      <h2 class="section-title">Mi Portafolio</h2>
+      <h1 class="section-title">{{ "ui.portfolioTitle" | translate }}</h1>
       <p class="section-subtitle">
-        Una selección de proyectos que demuestran mis habilidades y experiencia
+        {{ "ui.portfolioIntro" | translate }}
       </p>
     </div>
 
     <!-- Filter Tabs -->
     <div class="filter-tabs">
-      <button 
+      <button
         class="filter-tab"
         [class.active]="activeFilter === 'all'"
+        [attr.aria-pressed]="activeFilter === 'all'"
         (click)="setFilter('all')"
       >
         <i class="bi bi-grid"></i>
-        <span>{{ 'portfolio.filters.all' | translate }}</span>
+        <span>{{ "portfolio.filters.all" | translate }}</span>
       </button>
-      <button 
+      <button
         class="filter-tab"
         [class.active]="activeFilter === 'personal'"
+        [attr.aria-pressed]="activeFilter === 'personal'"
         (click)="setFilter('personal')"
       >
         <i class="bi bi-person"></i>
-        <span>{{ 'portfolio.filters.personal' | translate }}</span>
+        <span>{{ "portfolio.filters.personal" | translate }}</span>
       </button>
-      <button 
+      <button
         class="filter-tab"
         [class.active]="activeFilter === 'professional'"
+        [attr.aria-pressed]="activeFilter === 'professional'"
         (click)="setFilter('professional')"
       >
         <i class="bi bi-briefcase"></i>
-        <span>{{ 'portfolio.filters.professional' | translate }}</span>
+        <span>{{ "portfolio.filters.professional" | translate }}</span>
       </button>
     </div>
 
+    <div class="loading-state" *ngIf="isLoading" role="status">
+      {{ "portfolio.loading" | translate }}
+    </div>
+    <div class="error-state" *ngIf="hasError" role="alert">
+      {{ "ui.loadError" | translate }}
+    </div>
     <!-- Projects Grid -->
     <div class="projects-grid">
       <app-project-card
@@ -46,13 +55,16 @@
     </div>
 
     <!-- Empty State -->
-    <div *ngIf="filteredProjects.length === 0" class="empty-state">
+    <div
+      *ngIf="!isLoading && !hasError && filteredProjects.length === 0"
+      class="empty-state"
+    >
       <div class="empty-icon">
         <i class="bi bi-folder-x"></i>
       </div>
-      <h3 class="empty-title">{{ 'portfolio.empty.title' | translate }}</h3>
+      <h3 class="empty-title">{{ "portfolio.empty.title" | translate }}</h3>
       <p class="empty-description">
-        {{ 'portfolio.empty.description' | translate }}
+        {{ "portfolio.empty.description" | translate }}
       </p>
     </div>
   </div>

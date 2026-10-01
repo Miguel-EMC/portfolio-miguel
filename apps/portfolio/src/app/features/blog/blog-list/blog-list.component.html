@@ -7,8 +7,8 @@
   <div class="blog-container">
     <!-- Header -->
     <header class="blog-header">
-      <h1 class="blog-title">{{ 'blog.title' | translate }}</h1>
-      <p class="blog-subtitle">{{ 'blog.subtitle' | translate }}</p>
+      <h1 class="blog-title">{{ "blog.title" | translate }}</h1>
+      <p class="blog-subtitle">{{ "blog.subtitle" | translate }}</p>
 
       <!-- Search Bar -->
       <div class="blog-search-wrapper">
@@ -18,11 +18,16 @@
             type="text"
             [value]="searchQuery()"
             (input)="onSearch($any($event.target).value)"
+            [attr.aria-label]="'blog.searchPlaceholder' | translate"
             placeholder="{{ 'blog.searchPlaceholder' | translate }}"
             class="search-input"
           />
           @if (searchQuery()) {
-            <button class="clear-search" (click)="onSearch('')" aria-label="Clear search">
+            <button
+              class="clear-search"
+              (click)="onSearch('')"
+              [attr.aria-label]="'ui.clearSearch' | translate"
+            >
               <i class="bi bi-x-lg"></i>
             </button>
           }
@@ -31,24 +36,27 @@
     </header>
 
     <!-- Cyberpunk Sliding Category Tabs Navigation -->
-    <nav class="blog-categories-tabs glass" aria-label="Categorías">
-      <button 
+    <nav
+      class="blog-categories-tabs glass"
+      [attr.aria-label]="'ui.categories' | translate"
+    >
+      <button
         class="tab-btn"
         [class.active]="!activeCategory() && !activeTag()"
         (click)="clearFilters()"
       >
         <i class="bi bi-grid-fill"></i>
-        <span>Todos</span>
+        <span>{{ "portfolio.filters.all" | translate }}</span>
       </button>
       @for (category of categories(); track category.id) {
-        <button 
+        <button
           class="tab-btn"
           [class.active]="activeCategory() === category.id"
           (click)="setCategory(category.id)"
           [style.--tab-color]="category.color"
         >
           <i [class]="category.icon"></i>
-          <span>{{ category.name }}</span>
+          <span>{{ "ui.categoryNames." + category.id | translate }}</span>
         </button>
       }
     </nav>
@@ -58,30 +66,51 @@
       <div class="active-filters glass animate-fade-in-down">
         <span class="filter-label">
           <i class="bi bi-funnel"></i>
-          {{ 'blog.activeFilters' | translate }}:
+          {{ "blog.activeFilters" | translate }}:
         </span>
         @if (activeCategory()) {
-          <span class="filter-tag category" [style.background-color]="getCategoryInfo(activeCategory()!)?.color + '20'" [style.color]="getCategoryInfo(activeCategory()!)?.color">
+          <span
+            class="filter-tag category"
+            [style.background-color]="
+              getCategoryInfo(activeCategory()!)?.color + '20'
+            "
+            [style.color]="getCategoryInfo(activeCategory()!)?.color"
+          >
             <i [class]="getCategoryInfo(activeCategory()!)?.icon"></i>
             {{ getCategoryInfo(activeCategory()!)?.name }}
-            <button (click)="setCategory(null)" aria-label="Remove category filter"><i class="bi bi-x"></i></button>
+            <button
+              (click)="setCategory(null)"
+              [attr.aria-label]="'ui.removeFilter' | translate"
+            >
+              <i class="bi bi-x"></i>
+            </button>
           </span>
         }
         @if (activeTag()) {
           <span class="filter-tag tag">
             #{{ activeTag() }}
-            <button (click)="setTag(null)" aria-label="Remove tag filter"><i class="bi bi-x"></i></button>
+            <button
+              (click)="setTag(null)"
+              [attr.aria-label]="'ui.removeFilter' | translate"
+            >
+              <i class="bi bi-x"></i>
+            </button>
           </span>
         }
         @if (searchQuery()) {
           <span class="filter-tag search">
             "{{ searchQuery() }}"
-            <button (click)="onSearch('')" aria-label="Remove search filter"><i class="bi bi-x"></i></button>
+            <button
+              (click)="onSearch('')"
+              [attr.aria-label]="'ui.removeFilter' | translate"
+            >
+              <i class="bi bi-x"></i>
+            </button>
           </span>
         }
         <button class="clear-all" (click)="clearFilters()">
           <i class="bi bi-trash"></i>
-          {{ 'blog.clearAll' | translate }}
+          {{ "blog.clearAll" | translate }}
         </button>
       </div>
     }
@@ -90,22 +119,49 @@
     @if (isLoading()) {
       <div class="loading-state">
         <div class="spinner"></div>
-        <p>{{ 'blog.loading' | translate }}</p>
+        <p>{{ "blog.loading" | translate }}</p>
       </div>
     }
 
     <!-- Main Listing Content -->
-    @if (!isLoading()) {
+    @if (hasError()) {
+      <div class="error-state" role="alert">
+        {{ "ui.loadError" | translate }}
+      </div>
+    }
+    @if (!isLoading() && !hasError()) {
       <!-- Featured Hero Post (Shown only on first page and with no active filters) -->
-      @if (featuredPosts().length > 0 && !activeCategory() && !activeTag() && !searchQuery() && currentPage() === 1) {
-        <div class="blog-hero animate-scale-in" [routerLink]="['/blog/post', featuredPosts()[0].slug]" [style.--card-glow-color]="getCategoryInfo(featuredPosts()[0].category)?.color">
-          <div class="blog-hero-image" [class.no-image]="imageErrors()[featuredPosts()[0].slug]">
+      @if (
+        featuredPosts().length > 0 &&
+        !activeCategory() &&
+        !activeTag() &&
+        !searchQuery() &&
+        currentPage() === 1
+      ) {
+        <div
+          class="blog-hero animate-scale-in"
+          [routerLink]="['/blog/post', featuredPosts()[0].slug]"
+          [style.--card-glow-color]="
+            getCategoryInfo(featuredPosts()[0].category)?.color
+          "
+        >
+          <div
+            class="blog-hero-image"
+            [class.no-image]="imageErrors()[featuredPosts()[0].slug]"
+          >
             @if (!imageErrors()[featuredPosts()[0].slug]) {
-              <img [src]="featuredPosts()[0].coverImage" [alt]="featuredPosts()[0].title" (error)="onImageError(featuredPosts()[0].slug)" loading="eager" />
+              <img
+                [src]="featuredPosts()[0].coverImage"
+                [alt]="featuredPosts()[0].title"
+                (error)="onImageError(featuredPosts()[0].slug)"
+                loading="eager"
+              />
             } @else {
               <div class="mesh-gradient-placeholder">
                 <div class="placeholder-icon lg">
-                  <i [class]="getCategoryInfo(featuredPosts()[0].category)?.icon"></i>
+                  <i
+                    [class]="getCategoryInfo(featuredPosts()[0].category)?.icon"
+                  ></i>
                 </div>
               </div>
             }
@@ -114,11 +170,18 @@
           <div class="blog-hero-content">
             <div class="blog-hero-badge">
               <span class="blink-dot"></span>
-              {{ 'blog.featuredBadge' | translate }}
+              {{ "blog.featuredBadge" | translate }}
             </div>
             <div class="blog-hero-meta">
-              <span class="category-pill" [style.--category-color]="getCategoryInfo(featuredPosts()[0].category)?.color">
-                <i [class]="getCategoryInfo(featuredPosts()[0].category)?.icon"></i>
+              <span
+                class="category-pill"
+                [style.--category-color]="
+                  getCategoryInfo(featuredPosts()[0].category)?.color
+                "
+              >
+                <i
+                  [class]="getCategoryInfo(featuredPosts()[0].category)?.icon"
+                ></i>
                 {{ getCategoryInfo(featuredPosts()[0].category)?.name }}
               </span>
               <span class="date">
@@ -131,10 +194,11 @@
             <div class="blog-hero-footer">
               <span class="reading-time">
                 <i class="bi bi-clock"></i>
-                {{ featuredPosts()[0].readingTime }} min read
+                {{ featuredPosts()[0].readingTime }}
+                {{ "ui.reading" | translate }}
               </span>
               <span class="read-more">
-                {{ 'common.viewMore' | translate }}
+                {{ "common.viewMore" | translate }}
                 <i class="bi bi-arrow-right"></i>
               </span>
             </div>
@@ -148,21 +212,35 @@
           <h2 class="section-title">
             <i class="bi bi-collection"></i>
             @if (activeCategory() || activeTag()) {
-              {{ 'blog.results' | translate }} ({{ filteredPosts().length }})
+              {{ "blog.results" | translate }} ({{ filteredPosts().length }})
             } @else {
-              {{ 'blog.latestPosts' | translate }}
+              {{ "blog.latestPosts" | translate }}
             }
           </h2>
-          
+
           <div class="posts-grid">
             @for (post of paginatedPosts(); track post.slug) {
-              <article class="post-card" [routerLink]="['/blog/post', post.slug]" [style.--card-glow-color]="getCategoryInfo(post.category)?.color">
+              <article
+                class="post-card"
+                [routerLink]="['/blog/post', post.slug]"
+                [style.--card-glow-color]="
+                  getCategoryInfo(post.category)?.color
+                "
+              >
                 <!-- Border laser glow container -->
                 <div class="laser-border-glow"></div>
 
-                <div class="card-image" [class.no-image]="imageErrors()[post.slug]">
+                <div
+                  class="card-image"
+                  [class.no-image]="imageErrors()[post.slug]"
+                >
                   @if (!imageErrors()[post.slug]) {
-                    <img [src]="post.coverImage" [alt]="post.title" (error)="onImageError(post.slug)" loading="lazy" />
+                    <img
+                      [src]="post.coverImage"
+                      [alt]="post.title"
+                      (error)="onImageError(post.slug)"
+                      loading="lazy"
+                    />
                   } @else {
                     <div class="mesh-gradient-placeholder">
                       <div class="placeholder-icon">
@@ -171,11 +249,16 @@
                     </div>
                   }
                   <div class="category-badge">
-                    <span class="category-dot" [style.background-color]="getCategoryInfo(post.category)?.color"></span>
-                    {{ getCategoryInfo(post.category)?.name }}
+                    <span
+                      class="category-dot"
+                      [style.background-color]="
+                        getCategoryInfo(post.category)?.color
+                      "
+                    ></span>
+                    {{ "ui.categoryNames." + post.category | translate }}
                   </div>
                 </div>
-                
+
                 <div class="card-content">
                   <div class="post-meta">
                     <span class="reading-time">
@@ -186,17 +269,20 @@
                   </div>
                   <h3 class="post-title">{{ post.title }}</h3>
                   <p class="post-excerpt">{{ post.excerpt }}</p>
-                  
+
                   @if (post.tags && post.tags.length > 0) {
                     <div class="post-tags">
                       @for (tag of post.tags.slice(0, 3); track tag) {
-                        <span class="tag" (click)="setTag(tag); $event.stopPropagation()">
+                        <span
+                          class="tag"
+                          (click)="setTag(tag); $event.stopPropagation()"
+                        >
                           #{{ tag }}
                         </span>
                       }
                     </div>
                   }
-                  
+
                   <div class="post-footer">
                     <span class="author">
                       <i class="bi bi-person-circle"></i>
@@ -214,18 +300,22 @@
           <!-- Pagination -->
           @if (totalPages() > 1) {
             <nav class="pagination" aria-label="Paginación">
-              <button 
+              <button
                 class="page-btn prev glass"
                 [disabled]="currentPage() === 1"
                 (click)="goToPage(currentPage() - 1)"
               >
                 <i class="bi bi-chevron-left"></i>
-                {{ 'blog.pagination.prev' | translate }}
+                {{ "blog.pagination.prev" | translate }}
               </button>
-              
+
               <div class="page-numbers">
-                @for (page of [].constructor(totalPages()); track $index; let i = $index) {
-                  <button 
+                @for (
+                  page of [].constructor(totalPages());
+                  track $index;
+                  let i = $index
+                ) {
+                  <button
                     class="page-num glass"
                     [class.active]="currentPage() === i + 1"
                     (click)="goToPage(i + 1)"
@@ -234,13 +324,13 @@
                   </button>
                 }
               </div>
-              
-              <button 
+
+              <button
                 class="page-btn next glass"
                 [disabled]="currentPage() === totalPages()"
                 (click)="goToPage(currentPage() + 1)"
               >
-                {{ 'blog.pagination.next' | translate }}
+                {{ "blog.pagination.next" | translate }}
                 <i class="bi bi-chevron-right"></i>
               </button>
             </nav>
@@ -252,11 +342,13 @@
           <div class="empty-icon">
             <i class="bi bi-journal-x"></i>
           </div>
-          <h3 class="empty-title">{{ 'blog.empty.title' | translate }}</h3>
-          <p class="empty-description">{{ 'blog.empty.description' | translate }}</p>
+          <h3 class="empty-title">{{ "blog.empty.title" | translate }}</h3>
+          <p class="empty-description">
+            {{ "blog.empty.description" | translate }}
+          </p>
           <button class="btn-primary" (click)="clearFilters()">
             <i class="bi bi-arrow-counterclockwise"></i>
-            {{ 'blog.empty.action' | translate }}
+            {{ "blog.empty.action" | translate }}
           </button>
         </div>
       }

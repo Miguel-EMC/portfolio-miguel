@@ -1,8 +1,55 @@
-:host { display: inline-flex; }
-.language-switch { display: flex; gap: 3px; padding: 4px; border: 1px solid var(--border-muted, #2c3735); border-radius: 12px; background: var(--bg-primary, #101318); }
-button { display: grid; place-items: center; min-width: 39px; min-height: 34px; padding: 6px 9px; border: 0; border-radius: 8px; background: transparent; color: var(--text-secondary, #abb8b2); font: inherit; font-size: .72rem; font-weight: 750; letter-spacing: .06em; cursor: pointer; transition: background .15s, color .15s; }
-button:hover { color: var(--text-primary, white); background: var(--bg-accent, #1d2b25); }
-button.active { background: var(--accent-primary, #34d399); color: #09231a; box-shadow: 0 2px 8px #0002; }
-button:focus-visible { outline: 2px solid var(--accent-primary, #34d399); outline-offset: 3px; }
-@media(max-width:480px) { button { min-width: 33px; min-height: 32px; padding: 5px 6px; } }
-@media(prefers-reduced-motion:reduce) { button { transition: none; } }
+:host {
+  display: inline-flex;
+}
+.language-switch {
+  display: flex;
+  gap: 3px;
+  padding: 4px;
+  border: 1px solid var(--border-muted, #2c3735);
+  border-radius: 12px;
+  background: var(--bg-primary, #101318);
+}
+button {
+  display: grid;
+  place-items: center;
+  min-width: 39px;
+  min-height: 34px;
+  padding: 6px 9px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-secondary, #abb8b2);
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+button:hover {
+  color: var(--text-primary, white);
+  background: var(--bg-accent, #1d2b25);
+}
+button.active {
+  background: var(--accent-primary, #34d399);
+  color: var(--text-inverse);
+  box-shadow: 0 2px 8px #0002;
+}
+button:focus-visible {
+  outline: 2px solid var(--accent-primary, #34d399);
+  outline-offset: 3px;
+}
+@media (max-width: 480px) {
+  button {
+    min-width: 33px;
+    min-height: 32px;
+    padding: 5px 6px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  button {
+    transition: none;
+  }
+}

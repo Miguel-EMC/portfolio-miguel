@@ -70,7 +70,7 @@
     font-size: 1.15rem;
     color: var(--text-primary);
     letter-spacing: -0.02em;
-    font-family: 'Outfit', sans-serif;
+    font-family: "Outfit", sans-serif;
   }
 
   .brand-tagline {
@@ -124,7 +124,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  
+
   @media (max-width: 480px) {
     gap: var(--space-1);
   }
@@ -156,15 +156,29 @@
       border-radius: 2px;
       transition: all 0.3s ease;
 
-      &:nth-child(1) { top: 0; }
-      &:nth-child(2) { top: 8px; }
-      &:nth-child(3) { top: 16px; }
+      &:nth-child(1) {
+        top: 0;
+      }
+      &:nth-child(2) {
+        top: 8px;
+      }
+      &:nth-child(3) {
+        top: 16px;
+      }
     }
 
     &.active span {
-      &:nth-child(1) { top: 8px; transform: rotate(45deg); }
-      &:nth-child(2) { opacity: 0; }
-      &:nth-child(3) { top: 8px; transform: rotate(-45deg); }
+      &:nth-child(1) {
+        top: 8px;
+        transform: rotate(45deg);
+      }
+      &:nth-child(2) {
+        opacity: 0;
+      }
+      &:nth-child(3) {
+        top: 8px;
+        transform: rotate(-45deg);
+      }
     }
   }
 }
@@ -182,7 +196,7 @@
   justify-content: center;
   align-items: center;
   transform: translateY(-100%);
-  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1);
+  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
 
   &.open {
     transform: translateY(0);
@@ -203,8 +217,11 @@
       align-items: center;
       justify-content: center;
       gap: 1rem;
-      
-      i { font-size: 1.5rem; color: var(--accent-primary); }
+
+      i {
+        font-size: 1.5rem;
+        color: var(--accent-primary);
+      }
     }
 
     .divider {
@@ -221,10 +238,122 @@
 }
 
 /* EMCode identity */
-.nav-brand .brand-link { gap: 11px; }
-.nav-brand .brand-logo { width: 42px; height: 42px; background: transparent; border-radius: 12px; }
-.nav-brand .brand-name { font-size: 1.28rem; letter-spacing: -.045em; line-height: 1.15; }
-.nav-brand .brand-code { color: var(--accent-primary); font-weight: 600; }
-.nav-brand .brand-tagline { margin-top: 4px; font-size: .58rem; letter-spacing: .13em; color: var(--text-secondary); font-weight: 500; }
-.nav-brand .brand-link:focus-visible { outline: 2px solid var(--accent-primary); outline-offset: 5px; border-radius: 8px; }
-@media (max-width: 480px) { .nav-brand .brand-logo { width: 35px; height: 35px; } .nav-brand .brand-name { font-size: 1.1rem; } .nav-brand .brand-tagline { font-size: .5rem; letter-spacing: .08em; } .nav-right { gap: 8px; } }
+.nav-brand .brand-link {
+  gap: 11px;
+}
+.nav-brand .brand-logo {
+  width: 42px;
+  height: 42px;
+  background: transparent;
+  border-radius: 12px;
+}
+.nav-brand .brand-name {
+  font-size: 1.28rem;
+  letter-spacing: -0.045em;
+  line-height: 1.15;
+}
+.nav-brand .brand-code {
+  color: var(--accent-primary);
+  font-weight: 600;
+}
+.nav-brand .brand-tagline {
+  margin-top: 4px;
+  font-size: 0.58rem;
+  letter-spacing: 0.13em;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+.nav-brand .brand-link:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 5px;
+  border-radius: 8px;
+}
+@media (max-width: 480px) {
+  .nav-brand .brand-logo {
+    width: 35px;
+    height: 35px;
+  }
+  .nav-brand .brand-name {
+    font-size: 1.1rem;
+  }
+  .nav-brand .brand-tagline {
+    font-size: 0.5rem;
+    letter-spacing: 0.08em;
+  }
+  .nav-right {
+    gap: 8px;
+  }
+}
+
+.navbar,
+.navbar.scrolled {
+  height: 76px;
+  background: var(--surface-overlay);
+  border-bottom: 1px solid var(--border-muted);
+  backdrop-filter: blur(14px);
+  box-shadow: none;
+}
+.nav-container {
+  max-width: 1180px;
+  padding: 0 28px;
+}
+.nav-link {
+  font-size: 0.85rem;
+  padding: 0.6rem 0.8rem;
+}
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brand-tagline {
+  color: var(--text-tertiary) !important;
+}
+.brand-code {
+  color: var(--text-accent);
+}
+.mobile-menu {
+  background: var(--surface-primary);
+}
+@media (max-width: 600px) {
+  .nav-container {
+    padding: 0 16px;
+  }
+  .brand-tagline {
+    display: none;
+  }
+  .brand-logo {
+    width: 30px !important;
+    height: 30px !important;
+  }
+  .brand-link {
+    gap: 8px !important;
+  }
+  .brand-name {
+    font-size: 1rem !important;
+  }
+  .nav-controls {
+    gap: 6px;
+  }
+}
+@media (max-width: 380px) {
+  .brand-text {
+    display: none;
+  }
+}
+
+.nav-container {
+  position: relative;
+  z-index: 1002;
+}
+.mobile-menu {
+  top: 76px;
+  height: calc(100dvh - 76px);
+  transition: transform 0.2s ease;
+}
+.mobile-menu-content {
+  gap: 1rem !important;
+}
+.mobile-menu .nav-link {
+  font-size: 1.3rem !important;
+}

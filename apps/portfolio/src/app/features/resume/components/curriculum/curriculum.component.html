@@ -1,54 +1,26 @@
-<div class="experience-section">
-  <div class="experience-list">
-    <div class="experience-item" *ngFor="let exp of getVisibleExperiences(); let i = index"
-      [class.expanded]="expandedIndex === i">
-
-      <div class="experience-header" (click)="toggleExperience(i)">
-        <div class="header-content">
-          <h3 class="role-title">{{ 'experiences.' + exp.id + '.title' | translate }}</h3>
-          <h4 class="company-name">{{ 'experiences.' + exp.id + '.subtitle' | translate }}</h4>
-        </div>
-        <div class="header-meta">
-          <span class="date-badge">{{ 'experiences.' + exp.id + '.date' | translate }}</span>
-          <div class="expand-icon">
-            <i class="bi" [class.bi-chevron-down]="expandedIndex !== i" [class.bi-chevron-up]="expandedIndex === i"></i>
-          </div>
-        </div>
-      </div>
-
-      <div class="experience-details" *ngIf="expandedIndex === i">
-        <div class="job-meta" *ngIf="exp.location">
-          <div class="meta-item">
-            <i class="bi bi-geo-alt"></i>
-            <span>{{ exp.location }}</span>
-          </div>
-        </div>
-
-        <div class="detail-block" *ngIf="exp.tasks && exp.tasks.length > 0">
-          <h5><i class="bi bi-list-check"></i> {{ 'resume.experience.responsibilities' | translate }}</h5>
-          <ul class="responsibilities-list">
-            <li *ngFor="let task of ('experiences.' + exp.id + '.tasks' | translate)">
-              {{ task }}
-            </li>
-          </ul>
-        </div>
-
-        <div class="detail-block" *ngIf="getTechForExperience(i).length > 0">
-          <h5><i class="bi bi-code-slash"></i> {{ 'resume.experience.technologies' | translate }}</h5>
-          <div class="tech-stack">
-            <span *ngFor="let tech of getTechForExperience(i)">
-              {{ tech }}
-            </span>
-          </div>
-        </div>
-      </div>
+<div class="career-timeline">
+  <article class="career-card" *ngFor="let experience of experiences">
+    <div class="career-meta">
+      <span class="career-kind">{{
+        "experiences." + experience.id + ".kind" | translate
+      }}</span
+      ><span>{{ "experiences." + experience.id + ".date" | translate }}</span>
     </div>
-  </div>
-
-  <div class="view-more-container" *ngIf="experiences.length > 2">
-    <button class="btn-view-more" (click)="toggleShowAll()" [class.expanded]="showAllExperiences">
-      {{ showAllExperiences ? ('resume.experience.viewLess' | translate) : ('resume.experience.viewMore' | translate) }}
-      <i class="bi bi-chevron-down"></i>
-    </button>
-  </div>
+    <h3>{{ "experiences." + experience.id + ".title" | translate }}</h3>
+    <p class="career-company">
+      {{ "experiences." + experience.id + ".subtitle" | translate }}
+    </p>
+    <ul>
+      <li
+        *ngFor="
+          let task of 'experiences.' + experience.id + '.tasks' | translate
+        "
+      >
+        {{ task }}
+      </li>
+    </ul>
+    <div class="technology-list">
+      <span *ngFor="let tech of experience.technologies">{{ tech }}</span>
+    </div>
+  </article>
 </div>

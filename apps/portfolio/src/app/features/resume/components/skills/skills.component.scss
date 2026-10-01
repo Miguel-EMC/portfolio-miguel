@@ -1,196 +1,42 @@
-/* ===== HORIZONTAL ROW SKILLS DESIGN ===== */
-
-.skills-section {
-  padding: 0;
-  background: transparent;
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
 }
-
-.skills-container {
-  width: 100%;
+.skill-group {
+  padding: 24px;
+  border: 1px solid var(--border-muted);
+  background: var(--surface-primary);
+  border-radius: 16px;
 }
-
-.skills-rows {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
+.skill-group h3 {
+  font-size: 1rem;
+  margin-bottom: 8px;
 }
-
-.skill-row {
-  display: flex;
-  align-items: center;
-  background: rgba(var(--surface-elevated-rgb), 0.6);
-  border-radius: var(--radius-xl);
-  border: 1px solid rgba(var(--border-primary-rgb), 0.5);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-
-
-
-  /* Category Colors - VIBRANT NEON PALETTE */
-  &:nth-child(1) {
-    --row-accent: #FF3366;
-    --row-accent-rgb: 255, 51, 102;
-  }
-
-  /* Hot Pink */
-  &:nth-child(2) {
-    --row-accent: #7F00FF;
-    --row-accent-rgb: 127, 0, 255;
-  }
-
-  /* Electric Violet */
-  &:nth-child(3) {
-    --row-accent: #00FF99;
-    --row-accent-rgb: 0, 255, 153;
-  }
-
-  /* Neon Green */
-  &:nth-child(4) {
-    --row-accent: #00CCFF;
-    --row-accent-rgb: 0, 204, 255;
-  }
-
-  /* Cyan */
-  &:nth-child(5n+1) {
-    --row-accent: #FF3366;
-    --row-accent-rgb: 255, 51, 102;
-  }
-
-  &:nth-child(5n+2) {
-    --row-accent: #7F00FF;
-    --row-accent-rgb: 127, 0, 255;
-  }
-
-  &:nth-child(5n+3) {
-    --row-accent: #00FF99;
-    --row-accent-rgb: 0, 255, 153;
-  }
-
-  &:nth-child(5n+4) {
-    --row-accent: #00CCFF;
-    --row-accent-rgb: 0, 204, 255;
-  }
-
-  &:nth-child(5n+5) {
-    --row-accent: #FFCC00;
-    --row-accent-rgb: 255, 204, 0;
-  }
+.skill-group p {
+  font-size: 0.85rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
 }
-
-.row-header {
-  width: 150px;
-  flex-shrink: 0;
-  padding: var(--space-4);
-  background: rgba(var(--bg-tertiary-rgb), 0.4);
-  border-right: 1px solid rgba(var(--border-primary-rgb), 0.5);
-  display: flex;
-  align-items: center;
-  height: 100%;
-  position: relative;
-  transition: all 0.3s ease;
-
-  /* Accent line on left */
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: var(--row-accent);
-    opacity: 0.7;
-    transition: all 0.3s ease;
-  }
-}
-
-.category-name {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin: 0;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-
-
-}
-
-.row-content {
-  flex: 1;
-  padding: var(--space-3) var(--space-4);
+.technology-list {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-2);
-}
-
-.skill-chip {
-  display: flex;
-  align-items: center;
   gap: 8px;
-  background: rgba(var(--bg-tertiary-rgb), 0.3);
-  padding: 0.4rem 0.9rem;
-  border-radius: 100px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  border: 1px solid rgba(var(--border-primary-rgb), 0.3);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: default;
-  position: relative;
-  overflow: hidden;
-
-  i {
-    font-size: 1.1rem;
-    color: var(--text-tertiary);
-    transition: all 0.3s ease;
-  }
-
-  &:hover {
-    background: rgba(var(--row-accent-rgb), 0.1);
-    color: var(--text-primary);
-    border-color: var(--row-accent);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(var(--row-accent-rgb), 0.15);
-
-    i {
-      color: var(--row-accent);
-      transform: scale(1.2) rotate(5deg);
-    }
-  }
+  margin-top: 18px;
 }
-
-/* ===== RESPONSIVE DESIGN ===== */
-@media (max-width: 640px) {
-  .skill-row {
-    flex-direction: column;
-    align-items: stretch;
+.technology-list span {
+  padding: 6px 10px;
+  background: var(--bg-accent);
+  color: var(--text-accent);
+  border: 1px solid var(--border-primary);
+  font-size: 0.78rem;
+  border-radius: 7px;
+}
+@media (max-width: 600px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
   }
-
-  .row-header {
-    width: 100%;
-    border-right: none;
-    border-bottom: 1px solid rgba(var(--border-primary-rgb), 0.5);
-    padding: var(--space-3) var(--space-4);
-
-    /* Horizontal accent line for mobile */
-    &::before {
-      width: 100%;
-      height: 3px;
-      bottom: auto;
-    }
-  }
-
-  .row-content {
-    padding: var(--space-4);
-    gap: var(--space-2);
-  }
-
-  .skill-chip {
-    padding: 0.35rem 0.8rem;
-    font-size: 0.85rem;
+  .skill-group {
+    padding: 20px;
   }
 }

@@ -1,18 +1,36 @@
-import { Component, OnInit, OnDestroy, HostListener, PLATFORM_ID, inject, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  HostListener,
+  PLATFORM_ID,
+  inject,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { isPlatformBrowser, NgClass } from '@angular/common';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { LanguageToggleComponent } from "../../ui/language-toggle/language-toggle.component";
+import { LanguageToggleComponent } from '../../ui/language-toggle/language-toggle.component';
+import { DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ThemeToggleComponent } from '../../ui/theme-toggle.component';
 import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   standalone: true,
-  imports: [NgClass, TranslateModule, RouterModule, LanguageToggleComponent],
-  styleUrls: ['./nav.component.scss']
+  imports: [
+    NgClass,
+    TranslateModule,
+    RouterModule,
+    LanguageToggleComponent,
+    ThemeToggleComponent,
+  ],
+  styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements OnInit, OnDestroy {
+  private destroyRef = inject(DestroyRef);
   private cdr = inject(ChangeDetectorRef);
   private router = inject(Router);
   private platformId = inject(PLATFORM_ID);
@@ -21,18 +39,22 @@ export class NavComponent implements OnInit, OnDestroy {
   isScrolled = false;
   activeRoute = '';
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.updateActiveRoute();
 
       // Listen to route changes
-      this.router.events.pipe(
-        filter(event => event instanceof NavigationEnd)
-      ).subscribe(() => {
-        this.updateActiveRoute();
-      });
+      this.router.events
+        .pipe(
+          filter((event) => event instanceof NavigationEnd),
+          takeUntilDestroyed(this.destroyRef),
+        )
+        .subscribe(() => {
+          this.updateActiveRoute();
+          this.closeMobileMenu();
+        });
     }
   }
 
@@ -47,6 +69,36 @@ export class NavComponent implements OnInit, OnDestroy {
     if (isPlatformBrowser(this.platformId)) {
       this.isScrolled = window.pageYOffset > 50;
     }
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  onKeydown(event: KeyboardEvent): void {
+    if (
+      !this.isMobileMenuOpen ||
+      event.key !== 'Tab' ||
+      !isPlatformBrowser(this.platformId)
+    )
+      return;
+    const elements = Array.from(
+      document.querySelectorAll<HTMLElement>(
+        '.navbar a, .navbar button, .navbar select',
+      ),
+    ).filter(
+      (element) => element.offsetParent !== null && !element.closest('[inert]'),
+    );
+    const first = elements[0],
+      last = elements[elements.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last?.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first?.focus();
+    }
+  }
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    this.closeMobileMenu();
   }
 
   @HostListener('window:resize', [])
@@ -79,6 +131,11 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   isActive(route: string): boolean {
-    return this.activeRoute === route || this.activeRoute === `/${route}` || this.activeRoute.startsWith(route) || (route === 'home' && this.activeRoute === '/');
+    return (
+      this.activeRoute === route ||
+      this.activeRoute === `/${route}` ||
+      this.activeRoute.startsWith(route) ||
+      (route === 'home' && this.activeRoute === '/')
+    );
   }
 }

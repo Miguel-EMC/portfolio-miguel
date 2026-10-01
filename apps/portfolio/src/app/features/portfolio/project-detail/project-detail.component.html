@@ -3,7 +3,7 @@
   @if (isLoading()) {
     <div class="loading-state">
       <div class="spinner"></div>
-      <p>{{ 'portfolio.loading' | translate }}</p>
+      <p>{{ "portfolio.loading" | translate }}</p>
     </div>
   }
 
@@ -13,11 +13,11 @@
       <div class="error-icon">
         <i class="bi bi-exclamation-triangle"></i>
       </div>
-      <h2>{{ 'portfolio.error.title' | translate }}</h2>
+      <h2>{{ "portfolio.error.title" | translate }}</h2>
       <p>{{ error() }}</p>
       <button class="btn-primary" (click)="goBack()">
         <i class="bi bi-arrow-left"></i>
-        {{ 'portfolio.backToPortfolio' | translate }}
+        {{ "portfolio.backToPortfolio" | translate }}
       </button>
     </div>
   }
@@ -29,7 +29,7 @@
       <nav class="project-nav">
         <button class="back-btn" (click)="goBack()">
           <i class="bi bi-arrow-left"></i>
-          {{ 'portfolio.backToPortfolio' | translate }}
+          {{ "portfolio.backToPortfolio" | translate }}
         </button>
       </nav>
 
@@ -37,13 +37,23 @@
       <header class="project-header">
         <div class="project-badges">
           <span class="type-badge" [class]="project()!.type">
-            <i [class]="project()!.type === 'personal' ? 'bi bi-person' : 'bi bi-briefcase'"></i>
-            {{ project()!.type === 'personal' ? ('portfolio.project.personal' | translate) : ('portfolio.project.professional' | translate) }}
+            <i
+              [class]="
+                project()!.type === 'personal'
+                  ? 'bi bi-person'
+                  : 'bi bi-briefcase'
+              "
+            ></i>
+            {{
+              project()!.type === "personal"
+                ? ("portfolio.project.personal" | translate)
+                : ("portfolio.project.professional" | translate)
+            }}
           </span>
           @if (project()!.featured) {
             <span class="featured-badge">
               <i class="bi bi-star-fill"></i>
-              {{ 'portfolio.project.featured' | translate }}
+              {{ "portfolio.project.featured" | translate }}
             </span>
           }
         </div>
@@ -54,15 +64,25 @@
         <!-- Quick Links -->
         <div class="project-links">
           @if (project()!.liveUrl) {
-            <a [href]="project()!.liveUrl" target="_blank" class="link-btn primary">
+            <a
+              [href]="project()!.liveUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="link-btn primary"
+            >
               <i class="bi bi-box-arrow-up-right"></i>
-              {{ 'portfolio.project.viewLive' | translate }}
+              {{ "portfolio.project.viewLive" | translate }}
             </a>
           }
           @if (project()!.githubUrl) {
-            <a [href]="project()!.githubUrl" target="_blank" class="link-btn secondary">
+            <a
+              [href]="project()!.githubUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="link-btn secondary"
+            >
               <i class="bi bi-github"></i>
-              {{ 'portfolio.project.viewCode' | translate }}
+              {{ "portfolio.project.viewCode" | translate }}
             </a>
           }
         </div>
@@ -78,10 +98,18 @@
           />
 
           @if (project()!.images.length > 1) {
-            <button class="gallery-nav prev" (click)="prevImage()">
+            <button
+              class="gallery-nav prev"
+              [attr.aria-label]="'ui.previous' | translate"
+              (click)="prevImage()"
+            >
               <i class="bi bi-chevron-left"></i>
             </button>
-            <button class="gallery-nav next" (click)="nextImage()">
+            <button
+              class="gallery-nav next"
+              [attr.aria-label]="'ui.next' | translate"
+              (click)="nextImage()"
+            >
               <i class="bi bi-chevron-right"></i>
             </button>
 
@@ -91,6 +119,8 @@
                   class="dot"
                   [class.active]="i === currentImageIndex()"
                   (click)="goToImage(i)"
+                  [attr.aria-label]="('ui.next' | translate) + ' ' + (i + 1)"
+                  [attr.aria-pressed]="currentImageIndex() === i"
                 ></button>
               }
             </div>
@@ -104,6 +134,8 @@
                 class="thumbnail"
                 [class.active]="i === currentImageIndex()"
                 (click)="goToImage(i)"
+                [attr.aria-label]="('ui.next' | translate) + ' ' + (i + 1)"
+                [attr.aria-pressed]="currentImageIndex() === i"
               >
                 <img [src]="image" [alt]="'Screenshot ' + (i + 1)" />
               </button>
@@ -119,24 +151,24 @@
           <div class="info-card">
             <h2>
               <i class="bi bi-building"></i>
-              {{ 'portfolio.project.projectInfo' | translate }}
+              {{ "portfolio.project.projectInfo" | translate }}
             </h2>
             <dl class="info-list">
               @if (project()!.client) {
                 <div class="info-item">
-                  <dt>{{ 'portfolio.project.client' | translate }}</dt>
+                  <dt>{{ "portfolio.project.client" | translate }}</dt>
                   <dd>{{ project()!.client }}</dd>
                 </div>
               }
               @if (project()!.role) {
                 <div class="info-item">
-                  <dt>{{ 'portfolio.project.role' | translate }}</dt>
+                  <dt>{{ "portfolio.project.role" | translate }}</dt>
                   <dd>{{ project()!.role }}</dd>
                 </div>
               }
               @if (project()!.completedAt) {
                 <div class="info-item">
-                  <dt>{{ 'portfolio.project.completed' | translate }}</dt>
+                  <dt>{{ "portfolio.project.completed" | translate }}</dt>
                   <dd>{{ project()!.completedAt }}</dd>
                 </div>
               }
@@ -148,7 +180,7 @@
         <div class="info-card">
           <h2>
             <i class="bi bi-code-slash"></i>
-            {{ 'portfolio.project.technologies' | translate }}
+            {{ "portfolio.project.technologies" | translate }}
           </h2>
           <div class="tech-grid">
             @for (tech of project()!.frameworks; track tech) {
@@ -162,7 +194,10 @@
 
         <!-- Markdown body: About, Challenges, Solutions, Results -->
         @if (project()!.content) {
-          <div class="info-card full-width project-content" [innerHTML]="project()!.content"></div>
+          <div
+            class="info-card full-width project-content"
+            [innerHTML]="project()!.content"
+          ></div>
         }
       </div>
 
@@ -171,11 +206,14 @@
         <section class="related-section">
           <h2 class="section-title">
             <i class="bi bi-collection"></i>
-            {{ 'portfolio.relatedProjects' | translate }}
+            {{ "portfolio.relatedProjects" | translate }}
           </h2>
           <div class="related-grid">
             @for (related of relatedProjects(); track related.slug) {
-              <app-project-card variant="featured" [project]="related"></app-project-card>
+              <app-project-card
+                variant="featured"
+                [project]="related"
+              ></app-project-card>
             }
           </div>
         </section>

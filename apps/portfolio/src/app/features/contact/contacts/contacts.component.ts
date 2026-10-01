@@ -1,80 +1,47 @@
-import { Component, inject, NgZone } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { EmailService, ContactFormData } from '../../../core/services/email.service';
-
+import {
+  EmailService,
+  ContactFormData,
+} from '../../../core/services/email.service';
 @Component({
   selector: 'app-contacts',
   standalone: true,
   imports: [NgIf, FormsModule, TranslateModule],
   templateUrl: './contacts.component.html',
-  styleUrls: ['./contacts.component.scss']
+  styleUrls: ['./contacts.component.scss'],
 })
 export class ContactsComponent {
-  private ngZone = inject(NgZone);
   private emailService = inject(EmailService);
-  
-  email: string = 'eduardomuzo123456&#64;gmail.com';
-  isSubmitting: boolean = false;
-  showSuccessMessage: boolean = false;
-  showErrorMessage: boolean = false;
-
-  async onSubmit(form: NgForm) {
+  isSubmitting = false;
+  showSuccessMessage = false;
+  showErrorMessage = false;
+  async onSubmit(form: NgForm): Promise<void> {
+    if (this.isSubmitting) return;
     if (form.invalid) {
-      this.showErrorMessage = true;
-      this.ngZone.runOutsideAngular(() => {
-        setTimeout(() => {
-          this.ngZone.run(() => {
-            this.showErrorMessage = false;
-          });
-        }, 3000);
-      });
+      form.control.markAllAsTouched();
       return;
     }
-
     this.isSubmitting = true;
     this.showSuccessMessage = false;
     this.showErrorMessage = false;
-
-    const formData: ContactFormData = {
-      from_name: form.value.name,
-      from_email: form.value.email,
+    const data: ContactFormData = {
+      from_name: form.value.name.trim(),
+      from_email: form.value.email.trim(),
       subject: form.value.subject,
-      message: form.value.message
+      message: form.value.message.trim(),
     };
-
     try {
-      const success = await this.emailService.sendContactForm(formData);
-      
-      if (success) {
+      if (await this.emailService.sendContactForm(data)) {
         this.showSuccessMessage = true;
         form.resetForm();
-        
-        this.ngZone.runOutsideAngular(() => {
-          setTimeout(() => {
-            this.ngZone.run(() => {
-              this.showSuccessMessage = false;
-            });
-          }, 5000);
-        });
-      } else {
-        this.showErrorMessage = true;
-      }
-    } catch (error) {
+      } else this.showErrorMessage = true;
+    } catch {
       this.showErrorMessage = true;
     } finally {
       this.isSubmitting = false;
-      
-      if (this.showErrorMessage) {
-        this.ngZone.runOutsideAngular(() => {
-          setTimeout(() => {
-            this.ngZone.run(() => {
-              this.showErrorMessage = false;
-            });
-          }, 5000);
-        });
-      }
     }
   }
 }
