@@ -1,6 +1,6 @@
 {
   "nav": {
-    "brandSubtitle": "Backend Dev",
+    "brandSubtitle": "Desarrollador de software",
     "home": "Inicio",
     "about": "Sobre Mí",
     "resume": "Resume",
@@ -12,7 +12,7 @@
       "greeting": "👋 Hola, soy",
       "name": "Eduardo Miguel",
       "surname": "Muzo",
-      "description": "Ingeniero de Software enfocado en Backend con experiencia en la construcción de arquitecturas escalables utilizando Python y TypeScript. Especializado en la integración de Inteligencia Artificial en procesos de negocio mediante LLMs, LangChain, LangGraph y RAG. Competente en el diseño de APIs (FastAPI/Django/NestJS) y desarrollo de aplicaciones multiplataforma (Flutter) y web (Angular). Busco aportar soluciones de alto impacto técnico como AI Backend Engineer.",
+      "description": "Soy desarrollador de software y estudiante de Computación en la Escuela Politécnica Nacional. Desarrollo APIs y servicios backend con Python y NestJS, trabajo con AWS y Angular e integro distintos modelos de lenguaje en aplicaciones.",
       "stats": {
         "years": "Años",
         "projects": "Proyectos",
@@ -24,7 +24,7 @@
       },
       "status": "Disponible",
       "location": "Quito, Ecuador",
-      "role": "Software Engineer | Backend & AI Focus"
+      "role": "Desarrollador de software · Backend, AWS e integraciones con LLMs"
     },
     "profile": {
       "title": "Perfil Profesional",
@@ -88,7 +88,7 @@
   },
   "education": {
     "computer-engineering": {
-      "title": "Ingeniería en Ciencias de la Computación",
+      "title": "Computación · En curso",
       "institution": "Escuela Politécnica Nacional",
       "description": "Formación integral en ciencias de la computación con énfasis en desarrollo de software, algoritmos avanzados, inteligencia artificial y análisis de sistemas complejos."
     },
