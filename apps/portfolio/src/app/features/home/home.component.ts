@@ -185,9 +185,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   getCvUrl(): string {
     const currentLang = this.translate.currentLang || 'es';
     if (currentLang === 'en') {
-      return '/assets/documents/CV_MuzoMiguel_english.pdf';
+      return '/assets/documents/CV_MuzoMiguel_english.pdf?v=20261001';
     }
-    return '/assets/documents/CV_MuzoMiguel.pdf';
+    return '/assets/documents/CV_MuzoMiguel.pdf?v=20261001';
   }
 
 }
