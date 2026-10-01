@@ -11,6 +11,7 @@
       <!-- Left: Massive Typography -->
       <div class="hero-text">
         <div class="greeting-pill">
+          <span class="hero-status-dot" aria-hidden="true"></span>
           <span>{{ "home.hero.greeting" | translate }}</span>
         </div>
 
@@ -106,8 +107,12 @@
         </div>
       </div>
 
-      <!-- Right: Avatar Stage -->
+      <!-- Profile and technical focus -->
       <div class="hero-visual">
+        <div class="visual-topline">
+          <span>EMCODE / SOFTWARE DEVELOPER</span
+          ><i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+        </div>
         <div class="avatar-stage">
           <!-- Circuit decoration rings -->
           <div class="circuit-ring circuit-ring--outer"></div>
@@ -129,6 +134,9 @@
             </div>
           </div>
 
+          <div class="visual-caption">
+            <span>QUITO, ECUADOR</span><span>BACKEND · CLOUD · LLMs</span>
+          </div>
           <!-- Floating tech chips -->
           <div class="tech-chip tech-chip--1">
             <span class="chip-dot"></span>Python
@@ -143,6 +151,29 @@
             <span class="chip-dot"></span>Angular
           </div>
         </div>
+      </div>
+    </div>
+    <div class="focus-strip">
+      <div>
+        <span class="focus-index">01</span
+        ><span
+          ><strong>{{ "modern.apis" | translate }}</strong
+          ><small>Python · NestJS · Angular</small></span
+        >
+      </div>
+      <div>
+        <span class="focus-index">02</span
+        ><span
+          ><strong>{{ "modern.cloud" | translate }}</strong
+          ><small>Lambda · Step Functions · Terraform</small></span
+        >
+      </div>
+      <div>
+        <span class="focus-index">03</span
+        ><span
+          ><strong>{{ "modern.llms" | translate }}</strong
+          ><small>Bedrock · OpenAI · Anthropic · Gemini</small></span
+        >
       </div>
     </div>
   </div>

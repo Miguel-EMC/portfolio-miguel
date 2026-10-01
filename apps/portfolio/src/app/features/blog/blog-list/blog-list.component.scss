@@ -1207,3 +1207,59 @@
 .hero-post {
   border-radius: 16px;
 }
+
+/* Modern EMCode composition */
+.blog-section {
+  padding-top: 136px;
+}
+.blog-header {
+  padding-left: 22px;
+  border-left: 2px solid var(--accent-primary);
+}
+.blog-header .blog-title {
+  font-family: Outfit, var(--font-sans);
+  font-size: clamp(2.7rem, 5vw, 4rem);
+  font-weight: 600;
+}
+.blog-categories-tabs {
+  border-radius: 14px;
+}
+.hero-post {
+  border-radius: 22px;
+}
+.post-card {
+  border-radius: 20px;
+  background: var(--modern-panel), var(--surface-primary);
+  box-shadow: none;
+}
+.post-card:hover {
+  transform: translateY(-5px);
+}
+.post-card .post-title {
+  font-family: Outfit, var(--font-sans);
+  letter-spacing: -0.025em;
+}
+.featured-badge {
+  background: var(--accent-primary) !important;
+  color: var(--text-inverse) !important;
+  box-shadow: none !important;
+}
+@media (max-width: 600px) {
+  .resume-section,
+  .portfolio-section,
+  .contact-section,
+  .about-section,
+  .blog-section {
+    padding-top: 120px;
+  }
+  .project-header,
+  .about-content {
+    padding: 22px;
+  }
+  .career-card {
+    padding: 22px;
+  }
+  .career-card h3 {
+    font-size: 1.2rem;
+  }
+}

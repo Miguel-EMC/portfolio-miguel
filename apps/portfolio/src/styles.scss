@@ -1745,3 +1745,148 @@ img {
     scroll-behavior: auto !important;
   }
 }
+
+/* EMCode — modern editorial direction */
+:root {
+  --modern-line: rgba(136, 173, 157, 0.18);
+  --modern-glow: rgba(52, 211, 153, 0.1);
+  --modern-panel: linear-gradient(
+    145deg,
+    rgba(52, 211, 153, 0.045),
+    transparent 65%
+  );
+}
+html[data-theme="light"] {
+  --modern-line: rgba(33, 75, 53, 0.14);
+  --modern-glow: rgba(4, 120, 87, 0.06);
+  --modern-panel: linear-gradient(
+    145deg,
+    rgba(4, 120, 87, 0.04),
+    transparent 65%
+  );
+}
+body {
+  background-image: radial-gradient(
+    ellipse at 90% 0%,
+    var(--modern-glow),
+    transparent 45%
+  );
+  background-attachment: fixed;
+}
+.section-header {
+  position: relative;
+  padding-left: 22px;
+  border-left: 2px solid var(--accent-primary);
+  margin-bottom: 40px;
+}
+.section-title {
+  font-family: "Outfit", var(--font-sans);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 650;
+  line-height: 1.1;
+  letter-spacing: -0.045em;
+}
+.section-eyebrow {
+  font-family: var(--font-mono);
+  letter-spacing: 0.14em;
+  font-size: 0.7rem;
+}
+.section-subtitle {
+  font-size: 1rem;
+  max-width: 60ch;
+}
+.btn-primary,
+.btn-secondary {
+  border-radius: 12px !important;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+a,
+button {
+  transition:
+    color 0.18s,
+    background 0.18s,
+    border-color 0.18s,
+    box-shadow 0.18s;
+}
+@media (max-width: 600px) {
+  .section-header {
+    padding-left: 16px;
+  }
+  .section-title {
+    font-size: 2rem;
+  }
+}
+/* A lead case study breaks up the repeated card rhythm. */
+app-home .projects-showcase app-project-card:first-child {
+  grid-column: 1/-1;
+}
+app-home .projects-showcase app-project-card:first-child .featured-card {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  min-height: 340px;
+}
+app-home .projects-showcase app-project-card:first-child .card-image {
+  aspect-ratio: auto;
+  height: 100%;
+  border-bottom: 0;
+  border-right: 1px solid var(--border-muted);
+}
+app-home .projects-showcase app-project-card:first-child .project-image {
+  object-fit: cover;
+}
+app-home .projects-showcase app-project-card:first-child .card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 36px;
+}
+app-home .projects-showcase app-project-card:first-child .project-title {
+  font-size: 2rem;
+}
+@media (max-width: 700px) {
+  app-home .projects-showcase app-project-card:first-child .featured-card {
+    display: block;
+    min-height: 0;
+  }
+  app-home .projects-showcase app-project-card:first-child .card-image {
+    aspect-ratio: 16/9;
+    border-right: 0;
+  }
+  app-home .projects-showcase app-project-card:first-child .card-content {
+    padding: 22px;
+  }
+  app-home .projects-showcase app-project-card:first-child .project-title {
+    font-size: 1.4rem;
+  }
+}
+app-home .projects-showcase app-project-card {
+  min-width: 0;
+  width: 100%;
+  display: block;
+}
+app-home .projects-showcase app-project-card:first-child .featured-card {
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  width: 100%;
+  min-width: 0;
+}
+app-home .projects-showcase app-project-card:first-child .card-content {
+  min-width: 0;
+}
+@media (max-width: 700px) {
+  app-home .projects-showcase app-project-card:first-child .card-image {
+    height: auto;
+    width: 100%;
+    min-width: 0;
+    aspect-ratio: 16/9;
+  }
+  app-home .projects-showcase app-project-card:first-child .project-image {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    object-fit: cover;
+  }
+}

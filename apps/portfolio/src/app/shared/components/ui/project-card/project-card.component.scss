@@ -398,3 +398,79 @@
 .image-overlay:focus-within {
   opacity: 1;
 }
+
+.project-card {
+  border-radius: 20px;
+  overflow: hidden;
+  transition:
+    transform 0.25s,
+    border-color 0.25s,
+    box-shadow 0.25s;
+  background: var(--modern-panel), var(--surface-primary);
+}
+.project-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--border-primary);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.1);
+}
+.card-content {
+  padding: 28px;
+}
+.project-title {
+  font-family: "Outfit", var(--font-sans);
+  font-size: 1.5rem;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+}
+.project-description {
+  font-size: 0.88rem;
+  line-height: 1.75;
+}
+.category-badge {
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+  font-size: 0.6rem;
+}
+.card-image {
+  aspect-ratio: 16/9;
+  border-bottom: 1px solid var(--border-muted);
+}
+.card-image .project-image {
+  transition: transform 0.5s;
+}
+.project-card:hover .project-image {
+  transform: scale(1.025);
+}
+.project-readmore {
+  font-size: 0.78rem;
+  letter-spacing: 0.01em;
+}
+.tech-item {
+  font-size: 0.7rem;
+  background: var(--bg-primary);
+  border-color: var(--border-muted);
+  color: var(--text-secondary);
+}
+.coming-soon-card .card-glow {
+  height: 100px;
+  opacity: 0.7;
+}
+.coming-soon-card .project-title {
+  font-size: 1.2rem;
+}
+@media (max-width: 600px) {
+  .card-content {
+    padding: 22px;
+  }
+  .project-title {
+    font-size: 1.3rem;
+  }
+}
+:host {
+  display: block;
+  min-width: 0;
+}
+.project-card {
+  min-width: 0;
+  max-width: 100%;
+}

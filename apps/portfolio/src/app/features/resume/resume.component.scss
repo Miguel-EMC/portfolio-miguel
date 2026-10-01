@@ -82,3 +82,47 @@
     font-size: 1.4rem;
   }
 }
+
+/* Modern EMCode composition */
+.resume-section {
+  padding-top: 136px;
+}
+.resume-nav {
+  padding: 12px;
+  border: 1px solid var(--modern-line);
+  border-radius: 16px;
+  background: var(--modern-panel), var(--surface-primary);
+}
+.resume-sidebar {
+  top: 112px;
+}
+.content-title {
+  font-family: Outfit, var(--font-sans);
+  font-size: 1.9rem;
+  font-weight: 600;
+}
+.content-intro {
+  font-size: 0.85rem;
+}
+.resume-content app-skills .skills-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+@media (max-width: 600px) {
+  .resume-section,
+  .portfolio-section,
+  .contact-section,
+  .about-section,
+  .blog-section {
+    padding-top: 120px;
+  }
+  .project-header,
+  .about-content {
+    padding: 22px;
+  }
+  .career-card {
+    padding: 22px;
+  }
+  .career-card h3 {
+    font-size: 1.2rem;
+  }
+}

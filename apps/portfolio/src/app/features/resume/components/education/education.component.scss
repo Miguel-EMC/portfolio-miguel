@@ -36,3 +36,38 @@
   font-size: 0.8rem;
   color: var(--text-tertiary);
 }
+
+/* Modern EMCode composition */
+.education-card {
+  background: var(--modern-panel), var(--surface-primary);
+  border-radius: 20px;
+  padding: 28px;
+}
+.education-card h3 {
+  font-family: Outfit, var(--font-sans);
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
+}
+.education-meta {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+}
+@media (max-width: 600px) {
+  .resume-section,
+  .portfolio-section,
+  .contact-section,
+  .about-section,
+  .blog-section {
+    padding-top: 120px;
+  }
+  .project-header,
+  .about-content {
+    padding: 22px;
+  }
+  .career-card {
+    padding: 22px;
+  }
+  .career-card h3 {
+    font-size: 1.2rem;
+  }
+}

@@ -10,8 +10,8 @@
   },
   "home": {
     "hero": {
-      "greeting": "",
-      "name": "Eduardo Miguel",
+      "greeting": "BACKEND · CLOUD · LLMs",
+      "name": "Miguel",
       "surname": "Muzo",
       "description": "Soy desarrollador de software y estudiante de Computación en la Escuela Politécnica Nacional. Desarrollo APIs y servicios backend con Python y NestJS, trabajo con AWS y Angular e integro distintos modelos de lenguaje en aplicaciones.",
       "stats": {
@@ -463,5 +463,10 @@
         "description": "Proyecto planificado para profundizar en BM25, embeddings y evaluación."
       }
     }
+  },
+  "modern": {
+    "apis": "APIs y aplicaciones",
+    "cloud": "Infraestructura cloud",
+    "llms": "Integración de modelos"
   }
 }

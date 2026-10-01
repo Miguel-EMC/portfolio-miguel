@@ -213,3 +213,62 @@
     padding: 22px;
   }
 }
+
+/* Modern EMCode composition */
+.contact-section {
+  padding-top: 136px;
+}
+.form-container,
+.quick-contact,
+.availability-card {
+  border-radius: 20px;
+  background: var(--modern-panel), var(--surface-primary);
+  padding: 32px;
+}
+.form-title,
+.info-title {
+  font-family: Outfit, var(--font-sans);
+  font-size: 1.5rem;
+  letter-spacing: -0.025em;
+}
+.form-control {
+  border-radius: 11px;
+  padding: 14px 16px;
+}
+.contact-method {
+  border-radius: 12px;
+  background: var(--bg-primary);
+}
+.submit-button {
+  border-radius: 12px;
+  padding: 14px 22px;
+}
+.form-icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--border-primary);
+  background: var(--bg-accent);
+  border-radius: 13px;
+  font-size: 1.3rem;
+}
+@media (max-width: 600px) {
+  .resume-section,
+  .portfolio-section,
+  .contact-section,
+  .about-section,
+  .blog-section {
+    padding-top: 120px;
+  }
+  .project-header,
+  .about-content {
+    padding: 22px;
+  }
+  .career-card {
+    padding: 22px;
+  }
+  .career-card h3 {
+    font-size: 1.2rem;
+  }
+}

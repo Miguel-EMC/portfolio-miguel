@@ -1,5 +1,12 @@
 <div class="skills-grid">
-  <article class="skill-group" *ngFor="let group of skillCategories">
+  <article
+    class="skill-group"
+    *ngFor="let group of skillCategories; let i = index"
+  >
+    <div class="skill-marker">
+      <span>{{ (i + 1).toString().padStart(2, "0") }}</span
+      ><i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+    </div>
     <h3>{{ "ui.skills." + group.id + ".title" | translate }}</h3>
     <p>{{ "ui.skills." + group.id + ".description" | translate }}</p>
     <div class="technology-list">

@@ -82,3 +82,57 @@
     gap: 5px;
   }
 }
+
+/* Modern EMCode composition */
+.career-card {
+  border-radius: 20px;
+  background: var(--modern-panel), var(--surface-primary);
+  padding: 30px;
+}
+.career-card h3 {
+  font-family: Outfit, var(--font-sans);
+  font-size: 1.4rem;
+  letter-spacing: -0.025em;
+}
+.career-meta {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+}
+.career-company {
+  font-size: 0.9rem;
+}
+.career-card ul {
+  font-size: 0.9rem;
+}
+.career-kind {
+  padding: 5px 8px;
+  background: var(--bg-accent);
+  border: 1px solid var(--border-primary);
+  border-radius: 6px;
+}
+.career-timeline {
+  gap: 28px;
+}
+.career-card:before {
+  width: 10px;
+  height: 10px;
+}
+@media (max-width: 600px) {
+  .resume-section,
+  .portfolio-section,
+  .contact-section,
+  .about-section,
+  .blog-section {
+    padding-top: 120px;
+  }
+  .project-header,
+  .about-content {
+    padding: 22px;
+  }
+  .career-card {
+    padding: 22px;
+  }
+  .career-card h3 {
+    font-size: 1.2rem;
+  }
+}

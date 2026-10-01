@@ -10,8 +10,8 @@
   },
   "home": {
     "hero": {
-      "greeting": "",
-      "name": "Eduardo Miguel",
+      "greeting": "BACKEND · CLOUD · LLMs",
+      "name": "Miguel",
       "surname": "Muzo",
       "description": "I'm a software developer and Computer Science student at Escuela Politécnica Nacional. I develop APIs and backend services with Python and NestJS, work with AWS and Angular, and integrate different language models into applications.",
       "stats": {
@@ -463,5 +463,10 @@
         "description": "A planned project to go deeper into BM25, embeddings and evaluation."
       }
     }
+  },
+  "modern": {
+    "apis": "APIs & applications",
+    "cloud": "Cloud infrastructure",
+    "llms": "Model integrations"
   }
 }

@@ -357,3 +357,56 @@
 .mobile-menu .nav-link {
   font-size: 1.3rem !important;
 }
+
+.navbar,
+.navbar.scrolled {
+  background: transparent;
+  border: 0;
+  backdrop-filter: none;
+  height: 88px;
+}
+.nav-container {
+  height: 64px;
+  margin: 12px auto;
+  padding: 0 20px;
+  border: 1px solid var(--modern-line);
+  border-radius: 18px;
+  background: var(--surface-overlay);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.045);
+  max-width: 1160px;
+}
+.nav-link {
+  font-size: 0.79rem;
+  padding: 0.6rem 0.7rem;
+  border-radius: 9px;
+}
+.brand-name {
+  font-size: 1.1rem;
+}
+.mobile-menu {
+  top: 88px;
+  height: calc(100dvh - 88px);
+}
+@media (max-width: 1200px) {
+  .nav-container {
+    width: calc(100% - 32px);
+  }
+}
+@media (max-width: 600px) {
+  .nav-container {
+    width: calc(100% - 20px);
+    padding: 0 12px;
+    border-radius: 14px;
+  }
+  .nav-right {
+    gap: 6px;
+  }
+  .brand-logo {
+    width: 28px !important;
+    height: 28px !important;
+  }
+  .brand-name {
+    font-size: 0.95rem !important;
+  }
+}

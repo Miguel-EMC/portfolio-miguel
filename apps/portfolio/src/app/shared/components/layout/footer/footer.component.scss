@@ -86,3 +86,44 @@
     padding: 0 20px;
   }
 }
+
+/* Modern EMCode composition */
+.footer {
+  background: var(--modern-panel), var(--bg-primary);
+  padding-top: 56px;
+}
+.footer-wordmark {
+  font-family: Outfit, var(--font-sans);
+  font-size: 1.7rem;
+}
+.footer-bottom {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+}
+.social-links a {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border-muted);
+  border-radius: 9px;
+}
+@media (max-width: 600px) {
+  .resume-section,
+  .portfolio-section,
+  .contact-section,
+  .about-section,
+  .blog-section {
+    padding-top: 120px;
+  }
+  .project-header,
+  .about-content {
+    padding: 22px;
+  }
+  .career-card {
+    padding: 22px;
+  }
+  .career-card h3 {
+    font-size: 1.2rem;
+  }
+}
