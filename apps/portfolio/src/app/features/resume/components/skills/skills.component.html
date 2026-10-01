@@ -10,7 +10,20 @@
     <h3>{{ "ui.skills." + group.id + ".title" | translate }}</h3>
     <p>{{ "ui.skills." + group.id + ".description" | translate }}</p>
     <div class="technology-list">
-      <span *ngFor="let skill of group.skills">{{ skill }}</span>
+      <span class="technology-chip" *ngFor="let skill of group.skills"
+        ><span class="technology-icon" aria-hidden="true"
+          ><img
+            *ngIf="skill.icon"
+            [src]="skill.icon"
+            alt=""
+            width="20"
+            height="20"
+            loading="lazy" /><i
+            *ngIf="skill.symbol"
+            [class]="'bi ' + skill.symbol"
+          ></i></span
+        ><span class="technology-name">{{ skill.name }}</span></span
+      >
     </div>
   </article>
 </div>

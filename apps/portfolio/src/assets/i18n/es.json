@@ -25,7 +25,9 @@
         "downloadCV": "Descargar CV"
       },
       "rolePrefix": "Mi enfoque",
-      "roles": ["Software Developer"],
+      "roles": [
+        "Software Developer"
+      ],
       "status": "Disponible",
       "location": "Quito, Ecuador",
       "role": "Desarrollador de software · Backend, AWS e integraciones con LLMs"
@@ -462,7 +464,10 @@
         "title": "Motor de recuperación desde cero",
         "description": "Proyecto planificado para profundizar en BM25, embeddings y evaluación."
       }
-    }
+    },
+    "themeSystemDescription": "Sigue el tema de tu dispositivo",
+    "themeLightDescription": "Una apariencia luminosa",
+    "themeDarkDescription": "Menos brillo, más contraste"
   },
   "modern": {
     "apis": "APIs y aplicaciones",

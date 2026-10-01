@@ -25,7 +25,9 @@
         "downloadCV": "Download CV"
       },
       "rolePrefix": "My focus",
-      "roles": ["Software Developer"],
+      "roles": [
+        "Software Developer"
+      ],
       "status": "Available",
       "location": "Quito, Ecuador",
       "role": "Software Developer · Backend, AWS & LLM Integrations"
@@ -462,7 +464,10 @@
         "title": "Retrieval engine from scratch",
         "description": "A planned project to go deeper into BM25, embeddings and evaluation."
       }
-    }
+    },
+    "themeSystemDescription": "Matches your device appearance",
+    "themeLightDescription": "A bright, clear appearance",
+    "themeDarkDescription": "Lower brightness, deeper contrast"
   },
   "modern": {
     "apis": "APIs & applications",

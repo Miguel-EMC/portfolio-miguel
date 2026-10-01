@@ -1,0 +1,1 @@
+Technology artwork: Devicon (https://github.com/devicons/devicon, MIT) and Simple Icons (https://github.com/simple-icons/simple-icons, CC0). Trademarks belong to their respective owners. AWS services share the AWS brand mark; conceptual skills use Bootstrap Icons.

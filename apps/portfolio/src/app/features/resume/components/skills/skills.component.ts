@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { technologyIcons } from '../../../../core/data/technology-icons.data';
 import { skillGroups } from '../../../../core/data/skill-groups.data';
 @Component({
   selector: 'app-skills',
@@ -10,5 +11,8 @@ import { skillGroups } from '../../../../core/data/skill-groups.data';
   styleUrl: './skills.component.scss',
 })
 export class SkillsComponent {
-  readonly skillCategories = skillGroups;
+  readonly skillCategories = skillGroups.map((group) => ({
+    ...group,
+    skills: group.skills.map((name) => ({ name, ...technologyIcons[name] })),
+  }));
 }
