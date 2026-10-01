@@ -3,9 +3,9 @@
     <!-- Brand -->
     <div class="nav-brand">
       <a routerLink="/home" class="brand-link">
-        <span class="brand-logo">M</span>
+        <img class="brand-logo" src="/assets/img/emcode-mark.svg" alt="" aria-hidden="true">
         <div class="brand-text">
-          <span class="brand-name">EMCode</span>
+          <span class="brand-name"><span>EM</span><span class="brand-code">Code</span></span>
           <span class="brand-tagline">Software Developer</span>
         </div>
       </a>
@@ -14,16 +14,16 @@
     <!-- Desktop Navigation -->
     <div class="nav-links desktop-nav">
       <a class="nav-link" routerLink="/home" [class.active]="isActive('home')">
-        Inicio
+        {{ 'nav.home' | translate }}
       </a>
       <a class="nav-link" routerLink="/resume" [class.active]="isActive('/resume')">
-        Resume
+        {{ 'nav.resume' | translate }}
       </a>
       <a class="nav-link" routerLink="/portfolio" [class.active]="isActive('/portfolio')">
-        Portafolio
+        {{ 'nav.portfolio' | translate }}
       </a>
       <a class="nav-link" routerLink="/contact" [class.active]="isActive('/contact')">
-        Contacto
+        {{ 'nav.contact' | translate }}
       </a>
     </div>
 
@@ -50,16 +50,16 @@
   <div class="mobile-menu" [class.open]="isMobileMenuOpen">
     <div class="mobile-menu-content">
       <a class="nav-link" routerLink="/home" [class.active]="isActive('home')" (click)="closeMobileMenu()">
-        <i class="bi bi-house-fill"></i> Inicio
+        <i class="bi bi-house-fill"></i> {{ 'nav.home' | translate }}
       </a>
       <a class="nav-link" routerLink="/resume" [class.active]="isActive('/resume')" (click)="closeMobileMenu()">
-        <i class="bi bi-file-person-fill"></i> Resume
+        <i class="bi bi-file-person-fill"></i> {{ 'nav.resume' | translate }}
       </a>
       <a class="nav-link" routerLink="/portfolio" [class.active]="isActive('/portfolio')" (click)="closeMobileMenu()">
-        <i class="bi bi-collection-fill"></i> Portafolio
+        <i class="bi bi-collection-fill"></i> {{ 'nav.portfolio' | translate }}
       </a>
       <a class="nav-link" routerLink="/contact" [class.active]="isActive('/contact')" (click)="closeMobileMenu()">
-        <i class="bi bi-envelope-fill"></i> Contacto
+        <i class="bi bi-envelope-fill"></i> {{ 'nav.contact' | translate }}
       </a>
     </div>
   </div>

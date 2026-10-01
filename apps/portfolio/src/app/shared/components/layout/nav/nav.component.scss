@@ -219,3 +219,12 @@
 .mobile-overlay {
   display: none;
 }
+
+/* EMCode identity */
+.nav-brand .brand-link { gap: 11px; }
+.nav-brand .brand-logo { width: 42px; height: 42px; background: transparent; border-radius: 12px; }
+.nav-brand .brand-name { font-size: 1.28rem; letter-spacing: -.045em; line-height: 1.15; }
+.nav-brand .brand-code { color: var(--accent-primary); font-weight: 600; }
+.nav-brand .brand-tagline { margin-top: 4px; font-size: .58rem; letter-spacing: .13em; color: var(--text-secondary); font-weight: 500; }
+.nav-brand .brand-link:focus-visible { outline: 2px solid var(--accent-primary); outline-offset: 5px; border-radius: 8px; }
+@media (max-width: 480px) { .nav-brand .brand-logo { width: 35px; height: 35px; } .nav-brand .brand-name { font-size: 1.1rem; } .nav-brand .brand-tagline { font-size: .5rem; letter-spacing: .08em; } .nav-right { gap: 8px; } }

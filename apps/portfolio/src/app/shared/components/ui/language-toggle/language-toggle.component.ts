@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, DestroyRef, Inject, OnInit, PLATFORM_ID, inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-language-toggle',
@@ -11,35 +12,19 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class LanguageToggleComponent implements OnInit {
   currentLanguage = 'es';
-  isDropdownOpen = false;
-  availableLanguages: Array<{code: string, label: string, flag: string}> = [
-    { code: 'en', label: 'English', flag: '🇺🇸' },
-    { code: 'es', label: 'Español', flag: '🇪🇸' }
-  ];
-
-  constructor(private translate: TranslateService) {}
-
+  private destroyRef = inject(DestroyRef);
+  constructor(private translate: TranslateService, @Inject(PLATFORM_ID) private platformId: Object) {}
   ngOnInit(): void {
-    this.currentLanguage = this.translate.currentLang || this.translate.defaultLang;
-    this.translate.onLangChange.subscribe(event => {
+    this.currentLanguage = this.translate.currentLang || this.translate.defaultLang || 'es';
+    this.translate.onLangChange.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(event => {
       this.currentLanguage = event.lang;
     });
   }
-
-  toggleDropdown(): void {
-    this.isDropdownOpen = !this.isDropdownOpen;
-  }
-
   onLanguageChange(langCode: string): void {
-    if (langCode !== this.currentLanguage) {
-      this.translate.use(langCode);
-      localStorage.setItem('portfolio-language', langCode);
+    if (!['es', 'en'].includes(langCode) || langCode === this.currentLanguage) return;
+    this.translate.use(langCode);
+    if (isPlatformBrowser(this.platformId)) {
+      try { localStorage.setItem('portfolio-language', langCode); } catch { /* Language still switches when storage is unavailable. */ }
     }
-    this.isDropdownOpen = false; // Close dropdown after selection
-  }
-
-  getCurrentLanguageFlag(): string {
-    const currentLang = this.availableLanguages.find(lang => lang.code === this.currentLanguage);
-    return currentLang?.flag || '🇪🇸';
   }
 }
