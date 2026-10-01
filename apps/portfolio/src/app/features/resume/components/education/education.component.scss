@@ -1,73 +1,82 @@
+:host {
+  display: block;
+}
 .education-grid {
   display: grid;
-  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
 }
 .education-card {
-  padding: 24px;
-  border: 1px solid var(--border-muted);
-  background: var(--surface-primary);
-  border-radius: 16px;
-}
-.education-meta {
+  min-width: 0;
   display: flex;
+  flex-direction: column;
+  padding: 24px;
+  background: var(--surface-primary);
+  border: 1px solid var(--border-muted);
+  border-radius: 20px;
+}
+.education-card.studying {
+  border-color: var(--border-primary);
+}
+.education-top {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 12px;
+  margin-bottom: 24px;
+}
+.education-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--bg-accent);
   color: var(--text-accent);
-  font-size: 0.8rem;
-  margin-bottom: 14px;
+  font-size: 1.35rem;
 }
-.education-meta i {
-  font-size: 1.3rem;
-}
-.education-card h3 {
-  font-size: 1.1rem;
-  line-height: 1.4;
-}
-.education-card p {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  margin-top: 10px;
-  line-height: 1.7;
-}
-.education-card .institution {
+.education-status {
+  font-size: 0.68rem;
+  padding: 5px 8px;
+  border: 1px solid var(--border-muted);
+  border-radius: 20px;
+  color: var(--text-accent);
   font-weight: 600;
 }
-.education-card .date {
-  font-size: 0.8rem;
-  color: var(--text-tertiary);
-}
-
-/* Modern EMCode composition */
-.education-card {
-  background: var(--modern-panel), var(--surface-primary);
-  border-radius: 20px;
-  padding: 28px;
+.education-date {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
 }
 .education-card h3 {
   font-family: Outfit, var(--font-sans);
-  font-size: 1.35rem;
+  font-size: 1.2rem;
+  line-height: 1.35;
   letter-spacing: -0.02em;
+  margin: 0 0 10px;
 }
-.education-meta {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
+.institution {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0 0 24px;
 }
-@media (max-width: 600px) {
-  .resume-section,
-  .portfolio-section,
-  .contact-section,
-  .about-section,
-  .blog-section {
-    padding-top: 120px;
+.education-note {
+  border-top: 1px solid var(--border-muted);
+  padding-top: 16px;
+  margin: auto 0 0;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+@media (max-width: 1050px) {
+  .education-grid {
+    grid-template-columns: 1fr;
   }
-  .project-header,
-  .about-content {
+  .education-top {
+    margin-bottom: 16px;
+  }
+  .education-card {
     padding: 22px;
-  }
-  .career-card {
-    padding: 22px;
-  }
-  .career-card h3 {
-    font-size: 1.2rem;
   }
 }

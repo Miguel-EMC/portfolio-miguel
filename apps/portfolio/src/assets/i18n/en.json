@@ -473,5 +473,29 @@
     "apis": "APIs & applications",
     "cloud": "Cloud infrastructure",
     "llms": "Model integrations"
+  },
+  "scan": {
+    "experience": {
+      "fullstack-lateral": "AWS APIs, LLM integrations and a Flutter app released on both app stores.",
+      "billusos-dev": "Services for financial reporting and operational dashboards.",
+      "junior-fullstack": "Interfaces, data management and reporting for SARAS.",
+      "latin-trails": "Website updates and data for interactive maps.",
+      "it-ecuador": "Documentation, internal tools and an auxiliary application."
+    },
+    "education": {
+      "computer-engineering": "Degree in progress · focused on computing.",
+      "software-development": "Graduation project: OffHouse, a Laravel marketplace.",
+      "nde": "Network defense fundamentals."
+    },
+    "roleDetails": "View responsibilities",
+    "contactTitle": "Let’s build something together.",
+    "contactIntro": "Have a project or an opportunity on your team? Let’s talk backend, AWS and applications.",
+    "startConversation": "Start a conversation",
+    "contactEmail": "Tell me about your project or opening",
+    "contactWhatsapp": "A direct conversation",
+    "contactLinkedin": "Connect and explore my background",
+    "footerSummary": "Backend, AWS and LLM integrations. Software that connects ideas with applications.",
+    "explore": "Explore",
+    "connect": "Connect"
   }
 }

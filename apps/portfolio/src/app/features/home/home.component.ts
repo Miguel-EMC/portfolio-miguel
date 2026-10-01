@@ -28,6 +28,8 @@ import { DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { switchMap, catchError, of } from 'rxjs';
 import { LanguageService } from '../../shared/services/language.service';
+import { EducationComponent } from '../resume/components/education/education.component';
+import { CurriculumComponent } from '../resume/components/curriculum/curriculum.component';
 import { SkillsComponent } from '../resume/components/skills/skills.component';
 import { ProjectCardComponent } from '../../shared/components/ui/project-card/project-card.component';
 
@@ -41,6 +43,8 @@ import { ProjectCardComponent } from '../../shared/components/ui/project-card/pr
     RouterLink,
     ProjectCardComponent,
     SkillsComponent,
+    EducationComponent,
+    CurriculumComponent,
   ],
   styleUrls: ['./home.component.scss', './toast-fix.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

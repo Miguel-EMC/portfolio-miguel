@@ -1,26 +1,63 @@
-<div class="career-timeline">
-  <article class="career-card" *ngFor="let experience of experiences">
+<div class="career-timeline" [class.compact]="compact">
+  <article
+    class="career-card"
+    *ngFor="let experience of visibleExperiences; let i = index"
+    [class.current]="!experience.end"
+  >
     <div class="career-meta">
-      <span class="career-kind">{{
-        "experiences." + experience.id + ".kind" | translate
-      }}</span
-      ><span>{{ "experiences." + experience.id + ".date" | translate }}</span>
+      <span class="career-kind"
+        ><span
+          *ngIf="!experience.end"
+          class="current-dot"
+          aria-hidden="true"
+        ></span
+        >{{ "experiences." + experience.id + ".kind" | translate }}</span
+      ><span class="career-date">{{
+        "experiences." + experience.id + ".date" | translate
+      }}</span>
     </div>
-    <h3>{{ "experiences." + experience.id + ".title" | translate }}</h3>
-    <p class="career-company">
-      {{ "experiences." + experience.id + ".subtitle" | translate }}
+    <div class="career-heading">
+      <span class="company-monogram" aria-hidden="true">{{
+        ["MM", "B", "CE", "LT", "IT"][i]
+      }}</span>
+      <div>
+        <p class="career-company">
+          {{ "experiences." + experience.id + ".subtitle" | translate }}
+        </p>
+        <h3>{{ "experiences." + experience.id + ".title" | translate }}</h3>
+      </div>
+    </div>
+    <p class="career-highlight">
+      {{ "scan.experience." + experience.id | translate }}
     </p>
-    <ul>
-      <li
+    <div
+      class="technology-list"
+      [attr.aria-label]="'ui.skillTitle' | translate"
+    >
+      <span
         *ngFor="
-          let task of 'experiences.' + experience.id + '.tasks' | translate
+          let tech of experience.technologies.slice(
+            0,
+            compact ? 4 : experience.technologies.length
+          )
         "
+        >{{ tech }}</span
       >
-        {{ task }}
-      </li>
-    </ul>
-    <div class="technology-list">
-      <span *ngFor="let tech of experience.technologies">{{ tech }}</span>
     </div>
+    <details *ngIf="!compact" class="career-details">
+      <summary>
+        {{ "scan.roleDetails" | translate
+        }}<i class="bi bi-plus-lg" aria-hidden="true"></i>
+      </summary>
+      <ul>
+        <li
+          *ngFor="
+            let task of 'experiences.' + experience.id + '.tasks' | translate
+          "
+        >
+          {{ task }}
+        </li>
+      </ul>
+    </details>
   </article>
 </div>

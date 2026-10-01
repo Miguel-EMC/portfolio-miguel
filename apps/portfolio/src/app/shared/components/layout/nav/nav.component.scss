@@ -410,3 +410,4 @@
     font-size: 0.95rem !important;
   }
 }
+@media (max-width: 380px) { .nav-brand .brand-text { display: none; } .nav-controls { gap: 4px; } }

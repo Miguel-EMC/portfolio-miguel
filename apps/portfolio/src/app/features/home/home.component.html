@@ -189,67 +189,7 @@
       <h2 class="section-title">{{ "home.resume.experience" | translate }}</h2>
     </div>
 
-    <div class="experience-condensed">
-      <div class="experience-role">
-        <span class="role-icon"><i class="bi bi-briefcase-fill"></i></span>
-        <div class="role-body">
-          <div class="role-head">
-            <div class="role-heading">
-              <span class="role-title">{{
-                "experiences.fullstack-lateral.title" | translate
-              }}</span>
-              <span class="role-company">{{
-                "experiences.fullstack-lateral.subtitle" | translate
-              }}</span>
-            </div>
-            <span class="role-date">{{
-              "experiences.fullstack-lateral.date" | translate
-            }}</span>
-          </div>
-          <p>{{ "home.experienceRoles.munsterMind" | translate }}</p>
-        </div>
-      </div>
-
-      <div class="experience-role">
-        <span class="role-icon"><i class="bi bi-briefcase-fill"></i></span>
-        <div class="role-body">
-          <div class="role-head">
-            <div class="role-heading">
-              <span class="role-title">{{
-                "experiences.billusos-dev.title" | translate
-              }}</span>
-              <span class="role-company">{{
-                "experiences.billusos-dev.subtitle" | translate
-              }}</span>
-            </div>
-            <span class="role-date">{{
-              "experiences.billusos-dev.date" | translate
-            }}</span>
-          </div>
-          <p>{{ "home.experienceRoles.billusos" | translate }}</p>
-        </div>
-      </div>
-
-      <div class="experience-role">
-        <span class="role-icon"><i class="bi bi-briefcase-fill"></i></span>
-        <div class="role-body">
-          <div class="role-head">
-            <div class="role-heading">
-              <span class="role-title">{{
-                "experiences.junior-fullstack.title" | translate
-              }}</span>
-              <span class="role-company">{{
-                "experiences.junior-fullstack.subtitle" | translate
-              }}</span>
-            </div>
-            <span class="role-date">{{
-              "experiences.junior-fullstack.date" | translate
-            }}</span>
-          </div>
-          <p>{{ "home.experienceRoles.ceer" | translate }}</p>
-        </div>
-      </div>
-    </div>
+    <app-curriculum [compact]="true" />
     <div class="section-cta">
       <a routerLink="/resume" class="btn-text-explore"
         >{{ "ui.exploreCareer" | translate }} <i class="bi bi-arrow-right"></i
@@ -363,91 +303,66 @@
       <h2 class="section-title">{{ "home.resume.education" | translate }}</h2>
     </div>
 
-    <div class="experience-condensed">
-      <div class="experience-role">
-        <span class="role-icon"><i class="bi bi-mortarboard-fill"></i></span>
-        <div class="role-body">
-          <div class="role-head">
-            <div class="role-heading">
-              <span class="role-title">{{
-                "education.computer-engineering.title" | translate
-              }}</span>
-              <span class="role-company">{{
-                "education.computer-engineering.institution" | translate
-              }}</span>
-            </div>
-            <span class="role-date">{{
-              "education.computer-engineering.date" | translate
-            }}</span>
-          </div>
-          <p>{{ "education.computer-engineering.description" | translate }}</p>
-        </div>
-      </div>
-
-      <div class="experience-role">
-        <span class="role-icon"><i class="bi bi-mortarboard-fill"></i></span>
-        <div class="role-body">
-          <div class="role-head">
-            <div class="role-heading">
-              <span class="role-title">{{
-                "education.software-development.title" | translate
-              }}</span>
-              <span class="role-company">{{
-                "education.software-development.institution" | translate
-              }}</span>
-            </div>
-            <span class="role-date">{{
-              "education.software-development.date" | translate
-            }}</span>
-          </div>
-          <p>{{ "education.software-development.description" | translate }}</p>
-        </div>
-      </div>
-    </div>
+    <app-education />
   </div>
 </section>
 
-<!-- Contact (preview — full form lives on /contact) -->
 <section id="contacto" class="contact-section">
   <div class="container">
-    <div class="section-header">
-      <span class="section-eyebrow">{{
-        "home.contactEyebrow" | translate
-      }}</span>
-      <h2 class="section-title">{{ "home.contact.title" | translate }}</h2>
-      <p class="section-subtitle">{{ "home.contact.subtitle" | translate }}</p>
-    </div>
-
-    <div class="contact-preview">
-      <a class="contact-method-mini" href="mailto:eduardomuzo123456@gmail.com">
-        <i class="bi bi-envelope-fill"></i>
-        <span>{{ "home.contact.methods.email" | translate }}</span>
-      </a>
-      <a
-        class="contact-method-mini"
-        href="https://wa.me/593999763190"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <i class="bi bi-whatsapp"></i>
-        <span>{{ "home.contact.methods.whatsapp" | translate }}</span>
-      </a>
-      <a
-        class="contact-method-mini"
-        href="https://www.linkedin.com/in/eduardo-miguel-muzo-6379b2234/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <i class="bi bi-linkedin"></i>
-        <span>{{ "home.contact.methods.linkedin" | translate }}</span>
-      </a>
-    </div>
-
-    <div class="section-cta">
-      <a routerLink="/contact" class="btn-primary contact-cta">
-        <span>{{ "home.hero.actions.contact" | translate }}</span>
-        <i class="bi bi-arrow-right"></i>
-      </a>
+    <div class="contact-invitation">
+      <div class="contact-invitation-copy">
+        <span class="contact-availability"
+          ><span aria-hidden="true"></span
+          >{{ "common.available" | translate }}</span
+        >
+        <h2>{{ "scan.contactTitle" | translate }}</h2>
+        <p>{{ "scan.contactIntro" | translate }}</p>
+        <a routerLink="/contact" class="contact-main-action"
+          >{{ "scan.startConversation" | translate
+          }}<i class="bi bi-arrow-up-right" aria-hidden="true"></i></a
+        ><span class="contact-location"
+          ><i class="bi bi-geo-alt" aria-hidden="true"></i> Quito, Ecuador ·
+          UTC−5</span
+        >
+      </div>
+      <div class="contact-preview">
+        <a class="contact-method-mini" href="mailto:eduardomuzo123456@gmail.com"
+          ><span class="contact-channel-icon"
+            ><i class="bi bi-envelope" aria-hidden="true"></i></span
+          ><span
+            ><strong>Email</strong
+            ><small>{{ "scan.contactEmail" | translate }}</small></span
+          ><i
+            class="bi bi-arrow-up-right channel-arrow"
+            aria-hidden="true"
+          ></i></a
+        ><a
+          class="contact-method-mini"
+          href="https://wa.me/593999763190"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="contact-channel-icon"
+            ><i class="bi bi-whatsapp" aria-hidden="true"></i></span
+          ><span
+            ><strong>WhatsApp</strong
+            ><small>{{ "scan.contactWhatsapp" | translate }}</small></span
+          ><i
+            class="bi bi-arrow-up-right channel-arrow"
+            aria-hidden="true"
+          ></i></a
+        ><a
+          class="contact-method-mini"
+          href="https://www.linkedin.com/in/eduardo-miguel-muzo-6379b2234/"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="contact-channel-icon"
+            ><i class="bi bi-linkedin" aria-hidden="true"></i></span
+          ><span
+            ><strong>LinkedIn</strong
+            ><small>{{ "scan.contactLinkedin" | translate }}</small></span
+          ><i class="bi bi-arrow-up-right channel-arrow" aria-hidden="true"></i
+        ></a>
+      </div>
     </div>
   </div>
 </section>

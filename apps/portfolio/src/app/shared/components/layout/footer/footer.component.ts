@@ -1,4 +1,10 @@
-import { Component, HostListener, Inject, PLATFORM_ID } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  Inject,
+  PLATFORM_ID,
+  ElementRef,
+} from '@angular/core';
 import { isPlatformBrowser, NgClass } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -17,12 +23,16 @@ export class FooterComponent {
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private router: Router,
+    private element: ElementRef<HTMLElement>,
   ) {}
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
     if (isPlatformBrowser(this.platformId)) {
-      this.showScrollButton = window.pageYOffset > 300;
+      const footer = this.element.nativeElement.querySelector('footer');
+      this.showScrollButton =
+        window.scrollY > 300 &&
+        (!footer || footer.getBoundingClientRect().top >= window.innerHeight);
     }
   }
 

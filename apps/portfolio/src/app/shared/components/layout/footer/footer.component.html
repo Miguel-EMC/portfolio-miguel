@@ -3,7 +3,10 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a routerLink="/home" class="footer-wordmark">EM<span>Code</span></a>
-        <p class="description">{{ "ui.footerDescription" | translate }}</p>
+        <p class="description">{{ "scan.footerSummary" | translate }}</p>
+        <span class="footer-location"
+          ><i class="bi bi-geo-alt" aria-hidden="true"></i> Quito, Ecuador</span
+        >
         <div class="social-links">
           <a
             href="https://www.linkedin.com/in/eduardo-miguel-muzo-6379b2234/"
@@ -22,25 +25,58 @@
           ></a>
         </div>
       </div>
-      <nav class="footer-links" [attr.aria-label]="'ui.navigation' | translate">
-        <a routerLink="/home">{{ "nav.home" | translate }}</a
-        ><a routerLink="/resume">{{ "nav.resume" | translate }}</a
-        ><a routerLink="/portfolio">{{ "nav.portfolio" | translate }}</a
-        ><a routerLink="/blog">{{ "nav.blog" | translate }}</a
-        ><a routerLink="/contact">{{ "nav.contact" | translate }}</a>
-      </nav>
+      <div class="footer-navigation">
+        <nav
+          class="footer-links"
+          [attr.aria-label]="'ui.navigation' | translate"
+        >
+          <span class="footer-group-label">{{
+            "scan.explore" | translate
+          }}</span
+          ><a routerLink="/resume">{{ "nav.resume" | translate }}</a
+          ><a routerLink="/portfolio">{{ "nav.portfolio" | translate }}</a
+          ><a routerLink="/blog">Blog</a>
+        </nav>
+        <nav
+          class="footer-links"
+          [attr.aria-label]="'scan.connect' | translate"
+        >
+          <span class="footer-group-label">{{
+            "scan.connect" | translate
+          }}</span
+          ><a routerLink="/contact"
+            >{{ "nav.contact" | translate }}
+            <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a
+          ><a
+            href="https://www.linkedin.com/in/eduardo-miguel-muzo-6379b2234/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >LinkedIn <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a
+          ><a
+            href="https://github.com/Miguel-EMC"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GitHub <i class="bi bi-arrow-up-right" aria-hidden="true"></i
+          ></a>
+        </nav>
+      </div>
     </div>
     <div class="footer-bottom">
       <p>© {{ year }} Miguel Muzo · EMCode</p>
-      <span>Quito, Ecuador</span>
+      <button class="footer-top-link" type="button" (click)="scrollToTop()">
+        {{ "ui.backTop" | translate }}
+        <i class="bi bi-arrow-up" aria-hidden="true"></i>
+      </button>
     </div>
   </div>
 </footer>
 <button
+  type="button"
   class="scroll-to-top"
   [class.visible]="showScrollButton"
   (click)="scrollToTop()"
   [attr.aria-label]="'ui.backTop' | translate"
 >
-  <i class="bi bi-arrow-up"></i>
+  <i class="bi bi-arrow-up" aria-hidden="true"></i
+  ><span>{{ "ui.backTop" | translate }}</span>
 </button>
